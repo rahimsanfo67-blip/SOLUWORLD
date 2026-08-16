@@ -49,7 +49,7 @@
     <section id="publier">
       <h2>publier un problème</h2>
 
-      <form>
+      <form onsubmit="event.preventDefault(); alert(votre problème à été publié avec succès !');">
         <label for="nom">votre nom</label>
         <input type="text" id="nom" placeholder=votre nom"required>
 
