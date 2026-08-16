@@ -6,6 +6,47 @@
     <title>SOLUWORLD</title>
   </head>
   <body>
+    <section id="publier">
+      <h2>publier un problème</h2>
+
+      <form>
+        <label for="nom">votre nom</label>
+        <input type="text" id="nom" placeholder=votre nom"required>
+
+        <label for="ville">ville</label>
+        <input type="text" id="ville" placeholder="Ex". Ouagadougou "required>
+        <label for="catégorie">catégorie</label>
+        <select id="catégorie" required>
+          <option value="">choisir une categorie</option>
+          <option>Eau</option>
+          <option>Électricité</option>
+          <option>Logement</option>
+          <option>Emploi</option>
+          <option>Transport</option>
+          <option>formation</option>
+          <option>Réparation</option>
+          <option>Autre</option>
+        </select>
+
+        <label for="problème">Décrivez votre problème</label>
+        <textarea id="problème" rows="5" placeholder="Expliquer votre problème..." required></textarea>
+
+        <label for="urgence">urgence</label>
+        <select id="urgence">
+          <option>Normal</option>
+          <option>Importance</option>
+          <option>Urgente</option>
+        </select>
+
+        <button type="submit">publier mon problème</button>
+      </form>
+    </section>
+          
+        
+        
+
+        
+    
     <h1>SOLUWORLD 🌍</h1>
 
     <p>un problème. une solution. partout.</p>
