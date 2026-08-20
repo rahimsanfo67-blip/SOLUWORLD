@@ -91,11 +91,49 @@
 
     </body>
       <script>
-        document.queryselector("form").addEventListener("submit", function(e) {
-          e.preventDefault();
-          alert(votre problème a été publié avec succès !");
-        });
-      </script>
+const SUPABASE_URL = "TON_API_URL";
+const SUPABASE_KEY = "TA_PUBLISHABLE_API_KEY";
+
+document.querySelector("form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const data = {
+    Name: document.getElementById("nom").value,
+    City: document.getElementById("ville").value,
+    "Catégorie": document.getElementById("catégorie").value,
+    description: document.getElementById("problème").value,
+    urgency: document.getElementById("urgence").value
+  };
+
+  try {
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/Problems",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY,
+          "Prefer": "return=representation"
+        },
+        body: JSON.stringify(data)
+      }
+    );
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(error);
+    }
+
+    alert("Votre problème a été publié avec succès !");
+    this.reset();
+
+  } catch (error) {
+    console.error(error);
+    alert("Erreur lors de la publication du problème.");
+  }
+}); 
+</script>
 
     </body>
     </html>
