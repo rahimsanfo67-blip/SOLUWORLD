@@ -98,6 +98,7 @@ document.querySelector("form").addEventListener("submit", async function(e) {
   e.preventDefault();
 
   const data = {
+    created_at: new Date().toISOString(),
     Name: document.getElementById("nom").value,
     City: document.getElementById("ville").value,
     "Catégory": document.getElementById("catégorie").value,
