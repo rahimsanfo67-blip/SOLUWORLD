@@ -127,7 +127,7 @@ document.querySelector("form").addEventListener("submit", async function(e) {
     }
 
     alert("Votre problème a été publié avec succès !");
-    this.reset();
+    e.target.reset();
 
   } catch (error) {
     console.error(error);
