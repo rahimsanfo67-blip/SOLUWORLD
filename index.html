@@ -131,7 +131,8 @@ document.querySelector("form").addEventListener("submit", async function(e) {
 
   } catch (error) {
     console.error(error);
-    alert("Erreur lors de la publication du problème.");
+    alert("Erreur : " + error.message);
+    
   }
 }); 
 </script>
