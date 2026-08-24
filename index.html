@@ -90,6 +90,10 @@
     <button><trouver une solution</button>
 
     </body>
+      <section>
+  <h2>Problèmes publiés</h2>
+  <div id="problems-list"></div>
+      </section>
 <script>
 const SUPABASE_URL = "https://cempljialofhnkvjpsko.supabase.co";
 const SUPABASE_KEY = "sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
@@ -134,6 +138,37 @@ document.querySelector("form").addEventListener("submit", async function(e) {
  alert("Erreur : " + error.message);
   }
 }); 
+  async function afficherProblemes() {
+  const response = await fetch(
+    SUPABASE_URL + "/rest/v1/Problems?select=*",
+    {
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY
+      }
+    }
+  );
+
+  const problems = await response.json();
+  const liste = document.getElementById("problems-list");
+
+  liste.innerHTML = "";
+
+  problems.forEach(problem => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <h3>${problem.Name}</h3>
+      <p>Ville : ${problem.City}</p>
+      <p>Catégorie : ${problem.Catégory}</p>
+      <p>${problem.description}</p>
+      <p>Urgence : ${problem.urgency}</p>
+      <hr>
+    `;
+    liste.appendChild(div);
+  });
+}
+
+afficherProblemes();
 </script>
 
     </body>
