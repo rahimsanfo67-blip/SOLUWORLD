@@ -193,7 +193,21 @@ div.style.borderRadius = "8px";
         return;
     }
 
-    alert("Solution proposée :\n\n" + solutions[categorie]);
+    let zoneSolution = document.getElementById("solution");
+
+if (!zoneSolution) {
+    zoneSolution = document.createElement("div");
+    zoneSolution.id = "solution";
+    zoneSolution.style.padding = "15px";
+    zoneSolution.style.marginTop = "15px";
+    zoneSolution.style.border = "2px solid #1464f4";
+    zoneSolution.style.borderRadius = "8px";
+    zoneSolution.style.background = "#eaf2ff";
+    
+    document.getElementById("solution-btn").after(zoneSolution);
+}
+
+zoneSolution.innerHTML = "<strong>Solution proposée :</strong><br>" + solutions[categorie];
 });
   afficherProblemes();
 </script>
