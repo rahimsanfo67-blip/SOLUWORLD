@@ -87,7 +87,7 @@
     <p>un problème. une solution. partout.</p>
 
     <button>publier un problème</button>
-    <button><trouver une solution</button>
+    <button id="solution-btn" type="button">trouver une solution</button>
   
     </body>
       <section>
@@ -174,7 +174,28 @@ div.style.borderRadius = "8px";
   });
 }
 
-afficherProblemes();
+  document.getElementById("solution-btn").addEventListener("click", function() {
+    const categorie = document.getElementById("catégorie").value;
+
+    const solutions = {
+        "Eau": "Vérifiez les canalisations et contactez le service d'eau de votre zone.",
+        "Électricité": "Vérifiez le disjoncteur. Si la coupure continue, contactez le service d'électricité.",
+        "Logement": "Contactez le propriétaire ou le responsable du logement.",
+        "Emploi": "Consultez les offres d'emploi disponibles et les services d'accompagnement.",
+        "Transport": "Vérifiez les transports disponibles dans votre zone.",
+        "Formation": "Recherchez une formation adaptée à votre besoin.",
+        "Réparation": "Contactez un réparateur proche de votre ville.",
+        "Autre": "Décrivez votre problème pour obtenir une solution adaptée."
+    };
+
+    if (categorie === "" || categorie === "choisir une categorie") {
+        alert("Choisissez d'abord une catégorie.");
+        return;
+    }
+
+    alert("Solution proposée :\n\n" + solutions[categorie]);
+});
+  afficherProblemes();
 </script>
 
     </body>
