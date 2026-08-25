@@ -171,6 +171,7 @@ div.style.borderRadius = "8px";
       <p>Catégorie : ${problem.Catégory}</p>
       <p>${problem.description}</p>
       <p>Urgence : ${problem.urgency}</p>
+      <p>Publié le : ${new Date(problem.created_at).toLocaleString("fr-FR")}</p>
       <hr>
     `;
     liste.appendChild(div);
