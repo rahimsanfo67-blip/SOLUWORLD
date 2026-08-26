@@ -158,12 +158,44 @@ document.querySelector("form").addEventListener("submit", async function(e) {
     const div = document.createElement("div");
     div.style.cursor = "pointer";
 
-    div.addEventListener("click", function() {
+    div.addEventListener("click", async function() {
   const supprimer = confirm(
     "Détails du problème :\n\n" +
     problem.description +
     "\n\nVoulez-vous supprimer ce problème ?"
   );
+
+  if (!supprimer) {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/Problems?id=eq." + problem.id,
+      {
+        method: "DELETE",
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY,
+          "Prefer": "return=minimal"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(error);
+    }
+
+    alert("Problème supprimé avec succès !");
+    afficherProblemes();
+
+  } catch (error) {
+    console.error(error);
+    alert("Erreur lors de la suppression : " + error.message);
+  }
+});
+  
 
   if (supprimer) {
     alert("Le bouton Supprimer sera connecté à la base de données à l'étape suivante.");
