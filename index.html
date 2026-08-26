@@ -156,7 +156,8 @@ document.querySelector("form").addEventListener("submit", async function(e) {
 
   problems.forEach(problem => {
     const div = document.createElement("div");
-
+    div.style.cursor = "pointer";
+    
     div.style.border = "1px solid #ccc";
     div.style.padding = "20px";
 div.style.marginBottom = "15px";
