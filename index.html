@@ -159,8 +159,17 @@ document.querySelector("form").addEventListener("submit", async function(e) {
     div.style.cursor = "pointer";
 
     div.addEventListener("click", function() {
-  alert("Détails du problème :\n\n" + problem.description);
+  const supprimer = confirm(
+    "Détails du problème :\n\n" +
+    problem.description +
+    "\n\nVoulez-vous supprimer ce problème ?"
+  );
+
+  if (supprimer) {
+    alert("Le bouton Supprimer sera connecté à la base de données à l'étape suivante.");
+  }
 });
+  
        
     div.style.border = "1px solid #ccc";
     div.style.padding = "20px";
