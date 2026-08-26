@@ -157,7 +157,11 @@ document.querySelector("form").addEventListener("submit", async function(e) {
   problems.forEach(problem => {
     const div = document.createElement("div");
     div.style.cursor = "pointer";
-    
+
+    div.addEventListener("click", function() {
+  alert("Détails du problème :\n\n" + problem.description);
+});
+       
     div.style.border = "1px solid #ccc";
     div.style.padding = "20px";
 div.style.marginBottom = "15px";
