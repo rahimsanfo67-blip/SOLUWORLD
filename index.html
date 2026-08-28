@@ -175,6 +175,17 @@ console.log("Résultat suppression :", result);
         <button type="button" class="edit-btn">Modifier ✏️</button>
         <button type="button" class="delete-btn">Supprimer</button>
     `;
+    div.querySelector(".edit-btn").addEventListener("click", function(e) {
+    e.stopPropagation();
+
+    const nouveauNom = prompt("Nom du problème :", problem.Name);
+    
+    if (nouveauNom === null) {
+        return;
+    }
+
+    alert("Modification prête : " + nouveauNom);
+});
 
     div.querySelector(".delete-btn").addEventListener("click", async function(e) {
         e.stopPropagation();
