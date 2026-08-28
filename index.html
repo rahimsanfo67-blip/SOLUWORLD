@@ -156,28 +156,66 @@ document.querySelector("form").addEventListener("submit", async function(e) {
 
   problems.forEach(problem => {
     const div = document.createElement("div");
-    
-       
+
     div.style.border = "1px solid #ccc";
-    div.style.padding = "20px";
-div.style.marginBottom = "15px";
-div.style.borderRadius = "12px";
     div.style.padding = "15px";
-div.style.marginBottom = "10px";
-div.style.borderRadius = "8px";
-    
+    div.style.marginBottom = "10px";
+    div.style.borderRadius = "8px";
+
     div.innerHTML = `
-      <h3>${problem.Name}</h3>
-      <p>Ville : ${problem.City}</p>
-      <p>Catégorie : ${problem.Catégory}</p>
-      <p>${problem.description}</p>
-      <p>Urgence : ${problem.urgency}</p>
-      <p>Publié le : ${new Date(problem.created_at).toLocaleString("fr-FR")}</p><p>Publié le : ${new Date(problem.created_at).toLocaleString("fr-FR")}</p>
-      <hr>
+        <h3>${problem.Name}</h3>
+        <p>Ville : ${problem.City}</p>
+        <p>Catégorie : ${problem.Catégory}</p>
+        <p>${problem.description}</p>
+        <p>Urgence : ${problem.urgency}</p>
+        <p>Publié le : ${new Date(problem.created_at).toLocaleString("fr-FR")}</p>
+        <hr>
+        <button type="button" class="delete-btn">Supprimer</button>
     `;
-    <button type="button" class="delete-btn">Supprimer</button>
+
+    div.querySelector(".delete-btn").addEventListener("click", async function(e) {
+        e.stopPropagation();
+
+        const supprimer = confirm(
+            "Détails du problème :\n\n" +
+            problem.description +
+            "\n\nVoulez-vous supprimer ce problème ?"
+        );
+
+        if (!supprimer) {
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                SUPABASE_URL + "/rest/v1/Problems?id=eq." + problem.id,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization": "Bearer " + SUPABASE_KEY,
+                        "Prefer": "return=minimal"
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                const error = await response.text();
+                throw new Error(error);
+            }
+
+            alert("Problème supprimé avec succès !");
+            afficherProblemes();
+
+        } catch (error) {
+            console.error(error);
+            alert("Erreur lors de la suppression : " + error.message);
+        }
+    });
+
     liste.appendChild(div);
-  });
+});
+    
 }
 
   document.getElementById("solution-btn").addEventListener("click", function() {
