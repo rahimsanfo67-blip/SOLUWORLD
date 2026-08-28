@@ -179,6 +179,8 @@ console.log("Résultat suppression :", result);
     e.stopPropagation();
 
     const nouveauNom = prompt("Nom du problème :", problem.Name);
+      
+      alert("ID du problème : " + problem.id);
     
     if (nouveauNom === null) {
         return;
