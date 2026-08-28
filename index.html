@@ -184,7 +184,15 @@ console.log("Résultat suppression :", result);
         return;
     }
 
-    alert("Modification prête : " + nouveauNom);
+    const confirmation = confirm(
+    "Voulez-vous modifier le nom du problème en :\n\n" + nouveauNom + " ?"
+);
+
+if (!confirmation) {
+    return;
+}
+
+alert("Modification confirmée : " + nouveauNom);
 });
 
     div.querySelector(".delete-btn").addEventListener("click", async function(e) {
