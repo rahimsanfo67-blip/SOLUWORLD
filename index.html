@@ -178,57 +178,52 @@ console.log("Résultat suppression :", result);
     div.querySelector(".edit-btn").addEventListener("click", async function(e) {
     e.stopPropagation();
 
-    const nouveauNom = prompt("Nom du problème :", problem.Name);
-      
-      alert("ID du problème : " + problem.id);
-    
-    if (nouveauNom === null) {
-        return;
-    }
+    const nouveauNom = prompt("Nom :", problem.Name);
+    if (nouveauNom === null) return;
 
-    const confirmation = confirm(
-    "Voulez-vous modifier le nom du problème en :\n\n" + nouveauNom + " ?"
-);
+    const nouvelleVille = prompt("Ville :", problem.City);
+    if (nouvelleVille === null) return;
 
-if (!confirmation) {
-    return;
-}
-try {
-    const response = await fetch(
-        SUPABASE_URL + "/rest/v1/Problems?id=eq." + problem.id,
-        {
-            method: "PATCH",
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Authorization": "Bearer " + SUPABASE_KEY,
-                "Content-Type": "application/json",
-                "Prefer": "return=representation"
-            },
-            body: JSON.stringify({
-                Name: nouveauNom
-            })
-        }
+    const nouvelleDescription = prompt(
+        "Description :",
+        problem.description
     );
+    if (nouvelleDescription === null) return;
 
-    const resultat = await response.text();
-    console.log("Résultat modification :", resultat);
+    try {
+        const response = await fetch(
+            SUPABASE_URL + "/rest/v1/Problems?id=eq." + problem.id,
+            {
+                method: "PATCH",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": "Bearer " + SUPABASE_KEY,
+                    "Content-Type": "application/json",
+                    "Prefer": "return=minimal"
+                },
+                body: JSON.stringify({
+                    Name: nouveauNom,
+                    City: nouvelleVille,
+                    description: nouvelleDescription
+                })
+            }
+        );
 
-    if (!response.ok) {
-        throw new Error(resultat);
+        if (!response.ok) {
+            const error = await response.text();
+            throw new Error(error);
+        }
+
+        alert("Problème modifié avec succès !");
+        afficherProblemes();
+
+    } catch (error) {
+        console.error(error);
+        alert("Erreur lors de la modification : " + error.message);
     }
-
-    alert("Problème modifié avec succès !");
-    afficherProblemes();
-
-} catch (error) {
-    console.error(error);
-    alert("Erreur lors de la modification : " + error.message);
-}
-
 });
-
     div.querySelector(".delete-btn").addEventListener("click", async function(e) {
-        e.stopPropagation();
+    
 
         const supprimer = confirm(
             "Détails du problème :\n\n" +
@@ -240,8 +235,6 @@ try {
             return;
         }
       console.log("ID du problème :", problem.id);
-console.log("Nouveau nom :", nouveauNom);
-      alert("ID : " + problem.id + "\nNouveau nom : " + nouveauNom);
 
         try {
             const response = await fetch(
