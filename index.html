@@ -150,6 +150,10 @@ console.log("Résultat suppression :", result);
     document.getElementById("search-problems").addEventListener("input", function() {
     afficherProblemes();
 });
+    document.getElementById("search-btn").addEventListener("click", function() {
+    afficherProblemes();
+});
+    
     const recherche = document.getElementById("search-problems").value.toLowerCase();
   const response = await fetch(
     SUPABASE_URL + "/rest/v1/Problems?select=*",
