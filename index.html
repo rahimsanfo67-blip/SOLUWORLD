@@ -172,6 +172,9 @@ console.log("Résultat suppression :", result);
     document.getElementById("search-problems").value = "";
     afficherProblemes();
 });
+    document.getElementById("filter-category").addEventListener("change", function() {
+    afficherProblemes();
+});
     
     const recherche = document.getElementById("search-problems").value.toLowerCase();
   const response = await fetch(
