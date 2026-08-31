@@ -160,9 +160,21 @@ console.log("Résultat suppression :", result);
   }
 }); 
   async function afficherProblemes() {
-
-    const recherche = document.getElementById("search-problems").value.toLowerCase();
-    const categorieFiltre = document.getElementById("filter-category").value;
+    document.getElementById("search-problems").addEventListener("input", function() {
+    afficherProblemes();
+      const categorieFiltre = document.getElementById("filter-category").value;
+});
+    
+    document.getElementById("search-btn").addEventListener("click", function() {
+    afficherProblemes();
+});
+    document.getElementById("clear-search").addEventListener("click", function() {
+    document.getElementById("search-problems").value = "";
+    afficherProblemes();
+});
+    document.getElementById("filter-category").addEventListener("change", function() {
+    afficherProblemes();
+});
     
     const recherche = document.getElementById("search-problems").value.toLowerCase();
   const response = await fetch(
@@ -180,15 +192,9 @@ console.log("Résultat suppression :", result);
 
   liste.innerHTML = "";
     problems = problems.filter(problem =>
-  (
-    problem.Name.toLowerCase().includes(recherche) ||
-    problem.City.toLowerCase().includes(recherche) ||
-    problem.Catégory.toLowerCase().includes(recherche)
-  ) &&
-  (
-    categorieFiltre === "" ||
-    problem.Catégory === categorieFiltre
-  )
+  problem.Name.toLowerCase().includes(recherche) ||
+  problem.City.toLowerCase().includes(recherche) ||
+  problem.Catégory.toLowerCase().includes(recherche)
 );
 
   problems.forEach(problem => {
@@ -320,19 +326,6 @@ if (nouvelleCategorie === null) return;
 });
     
 }
-  document.getElementById("search-btn").addEventListener("click", function() {
-    afficherProblemes();
-});
-
-document.getElementById("clear-search").addEventListener("click", function() {
-    document.getElementById("search-problems").value = "";
-    document.getElementById("filter-category").value = "";
-    afficherProblemes();
-});
-
-document.getElementById("filter-category").addEventListener("change", function() {
-    afficherProblemes();
-});
 
   document.getElementById("solution-btn").addEventListener("click", function() {
     const categorie = document.getElementById("catégorie").value;
