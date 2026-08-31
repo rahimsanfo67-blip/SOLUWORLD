@@ -98,6 +98,7 @@
   placeholder="🔎 Rechercher un problème, une ville ou une catégorie..."
 >
         <button id="search-btn" type="button">🔎 Rechercher</button>
+        <button id="clear-search" type="button">Effacer</button>
   <div id="problems-list"></div>
       </section>
 <script>
@@ -151,6 +152,10 @@ console.log("Résultat suppression :", result);
     afficherProblemes();
 });
     document.getElementById("search-btn").addEventListener("click", function() {
+    afficherProblemes();
+});
+    document.getElementById("clear-search").addEventListener("click", function() {
+    document.getElementById("search-problems").value = "";
     afficherProblemes();
 });
     
