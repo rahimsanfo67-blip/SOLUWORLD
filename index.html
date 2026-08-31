@@ -320,6 +320,19 @@ if (nouvelleCategorie === null) return;
 });
     
 }
+  document.getElementById("search-btn").addEventListener("click", function() {
+    afficherProblemes();
+});
+
+document.getElementById("clear-search").addEventListener("click", function() {
+    document.getElementById("search-problems").value = "";
+    document.getElementById("filter-category").value = "";
+    afficherProblemes();
+});
+
+document.getElementById("filter-category").addEventListener("change", function() {
+    afficherProblemes();
+});
 
   document.getElementById("solution-btn").addEventListener("click", function() {
     const categorie = document.getElementById("catégorie").value;
