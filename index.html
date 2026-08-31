@@ -92,6 +92,18 @@
     </body>
       <section>
   <h2>Problèmes publiés</h2>
+
+        <select id="filter-category">
+  <option value="">Toutes les catégories</option>
+  <option value="Eau">Eau</option>
+  <option value="Électricité">Électricité</option>
+  <option value="Logement">Logement</option>
+  <option value="Emploi">Emploi</option>
+  <option value="Transport">Transport</option>
+  <option value="Formation">Formation</option>
+  <option value="Réparation">Réparation</option>
+  <option value="Autre">Autre</option>
+        </select>
         <input
   type="text"
   id="search-problems"
@@ -150,7 +162,9 @@ console.log("Résultat suppression :", result);
   async function afficherProblemes() {
     document.getElementById("search-problems").addEventListener("input", function() {
     afficherProblemes();
+      const categorieFiltre = document.getElementById("filter-category").value;
 });
+    
     document.getElementById("search-btn").addEventListener("click", function() {
     afficherProblemes();
 });
