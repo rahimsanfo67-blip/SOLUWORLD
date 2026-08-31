@@ -196,6 +196,13 @@ console.log("Résultat suppression :", result);
 );
 
 if (nouvelleUrgence === null) return;
+      const nouvelleCategorie = prompt(
+    "Catégorie :",
+    problem.Catégory
+);
+
+if (nouvelleCategorie === null) return;
+      
 
     try {
         const response = await fetch(
@@ -212,8 +219,8 @@ if (nouvelleUrgence === null) return;
                     Name: nouveauNom,
                     City: nouvelleVille,
                     description: nouvelleDescription,
-                  urgency: nouvelleUrgence
-                  
+                  urgency: nouvelleUrgence,
+                  "Catégory": nouvelleCategorie
                 })
               
               
