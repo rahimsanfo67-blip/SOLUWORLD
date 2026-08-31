@@ -189,6 +189,13 @@ console.log("Résultat suppression :", result);
         problem.description
     );
     if (nouvelleDescription === null) return;
+      
+      const nouvelleUrgence = prompt(
+    "Urgence (Normal, Importance ou Urgente) :",
+    problem.urgency
+);
+
+if (nouvelleUrgence === null) return;
 
     try {
         const response = await fetch(
