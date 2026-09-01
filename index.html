@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +15,7 @@
       padding: 25px;
     }
 
-    h1,
-    h2 {
+    h1, h2 {
       color: #1464f4;
     }
 
@@ -36,6 +34,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       box-sizing: border-box;
+      font-size: 16px;
     }
 
     button {
@@ -53,115 +52,33 @@
       opacity: 0.9;
     }
 
-    /* ==============================
-   PRÉSENTATION DES PROBLÈMES
-============================== */
-
-#problems-list {
-  margin-top: 20px;
-}
-
-.problem-card {
-  background: #ffffff;
-  border: 1px solid #d9d9d9;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 18px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.problem-card h3 {
-  margin: 0 0 18px 0;
-  font-size: 25px;
-  color: #1464f4;
-}
-
-.problem-info {
-  margin: 12px 0;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-.problem-info strong {
-  color: #222;
-}
-
-.problem-category {
-  display: inline-block;
-  background: #eaf2ff;
-  color: #1464f4;
-  padding: 7px 12px;
-  border-radius: 20px;
-  font-weight: bold;
-}
-
-.problem-urgency {
-  display: inline-block;
-  padding: 7px 12px;
-  border-radius: 20px;
-  font-weight: bold;
-}
-
-.problem-description {
-  background: #f7f9fc;
-  padding: 14px;
-  border-radius: 10px;
-  margin: 15px 0;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-.problem-date {
-  color: #666;
-  font-size: 16px;
-}
-
-.problem-card hr {
-  border: none;
-  border-top: 1px solid #ddd;
-  margin: 20px 0;
-}
-
-.problem-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.problem-actions button {
-  margin-top: 0;
-}
-
-@media (max-width: 600px) {
-
-  .problem-card {
-    padding: 18px;
-  }
-
-  .problem-card h3 {
-    font-size: 23px;
-  }
-
-  .problem-info,
-  .problem-description {
-    font-size: 17px;
-  }
-
-  .problem-actions button {
-    flex: 1;
-  }
-}
-
-    #filter-category {
+    .problem {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 15px;
       margin-bottom: 10px;
+      border-radius: 8px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+      margin-right: 5px;
+    }
+
+    #solution {
+      padding: 15px;
+      margin-top: 15px;
+      border: 2px solid #1464f4;
+      border-radius: 8px;
+      background: #eaf2ff;
     }
   </style>
 </head>
 
 <body>
 
+  <!-- PUBLICATION -->
   <section id="publier">
-
     <h2>Publier un problème</h2>
 
     <form id="problem-form">
@@ -183,51 +100,19 @@
       >
 
       <label for="catégorie">Catégorie</label>
-
       <select id="catégorie" required>
-
-        <option value="">
-          Choisir une catégorie
-        </option>
-
-        <option value="Eau">
-          Eau
-        </option>
-
-        <option value="Électricité">
-          Électricité
-        </option>
-
-        <option value="Logement">
-          Logement
-        </option>
-
-        <option value="Emploi">
-          Emploi
-        </option>
-
-        <option value="Transport">
-          Transport
-        </option>
-
-        <option value="Formation">
-          Formation
-        </option>
-
-        <option value="Réparation">
-          Réparation
-        </option>
-
-        <option value="Autre">
-          Autre
-        </option>
-
+        <option value="">Choisir une catégorie</option>
+        <option value="Eau">Eau</option>
+        <option value="Électricité">Électricité</option>
+        <option value="Logement">Logement</option>
+        <option value="Emploi">Emploi</option>
+        <option value="Transport">Transport</option>
+        <option value="Formation">Formation</option>
+        <option value="Réparation">Réparation</option>
+        <option value="Autre">Autre</option>
       </select>
 
-      <label for="problème">
-        Décrivez votre problème
-      </label>
-
+      <label for="problème">Décrivez votre problème</label>
       <textarea
         id="problème"
         rows="5"
@@ -235,24 +120,11 @@
         required
       ></textarea>
 
-      <label for="urgence">
-        Urgence
-      </label>
-
+      <label for="urgence">Urgence</label>
       <select id="urgence">
-
-        <option value="Normal">
-          Normal
-        </option>
-
-        <option value="Importance">
-          Importance
-        </option>
-
-        <option value="Urgente">
-          Urgente
-        </option>
-
+        <option value="Normal">Normal</option>
+        <option value="Importance">Importance</option>
+        <option value="Urgente">Urgente</option>
       </select>
 
       <button type="submit">
@@ -260,36 +132,27 @@
       </button>
 
     </form>
-
   </section>
 
 
+  <!-- ACCUEIL -->
   <h1>SOLUWORLD 🌍</h1>
 
-  <p>
-    Un problème. Une solution. Partout.
-  </p>
+  <p>Un problème. Une solution. Partout.</p>
 
-  <button type="button">
+  <button type="button" id="publier-btn">
     Publier un problème
   </button>
 
-  <button
-    id="solution-btn"
-    type="button"
-  >
+  <button id="solution-btn" type="button">
     Trouver une solution
   </button>
 
 
+  <!-- PROBLÈMES -->
   <section>
 
-    <h2>
-      Problèmes publiés
-    </h2>
-
-
-    <!-- FILTRE PAR CATÉGORIE -->
+    <h2>Problèmes publiés</h2>
 
     <select id="filter-category">
 
@@ -332,789 +195,697 @@
     </select>
 
 
-    <!-- RECHERCHE -->
-
     <input
       type="text"
       id="search-problems"
       placeholder="🔎 Rechercher un problème, une ville ou une catégorie..."
     >
 
-    <button
-      id="search-btn"
-      type="button"
-    >
+
+    <button id="search-btn" type="button">
       🔎 Rechercher
     </button>
 
-    <button
-      id="clear-search"
-      type="button"
-    >
+    <button id="clear-search" type="button">
       Effacer
     </button>
 
-
-    <!-- LISTE DES PROBLÈMES -->
 
     <div id="problems-list"></div>
 
   </section>
 
 
-  <script>
+<script>
 
-    const SUPABASE_URL =
-      "https://cempljialofhnkvjpsko.supabase.co";
+const SUPABASE_URL =
+  "https://cempljialofhnkvjpsko.supabase.co";
 
-    const SUPABASE_KEY =
-      "sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
-
-
-    /* =========================
-       PUBLIER UN PROBLÈME
-    ========================= */
-
-    document
-      .getElementById("problem-form")
-      .addEventListener("submit", async function(e) {
-
-        e.preventDefault();
-
-        const data = {
-
-          created_at:
-            new Date().toISOString(),
-
-          Name:
-            document.getElementById("nom").value,
-
-          City:
-            document.getElementById("ville").value,
-
-          "Catégory":
-            document.getElementById("catégorie").value,
-
-          description:
-            document.getElementById("problème").value,
-
-          urgency:
-            document.getElementById("urgence").value
-
-        };
+const SUPABASE_KEY =
+  "sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
 
 
-        try {
 
-          const response = await fetch(
+/* =========================
+   FONCTION NORMALISER
+========================= */
 
-            SUPABASE_URL +
-            "/rest/v1/Problems",
+function normaliser(texte) {
 
-            {
+  return String(texte || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
 
-              method: "POST",
-
-              headers: {
-
-                "Content-Type":
-                  "application/json",
-
-                "apikey":
-                  SUPABASE_KEY,
-
-                "Authorization":
-                  "Bearer " + SUPABASE_KEY,
-
-                "Prefer":
-                  "return=representation"
-
-              },
-
-              body:
-                JSON.stringify(data)
-
-            }
-
-          );
+}
 
 
-          if (!response.ok) {
 
-            const error =
-              await response.text();
+/* =========================
+   PUBLIER UN PROBLÈME
+========================= */
 
-            throw new Error(error);
+document
+  .getElementById("problem-form")
+  .addEventListener("submit", async function(e) {
 
-          }
+    e.preventDefault();
+
+    const data = {
+
+      created_at: new Date().toISOString(),
+
+      Name:
+        document.getElementById("nom").value.trim(),
+
+      City:
+        document.getElementById("ville").value.trim(),
+
+      "Catégory":
+        document.getElementById("catégorie").value,
+
+      description:
+        document.getElementById("problème").value.trim(),
+
+      urgency:
+        document.getElementById("urgence").value
+
+    };
 
 
-          alert(
-            "Votre problème a été publié avec succès !"
-          );
+    try {
 
+      const response = await fetch(
+        SUPABASE_URL + "/rest/v1/Problems",
+        {
+          method: "POST",
 
-          e.target.reset();
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + SUPABASE_KEY,
+            "Prefer": "return=representation"
+          },
 
-
-          afficherProblemes();
-
-
-        } catch (error) {
-
-          console.error(error);
-
-          alert(
-            "Erreur : " +
-            error.message
-          );
-
+          body: JSON.stringify(data)
         }
+      );
 
-      });
+
+      if (!response.ok) {
+
+        const error =
+          await response.text();
+
+        throw new Error(error);
+      }
 
 
-    /* =========================
-       AFFICHER LES PROBLÈMES
-    ========================= */
+      alert(
+        "Votre problème a été publié avec succès !"
+      );
 
-    async function afficherProblemes() {
 
-  const liste = document.getElementById("problems-list");
+      e.target.reset();
 
-  liste.innerHTML = "Chargement...";
+      afficherProblemes();
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "Erreur : " + error.message
+      );
+
+    }
+
+  });
+
+
+
+/* =========================
+   AFFICHER LES PROBLÈMES
+========================= */
+
+async function afficherProblemes() {
 
   try {
 
+    const recherche =
+      normaliser(
+        document.getElementById(
+          "search-problems"
+        ).value
+      );
+
+
+    const categorieFiltre =
+      normaliser(
+        document.getElementById(
+          "filter-category"
+        ).value
+      );
+
+
     const response = await fetch(
-      SUPABASE_URL + "/rest/v1/Problems?select=*",
+
+      SUPABASE_URL +
+      "/rest/v1/Problems?select=*",
+
       {
         headers: {
+
           "apikey": SUPABASE_KEY,
-          "Authorization": "Bearer " + SUPABASE_KEY
+
+          "Authorization":
+            "Bearer " + SUPABASE_KEY
+
         }
       }
     );
 
+
     if (!response.ok) {
-      throw new Error(await response.text());
+
+      const error =
+        await response.text();
+
+      throw new Error(error);
+
     }
 
-    const problems = await response.json();
+
+    let problems =
+      await response.json();
+
+
+    const liste =
+      document.getElementById(
+        "problems-list"
+      );
+
 
     liste.innerHTML = "";
 
+
+    /* =========================
+       RECHERCHE + FILTRE
+    ========================= */
+
+    problems = problems.filter(
+      function(problem) {
+
+        const nom =
+          normaliser(problem.Name);
+
+        const ville =
+          normaliser(problem.City);
+
+        const categorie =
+          normaliser(problem.Catégory);
+
+        const texteRecherche =
+          nom.includes(recherche) ||
+          ville.includes(recherche) ||
+          categorie.includes(recherche);
+
+        const filtreCategorie =
+          categorieFiltre === "" ||
+          categorie === categorieFiltre;
+
+
+        return (
+          texteRecherche &&
+          filtreCategorie
+        );
+
+      }
+    );
+
+
+    /* =========================
+       AFFICHAGE
+    ========================= */
+
     if (problems.length === 0) {
-      liste.innerHTML = "Aucun problème trouvé.";
+
+      liste.innerHTML =
+        "<p>Aucun problème trouvé.</p>";
+
       return;
+
     }
 
-    problems.forEach(function(problem) {
 
-      const div = document.createElement("div");
+    problems.forEach(
+      function(problem) {
 
-      div.className = "problem";
+        const div =
+          document.createElement("div");
 
-      div.innerHTML = `
-        <h3>${problem.Name || ""}</h3>
+        div.className = "problem";
 
-        <p>
-          📍 <strong>Ville :</strong>
-          ${problem.City || ""}
-        </p>
 
-        <p>
-          🏷️ <strong>Catégorie :</strong>
-          ${problem.Catégory || ""}
-        </p>
+        div.innerHTML = `
 
-        <p>
-          📝 <strong>Problème :</strong><br>
-          ${problem.description || ""}
-        </p>
+          <h3>${problem.Name || ""}</h3>
 
-        <p>
-          🚨 <strong>Urgence :</strong>
-          ${problem.urgency || ""}
-        </p>
+          <p>
+            <strong>Ville :</strong>
+            ${problem.City || ""}
+          </p>
 
-        <p>
-          📅 <strong>Publié le :</strong>
-          ${
-            problem.created_at
-              ? new Date(problem.created_at)
-                  .toLocaleString("fr-FR")
-              : ""
-          }
-        </p>
+          <p>
+            <strong>Catégorie :</strong>
+            ${problem.Catégory || ""}
+          </p>
 
-        <hr>
+          <p>
+            ${problem.description || ""}
+          </p>
 
-        <button
-          type="button"
-          class="edit-btn"
-        >
-          Modifier ✏️
-        </button>
+          <p>
+            <strong>Urgence :</strong>
+            ${problem.urgency || ""}
+          </p>
 
-        <button
-          type="button"
-          class="delete-btn"
-        >
-          Supprimer 🗑️
-        </button>
-      `;
+          <p>
+            <strong>Publié le :</strong>
+            ${
+              problem.created_at
+                ? new Date(
+                    problem.created_at
+                  ).toLocaleString("fr-FR")
+                : ""
+            }
+          </p>
 
-      liste.appendChild(div);
+          <hr>
 
-    });
+          <button
+            type="button"
+            class="edit-btn"
+          >
+            Modifier ✏️
+          </button>
+
+          <button
+            type="button"
+            class="delete-btn"
+          >
+            Supprimer 🗑️
+          </button>
+
+        `;
+
+
+
+        /* =========================
+           MODIFIER
+        ========================= */
+
+        div
+          .querySelector(".edit-btn")
+          .addEventListener(
+            "click",
+            async function() {
+
+              const nouveauNom =
+                prompt(
+                  "Nom :",
+                  problem.Name || ""
+                );
+
+              if (nouveauNom === null)
+                return;
+
+
+              const nouvelleVille =
+                prompt(
+                  "Ville :",
+                  problem.City || ""
+                );
+
+              if (nouvelleVille === null)
+                return;
+
+
+              const nouvelleDescription =
+                prompt(
+                  "Description :",
+                  problem.description || ""
+                );
+
+              if (
+                nouvelleDescription === null
+              )
+                return;
+
+
+              const nouvelleUrgence =
+                prompt(
+                  "Urgence (Normal, Importance ou Urgente) :",
+                  problem.urgency || "Normal"
+                );
+
+              if (
+                nouvelleUrgence === null
+              )
+                return;
+
+
+              const nouvelleCategorie =
+                prompt(
+                  "Catégorie (Eau, Électricité, Logement, Emploi, Transport, Formation, Réparation ou Autre) :",
+                  problem.Catégory || ""
+                );
+
+              if (
+                nouvelleCategorie === null
+              )
+                return;
+
+
+              try {
+
+                const response =
+                  await fetch(
+
+                    SUPABASE_URL +
+                    "/rest/v1/Problems?id=eq." +
+                    problem.id,
+
+                    {
+
+                      method: "PATCH",
+
+                      headers: {
+
+                        "apikey":
+                          SUPABASE_KEY,
+
+                        "Authorization":
+                          "Bearer " +
+                          SUPABASE_KEY,
+
+                        "Content-Type":
+                          "application/json",
+
+                        "Prefer":
+                          "return=minimal"
+
+                      },
+
+                      body: JSON.stringify({
+
+                        Name:
+                          nouveauNom.trim(),
+
+                        City:
+                          nouvelleVille.trim(),
+
+                        description:
+                          nouvelleDescription.trim(),
+
+                        urgency:
+                          nouvelleUrgence.trim(),
+
+                        "Catégory":
+                          nouvelleCategorie.trim()
+
+                      })
+
+                    }
+
+                  );
+
+
+                if (!response.ok) {
+
+                  const error =
+                    await response.text();
+
+                  throw new Error(error);
+
+                }
+
+
+                alert(
+                  "Problème modifié avec succès !"
+                );
+
+
+                afficherProblemes();
+
+
+              } catch (error) {
+
+                console.error(error);
+
+                alert(
+                  "Erreur lors de la modification : " +
+                  error.message
+                );
+
+              }
+
+            }
+          );
+
+
+
+        /* =========================
+           SUPPRIMER
+        ========================= */
+
+        div
+          .querySelector(".delete-btn")
+          .addEventListener(
+            "click",
+            async function() {
+
+              const supprimer =
+                confirm(
+
+                  "Détails du problème :\n\n" +
+
+                  (problem.description || "") +
+
+                  "\n\nVoulez-vous supprimer ce problème ?"
+
+                );
+
+
+              if (!supprimer)
+                return;
+
+
+              try {
+
+                const response =
+                  await fetch(
+
+                    SUPABASE_URL +
+                    "/rest/v1/Problems?id=eq." +
+                    problem.id,
+
+                    {
+
+                      method: "DELETE",
+
+                      headers: {
+
+                        "apikey":
+                          SUPABASE_KEY,
+
+                        "Authorization":
+                          "Bearer " +
+                          SUPABASE_KEY,
+
+                        "Prefer":
+                          "return=minimal"
+
+                      }
+
+                    }
+
+                  );
+
+
+                if (!response.ok) {
+
+                  const error =
+                    await response.text();
+
+                  throw new Error(error);
+
+                }
+
+
+                alert(
+                  "Problème supprimé avec succès !"
+                );
+
+
+                afficherProblemes();
+
+
+              } catch (error) {
+
+                console.error(error);
+
+                alert(
+                  "Erreur lors de la suppression : " +
+                  error.message
+                );
+
+              }
+
+            }
+          );
+
+
+        liste.appendChild(div);
+
+      }
+    );
+
 
   } catch (error) {
 
     console.error(error);
 
-    liste.innerHTML =
-      "Erreur lors du chargement : " +
-      error.message;
+    document.getElementById(
+      "problems-list"
+    ).innerHTML =
+      "<p>Erreur lors du chargement des problèmes.</p>";
 
   }
 
-    }
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "Impossible de récupérer les problèmes."
-          );
-
-        }
-
-
-        let problems =
-          await response.json();
-
-
-        const liste =
-          document.getElementById(
-            "problems-list"
-          );
-
-
-        liste.innerHTML = "";
-
-
-        /* FILTRE RECHERCHE + CATÉGORIE */
-
-        problems =
-          problems.filter(function(problem) {
-
-            const nom =
-              String(problem.Name || "")
-                .toLowerCase();
-
-            const ville =
-              String(problem.City || "")
-                .toLowerCase();
-
-            const categorie =
-              String(problem.Catégory || "")
-                .toLowerCase();
-
-
-            const correspondRecherche =
-
-              nom.includes(recherche) ||
-
-              ville.includes(recherche) ||
-
-              categorie.includes(recherche);
-
-
-            const correspondCategorie =
-
-              categorieFiltre === "" ||
-
-              problem.Catégory === categorieFiltre;
-
-
-            return (
-              correspondRecherche &&
-              correspondCategorie
-            );
-
-          });
-
-
-        /* AFFICHAGE */
-
-        problems.forEach(function(problem) {
-
-          const div =
-            document.createElement("div");
-
-
-          div.className =
-            "problem";
-          
-          const categorie = normaliserCategorie(
-  problem.Catégory || ""
-);
-
-const urgence = problem.urgency || "Normal";
-
-let couleurUrgence = "";
-
-if (urgence.toLowerCase() === "urgente") {
-  couleurUrgence = "background:#ffe5e5;color:#d60000;";
-} else if (urgence.toLowerCase() === "importance") {
-  couleurUrgence = "background:#fff3cd;color:#946200;";
-} else {
-  couleurUrgence = "background:#e8f7ee;color:#18733c;";
 }
 
 
-          div.innerHTML = `
-  <h3>${problem.Name || "Sans nom"}</h3>
 
-  <div class="problem-info">
-    📍 <strong>Ville :</strong>
-    ${problem.City || ""}
-  </div>
+/* =========================
+   RECHERCHE
+========================= */
 
-  <div class="problem-info">
-    🏷️ <strong>Catégorie :</strong>
-    <span class="problem-category">
-      ${categorie}
-    </span>
-  </div>
+document
+  .getElementById("search-btn")
+  .addEventListener(
+    "click",
+    function() {
 
-  <div class="problem-description">
-    📝 <strong>Problème :</strong><br><br>
-    ${problem.description || ""}
-  </div>
+      afficherProblemes();
 
-  <div class="problem-info">
-    🚨 <strong>Urgence :</strong>
-    <span
-      class="problem-urgency"
-      style="${couleurUrgence}"
-    >
-      ${urgence}
-    </span>
-  </div>
-
-  <div class="problem-info problem-date">
-    📅 <strong>Publié le :</strong>
-    ${
-      problem.created_at
-        ? new Date(problem.created_at)
-            .toLocaleString("fr-FR")
-        : ""
     }
-  </div>
-
-  <hr>
+  );
 
-  <div class="problem-actions">
 
-    <button
-      type="button"
-      class="edit-btn"
-    >
-      Modifier ✏️
-    </button>
 
-    <button
-      type="button"
-      class="delete-btn"
-    >
-      Supprimer 🗑️
-    </button>
+/* =========================
+   RECHERCHE EN DIRECT
+========================= */
 
-  </div>
-`;       
+document
+  .getElementById("search-problems")
+  .addEventListener(
+    "input",
+    function() {
 
+      afficherProblemes();
 
-          /* =====================
-             MODIFIER
-          ===================== */
+    }
+  );
 
-          div
-            .querySelector(".edit-btn")
-            .addEventListener(
-              "click",
-              async function(e) {
 
-                e.stopPropagation();
 
+/* =========================
+   EFFACER RECHERCHE
+========================= */
 
-                const nouveauNom =
-                  prompt(
-                    "Nom :",
-                    problem.Name
-                  );
+document
+  .getElementById("clear-search")
+  .addEventListener(
+    "click",
+    function() {
 
-                if (
-                  nouveauNom === null
-                ) {
-                  return;
-                }
+      document.getElementById(
+        "search-problems"
+      ).value = "";
 
+      document.getElementById(
+        "filter-category"
+      ).value = "";
 
-                const nouvelleVille =
-                  prompt(
-                    "Ville :",
-                    problem.City
-                  );
+      afficherProblemes();
 
-                if (
-                  nouvelleVille === null
-                ) {
-                  return;
-                }
+    }
+  );
 
 
-                const nouvelleDescription =
-                  prompt(
-                    "Description :",
-                    problem.description
-                  );
 
-                if (
-                  nouvelleDescription === null
-                ) {
-                  return;
-                }
+/* =========================
+   FILTRE CATÉGORIE
+========================= */
 
+document
+  .getElementById("filter-category")
+  .addEventListener(
+    "change",
+    function() {
 
-                const nouvelleUrgence =
-                  prompt(
-                    "Urgence (Normal, Importance ou Urgente) :",
-                    problem.urgency
-                  );
+      afficherProblemes();
 
-                if (
-                  nouvelleUrgence === null
-                ) {
-                  return;
-                }
+    }
+  );
 
 
-                const nouvelleCategorie =
-                  prompt(
-                    "Catégorie :",
-                    problem.Catégory
-                  );
 
-                if (
-                  nouvelleCategorie === null
-                ) {
-                  return;
-                }
+/* =========================
+   BOUTON PUBLIER
+========================= */
 
+document
+  .getElementById("publier-btn")
+  .addEventListener(
+    "click",
+    function() {
 
-                try {
-
-                  const response =
-                    await fetch(
-
-                      SUPABASE_URL +
-                      "/rest/v1/Problems?id=eq." +
-                      problem.id,
-
-                      {
-
-                        method: "PATCH",
-
-                        headers: {
-
-                          "apikey":
-                            SUPABASE_KEY,
-
-                          "Authorization":
-                            "Bearer " +
-                            SUPABASE_KEY,
-
-                          "Content-Type":
-                            "application/json",
-
-                          "Prefer":
-                            "return=minimal"
-
-                        },
-
-                        body:
-                          JSON.stringify({
-
-                            Name:
-                              nouveauNom,
-
-                            City:
-                              nouvelleVille,
-
-                            description:
-                              nouvelleDescription,
-
-                            urgency:
-                              nouvelleUrgence,
-
-                            "Catégory":
-                              nouvelleCategorie
-
-                          })
-
-                      }
-
-                    );
-
-
-                  if (!response.ok) {
-
-                    const error =
-                      await response.text();
-
-                    throw new Error(error);
-
-                  }
-
-
-                  alert(
-                    "Problème modifié avec succès !"
-                  );
-
-
-                  afficherProblemes();
-
-
-                } catch (error) {
-
-                  console.error(error);
-
-                  alert(
-                    "Erreur lors de la modification : " +
-                    error.message
-                  );
-
-                }
-
-              }
-            );
-
-
-          /* =====================
-             SUPPRIMER
-          ===================== */
-
-          div
-            .querySelector(".delete-btn")
-            .addEventListener(
-              "click",
-              async function(e) {
-
-                e.stopPropagation();
-
-
-                const supprimer =
-                  confirm(
-
-                    "Détails du problème :\n\n" +
-
-                    problem.description +
-
-                    "\n\nVoulez-vous supprimer ce problème ?"
-
-                  );
-
-
-                if (!supprimer) {
-
-                  return;
-
-                }
-
-
-                try {
-
-                  const response =
-                    await fetch(
-
-                      SUPABASE_URL +
-                      "/rest/v1/Problems?id=eq." +
-                      problem.id,
-
-                      {
-
-                        method: "DELETE",
-
-                        headers: {
-
-                          "apikey":
-                            SUPABASE_KEY,
-
-                          "Authorization":
-                            "Bearer " +
-                            SUPABASE_KEY,
-
-                          "Prefer":
-                            "return=minimal"
-
-                        }
-
-                      }
-
-                    );
-
-
-                  if (!response.ok) {
-
-                    const error =
-                      await response.text();
-
-                    throw new Error(error);
-
-                  }
-
-
-                  alert(
-                    "Problème supprimé avec succès !"
-                  );
-
-
-                  afficherProblemes();
-
-
-                } catch (error) {
-
-                  console.error(error);
-
-                  alert(
-                    "Erreur lors de la suppression : " +
-                    error.message
-                  );
-
-                }
-
-              }
-            );
-
-
-          liste.appendChild(div);
-
+      document
+        .getElementById("publier")
+        .scrollIntoView({
+          behavior: "smooth"
         });
 
-
-      } catch (error) {
-
-        console.error(error);
-
-        document.getElementById(
-          "problems-list"
-        ).innerHTML =
-          "<p>Erreur lors du chargement des problèmes.</p>";
-
-      }
-
     }
+  );
 
 
-    /* =========================
-       RECHERCHER
-    ========================= */
 
-    document
-      .getElementById("search-btn")
-      .addEventListener(
-        "click",
-        function() {
+/* =========================
+   TROUVER UNE SOLUTION
+========================= */
 
-          afficherProblemes();
+document
+  .getElementById("solution-btn")
+  .addEventListener(
+    "click",
+    function() {
 
-        }
-      );
-
-
-    /* =========================
-       EFFACER RECHERCHE
-    ========================= */
-
-    document
-      .getElementById("clear-search")
-      .addEventListener(
-        "click",
-        function() {
-
-          document
-            .getElementById("search-problems")
-            .value = "";
-
-          document
-            .getElementById("filter-category")
-            .value = "";
-
-          afficherProblemes();
-
-        }
-      );
+      const categorie =
+        document.getElementById(
+          "catégorie"
+        ).value;
 
 
-    /* =========================
-       FILTRE CATÉGORIE
-    ========================= */
+      const solutions = {
 
-    document
-      .getElementById("filter-category")
-      .addEventListener(
-        "change",
-        function() {
-
-          afficherProblemes();
-
-        }
-      );
-
-
-    /* =========================
-       RECHERCHE AVEC ENTRÉE
-    ========================= */
-
-    document
-      .getElementById("search-problems")
-      .addEventListener(
-        "keydown",
-        function(e) {
-
-          if (e.key === "Enter") {
-
-            e.preventDefault();
-
-            afficherProblemes();
-
-          }
-
-        }
-      );
-
-
-    /* =========================
-       TROUVER UNE SOLUTION
-    ========================= */
-
-    document
-      .getElementById("solution-btn")
-      .addEventListener(
-        "click",
-        function() {
-
-          const categorie =
-            document
-              .getElementById("catégorie")
-              .value;
-
-
-          const solutions = {
-
-            "Eau": `
+        "Eau": `
   <strong>Solution pour un problème d'eau :</strong><br><br>
 
   1️⃣ Vérifiez d'abord si le robinet est bien ouvert.<br><br>
@@ -1126,9 +897,9 @@ if (urgence.toLowerCase() === "urgente") {
   4️⃣ Si le problème concerne tout le quartier, renseignez-vous auprès des voisins.<br><br>
 
   5️⃣ Si le problème continue, contactez le service d'eau de votre zone.
-`,            
-
-            "Électricité": `
+`,
+        
+        "Électricité": `
   <strong>Solution pour un problème d'électricité :</strong><br><br>
 
   1️⃣ Vérifiez d'abord le disjoncteur.<br><br>
@@ -1141,8 +912,8 @@ if (urgence.toLowerCase() === "urgente") {
 
   5️⃣ Si la coupure continue, contactez le service d'électricité de votre zone.
 `,
-              
-            "Logement": `
+          
+        "Logement": `
   <strong>Solution pour un problème de logement :</strong><br><br>
 
   1️⃣ Identifiez précisément le problème dans le logement.<br><br>
@@ -1154,9 +925,9 @@ if (urgence.toLowerCase() === "urgente") {
   4️⃣ Expliquez clairement les réparations nécessaires.<br><br>
 
   5️⃣ Si le problème n'est pas réglé, renseignez-vous auprès du service ou de l'autorité compétente de votre zone.
-`,              
-
-            "Emploi": `
+`,
+          
+        "Emploi": `
   <strong>Solution pour un problème d'emploi :</strong><br><br>
 
   1️⃣ Identifiez le type d'emploi que vous recherchez.<br><br>
@@ -1168,9 +939,9 @@ if (urgence.toLowerCase() === "urgente") {
   4️⃣ Contactez les services d'accompagnement à l'emploi ou les centres de formation.<br><br>
 
   5️⃣ Postulez aux offres qui correspondent à votre profil.
-`,              
-
-            "Transport": `
+`,
+          
+        "Transport": `
   <strong>Solution pour un problème de transport :</strong><br><br>
 
   1️⃣ Identifiez précisément le problème de transport.<br><br>
@@ -1183,8 +954,8 @@ if (urgence.toLowerCase() === "urgente") {
 
   5️⃣ Si le problème concerne un service de transport, contactez le responsable du service.
 `,
-              
-            "Formation": `
+          
+        "Formation": `
   <strong>Solution pour un problème de formation :</strong><br><br>
 
   1️⃣ Identifiez le domaine dans lequel vous souhaitez vous former.<br><br>
@@ -1196,9 +967,9 @@ if (urgence.toLowerCase() === "urgente") {
   4️⃣ Vérifiez si la formation délivre une attestation ou un diplôme.<br><br>
 
   5️⃣ Choisissez la formation qui correspond le mieux à votre objectif.
-`,             
-
-            "Réparation": `
+`,
+        
+        "Réparation": `
   <strong>Solution pour un problème de réparation :</strong><br><br>
 
   1️⃣ Identifiez précisément ce qui est en panne.<br><br>
@@ -1210,9 +981,9 @@ if (urgence.toLowerCase() === "urgente") {
   4️⃣ Expliquez clairement la panne au réparateur.<br><br>
 
   5️⃣ Demandez une estimation du coût avant de commencer la réparation.
-`,           
-
-            "Autre": `
+`,
+          
+        "Autre": `
   <strong>Solution pour un autre problème :</strong><br><br>
 
   1️⃣ Décrivez clairement le problème rencontré.<br><br>
@@ -1225,82 +996,58 @@ if (urgence.toLowerCase() === "urgente") {
 
   5️⃣ Recherchez une personne ou un service compétent pour vous aider.
 `,
-              
-          };
+          
+      };
 
 
-          if (
-            categorie === ""
-          ) {
+      if (categorie === "") {
 
-            alert(
-              "Choisissez d'abord une catégorie."
-            );
+        alert(
+          "Choisissez d'abord une catégorie."
+        );
 
-            return;
+        return;
 
-          }
+      }
 
 
-          let zoneSolution =
-            document.getElementById(
-              "solution"
-            );
+      let zoneSolution =
+        document.getElementById(
+          "solution"
+        );
 
 
-          if (!zoneSolution) {
+      if (!zoneSolution) {
 
-            zoneSolution =
-              document.createElement(
-                "div"
-              );
+        zoneSolution =
+          document.createElement("div");
 
-            zoneSolution.id =
-              "solution";
+        zoneSolution.id =
+          "solution";
 
-            zoneSolution.style.padding =
-              "15px";
+        document
+          .getElementById("solution-btn")
+          .after(zoneSolution);
 
-            zoneSolution.style.marginTop =
-              "15px";
-
-            zoneSolution.style.border =
-              "2px solid #1464f4";
-
-            zoneSolution.style.borderRadius =
-              "8px";
-
-            zoneSolution.style.background =
-              "#eaf2ff";
+      }
 
 
-            document
-              .getElementById(
-                "solution-btn"
-              )
-              .after(zoneSolution);
+      zoneSolution.innerHTML =
+        "<strong>Solution proposée :</strong><br>" +
+        solutions[categorie];
 
-          }
-
-
-          zoneSolution.innerHTML =
-
-            "<strong>Solution proposée :</strong><br>" +
-
-            solutions[categorie];
-
-        }
-      );
+    }
+  );
 
 
-    /* =========================
-       CHARGEMENT INITIAL
-    ========================= */
 
-    afficherProblemes();
+/* =========================
+   CHARGEMENT INITIAL
+========================= */
 
-  </script>
+afficherProblemes();
+
+</script>
 
 </body>
-
 </html>
