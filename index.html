@@ -444,63 +444,56 @@ async function afficherProblemes() {
     problems.forEach(
       function(problem) {
 
-        const div =
-          document.createElement("div");
-
-        div.className = "problem";
-
-
-        div.innerHTML = `
-
-          <h3>${problem.Name || ""}</h3>
-
-          <p>
-            <strong>Ville :</strong>
-            ${problem.City || ""}
-          </p>
-
-          <p>
-            <strong>Catégorie :</strong>
-            ${problem.Catégory || ""}
-          </p>
-
-          <p>
-            ${problem.description || ""}
-          </p>
-
-          <p>
-            <strong>Urgence :</strong>
-            ${problem.urgency || ""}
-          </p>
-
-          <p>
-            <strong>Publié le :</strong>
-            ${
-              problem.created_at
-                ? new Date(
-                    problem.created_at
-                  ).toLocaleString("fr-FR")
-                : ""
-            }
-          </p>
-
-          <hr>
-
           <button
             type="button"
             class="edit-btn"
           >
-            Modifier ✏️
-          </button>
+            const div = document.createElement("div");
 
-          <button
-            type="button"
-            class="delete-btn"
-          >
-            Supprimer 🗑️
-          </button>
+div.className = "problem";
 
-        `;
+div.innerHTML = `
+  <h3>${problem.Name || "Sans nom"}</h3>
+
+  <p>
+    📍 <strong>Ville :</strong>
+    ${problem.City || "Non renseignée"}
+  </p>
+
+  <p>
+    📂 <strong>Catégorie :</strong>
+    ${problem.Catégory || "Non renseignée"}
+  </p>
+
+  <div class="problem-description">
+    📝 <strong>Problème :</strong><br>
+    ${problem.description || "Aucune description"}
+  </div>
+
+  <p>
+    🚨 <strong>Urgence :</strong>
+    ${problem.urgency || "Normal"}
+  </p>
+
+  <p>
+    📅 <strong>Publié le :</strong>
+    ${
+      problem.created_at
+        ? new Date(problem.created_at).toLocaleString("fr-FR")
+        : "Date inconnue"
+    }
+  </p>
+
+  <hr>
+
+  <button type="button" class="edit-btn">
+    Modifier ✏️
+  </button>
+
+  <button type="button" class="delete-btn">
+    Supprimer 🗑️
+  </button>
+`;
 
 
 
