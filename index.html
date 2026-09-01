@@ -1,383 +1,1041 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background: #f4f7fb;
-        color: #222;
-        margin: 0;
-        padding: 25px;
-        border-radious: 20px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1):
-      }
-      h1, h2 {
-        color: #1464f4;
-      }
 
-      label {
-        dispay: block;
-        margin-top: 15px;
-        font-weight: bold;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      input, select, textarea {
-        width: 100%;
-        paddind: 12px;
-        margin-top: 6px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        box-sizing: border-box;
-      }
+  <title>SOLUWORLD</title>
 
-      button {
-        margin-top: 20px;
-        padding: 12px 18px;
-        border: none;
-        border-radious: 8px;
-        background: #1464f4;
-        color: white;
-        fond-size: 16px;
-      }
-      </style>
-
-    <meta charset="UTF-8">
-    <meta name="viewpoort"content=width=device-width, initial-scale=1.0">
-    <title>SOLUWORLD</title>
-  </head>
-  <body>
-    <section id="publier">
-      <h2>publier un problème</h2>
-
-      <form onsubmit="event.preventDefault(); alert(votre problème à été publié avec succès !');">
-        <label for="nom">votre nom</label>
-        <input type="text" id="nom" placeholder=votre nom"required>
-
-        <label for="ville">ville</label>
-        <input type="text" id="ville" placeholder="Ex". Ouagadougou "required>
-        <label for="catégorie">catégorie</label>
-        <select id="catégorie" required>
-          <option value="">choisir une categorie</option>
-          <option>Eau</option>
-          <option>Électricité</option>
-          <option>Logement</option>
-          <option>Emploi</option>
-          <option>Transport</option>
-          <option>formation</option>
-          <option>Réparation</option>
-          <option>Autre</option>
-        </select>
-
-        <label for="problème">Décrivez votre problème</label>
-        <textarea id="problème" rows="5" placeholder="Expliquer votre problème..." required></textarea>
-
-        <label for="urgence">urgence</label>
-        <select id="urgence">
-          <option>Normal</option>
-          <option>Importance</option>
-          <option>Urgente</option>
-        </select>
-
-        <button type="submit">publier mon problème</button>
-      </form>
-    </section>
-          
-    <h1>SOLUWORLD 🌍</h1>
-
-    <p>un problème. une solution. partout.</p>
-
-    <button>publier un problème</button>
-    <button id="solution-btn" type="button">trouver une solution</button>
-  
-    </body>
-      <section>
-  <h2>Problèmes publiés</h2>
-
-        <select id="filter-category">
-  <option value="">Toutes les catégories</option>
-  <option value="Eau">Eau</option>
-  <option value="Électricité">Électricité</option>
-  <option value="Logement">Logement</option>
-  <option value="Emploi">Emploi</option>
-  <option value="Transport">Transport</option>
-  <option value="Formation">Formation</option>
-  <option value="Réparation">Réparation</option>
-  <option value="Autre">Autre</option>
-        </select>
-        <input
-  type="text"
-  id="search-problems"
-  placeholder="🔎 Rechercher un problème, une ville ou une catégorie..."
->
-        <button id="search-btn" type="button">🔎 Rechercher</button>
-        <button id="clear-search" type="button">Effacer</button>
-  <div id="problems-list"></div>
-      </section>
-<script>
-const SUPABASE_URL = "https://cempljialofhnkvjpsko.supabase.co";
-const SUPABASE_KEY = "sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
-
-document.querySelector("form").addEventListener("submit", async function(e) {
-  e.preventDefault();
-
-  const data = {
-    created_at: new Date().toISOString(),
-    Name: document.getElementById("nom").value,
-    City: document.getElementById("ville").value,
-    "Catégory": document.getElementById("catégorie").value,
-    description: document.getElementById("problème").value,
-    urgency: document.getElementById("urgence").value
-  };
-
-  try {
-    const response = await fetch(
-      SUPABASE_URL + "/rest/v1/Problems",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_KEY,
-          "Authorization": "Bearer " + SUPABASE_KEY,
-          "Prefer": "return=representation"
-        },
-        body: JSON.stringify(data)
-      }
-    );
-    const result = await response.text();
-console.log("Résultat suppression :", result);
-
-    if (!response.ok) {
-      const error = await response.text();
-      throw new Error(error);
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #222;
+      margin: 0;
+      padding: 25px;
     }
 
-    alert("Votre problème a été publié avec succès !");
-    e.target.reset();
-
-  } catch (error) {
-    console.error(error);
- alert("Erreur : " + error.message);
-  }
-}); 
-  async function afficherProblemes() {
-    document.getElementById("search-problems").addEventListener("input", function() {
-    afficherProblemes();
-      const categorieFiltre = document.getElementById("filter-category").value;
-});
-    
-    async function afficherProblemes() {
-
-    const recherche = document.getElementById("search-problems").value.toLowerCase();
-    const categorieFiltre = document.getElementById("filter-category").value;
-
-    const response = await fetch(
-        SUPABASE_URL + "/rest/v1/Problems?select=*",
-        {
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Authorization": "Bearer " + SUPABASE_KEY
-            }
-        }
-    );
-    
-    const recherche = document.getElementById("search-problems").value.toLowerCase();
-  const response = await fetch(
-    SUPABASE_URL + "/rest/v1/Problems?select=*",
-    {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY
-      }
+    h1,
+    h2 {
+      color: #1464f4;
     }
-  );
 
-  let problems = await response.json();
-  const liste = document.getElementById("problems-list");
-
-  liste.innerHTML = "";
-    problems = problems.filter(problem =>
-    (
-        problem.Name.toLowerCase().includes(recherche) ||
-        problem.City.toLowerCase().includes(recherche) ||
-        problem.Catégory.toLowerCase().includes(recherche)
-    ) &&
-    (
-        categorieFiltre === "" ||
-        problem.Catégory === categorieFiltre
-    )
-);
-
-  problems.forEach(problem => {
-    const div = document.createElement("div");
-
-    div.style.border = "1px solid #ccc";
-    div.style.padding = "15px";
-    div.style.marginBottom = "10px";
-    div.style.borderRadius = "8px";
-
-    div.innerHTML = `
-        <h3>${problem.Name}</h3>
-        <p>Ville : ${problem.City}</p>
-        <p>Catégorie : ${problem.Catégory}</p>
-        <p>${problem.description}</p>
-        <p>Urgence : ${problem.urgency}</p>
-        <p>Publié le : ${new Date(problem.created_at).toLocaleString("fr-FR")}</p>
-        <hr>
-        <button type="button" class="edit-btn">Modifier ✏️</button>
-        <button type="button" class="delete-btn">Supprimer</button>
-    `;
-    div.querySelector(".edit-btn").addEventListener("click", async function(e) {
-    e.stopPropagation();
-
-    const nouveauNom = prompt("Nom :", problem.Name);
-    if (nouveauNom === null) return;
-
-    const nouvelleVille = prompt("Ville :", problem.City);
-    if (nouvelleVille === null) return;
-
-    const nouvelleDescription = prompt(
-        "Description :",
-        problem.description
-    );
-    if (nouvelleDescription === null) return;
-      
-      const nouvelleUrgence = prompt(
-    "Urgence (Normal, Importance ou Urgente) :",
-    problem.urgency
-);
-
-if (nouvelleUrgence === null) return;
-      const nouvelleCategorie = prompt(
-    "Catégorie :",
-    problem.Catégory
-);
-
-if (nouvelleCategorie === null) return;
-      
-
-    try {
-        const response = await fetch(
-            SUPABASE_URL + "/rest/v1/Problems?id=eq." + problem.id,
-            {
-                method: "PATCH",
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": "Bearer " + SUPABASE_KEY,
-                    "Content-Type": "application/json",
-                    "Prefer": "return=minimal"
-                },
-                body: JSON.stringify({
-                    Name: nouveauNom,
-                    City: nouvelleVille,
-                    description: nouvelleDescription,
-                  urgency: nouvelleUrgence,
-                  "Catégory": nouvelleCategorie
-                  
-                })
-              
-            }
-        );
-
-        if (!response.ok) {
-            const error = await response.text();
-            throw new Error(error);
-        }
-
-        alert("Problème modifié avec succès !");
-        afficherProblemes();
-
-    } catch (error) {
-        console.error(error);
-        alert("Erreur lors de la modification : " + error.message);
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
     }
-});
-    div.querySelector(".delete-btn").addEventListener("click", async function(e) {
-    
 
-        const supprimer = confirm(
-            "Détails du problème :\n\n" +
-            problem.description +
-            "\n\nVoulez-vous supprimer ce problème ?"
-        );
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
 
-        if (!supprimer) {
-            return;
-        }
-      console.log("ID du problème :", problem.id);
+    button {
+      margin-top: 20px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #1464f4;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .problem {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      background: white;
+    }
+
+    #filter-category {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section id="publier">
+
+    <h2>Publier un problème</h2>
+
+    <form id="problem-form">
+
+      <label for="nom">Votre nom</label>
+      <input
+        type="text"
+        id="nom"
+        placeholder="Votre nom"
+        required
+      >
+
+      <label for="ville">Ville</label>
+      <input
+        type="text"
+        id="ville"
+        placeholder="Ex. Ouagadougou"
+        required
+      >
+
+      <label for="catégorie">Catégorie</label>
+
+      <select id="catégorie" required>
+
+        <option value="">
+          Choisir une catégorie
+        </option>
+
+        <option value="Eau">
+          Eau
+        </option>
+
+        <option value="Électricité">
+          Électricité
+        </option>
+
+        <option value="Logement">
+          Logement
+        </option>
+
+        <option value="Emploi">
+          Emploi
+        </option>
+
+        <option value="Transport">
+          Transport
+        </option>
+
+        <option value="Formation">
+          Formation
+        </option>
+
+        <option value="Réparation">
+          Réparation
+        </option>
+
+        <option value="Autre">
+          Autre
+        </option>
+
+      </select>
+
+      <label for="problème">
+        Décrivez votre problème
+      </label>
+
+      <textarea
+        id="problème"
+        rows="5"
+        placeholder="Expliquez votre problème..."
+        required
+      ></textarea>
+
+      <label for="urgence">
+        Urgence
+      </label>
+
+      <select id="urgence">
+
+        <option value="Normal">
+          Normal
+        </option>
+
+        <option value="Importance">
+          Importance
+        </option>
+
+        <option value="Urgente">
+          Urgente
+        </option>
+
+      </select>
+
+      <button type="submit">
+        Publier mon problème
+      </button>
+
+    </form>
+
+  </section>
+
+
+  <h1>SOLUWORLD 🌍</h1>
+
+  <p>
+    Un problème. Une solution. Partout.
+  </p>
+
+  <button type="button">
+    Publier un problème
+  </button>
+
+  <button
+    id="solution-btn"
+    type="button"
+  >
+    Trouver une solution
+  </button>
+
+
+  <section>
+
+    <h2>
+      Problèmes publiés
+    </h2>
+
+
+    <!-- FILTRE PAR CATÉGORIE -->
+
+    <select id="filter-category">
+
+      <option value="">
+        Toutes les catégories
+      </option>
+
+      <option value="Eau">
+        Eau
+      </option>
+
+      <option value="Électricité">
+        Électricité
+      </option>
+
+      <option value="Logement">
+        Logement
+      </option>
+
+      <option value="Emploi">
+        Emploi
+      </option>
+
+      <option value="Transport">
+        Transport
+      </option>
+
+      <option value="Formation">
+        Formation
+      </option>
+
+      <option value="Réparation">
+        Réparation
+      </option>
+
+      <option value="Autre">
+        Autre
+      </option>
+
+    </select>
+
+
+    <!-- RECHERCHE -->
+
+    <input
+      type="text"
+      id="search-problems"
+      placeholder="🔎 Rechercher un problème, une ville ou une catégorie..."
+    >
+
+    <button
+      id="search-btn"
+      type="button"
+    >
+      🔎 Rechercher
+    </button>
+
+    <button
+      id="clear-search"
+      type="button"
+    >
+      Effacer
+    </button>
+
+
+    <!-- LISTE DES PROBLÈMES -->
+
+    <div id="problems-list"></div>
+
+  </section>
+
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://cempljialofhnkvjpsko.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
+
+
+    /* =========================
+       PUBLIER UN PROBLÈME
+    ========================= */
+
+    document
+      .getElementById("problem-form")
+      .addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const data = {
+
+          created_at:
+            new Date().toISOString(),
+
+          Name:
+            document.getElementById("nom").value,
+
+          City:
+            document.getElementById("ville").value,
+
+          "Catégory":
+            document.getElementById("catégorie").value,
+
+          description:
+            document.getElementById("problème").value,
+
+          urgency:
+            document.getElementById("urgence").value
+
+        };
+
 
         try {
-            const response = await fetch(
-                SUPABASE_URL + "/rest/v1/Problems?id=eq." + problem.id,
-                {
-                    method: "DELETE",
-                    headers: {
-                        "apikey": SUPABASE_KEY,
-                        "Authorization": "Bearer " + SUPABASE_KEY,
-                        "Prefer": "return=minimal"
-                    }
-                }
-            );
 
-            if (!response.ok) {
-                const error = await response.text();
-                throw new Error(error);
+          const response = await fetch(
+
+            SUPABASE_URL +
+            "/rest/v1/Problems",
+
+            {
+
+              method: "POST",
+
+              headers: {
+
+                "Content-Type":
+                  "application/json",
+
+                "apikey":
+                  SUPABASE_KEY,
+
+                "Authorization":
+                  "Bearer " + SUPABASE_KEY,
+
+                "Prefer":
+                  "return=representation"
+
+              },
+
+              body:
+                JSON.stringify(data)
+
             }
 
-            alert("Problème supprimé avec succès !");
-            afficherProblemes();
+          );
+
+
+          if (!response.ok) {
+
+            const error =
+              await response.text();
+
+            throw new Error(error);
+
+          }
+
+
+          alert(
+            "Votre problème a été publié avec succès !"
+          );
+
+
+          e.target.reset();
+
+
+          afficherProblemes();
+
 
         } catch (error) {
-            console.error(error);
-            alert("Erreur lors de la suppression : " + error.message);
+
+          console.error(error);
+
+          alert(
+            "Erreur : " +
+            error.message
+          );
+
         }
-    });
 
-    liste.appendChild(div);
-});
-    
-}
+      });
 
-  document.getElementById("solution-btn").addEventListener("click", function() {
-    const categorie = document.getElementById("catégorie").value;
 
-    const solutions = {
-        "Eau": "Vérifiez les canalisations et contactez le service d'eau de votre zone.",
-        "Électricité": "Vérifiez le disjoncteur. Si la coupure continue, contactez le service d'électricité.",
-        "Logement": "Contactez le propriétaire ou le responsable du logement.",
-        "Emploi": "Consultez les offres d'emploi disponibles et les services d'accompagnement.",
-        "Transport": "Vérifiez les transports disponibles dans votre zone.",
-        "Formation": "Recherchez une formation adaptée à votre besoin.",
-        "Réparation": "Contactez un réparateur proche de votre ville.",
-        "Autre": "Décrivez votre problème pour obtenir une solution adaptée."
-    };
+    /* =========================
+       AFFICHER LES PROBLÈMES
+    ========================= */
 
-    if (categorie === "" || categorie === "choisir une categorie") {
-        alert("Choisissez d'abord une catégorie.");
-        return;
+    async function afficherProblemes() {
+
+      const recherche =
+        document
+          .getElementById("search-problems")
+          .value
+          .toLowerCase()
+          .trim();
+
+
+      const categorieFiltre =
+        document
+          .getElementById("filter-category")
+          .value;
+
+
+      try {
+
+        const response =
+          await fetch(
+
+            SUPABASE_URL +
+            "/rest/v1/Problems?select=*",
+
+            {
+
+              headers: {
+
+                "apikey":
+                  SUPABASE_KEY,
+
+                "Authorization":
+                  "Bearer " + SUPABASE_KEY
+
+              }
+
+            }
+
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Impossible de récupérer les problèmes."
+          );
+
+        }
+
+
+        let problems =
+          await response.json();
+
+
+        const liste =
+          document.getElementById(
+            "problems-list"
+          );
+
+
+        liste.innerHTML = "";
+
+
+        /* FILTRE RECHERCHE + CATÉGORIE */
+
+        problems =
+          problems.filter(function(problem) {
+
+            const nom =
+              String(problem.Name || "")
+                .toLowerCase();
+
+            const ville =
+              String(problem.City || "")
+                .toLowerCase();
+
+            const categorie =
+              String(problem.Catégory || "")
+                .toLowerCase();
+
+
+            const correspondRecherche =
+
+              nom.includes(recherche) ||
+
+              ville.includes(recherche) ||
+
+              categorie.includes(recherche);
+
+
+            const correspondCategorie =
+
+              categorieFiltre === "" ||
+
+              problem.Catégory === categorieFiltre;
+
+
+            return (
+              correspondRecherche &&
+              correspondCategorie
+            );
+
+          });
+
+
+        /* AFFICHAGE */
+
+        problems.forEach(function(problem) {
+
+          const div =
+            document.createElement("div");
+
+
+          div.className =
+            "problem";
+
+
+          div.innerHTML = `
+
+            <h3>
+              ${problem.Name || ""}
+            </h3>
+
+            <p>
+              <strong>Ville :</strong>
+              ${problem.City || ""}
+            </p>
+
+            <p>
+              <strong>Catégorie :</strong>
+              ${problem.Catégory || ""}
+            </p>
+
+            <p>
+              ${problem.description || ""}
+            </p>
+
+            <p>
+              <strong>Urgence :</strong>
+              ${problem.urgency || ""}
+            </p>
+
+            <p>
+              <strong>Publié le :</strong>
+              ${
+                problem.created_at
+                  ? new Date(
+                      problem.created_at
+                    ).toLocaleString("fr-FR")
+                  : ""
+              }
+            </p>
+
+            <hr>
+
+            <button
+              type="button"
+              class="edit-btn"
+            >
+              Modifier ✏️
+            </button>
+
+            <button
+              type="button"
+              class="delete-btn"
+            >
+              Supprimer 🗑️
+            </button>
+
+          `;
+
+
+          /* =====================
+             MODIFIER
+          ===================== */
+
+          div
+            .querySelector(".edit-btn")
+            .addEventListener(
+              "click",
+              async function(e) {
+
+                e.stopPropagation();
+
+
+                const nouveauNom =
+                  prompt(
+                    "Nom :",
+                    problem.Name
+                  );
+
+                if (
+                  nouveauNom === null
+                ) {
+                  return;
+                }
+
+
+                const nouvelleVille =
+                  prompt(
+                    "Ville :",
+                    problem.City
+                  );
+
+                if (
+                  nouvelleVille === null
+                ) {
+                  return;
+                }
+
+
+                const nouvelleDescription =
+                  prompt(
+                    "Description :",
+                    problem.description
+                  );
+
+                if (
+                  nouvelleDescription === null
+                ) {
+                  return;
+                }
+
+
+                const nouvelleUrgence =
+                  prompt(
+                    "Urgence (Normal, Importance ou Urgente) :",
+                    problem.urgency
+                  );
+
+                if (
+                  nouvelleUrgence === null
+                ) {
+                  return;
+                }
+
+
+                const nouvelleCategorie =
+                  prompt(
+                    "Catégorie :",
+                    problem.Catégory
+                  );
+
+                if (
+                  nouvelleCategorie === null
+                ) {
+                  return;
+                }
+
+
+                try {
+
+                  const response =
+                    await fetch(
+
+                      SUPABASE_URL +
+                      "/rest/v1/Problems?id=eq." +
+                      problem.id,
+
+                      {
+
+                        method: "PATCH",
+
+                        headers: {
+
+                          "apikey":
+                            SUPABASE_KEY,
+
+                          "Authorization":
+                            "Bearer " +
+                            SUPABASE_KEY,
+
+                          "Content-Type":
+                            "application/json",
+
+                          "Prefer":
+                            "return=minimal"
+
+                        },
+
+                        body:
+                          JSON.stringify({
+
+                            Name:
+                              nouveauNom,
+
+                            City:
+                              nouvelleVille,
+
+                            description:
+                              nouvelleDescription,
+
+                            urgency:
+                              nouvelleUrgence,
+
+                            "Catégory":
+                              nouvelleCategorie
+
+                          })
+
+                      }
+
+                    );
+
+
+                  if (!response.ok) {
+
+                    const error =
+                      await response.text();
+
+                    throw new Error(error);
+
+                  }
+
+
+                  alert(
+                    "Problème modifié avec succès !"
+                  );
+
+
+                  afficherProblemes();
+
+
+                } catch (error) {
+
+                  console.error(error);
+
+                  alert(
+                    "Erreur lors de la modification : " +
+                    error.message
+                  );
+
+                }
+
+              }
+            );
+
+
+          /* =====================
+             SUPPRIMER
+          ===================== */
+
+          div
+            .querySelector(".delete-btn")
+            .addEventListener(
+              "click",
+              async function(e) {
+
+                e.stopPropagation();
+
+
+                const supprimer =
+                  confirm(
+
+                    "Détails du problème :\n\n" +
+
+                    problem.description +
+
+                    "\n\nVoulez-vous supprimer ce problème ?"
+
+                  );
+
+
+                if (!supprimer) {
+
+                  return;
+
+                }
+
+
+                try {
+
+                  const response =
+                    await fetch(
+
+                      SUPABASE_URL +
+                      "/rest/v1/Problems?id=eq." +
+                      problem.id,
+
+                      {
+
+                        method: "DELETE",
+
+                        headers: {
+
+                          "apikey":
+                            SUPABASE_KEY,
+
+                          "Authorization":
+                            "Bearer " +
+                            SUPABASE_KEY,
+
+                          "Prefer":
+                            "return=minimal"
+
+                        }
+
+                      }
+
+                    );
+
+
+                  if (!response.ok) {
+
+                    const error =
+                      await response.text();
+
+                    throw new Error(error);
+
+                  }
+
+
+                  alert(
+                    "Problème supprimé avec succès !"
+                  );
+
+
+                  afficherProblemes();
+
+
+                } catch (error) {
+
+                  console.error(error);
+
+                  alert(
+                    "Erreur lors de la suppression : " +
+                    error.message
+                  );
+
+                }
+
+              }
+            );
+
+
+          liste.appendChild(div);
+
+        });
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        document.getElementById(
+          "problems-list"
+        ).innerHTML =
+          "<p>Erreur lors du chargement des problèmes.</p>";
+
+      }
+
     }
 
-    let zoneSolution = document.getElementById("solution");
 
-if (!zoneSolution) {
-    zoneSolution = document.createElement("div");
-    zoneSolution.id = "solution";
-    zoneSolution.style.padding = "15px";
-    zoneSolution.style.marginTop = "15px";
-    zoneSolution.style.border = "2px solid #1464f4";
-    zoneSolution.style.borderRadius = "8px";
-    zoneSolution.style.background = "#eaf2ff";
-    
-    document.getElementById("solution-btn").after(zoneSolution);
-}
+    /* =========================
+       RECHERCHER
+    ========================= */
 
-zoneSolution.innerHTML = "<strong>Solution proposée :</strong><br>" + solutions[categorie];
-});
-  afficherProblemes();
-</script>
+    document
+      .getElementById("search-btn")
+      .addEventListener(
+        "click",
+        function() {
 
-    </body>
-    </html>
-        
-    </html>
-      
-sanfo2011
+          afficherProblemes();
+
+        }
+      );
+
+
+    /* =========================
+       EFFACER RECHERCHE
+    ========================= */
+
+    document
+      .getElementById("clear-search")
+      .addEventListener(
+        "click",
+        function() {
+
+          document
+            .getElementById("search-problems")
+            .value = "";
+
+          document
+            .getElementById("filter-category")
+            .value = "";
+
+          afficherProblemes();
+
+        }
+      );
+
+
+    /* =========================
+       FILTRE CATÉGORIE
+    ========================= */
+
+    document
+      .getElementById("filter-category")
+      .addEventListener(
+        "change",
+        function() {
+
+          afficherProblemes();
+
+        }
+      );
+
+
+    /* =========================
+       RECHERCHE AVEC ENTRÉE
+    ========================= */
+
+    document
+      .getElementById("search-problems")
+      .addEventListener(
+        "keydown",
+        function(e) {
+
+          if (e.key === "Enter") {
+
+            e.preventDefault();
+
+            afficherProblemes();
+
+          }
+
+        }
+      );
+
+
+    /* =========================
+       TROUVER UNE SOLUTION
+    ========================= */
+
+    document
+      .getElementById("solution-btn")
+      .addEventListener(
+        "click",
+        function() {
+
+          const categorie =
+            document
+              .getElementById("catégorie")
+              .value;
+
+
+          const solutions = {
+
+            "Eau":
+              "Vérifiez les canalisations et contactez le service d'eau de votre zone.",
+
+            "Électricité":
+              "Vérifiez le disjoncteur. Si la coupure continue, contactez le service d'électricité.",
+
+            "Logement":
+              "Contactez le propriétaire ou le responsable du logement.",
+
+            "Emploi":
+              "Consultez les offres d'emploi disponibles et les services d'accompagnement.",
+
+            "Transport":
+              "Vérifiez les transports disponibles dans votre zone.",
+
+            "Formation":
+              "Recherchez une formation adaptée à votre besoin.",
+
+            "Réparation":
+              "Contactez un réparateur proche de votre ville.",
+
+            "Autre":
+              "Décrivez votre problème pour obtenir une solution adaptée."
+
+          };
+
+
+          if (
+            categorie === ""
+          ) {
+
+            alert(
+              "Choisissez d'abord une catégorie."
+            );
+
+            return;
+
+          }
+
+
+          let zoneSolution =
+            document.getElementById(
+              "solution"
+            );
+
+
+          if (!zoneSolution) {
+
+            zoneSolution =
+              document.createElement(
+                "div"
+              );
+
+            zoneSolution.id =
+              "solution";
+
+            zoneSolution.style.padding =
+              "15px";
+
+            zoneSolution.style.marginTop =
+              "15px";
+
+            zoneSolution.style.border =
+              "2px solid #1464f4";
+
+            zoneSolution.style.borderRadius =
+              "8px";
+
+            zoneSolution.style.background =
+              "#eaf2ff";
+
+
+            document
+              .getElementById(
+                "solution-btn"
+              )
+              .after(zoneSolution);
+
+          }
+
+
+          zoneSolution.innerHTML =
+
+            "<strong>Solution proposée :</strong><br>" +
+
+            solutions[categorie];
+
+        }
+      );
+
+
+    /* =========================
+       CHARGEMENT INITIAL
+    ========================= */
+
+    afficherProblemes();
+
+  </script>
+
+</body>
+
+</html>
