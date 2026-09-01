@@ -898,7 +898,7 @@ document
 
   5️⃣ Si le problème continue, contactez le service d'eau de votre zone.
 `,
-        
+
         "Électricité": `
   <strong>Solution pour un problème d'électricité :</strong><br><br>
 
@@ -912,7 +912,7 @@ document
 
   5️⃣ Si la coupure continue, contactez le service d'électricité de votre zone.
 `,
-          
+
         "Logement": `
   <strong>Solution pour un problème de logement :</strong><br><br>
 
@@ -926,7 +926,7 @@ document
 
   5️⃣ Si le problème n'est pas réglé, renseignez-vous auprès du service ou de l'autorité compétente de votre zone.
 `,
-          
+
         "Emploi": `
   <strong>Solution pour un problème d'emploi :</strong><br><br>
 
@@ -940,7 +940,7 @@ document
 
   5️⃣ Postulez aux offres qui correspondent à votre profil.
 `,
-          
+
         "Transport": `
   <strong>Solution pour un problème de transport :</strong><br><br>
 
@@ -954,7 +954,7 @@ document
 
   5️⃣ Si le problème concerne un service de transport, contactez le responsable du service.
 `,
-          
+
         "Formation": `
   <strong>Solution pour un problème de formation :</strong><br><br>
 
@@ -968,7 +968,7 @@ document
 
   5️⃣ Choisissez la formation qui correspond le mieux à votre objectif.
 `,
-        
+
         "Réparation": `
   <strong>Solution pour un problème de réparation :</strong><br><br>
 
@@ -996,7 +996,7 @@ document
 
   5️⃣ Recherchez une personne ou un service compétent pour vous aider.
 `,
-          
+        
       };
 
 
@@ -1023,4 +1023,31 @@ document
           document.createElement("div");
 
         zoneSolution.id =
-          "solutio
+          "solution";
+
+        document
+          .getElementById("solution-btn")
+          .after(zoneSolution);
+
+      }
+
+
+      zoneSolution.innerHTML =
+        "<strong>Solution proposée :</strong><br>" +
+        solutions[categorie];
+
+    }
+  );
+
+
+
+/* =========================
+   CHARGEMENT INITIAL
+========================= */
+
+afficherProblemes();
+
+</script>
+
+</body>
+</html>
