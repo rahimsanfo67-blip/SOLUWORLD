@@ -53,13 +53,104 @@
       opacity: 0.9;
     }
 
-    .problem {
-      border: 1px solid #ccc;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      background: white;
-    }
+    /* ==============================
+   PRÉSENTATION DES PROBLÈMES
+============================== */
+
+#problems-list {
+  margin-top: 20px;
+}
+
+.problem-card {
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.problem-card h3 {
+  margin: 0 0 18px 0;
+  font-size: 25px;
+  color: #1464f4;
+}
+
+.problem-info {
+  margin: 12px 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.problem-info strong {
+  color: #222;
+}
+
+.problem-category {
+  display: inline-block;
+  background: #eaf2ff;
+  color: #1464f4;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.problem-urgency {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.problem-description {
+  background: #f7f9fc;
+  padding: 14px;
+  border-radius: 10px;
+  margin: 15px 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.problem-date {
+  color: #666;
+  font-size: 16px;
+}
+
+.problem-card hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.problem-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.problem-actions button {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+
+  .problem-card {
+    padding: 18px;
+  }
+
+  .problem-card h3 {
+    font-size: 23px;
+  }
+
+  .problem-info,
+  .problem-description {
+    font-size: 17px;
+  }
+
+  .problem-actions button {
+    flex: 1;
+  }
+}
 
     #filter-category {
       margin-bottom: 10px;
@@ -502,61 +593,84 @@
 
           div.className =
             "problem";
+          
+          const categorie = normaliserCategorie(
+  problem.Catégory || ""
+);
+
+const urgence = problem.urgency || "Normal";
+
+let couleurUrgence = "";
+
+if (urgence.toLowerCase() === "urgente") {
+  couleurUrgence = "background:#ffe5e5;color:#d60000;";
+} else if (urgence.toLowerCase() === "importance") {
+  couleurUrgence = "background:#fff3cd;color:#946200;";
+} else {
+  couleurUrgence = "background:#e8f7ee;color:#18733c;";
+}
 
 
           div.innerHTML = `
+  <h3>${problem.Name || "Sans nom"}</h3>
 
-            <h3>
-              ${problem.Name || ""}
-            </h3>
+  <div class="problem-info">
+    📍 <strong>Ville :</strong>
+    ${problem.City || ""}
+  </div>
 
-            <p>
-              <strong>Ville :</strong>
-              ${problem.City || ""}
-            </p>
+  <div class="problem-info">
+    🏷️ <strong>Catégorie :</strong>
+    <span class="problem-category">
+      ${categorie}
+    </span>
+  </div>
 
-            <p>
-              <strong>Catégorie :</strong>
-              ${problem.Catégory || ""}
-            </p>
+  <div class="problem-description">
+    📝 <strong>Problème :</strong><br><br>
+    ${problem.description || ""}
+  </div>
 
-            <p>
-              ${problem.description || ""}
-            </p>
+  <div class="problem-info">
+    🚨 <strong>Urgence :</strong>
+    <span
+      class="problem-urgency"
+      style="${couleurUrgence}"
+    >
+      ${urgence}
+    </span>
+  </div>
 
-            <p>
-              <strong>Urgence :</strong>
-              ${problem.urgency || ""}
-            </p>
+  <div class="problem-info problem-date">
+    📅 <strong>Publié le :</strong>
+    ${
+      problem.created_at
+        ? new Date(problem.created_at)
+            .toLocaleString("fr-FR")
+        : ""
+    }
+  </div>
 
-            <p>
-              <strong>Publié le :</strong>
-              ${
-                problem.created_at
-                  ? new Date(
-                      problem.created_at
-                    ).toLocaleString("fr-FR")
-                  : ""
-              }
-            </p>
+  <hr>
 
-            <hr>
+  <div class="problem-actions">
 
-            <button
-              type="button"
-              class="edit-btn"
-            >
-              Modifier ✏️
-            </button>
+    <button
+      type="button"
+      class="edit-btn"
+    >
+      Modifier ✏️
+    </button>
 
-            <button
-              type="button"
-              class="delete-btn"
-            >
-              Supprimer 🗑️
-            </button>
+    <button
+      type="button"
+      class="delete-btn"
+    >
+      Supprimer 🗑️
+    </button>
 
-          `;
+  </div>
+`;       
 
 
           /* =====================
