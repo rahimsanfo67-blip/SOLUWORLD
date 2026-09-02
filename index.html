@@ -7,21 +7,57 @@
   <title>SOLUWORLD</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #222;
-      margin: 0;
-      padding: 25px;
+    * {
+      box-sizing: border-box;
     }
 
-    h1, h2 {
-      color: #1464f4;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7f9;
+      color: #222;
+    }
+
+    header {
+      background: #0b5ed7;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    main {
+      width: 95%;
+      max-width: 1000px;
+      margin: 25px auto;
+    }
+
+    section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #0b5ed7;
+      margin-top: 0;
     }
 
     label {
       display: block;
-      margin-top: 15px;
+      margin-top: 12px;
+      margin-bottom: 5px;
       font-weight: bold;
     }
 
@@ -30,60 +66,162 @@
     textarea {
       width: 100%;
       padding: 12px;
-      margin-top: 6px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      box-sizing: border-box;
-      font-size: 16px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
     }
 
     button {
-      margin-top: 20px;
-      padding: 12px 18px;
       border: none;
       border-radius: 8px;
-      background: #1464f4;
-      color: white;
-      font-size: 16px;
+      padding: 11px 16px;
+      margin-top: 12px;
       cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
     }
 
-    button:hover {
-      opacity: 0.9;
+    .publish-btn {
+      background: #198754;
+      color: white;
+      width: 100%;
     }
 
-    .problem {
-      background: white;
-      border: 1px solid #ccc;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 8px;
+    .search-btn {
+      background: #0b5ed7;
+      color: white;
     }
 
-    .edit-btn,
-    .delete-btn {
+    .clear-btn {
+      background: #6c757d;
+      color: white;
+    }
+
+    .edit-btn {
+      background: #ffc107;
+      color: #222;
       margin-right: 5px;
     }
 
-    #solution {
-      padding: 15px;
+    .delete-btn {
+      background: #dc3545;
+      color: white;
+      margin-right: 5px;
+    }
+
+    .solution-btn {
+      background: #198754;
+      color: white;
+    }
+
+    .problem {
+      border: 1px solid #ddd;
+      border-left: 6px solid #0b5ed7;
+      border-radius: 10px;
+      padding: 18px;
       margin-top: 15px;
-      border: 2px solid #1464f4;
+      background: #fafafa;
+    }
+
+    .problem h3 {
+      margin-top: 0;
+      color: #0b5ed7;
+    }
+
+    .problem p {
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+
+    .urgency {
+      font-weight: bold;
+    }
+
+    .solution {
+      margin-top: 15px;
+      padding: 15px;
+      background: #eef8f0;
       border-radius: 8px;
-      background: #eaf2ff;
+      border-left: 5px solid #198754;
+    }
+
+    .solution h4 {
+      margin-top: 0;
+      color: #198754;
+    }
+
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .success {
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+
+    .error {
+      background: #f8d7da;
+      color: #842029;
+    }
+
+    .info {
+      background: #cff4fc;
+      color: #055160;
+    }
+
+    .search-zone {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .buttons-search {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 700px) {
+      .search-zone {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 26px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- PUBLICATION -->
-  <section id="publier">
-    <h2>Publier un problème</h2>
+<header>
+  <h1>🌍 SOLUWORLD</h1>
+  <p>Signaler les problèmes et trouver des solutions pour nos communautés</p>
+</header>
+
+<main>
+
+  <!-- =========================
+       PUBLIER UN PROBLÈME
+  ========================= -->
+
+  <section>
+
+    <h2>📢 Signaler un problème</h2>
 
     <form id="problem-form">
 
-      <label for="nom">Votre nom</label>
+      <label for="nom">Nom</label>
       <input
         type="text"
         id="nom"
@@ -95,278 +233,524 @@
       <input
         type="text"
         id="ville"
-        placeholder="Ex. Ouagadougou"
+        placeholder="Votre ville"
         required
       >
 
       <label for="catégorie">Catégorie</label>
+
       <select id="catégorie" required>
-        <option value="">Choisir une catégorie</option>
-        <option value="Eau">Eau</option>
-        <option value="Électricité">Électricité</option>
-        <option value="Logement">Logement</option>
-        <option value="Emploi">Emploi</option>
-        <option value="Transport">Transport</option>
-        <option value="Formation">Formation</option>
-        <option value="Réparation">Réparation</option>
-        <option value="Autre">Autre</option>
+
+        <option value="">
+          Choisir une catégorie
+        </option>
+
+        <option value="Eau">
+          💧 Eau
+        </option>
+
+        <option value="Électricité">
+          ⚡ Électricité
+        </option>
+
+        <option value="Route">
+          🛣️ Route
+        </option>
+
+        <option value="Déchets">
+          🗑️ Déchets
+        </option>
+
+        <option value="Santé">
+          🏥 Santé
+        </option>
+
+        <option value="Éducation">
+          📚 Éducation
+        </option>
+
+        <option value="Sécurité">
+          🛡️ Sécurité
+        </option>
+
+        <option value="Autre">
+          📌 Autre
+        </option>
+
       </select>
 
-      <label for="problème">Décrivez votre problème</label>
+      <label for="problème">
+        Description du problème
+      </label>
+
       <textarea
         id="problème"
-        rows="5"
-        placeholder="Expliquez votre problème..."
+        placeholder="Décrivez le problème..."
         required
       ></textarea>
 
-      <label for="urgence">Urgence</label>
-      <select id="urgence">
-        <option value="Normal">Normal</option>
-        <option value="Importance">Importance</option>
-        <option value="Urgente">Urgente</option>
+      <label for="urgence">
+        Niveau d'urgence
+      </label>
+
+      <select id="urgence" required>
+
+        <option value="">
+          Choisir le niveau
+        </option>
+
+        <option value="Faible">
+          🟢 Faible
+        </option>
+
+        <option value="Moyenne">
+          🟠 Moyenne
+        </option>
+
+        <option value="Élevée">
+          🔴 Élevée
+        </option>
+
       </select>
 
-      <button type="submit">
-        Publier mon problème
+      <button
+        type="submit"
+        class="publish-btn"
+      >
+        📢 Publier le problème
       </button>
 
     </form>
+
+    <div
+      id="form-message"
+      class="message"
+    ></div>
+
   </section>
 
 
-  <!-- ACCUEIL -->
-  <h1>SOLUWORLD 🌍</h1>
+  <!-- =========================
+       PROBLÈMES PUBLIÉS
+  ========================= -->
 
-  <p>Un problème. Une solution. Partout.</p>
-
-  <button type="button" id="publier-btn">
-    Publier un problème
-  </button>
-
-  <button id="solution-btn" type="button">
-    Trouver une solution
-  </button>
-
-
-  <!-- PROBLÈMES -->
   <section>
 
-    <h2>Problèmes publiés</h2>
+    <h2>📋 Problèmes publiés</h2>
 
-    <select id="filter-category">
+    <div class="search-zone">
 
-      <option value="">
-        Toutes les catégories
-      </option>
+      <div>
 
-      <option value="Eau">
-        Eau
-      </option>
+        <label for="filter-category">
+          Filtrer par catégorie
+        </label>
 
-      <option value="Électricité">
-        Électricité
-      </option>
+        <select id="filter-category">
 
-      <option value="Logement">
-        Logement
-      </option>
+          <option value="">
+            Toutes les catégories
+          </option>
 
-      <option value="Emploi">
-        Emploi
-      </option>
+          <option value="Eau">
+            💧 Eau
+          </option>
 
-      <option value="Transport">
-        Transport
-      </option>
+          <option value="Électricité">
+            ⚡ Électricité
+          </option>
 
-      <option value="Formation">
-        Formation
-      </option>
+          <option value="Route">
+            🛣️ Route
+          </option>
 
-      <option value="Réparation">
-        Réparation
-      </option>
+          <option value="Déchets">
+            🗑️ Déchets
+          </option>
 
-      <option value="Autre">
-        Autre
-      </option>
+          <option value="Santé">
+            🏥 Santé
+          </option>
 
-    </select>
+          <option value="Éducation">
+            📚 Éducation
+          </option>
 
+          <option value="Sécurité">
+            🛡️ Sécurité
+          </option>
 
-    <input
-      type="text"
-      id="search-problems"
-      placeholder="🔎 Rechercher un problème, une ville ou une catégorie..."
-    >
+          <option value="Autre">
+            📌 Autre
+          </option>
 
+        </select>
 
-    <button id="search-btn" type="button">
-      🔎 Rechercher
-    </button>
-
-    <button id="clear-search" type="button">
-      Effacer
-    </button>
+      </div>
 
 
-    <div id="problems-list"></div>
+      <div>
+
+        <label for="search-problems">
+          Rechercher
+        </label>
+
+        <input
+          type="text"
+          id="search-problems"
+          placeholder="Nom, ville ou catégorie..."
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="buttons-search">
+
+      <button
+        type="button"
+        id="search-btn"
+        class="search-btn"
+      >
+        🔎 Rechercher
+      </button>
+
+      <button
+        type="button"
+        id="clear-search"
+        class="clear-btn"
+      >
+        Effacer
+      </button>
+
+    </div>
+
+
+    <div
+      id="problems-message"
+      class="message"
+    ></div>
+
+
+    <div id="problems-list">
+
+      <p>
+        Chargement des problèmes...
+      </p>
+
+    </div>
 
   </section>
+
+
+  <!-- =========================
+       TROUVER UNE SOLUTION
+  ========================= -->
+
+  <section id="solution">
+
+    <h2>💡 Trouver une solution</h2>
+
+    <p>
+      Sélectionnez un problème ci-dessus pour rechercher
+      une solution.
+    </p>
+
+    <div id="solution-content">
+
+      <p>
+        Aucune solution sélectionnée.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
 
 
 <script>
 
+/* ==================================================
+   CONFIGURATION SUPABASE
+================================================== */
+
 const SUPABASE_URL =
   "https://cempljialofhnkvjpsko.supabase.co";
 
+/*
+   IMPORTANT :
+
+   Remplace uniquement la valeur ci-dessous
+   par TON ancienne clé Supabase.
+
+   Exemple :
+
+   const SUPABASE_KEY = "sb_publishable_....";
+*/
+
 const SUPABASE_KEY =
-  "sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
+  "COLLE_ICI_TA_CLE_SUPABASE";
 
 
-
-/* =========================
-   FONCTION NORMALISER
-========================= */
+/* ==================================================
+   OUTILS
+================================================== */
 
 function normaliser(texte) {
 
-  return String(texte || "")
+  if (texte === null || texte === undefined) {
+    return "";
+  }
+
+  return String(texte)
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .trim();
-
 }
 
 
+/* ==================================================
+   AFFICHER UN MESSAGE
+================================================== */
 
-/* =========================
+function afficherMessage(
+  elementId,
+  message,
+  type
+) {
+
+  const element =
+    document.getElementById(elementId);
+
+  if (!element) {
+    return;
+  }
+
+  element.textContent = message;
+
+  element.className =
+    "message " + type;
+
+  element.style.display = "block";
+}
+
+
+/* ==================================================
+   CACHER UN MESSAGE
+================================================== */
+
+function cacherMessage(elementId) {
+
+  const element =
+    document.getElementById(elementId);
+
+  if (!element) {
+    return;
+  }
+
+  element.style.display = "none";
+}
+
+
+/* ==================================================
    PUBLIER UN PROBLÈME
-========================= */
+================================================== */
 
 document
   .getElementById("problem-form")
-  .addEventListener("submit", async function(e) {
+  .addEventListener(
+    "submit",
+    async function(e) {
 
-    e.preventDefault();
+      e.preventDefault();
 
-    const data = {
+      cacherMessage("form-message");
 
-      created_at: new Date().toISOString(),
+      const data = {
 
-      Name:
-        document.getElementById("nom").value.trim(),
+        created_at:
+          new Date().toISOString(),
 
-      City:
-        document.getElementById("ville").value.trim(),
+        Name:
+          document
+            .getElementById("nom")
+            .value
+            .trim(),
 
-      "Catégory":
-        document.getElementById("catégorie").value,
+        City:
+          document
+            .getElementById("ville")
+            .value
+            .trim(),
 
-      description:
-        document.getElementById("problème").value.trim(),
+        "Catégory":
+          document
+            .getElementById("catégorie")
+            .value,
 
-      urgency:
-        document.getElementById("urgence").value
+        description:
+          document
+            .getElementById("problème")
+            .value
+            .trim(),
 
-    };
+        urgency:
+          document
+            .getElementById("urgence")
+            .value
+
+      };
 
 
-    try {
+      try {
 
-      const response = await fetch(
-        SUPABASE_URL + "/rest/v1/Problems",
-        {
-          method: "POST",
+        const response =
+          await fetch(
+            SUPABASE_URL +
+            "/rest/v1/Problems",
+            {
 
-          headers: {
-            "Content-Type": "application/json",
-            "apikey": SUPABASE_KEY,
-            "Authorization":
-              "Bearer " + SUPABASE_KEY,
-            "Prefer": "return=representation"
-          },
+              method: "POST",
 
-          body: JSON.stringify(data)
+              headers: {
+
+                "Content-Type":
+                  "application/json",
+
+                "apikey":
+                  SUPABASE_KEY,
+
+                "Authorization":
+                  "Bearer " +
+                  SUPABASE_KEY,
+
+                "Prefer":
+                  "return=representation"
+
+              },
+
+              body:
+                JSON.stringify(data)
+
+            }
+          );
+
+
+        if (!response.ok) {
+
+          const error =
+            await response.text();
+
+          throw new Error(error);
         }
-      );
 
 
-      if (!response.ok) {
+        afficherMessage(
+          "form-message",
+          "Votre problème a été publié avec succès !",
+          "success"
+        );
 
-        const error =
-          await response.text();
 
-        throw new Error(error);
+        document
+          .getElementById("problem-form")
+          .reset();
+
+
+        await afficherProblemes();
+
       }
 
 
-      alert(
-        "Votre problème a été publié avec succès !"
-      );
+      catch(error) {
 
+        console.error(error);
 
-      e.target.reset();
+        afficherMessage(
+          "form-message",
+          "Erreur lors de la publication : " +
+          error.message,
+          "error"
+        );
 
-      afficherProblemes();
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(
-        "Erreur : " + error.message
-      );
+      }
 
     }
-
-  });
-
+  );
 
 
-/* =========================
-   AFFICHER LES PROBLÈMES
-========================= */
+/* ==================================================
+   AFFICHER TOUS LES PROBLÈMES
+================================================== */
 
 async function afficherProblemes() {
+
+  const liste =
+    document.getElementById(
+      "problems-list"
+    );
+
+
+  if (!liste) {
+    return;
+  }
+
+
+  liste.innerHTML =
+    "<p>Chargement des problèmes...</p>";
+
 
   try {
 
     const recherche =
       normaliser(
-        document.getElementById(
-          "search-problems"
-        ).value
+        document
+          .getElementById(
+            "search-problems"
+          )
+          .value
       );
 
 
     const categorieFiltre =
       normaliser(
-        document.getElementById(
-          "filter-category"
-        ).value
+        document
+          .getElementById(
+            "filter-category"
+          )
+          .value
       );
 
 
-    const response = await fetch(
+    /*
+       RÉCUPÉRATION DES PROBLÈMES
+       DEPUIS SUPABASE
+    */
 
-      SUPABASE_URL +
-      "/rest/v1/Problems?select=*",
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/Problems?select=*&order=created_at.desc",
+        {
 
-      {
-        headers: {
+          method: "GET",
 
-          "apikey": SUPABASE_KEY,
+          headers: {
 
-          "Authorization":
-            "Bearer " + SUPABASE_KEY
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              SUPABASE_KEY
+
+          }
 
         }
-      }
-    );
+      );
 
 
     if (!response.ok) {
@@ -375,567 +759,536 @@ async function afficherProblemes() {
         await response.text();
 
       throw new Error(error);
-
     }
 
 
     let problems =
       await response.json();
 
-    alert("Nombre de problèmes reçus : " + problems.length);
 
-    const liste =
-      document.getElementById(
-        "problems-list"
+    console.log(
+      "Nombre de problèmes reçus :",
+      problems.length
+    );
+
+
+    /*
+       FILTRAGE
+    */
+
+    problems =
+      problems.filter(
+        function(problem) {
+
+          const nom =
+            normaliser(
+              problem.Name
+            );
+
+
+          const ville =
+            normaliser(
+              problem.City
+            );
+
+
+          const categorie =
+            normaliser(
+              problem["Catégory"]
+            );
+
+
+          const texteRecherche =
+            recherche === "" ||
+
+            nom.includes(
+              recherche
+            ) ||
+
+            ville.includes(
+              recherche
+            ) ||
+
+            categorie.includes(
+              recherche
+            );
+
+
+          const filtreCategorie =
+            categorieFiltre === "" ||
+
+            categorie ===
+            categorieFiltre;
+
+
+          return (
+            texteRecherche &&
+            filtreCategorie
+          );
+
+        }
       );
 
+
+    /*
+       NETTOYAGE DE LA LISTE
+    */
 
     liste.innerHTML = "";
 
 
-    /* =========================
-       RECHERCHE + FILTRE
-    ========================= */
+    /*
+       AUCUN PROBLÈME
+    */
 
-    problems = problems.filter(
-      function(problem) {
+    if (
+      problems.length === 0
+    ) {
 
-        const nom =
-          normaliser(problem.Name);
-
-        const ville =
-          normaliser(problem.City);
-
-        const categorie =
-          normaliser(problem.Catégory);
-
-        const texteRecherche =
-          nom.includes(recherche) ||
-          ville.includes(recherche) ||
-          categorie.includes(recherche);
-
-        const filtreCategorie =
-          categorieFiltre === "" ||
-          categorie === categorieFiltre;
-
-
-        return (
-          texteRecherche &&
-          filtreCategorie
-        );
-
-      }
-    );
-
-
-    /* =========================
-       AFFICHAGE
-    ========================= */
-
-    if (problems.length === 0) {
-
-      liste.innerHTML =
-        "<p>Aucun problème trouvé.</p>";
+      liste.innerHTML = `
+        <div class="message info"
+             style="display:block;">
+          Aucun problème trouvé.
+        </div>
+      `;
 
       return;
-
     }
 
+
+    /*
+       AFFICHAGE DE CHAQUE PROBLÈME
+    */
 
     problems.forEach(
       function(problem) {
 
         const div =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
-        div.className = "problem";
 
+        div.className =
+          "problem";
+
+
+        /*
+           URGENCE
+        */
+
+        let urgenceTexte =
+          problem.urgency || "";
+
+
+        let urgenceEmoji =
+          "🟢";
+
+
+        if (
+          normaliser(
+            problem.urgency
+          ) === "moyenne"
+        ) {
+
+          urgenceEmoji = "🟠";
+
+        }
+
+
+        if (
+          normaliser(
+            problem.urgency
+          ) === "elevee"
+        ) {
+
+          urgenceEmoji = "🔴";
+
+        }
+
+
+        /*
+           DATE
+        */
+
+        let dateTexte =
+          "";
+
+
+        if (
+          problem.created_at
+        ) {
+
+          const date =
+            new Date(
+              problem.created_at
+            );
+
+
+          if (
+            !isNaN(
+              date.getTime()
+            )
+          ) {
+
+            dateTexte =
+              date.toLocaleString(
+                "fr-FR"
+              );
+
+          }
+
+        }
+
+
+        /*
+           CONTENU DU PROBLÈME
+        */
 
         div.innerHTML = `
 
-          <h3>${problem.Name || ""}</h3>
+          <h3>
+            ${echapperHTML(
+              problem.Name || ""
+            )}
+          </h3>
 
           <p>
-            <strong>Ville :</strong>
-            ${problem.City || ""}
+            <strong>📍 Ville :</strong>
+            ${echapperHTML(
+              problem.City || ""
+            )}
           </p>
 
           <p>
-            <strong>Catégorie :</strong>
-            ${problem.Catégory || ""}
+            <strong>📂 Catégorie :</strong>
+            ${echapperHTML(
+              problem["Catégory"] || ""
+            )}
           </p>
 
           <p>
-            ${problem.description || ""}
+            <strong>📝 Description :</strong><br>
+            ${echapperHTML(
+              problem.description || ""
+            )}
+          </p>
+
+          <p class="urgency">
+            <strong>🚨 Urgence :</strong>
+            ${urgenceEmoji}
+            ${echapperHTML(
+              urgenceTexte
+            )}
           </p>
 
           <p>
-            <strong>Urgence :</strong>
-            ${problem.urgency || ""}
+            <strong>📅 Publié le :</strong>
+            ${dateTexte}
           </p>
 
-          <p>
-            <strong>Publié le :</strong>
-            ${
-              problem.created_at
-                ? new Date(
-                    problem.created_at
-                  ).toLocaleString("fr-FR")
-                : ""
-            }
-          </p>
+          <div>
 
-          <hr>
+            <button
+              type="button"
+              class="solution-btn"
+            >
+              💡 Trouver une solution
+            </button>
 
-          <button
-            type="button"
-            class="edit-btn"
-          >
-            Modifier ✏️
-          </button>
+            <button
+              type="button"
+              class="edit-btn"
+            >
+              ✏️ Modifier
+            </button>
 
-          <button
-            type="button"
-            class="delete-btn"
-          >
-            Supprimer 🗑️
-          </button>
+            <button
+              type="button"
+              class="delete-btn"
+            >
+              🗑️ Supprimer
+            </button>
+
+          </div>
+
+          <div
+            class="solution"
+            style="display:none;"
+          ></div>
 
         `;
 
 
+        /*
+           BOUTON SOLUTION
+        */
 
-        /* =========================
-           MODIFIER
-        ========================= */
+        const solutionButton =
+          div.querySelector(
+            ".solution-btn"
+          );
 
-        div
-          .querySelector(".edit-btn")
+
+        const solutionBox =
+          div.querySelector(
+            ".solution"
+          );
+
+
+        solutionButton
           .addEventListener(
             "click",
-            async function() {
+            function() {
 
-              const nouveauNom =
-                prompt(
-                  "Nom :",
-                  problem.Name || ""
-                );
-
-              if (nouveauNom === null)
-                return;
-
-
-              const nouvelleVille =
-                prompt(
-                  "Ville :",
-                  problem.City || ""
-                );
-
-              if (nouvelleVille === null)
-                return;
-
-
-              const nouvelleDescription =
-                prompt(
-                  "Description :",
-                  problem.description || ""
-                );
-
-              if (
-                nouvelleDescription === null
-              )
-                return;
-
-
-              const nouvelleUrgence =
-                prompt(
-                  "Urgence (Normal, Importance ou Urgente) :",
-                  problem.urgency || "Normal"
-                );
-
-              if (
-                nouvelleUrgence === null
-              )
-                return;
-
-
-              const nouvelleCategorie =
-                prompt(
-                  "Catégorie (Eau, Électricité, Logement, Emploi, Transport, Formation, Réparation ou Autre) :",
-                  problem.Catégory || ""
-                );
-
-              if (
-                nouvelleCategorie === null
-              )
-                return;
-
-
-              try {
-
-                const response =
-                  await fetch(
-
-                    SUPABASE_URL +
-                    "/rest/v1/Problems?id=eq." +
-                    problem.id,
-
-                    {
-
-                      method: "PATCH",
-
-                      headers: {
-
-                        "apikey":
-                          SUPABASE_KEY,
-
-                        "Authorization":
-                          "Bearer " +
-                          SUPABASE_KEY,
-
-                        "Content-Type":
-                          "application/json",
-
-                        "Prefer":
-                          "return=minimal"
-
-                      },
-
-                      body: JSON.stringify({
-
-                        Name:
-                          nouveauNom.trim(),
-
-                        City:
-                          nouvelleVille.trim(),
-
-                        description:
-                          nouvelleDescription.trim(),
-
-                        urgency:
-                          nouvelleUrgence.trim(),
-
-                        "Catégory":
-                          nouvelleCategorie.trim()
-
-                      })
-
-                    }
-
-                  );
-
-
-                if (!response.ok) {
-
-                  const error =
-                    await response.text();
-
-                  throw new Error(error);
-
-                }
-
-
-                alert(
-                  "Problème modifié avec succès !"
-                );
-
-
-                afficherProblemes();
-
-
-              } catch (error) {
-
-                console.error(error);
-
-                alert(
-                  "Erreur lors de la modification : " +
-                  error.message
-                );
-
-              }
+              trouverSolution(
+                problem,
+                solutionBox
+              );
 
             }
           );
 
 
+        /*
+           BOUTON MODIFIER
+        */
 
-        /* =========================
-           SUPPRIMER
-        ========================= */
+        const editButton =
+          div.querySelector(
+            ".edit-btn"
+          );
 
-        div
-          .querySelector(".delete-btn")
+
+        editButton
           .addEventListener(
             "click",
-            async function() {
+            function() {
 
-              const supprimer =
-                confirm(
-
-                  "Détails du problème :\n\n" +
-
-                  (problem.description || "") +
-
-                  "\n\nVoulez-vous supprimer ce problème ?"
-
-                );
-
-
-              if (!supprimer)
-                return;
-
-
-              try {
-
-                const response =
-                  await fetch(
-
-                    SUPABASE_URL +
-                    "/rest/v1/Problems?id=eq." +
-                    problem.id,
-
-                    {
-
-                      method: "DELETE",
-
-                      headers: {
-
-                        "apikey":
-                          SUPABASE_KEY,
-
-                        "Authorization":
-                          "Bearer " +
-                          SUPABASE_KEY,
-
-                        "Prefer":
-                          "return=minimal"
-
-                      }
-
-                    }
-
-                  );
-
-
-                if (!response.ok) {
-
-                  const error =
-                    await response.text();
-
-                  throw new Error(error);
-
-                }
-
-
-                alert(
-                  "Problème supprimé avec succès !"
-                );
-
-
-                afficherProblemes();
-
-
-              } catch (error) {
-
-                console.error(error);
-
-                alert(
-                  "Erreur lors de la suppression : " +
-                  error.message
-                );
-
-              }
+              modifierProbleme(
+                problem
+              );
 
             }
           );
 
 
-        liste.appendChild(div);
+        /*
+           BOUTON SUPPRIMER
+        */
+
+        const deleteButton =
+          div.querySelector(
+            ".delete-btn"
+          );
+
+
+        deleteButton
+          .addEventListener(
+            "click",
+            function() {
+
+              supprimerProbleme(
+                problem.id
+              );
+
+            }
+          );
+
+
+        liste.appendChild(
+          div
+        );
 
       }
     );
 
-/* =========================
-   TROUVER UNE SOLUTION
-========================= */
+  }
 
-document
-  .getElementById("solution-btn")
-  .addEventListener(
-    "click",
-    function() {
 
-      const categorie =
-        document.getElementById(
-          "catégorie"
-        ).value;
+  catch(error) {
 
+    console.error(error);
 
-      const solutions = {
+    liste.innerHTML = `
 
-        "Eau": `
-  <strong>Solution pour un problème d'eau :</strong><br><br>
+      <div
+        class="message error"
+        style="display:block;"
+      >
 
-  1️⃣ Vérifiez d'abord si le robinet est bien ouvert.<br><br>
+        Impossible de charger les problèmes.
 
-  2️⃣ Vérifiez s'il y a une fuite au niveau des tuyaux ou des robinets.<br><br>
+        <br><br>
 
-  3️⃣ Si l'eau ne coule pas dans toute la maison, vérifiez l'arrivée d'eau.<br><br>
+        Erreur :
+        ${echapperHTML(
+          error.message
+        )}
 
-  4️⃣ Si le problème concerne tout le quartier, renseignez-vous auprès des voisins.<br><br>
+      </div>
 
-  5️⃣ Si le problème continue, contactez le service d'eau de votre zone.
-`,
+    `;
 
-        "Électricité": `
-  <strong>Solution pour un problème d'électricité :</strong><br><br>
+  }
 
-  1️⃣ Vérifiez d'abord le disjoncteur.<br><br>
+}
 
-  2️⃣ Vérifiez si les autres appareils électriques fonctionnent.<br><br>
 
-  3️⃣ Regardez si les voisins ont également une coupure.<br><br>
+/* ==================================================
+   PROTECTION DU HTML
+================================================== */
 
-  4️⃣ Si la coupure concerne uniquement votre logement, vérifiez votre installation électrique.<br><br>
+function echapperHTML(
+  texte
+) {
 
-  5️⃣ Si la coupure continue, contactez le service d'électricité de votre zone.
-`,
+  if (
+    texte === null ||
+    texte === undefined
+  ) {
 
-        "Logement": `
-  <strong>Solution pour un problème de logement :</strong><br><br>
+    return "";
 
-  1️⃣ Identifiez précisément le problème dans le logement.<br><br>
+  }
 
-  2️⃣ Prenez des photos si nécessaire pour garder une preuve.<br><br>
 
-  3️⃣ Informez le propriétaire ou le responsable du logement.<br><br>
+  return String(texte)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
-  4️⃣ Expliquez clairement les réparations nécessaires.<br><br>
+}
 
-  5️⃣ Si le problème n'est pas réglé, renseignez-vous auprès du service ou de l'autorité compétente de votre zone.
-`,
 
-        "Emploi": `
-  <strong>Solution pour un problème d'emploi :</strong><br><br>
+/* ==================================================
+   MODIFIER UN PROBLÈME
+================================================== */
 
-  1️⃣ Identifiez le type d'emploi que vous recherchez.<br><br>
+async function modifierProbleme(
+  problem
+) {
 
-  2️⃣ Préparez ou mettez à jour votre CV.<br><br>
+  const nouveauNom =
+    prompt(
+      "Nom :",
+      problem.Name || ""
+    );
 
-  3️⃣ Consultez les offres d'emploi disponibles dans votre ville.<br><br>
 
-  4️⃣ Contactez les services d'accompagnement à l'emploi ou les centres de formation.<br><br>
+  if (
+    nouveauNom === null
+  ) {
+    return;
+  }
 
-  5️⃣ Postulez aux offres qui correspondent à votre profil.
-`,
 
-        "Transport": `
-  <strong>Solution pour un problème de transport :</strong><br><br>
+  const nouvelleVille =
+    prompt(
+      "Ville :",
+      problem.City || ""
+    );
 
-  1️⃣ Identifiez précisément le problème de transport.<br><br>
 
-  2️⃣ Vérifiez les moyens de transport disponibles dans votre zone.<br><br>
+  if (
+    nouvelleVille === null
+  ) {
+    return;
+  }
 
-  3️⃣ Consultez les horaires et les itinéraires disponibles.<br><br>
 
-  4️⃣ En cas de panne ou de problème avec un véhicule, contactez un réparateur.<br><br>
+  const nouvelleCategorie =
+    prompt(
+      "Catégorie :",
+      problem["Catégory"] || ""
+    );
 
-  5️⃣ Si le problème concerne un service de transport, contactez le responsable du service.
-`,
 
-        "Formation": `
-  <strong>Solution pour un problème de formation :</strong><br><br>
+  if (
+    nouvelleCategorie === null
+  ) {
+    return;
+  }
 
-  1️⃣ Identifiez le domaine dans lequel vous souhaitez vous former.<br><br>
 
-  2️⃣ Recherchez les formations disponibles dans votre ville ou en ligne.<br><br>
+  const nouvelleDescription =
+    prompt(
+      "Description :",
+      problem.description || ""
+    );
 
-  3️⃣ Comparez la durée, le coût et les conditions d'inscription.<br><br>
 
-  4️⃣ Vérifiez si la formation délivre une attestation ou un diplôme.<br><br>
+  if (
+    nouvelleDescription === null
+  ) {
+    return;
+  }
 
-  5️⃣ Choisissez la formation qui correspond le mieux à votre objectif.
-`,
 
-        "Réparation": `
-  <strong>Solution pour un problème de réparation :</strong><br><br>
+  const nouvelleUrgence =
+    prompt(
+      "Urgence :",
+      problem.urgency || ""
+    );
 
-  1️⃣ Identifiez précisément ce qui est en panne.<br><br>
 
-  2️⃣ Vérifiez si le problème peut être résolu simplement et en toute sécurité.<br><br>
+  if (
+    nouvelleUrgence === null
+  ) {
+    return;
+  }
 
-  3️⃣ Recherchez un réparateur qualifié dans votre ville.<br><br>
 
-  4️⃣ Expliquez clairement la panne au réparateur.<br><br>
+  const data = {
 
-  5️⃣ Demandez une estimation du coût avant de commencer la réparation.
-`,
-          
-        "Autre": `
-  <strong>Solution pour un autre problème :</strong><br><br>
+    Name:
+      nouveauNom.trim(),
 
-  1️⃣ Décrivez clairement le problème rencontré.<br><br>
+    City:
+      nouvelleVille.trim(),
 
-  2️⃣ Indiquez votre ville ou votre zone.<br><br>
+    "Catégory":
+      nouvelleCategorie.trim(),
 
-  3️⃣ Précisez depuis quand le problème existe.<br><br>
+    description:
+      nouvelleDescription.trim(),
 
-  4️⃣ Ajoutez une photo ou des informations utiles si nécessaire.<br><br>
+    urgency:
+      nouvelleUrgence.trim()
 
-  5️⃣ Recherchez une personne ou un service compétent pour vous aider.
-`,
-        
-      };
+  };
 
 
-      if (categorie === "") {
+  try {
 
-        alert(
-          "Choisissez d'abord une catégorie."
-        );
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/Problems?id=eq." +
+        encodeURIComponent(
+          problem.id
+        ),
+        {
 
-        return;
+          method: "PATCH",
 
-      }
+          headers: {
 
-
-      let zoneSolution =
-        document.getElementById(
-          "solution"
-        );
-
-
-      if (!zoneSolution) {
-
-        zoneSolution =
-          document.createElement("div");
-
-        zoneSolution.id =
-          "solution";
-
-        document
-          .getElementById("solution-btn")
-          .after(zoneSolution);
-
-      }
-
-
-      zoneSolution.innerHTML =
-        "<strong>Solution proposée :</strong><br>" +
-        solutions[categorie];
-
-    }
-  );
-
-
-
-/* =========================
-   CHARGEMENT INITIAL
-========================= */
-
-afficherProblemes();
-
-</script>
-
-</body>
-</html>
+     
