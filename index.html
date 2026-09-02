@@ -382,6 +382,7 @@ async function afficherProblemes() {
     let problems =
       await response.json();
 
+    alert("Nombre de problèmes reçus : " + problems.length);
 
     const liste =
       document.getElementById(
