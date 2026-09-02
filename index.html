@@ -754,126 +754,6 @@ async function afficherProblemes() {
       }
     );
 
-
-async function afficherProblemes() {
-
-  try {
-
-    const recherche = normaliser(
-      document.getElementById("search-problems").value
-    );
-
-    const categorieFiltre = normaliser(
-      document.getElementById("filter-category").value
-    );
-
-    const response = await fetch(
-      SUPABASE_URL + "/rest/v1/Problems?select=*",
-      {
-        method: "GET",
-        headers: {
-          "apikey": SUPABASE_KEY,
-          "Authorization": "Bearer " + SUPABASE_KEY
-        }
-      }
-    );
-
-    if (!response.ok) {
-      const erreur = await response.text();
-      throw new Error(erreur);
-    }
-
-    let problems = await response.json();
-
-    const liste = document.getElementById("problems-list");
-
-    liste.innerHTML = "";
-
-    problems = problems.filter(function(problem) {
-
-      const nom = normaliser(problem.Name || "");
-      const ville = normaliser(problem.City || "");
-      const categorie = normaliser(problem.Catégory || "");
-
-      const texteRecherche =
-        nom.includes(recherche) ||
-        ville.includes(recherche) ||
-        categorie.includes(recherche);
-
-      const filtreCategorie =
-        categorieFiltre === "" ||
-        categorie === categorieFiltre;
-
-      return texteRecherche && filtreCategorie;
-
-    });
-
-
-    /* =========================
-       AFFICHAGE
-    ========================= */
-
-    if (problems.length === 0) {
-
-      liste.innerHTML =
-        "<p>Aucun problème trouvé.</p>";
-
-      return;
-
-    }
-
-
-    problems.forEach(function(problem) {
-
-      const div = document.createElement("div");
-
-      div.className = "problem";
-
-      div.innerHTML = `
-
-        <h3>${problem.Name || ""}</h3>
-
-        <p>
-          <strong>Ville :</strong>
-          ${problem.City || ""}
-        </p>
-
-        <p>
-          <strong>Catégorie :</strong>
-          ${problem.Catégory || ""}
-        </p>
-
-        <p>
-          <strong>Description :</strong><br>
-          ${problem.description || ""}
-        </p>
-
-        <p>
-          <strong>Urgence :</strong>
-          ${problem.urgency || ""}
-        </p>
-
-        <p>
-          <strong>Publié le :</strong>
-          ${
-            problem.created_at
-              ? new Date(problem.created_at).toLocaleString("fr-FR")
-              : ""
-          }
-        </p>
-
-        <hr>
-
-        <button
-          type="button"
-          class="edit-btn"
-        >
-          Modifier ✏️
-        </button>
-
-        <button
-          type="button"
-          class="delete-btn"
         >
           Supprimer 🗑️
         </button>
@@ -1057,29 +937,10 @@ async function afficherProblemes() {
 
         });
 
+        liste.appendChild(div);
 
-      liste.appendChild(div);
-
-    });
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    const liste =
-      document.getElementById("problems-list");
-
-    if (liste) {
-
-      liste.innerHTML =
-        "<p>Erreur lors du chargement des problèmes.</p>";
-
-    }
-
-  }
-
-}
+        }
+        );
 
 
 /* =========================
