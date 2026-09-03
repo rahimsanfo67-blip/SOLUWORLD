@@ -1047,6 +1047,15 @@ async function afficherProblemes() {
       problems =
         JSON.parse(texte);
 
+      alert(
+  "SUPABASE : " +
+  response.status +
+  "\n\nNombre de problèmes : " +
+  problems.length +
+  "\n\nRéponse :\n" +
+  texte.substring(0, 500)
+);
+
     }
 
     catch (jsonError) {
