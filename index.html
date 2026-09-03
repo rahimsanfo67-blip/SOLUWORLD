@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SOLUWORLD</title>
+  <title>SOLUWORLD - Problèmes et Solutions</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      background: #f4f7f9;
+      background: #f3f6f9;
       color: #222;
     }
 
@@ -26,7 +29,7 @@
     }
 
     header h1 {
-      margin: 0 0 10px;
+      margin: 0 0 10px 0;
       font-size: 32px;
     }
 
@@ -46,18 +49,18 @@
       padding: 20px;
       margin-bottom: 25px;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     h2 {
-      color: #0b5ed7;
       margin-top: 0;
+      color: #0b5ed7;
     }
 
     label {
       display: block;
-      margin-top: 12px;
-      margin-bottom: 5px;
+      margin-top: 14px;
+      margin-bottom: 6px;
       font-weight: bold;
     }
 
@@ -69,6 +72,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 15px;
+      background: white;
     }
 
     textarea {
@@ -80,169 +84,349 @@
       border: none;
       border-radius: 8px;
       padding: 11px 16px;
-      margin-top: 12px;
-      cursor: pointer;
       font-size: 15px;
       font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
     }
 
-    .publish-btn {
+    .publish-button {
+      width: 100%;
       background: #198754;
       color: white;
-      width: 100%;
     }
 
-    .search-btn {
+    .search-button {
       background: #0b5ed7;
       color: white;
     }
 
-    .clear-btn {
+    .clear-button {
       background: #6c757d;
       color: white;
     }
 
-    .edit-btn {
+    .edit-button {
       background: #ffc107;
       color: #222;
-      margin-right: 5px;
     }
 
-    .delete-btn {
+    .delete-button {
       background: #dc3545;
       color: white;
-      margin-right: 5px;
     }
 
-    .solution-btn {
+    .solution-button {
       background: #198754;
       color: white;
     }
 
     .problem {
+      background: #fafafa;
       border: 1px solid #ddd;
       border-left: 6px solid #0b5ed7;
       border-radius: 10px;
       padding: 18px;
-      margin-top: 15px;
-      background: #fafafa;
+      margin-top: 18px;
     }
 
     .problem h3 {
       margin-top: 0;
+      margin-bottom: 15px;
       color: #0b5ed7;
+      font-size: 21px;
     }
 
     .problem p {
-      margin: 8px 0;
       line-height: 1.5;
+      margin: 9px 0;
     }
 
-    .urgency {
+    .problem-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .urgency-low {
+      color: #198754;
       font-weight: bold;
     }
 
-    .solution {
-      margin-top: 15px;
-      padding: 15px;
-      background: #eef8f0;
-      border-radius: 8px;
-      border-left: 5px solid #198754;
+    .urgency-medium {
+      color: #d97706;
+      font-weight: bold;
     }
 
-    .solution h4 {
+    .urgency-high {
+      color: #dc3545;
+      font-weight: bold;
+    }
+
+    .solution-box {
+      display: none;
+      background: #eaf7ee;
+      border-left: 5px solid #198754;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .solution-box h4 {
       margin-top: 0;
       color: #198754;
     }
 
     .message {
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 10px;
       display: none;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 8px;
     }
 
-    .success {
+    .success-message {
       background: #d1e7dd;
       color: #0f5132;
     }
 
-    .error {
+    .error-message {
       background: #f8d7da;
       color: #842029;
     }
 
-    .info {
+    .info-message {
       background: #cff4fc;
       color: #055160;
     }
 
-    .search-zone {
+    .search-area {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 15px;
     }
 
-    .buttons-search {
+    .search-buttons {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
 
+    .empty-message {
+      background: #f1f3f5;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
     @media (max-width: 700px) {
-      .search-zone {
+
+      .search-area {
         grid-template-columns: 1fr;
       }
 
       header h1 {
-        font-size: 26px;
+        font-size: 27px;
       }
+
+      .problem-buttons {
+        flex-direction: column;
+      }
+
+      .problem-buttons button {
+        width: 100%;
+      }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
+
+<!-- =====================================================
+     EN-TÊTE
+===================================================== -->
+
 <header>
+
   <h1>🌍 SOLUWORLD</h1>
-  <p>Signaler les problèmes et trouver des solutions pour nos communautés</p>
+
+  <p>
+    Signaler les problèmes et trouver des solutions
+    pour nos communautés
+  </p>
+
 </header>
+
 
 <main>
 
-  <!-- =========================
-       PUBLIER UN PROBLÈME
-  ========================= -->
 
-  <section>
+<!-- =====================================================
+     PUBLIER UN PROBLÈME
+===================================================== -->
 
-    <h2>📢 Signaler un problème</h2>
+<section>
 
-    <form id="problem-form">
+  <h2>📢 Signaler un problème</h2>
 
-      <label for="nom">Nom</label>
-      <input
-        type="text"
-        id="nom"
-        placeholder="Votre nom"
-        required
-      >
+  <form id="problem-form">
 
-      <label for="ville">Ville</label>
-      <input
-        type="text"
-        id="ville"
-        placeholder="Votre ville"
-        required
-      >
 
-      <label for="catégorie">Catégorie</label>
+    <label for="nom">
+      Nom
+    </label>
 
-      <select id="catégorie" required>
+    <input
+      type="text"
+      id="nom"
+      placeholder="Votre nom"
+      required
+    >
+
+
+    <label for="ville">
+      Ville
+    </label>
+
+    <input
+      type="text"
+      id="ville"
+      placeholder="Votre ville"
+      required
+    >
+
+
+    <label for="catégorie">
+      Catégorie
+    </label>
+
+    <select id="catégorie" required>
+
+      <option value="">
+        Choisir une catégorie
+      </option>
+
+      <option value="Eau">
+        💧 Eau
+      </option>
+
+      <option value="Électricité">
+        ⚡ Électricité
+      </option>
+
+      <option value="Route">
+        🛣️ Route
+      </option>
+
+      <option value="Déchets">
+        🗑️ Déchets
+      </option>
+
+      <option value="Santé">
+        🏥 Santé
+      </option>
+
+      <option value="Éducation">
+        📚 Éducation
+      </option>
+
+      <option value="Sécurité">
+        🛡️ Sécurité
+      </option>
+
+      <option value="Autre">
+        📌 Autre
+      </option>
+
+    </select>
+
+
+    <label for="problème">
+      Description du problème
+    </label>
+
+    <textarea
+      id="problème"
+      placeholder="Décrivez clairement le problème..."
+      required
+    ></textarea>
+
+
+    <label for="urgence">
+      Niveau d'urgence
+    </label>
+
+    <select id="urgence" required>
+
+      <option value="">
+        Choisir le niveau d'urgence
+      </option>
+
+      <option value="Faible">
+        🟢 Faible
+      </option>
+
+      <option value="Moyenne">
+        🟠 Moyenne
+      </option>
+
+      <option value="Élevée">
+        🔴 Élevée
+      </option>
+
+    </select>
+
+
+    <button
+      type="submit"
+      class="publish-button"
+    >
+      📢 Publier le problème
+    </button>
+
+
+  </form>
+
+
+  <div
+    id="form-message"
+    class="message"
+  ></div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     PROBLÈMES PUBLIÉS
+===================================================== -->
+
+<section>
+
+  <h2>
+    📋 Tous les problèmes publiés
+  </h2>
+
+
+  <div class="search-area">
+
+
+    <div>
+
+      <label for="filter-category">
+        🗂️ Filtrer par catégorie
+      </label>
+
+      <select id="filter-category">
 
         <option value="">
-          Choisir une catégorie
+          Toutes les catégories
         </option>
 
         <option value="Eau">
@@ -277,295 +461,247 @@
           📌 Autre
         </option>
 
-        <option value="Transport">
-          🚕 Transport 
-        </option>
-
       </select>
-
-      <label for="problème">
-        Description du problème
-      </label>
-
-      <textarea
-        id="problème"
-        placeholder="Décrivez le problème..."
-        required
-      ></textarea>
-
-      <label for="urgence">
-        Niveau d'urgence
-      </label>
-
-      <select id="urgence" required>
-
-        <option value="">
-          Choisir le niveau
-        </option>
-
-        <option value="Faible">
-          🟢 Faible
-        </option>
-
-        <option value="Moyenne">
-          🟠 Moyenne
-        </option>
-
-        <option value="Élevée">
-          🔴 Élevée
-        </option>
-
-      </select>
-
-      <button
-        type="submit"
-        class="publish-btn"
-      >
-        📢 Publier le problème
-      </button>
-
-    </form>
-
-    <div
-      id="form-message"
-      class="message"
-    ></div>
-
-  </section>
-
-
-  <!-- =========================
-       PROBLÈMES PUBLIÉS
-  ========================= -->
-
-  <section>
-
-    <h2>📋 Problèmes publiés</h2>
-
-    <div class="search-zone">
-
-      <div>
-
-        <label for="filter-category">
-          Filtrer par catégorie
-        </label>
-
-        <select id="filter-category">
-
-          <option value="">
-            Toutes les catégories
-          </option>
-
-          <option value="Eau">
-            💧 Eau
-          </option>
-
-          <option value="Électricité">
-            ⚡ Électricité
-          </option>
-
-          <option value="Route">
-            🛣️ Route
-          </option>
-
-          <option value="Déchets">
-            🗑️ Déchets
-          </option>
-
-          <option value="Santé">
-            🏥 Santé
-          </option>
-
-          <option value="Éducation">
-            📚 Éducation
-          </option>
-
-          <option value="Sécurité">
-            🛡️ Sécurité
-          </option>
-
-          <option value="Autre">
-            📌 Autre
-          </option>
-
-          <option value="Transport">
-            🚕 Transport 
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <div>
-
-        <label for="search-problems">
-          Rechercher
-        </label>
-
-        <input
-          type="text"
-          id="search-problems"
-          placeholder="Nom, ville ou catégorie..."
-        >
-
-      </div>
 
     </div>
 
 
-    <div class="buttons-search">
+    <div>
 
-      <button
-        type="button"
-        id="search-btn"
-        class="search-btn"
-      >
+      <label for="search-problems">
         🔎 Rechercher
-      </button>
+      </label>
 
-      <button
-        type="button"
-        id="clear-search"
-        class="clear-btn"
+      <input
+        type="text"
+        id="search-problems"
+        placeholder="Nom, ville ou catégorie..."
       >
-        Effacer
-      </button>
 
     </div>
 
 
-    <div
-      id="problems-message"
-      class="message"
-    ></div>
+  </div>
 
 
-    <div id="problems-list">
+  <div class="search-buttons">
 
-      <p>
-        Chargement des problèmes...
-      </p>
+    <button
+      type="button"
+      id="search-btn"
+      class="search-button"
+    >
+      🔎 Rechercher
+    </button>
 
+
+    <button
+      type="button"
+      id="clear-search"
+      class="clear-button"
+    >
+      Effacer
+    </button>
+
+  </div>
+
+
+  <div
+    id="problems-message"
+    class="message"
+  ></div>
+
+
+  <div id="problems-list">
+
+    <div class="empty-message">
+      🔄 Chargement des problèmes...
     </div>
 
-  </section>
+  </div>
 
 
-  <!-- =========================
-       TROUVER UNE SOLUTION
-  ========================= -->
+</section>
 
-  <section id="solution">
 
-    <h2>💡 Trouver une solution</h2>
+
+<!-- =====================================================
+     SOLUTION
+===================================================== -->
+
+<section>
+
+  <h2>
+    💡 Trouver une solution
+  </h2>
+
+
+  <div id="solution-content">
 
     <p>
-      Sélectionnez un problème ci-dessus pour rechercher
-      une solution.
+      Sélectionnez le bouton
+      <strong>« Trouver une solution »</strong>
+      sur un problème.
     </p>
 
-    <div id="solution-content">
+  </div>
 
-      <p>
-        Aucune solution sélectionnée.
-      </p>
 
-    </div>
+</section>
 
-  </section>
 
 </main>
 
 
+
 <script>
 
-/* ==================================================
+/* =====================================================
    CONFIGURATION SUPABASE
-================================================== */
+===================================================== */
 
 const SUPABASE_URL =
   "https://cempljialofhnkvjpsko.supabase.co";
 
+
 /*
    IMPORTANT :
 
-   Remplace uniquement la valeur ci-dessous
-   par TON ancienne clé Supabase.
+   COLLE ICI TA CLÉ SUPABASE ACTUELLE.
 
-   Exemple :
+   Elle commence par :
 
-   const SUPABASE_KEY = "sb_publishable_....";
+   sb_publishable_...
+
 */
 
 const SUPABASE_KEY =
-  sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f
+  "COLLE_ICI_TA_CLE_SUPABASE";
 
 
-/* ==================================================
-   OUTILS
-================================================== */
+/* =====================================================
+   FONCTION NORMALISER
+===================================================== */
 
 function normaliser(texte) {
 
-  if (texte === null || texte === undefined) {
+  if (
+    texte === null ||
+    texte === undefined
+  ) {
+
     return "";
+
   }
 
   return String(texte)
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
+    )
     .trim();
+
 }
 
 
-/* ==================================================
-   AFFICHER UN MESSAGE
-================================================== */
+/* =====================================================
+   ÉCHAPPER LE HTML
+===================================================== */
+
+function echapperHTML(texte) {
+
+  if (
+    texte === null ||
+    texte === undefined
+  ) {
+
+    return "";
+
+  }
+
+  return String(texte)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   AFFICHER MESSAGE
+===================================================== */
 
 function afficherMessage(
-  elementId,
-  message,
+  id,
+  texte,
   type
 ) {
 
   const element =
-    document.getElementById(elementId);
+    document.getElementById(id);
 
   if (!element) {
     return;
   }
 
-  element.textContent = message;
+  element.textContent =
+    texte;
 
   element.className =
     "message " + type;
 
-  element.style.display = "block";
+  element.style.display =
+    "block";
+
 }
 
 
-/* ==================================================
-   CACHER UN MESSAGE
-================================================== */
+/* =====================================================
+   CACHER MESSAGE
+===================================================== */
 
-function cacherMessage(elementId) {
+function cacherMessage(id) {
 
   const element =
-    document.getElementById(elementId);
+    document.getElementById(id);
 
   if (!element) {
     return;
   }
 
-  element.style.display = "none";
+  element.style.display =
+    "none";
+
 }
 
 
-/* ==================================================
-   PUBLIER UN PROBLÈME
-================================================== */
+/* =====================================================
+   PUBLICATION D'UN PROBLÈME
+===================================================== */
 
 document
   .getElementById("problem-form")
@@ -575,7 +711,11 @@ document
 
       e.preventDefault();
 
-      cacherMessage("form-message");
+
+      cacherMessage(
+        "form-message"
+      );
+
 
       const data = {
 
@@ -649,22 +789,27 @@ document
 
         if (!response.ok) {
 
-          const error =
+          const erreur =
             await response.text();
 
-          throw new Error(error);
+          throw new Error(
+            erreur
+          );
+
         }
 
 
         afficherMessage(
           "form-message",
-          "Votre problème a été publié avec succès !",
+          "✅ Votre problème a été publié avec succès !",
           "success"
         );
 
 
         document
-          .getElementById("problem-form")
+          .getElementById(
+            "problem-form"
+          )
           .reset();
 
 
@@ -673,13 +818,16 @@ document
       }
 
 
-      catch(error) {
+      catch (error) {
 
-        console.error(error);
+        console.error(
+          error
+        );
+
 
         afficherMessage(
           "form-message",
-          "Erreur lors de la publication : " +
+          "❌ Erreur : " +
           error.message,
           "error"
         );
@@ -690,9 +838,9 @@ document
   );
 
 
-/* ==================================================
-   AFFICHER TOUS LES PROBLÈMES
-================================================== */
+/* =====================================================
+   AFFICHAGE DE TOUS LES PROBLÈMES
+===================================================== */
 
 async function afficherProblemes() {
 
@@ -707,11 +855,21 @@ async function afficherProblemes() {
   }
 
 
-  liste.innerHTML =
-    "<p>Chargement des problèmes...</p>";
+  liste.innerHTML = `
+
+    <div class="empty-message">
+      🔄 Chargement des problèmes...
+    </div>
+
+  `;
 
 
   try {
+
+
+    /* -----------------------------------------------
+       RÉCUPÉRER RECHERCHE
+    ------------------------------------------------ */
 
     const recherche =
       normaliser(
@@ -723,6 +881,10 @@ async function afficherProblemes() {
       );
 
 
+    /* -----------------------------------------------
+       RÉCUPÉRER FILTRE
+    ------------------------------------------------ */
+
     const categorieFiltre =
       normaliser(
         document
@@ -733,15 +895,16 @@ async function afficherProblemes() {
       );
 
 
-    /*
-       RÉCUPÉRATION DES PROBLÈMES
-       DEPUIS SUPABASE
-    */
+    /* -----------------------------------------------
+       DEMANDE À SUPABASE
+    ------------------------------------------------ */
 
     const response =
       await fetch(
+
         SUPABASE_URL +
         "/rest/v1/Problems?select=*&order=created_at.desc",
+
         {
 
           method: "GET",
@@ -758,35 +921,48 @@ async function afficherProblemes() {
           }
 
         }
+
       );
 
 
+    /* -----------------------------------------------
+       VÉRIFIER LA RÉPONSE
+    ------------------------------------------------ */
+
     if (!response.ok) {
 
-      const error =
+      const erreur =
         await response.text();
 
-      throw new Error(error);
+      throw new Error(
+        erreur
+      );
+
     }
 
+
+    /* -----------------------------------------------
+       CONVERTIR EN JSON
+    ------------------------------------------------ */
 
     let problems =
       await response.json();
 
 
     console.log(
-      "Nombre de problèmes reçus :",
-      problems.length
+      "Problèmes reçus :",
+      problems
     );
 
 
-    /*
-       FILTRAGE
-    */
+    /* -----------------------------------------------
+       FILTRER
+    ------------------------------------------------ */
 
     problems =
       problems.filter(
         function(problem) {
+
 
           const nom =
             normaliser(
@@ -800,13 +976,21 @@ async function afficherProblemes() {
             );
 
 
+          /*
+             IMPORTANT :
+
+             Le nom exact de ta colonne
+             est "Catégory".
+          */
+
           const categorie =
             normaliser(
               problem["Catégory"]
             );
 
 
-          const texteRecherche =
+          const rechercheOK =
+
             recherche === "" ||
 
             nom.includes(
@@ -822,7 +1006,8 @@ async function afficherProblemes() {
             );
 
 
-          const filtreCategorie =
+          const categorieOK =
+
             categorieFiltre === "" ||
 
             categorie ===
@@ -830,46 +1015,51 @@ async function afficherProblemes() {
 
 
           return (
-            texteRecherche &&
-            filtreCategorie
+            rechercheOK &&
+            categorieOK
           );
 
         }
       );
 
 
-    /*
-       NETTOYAGE DE LA LISTE
-    */
+    /* -----------------------------------------------
+       VIDER LA LISTE
+    ------------------------------------------------ */
 
     liste.innerHTML = "";
 
 
-    /*
+    /* -----------------------------------------------
        AUCUN PROBLÈME
-    */
+    ------------------------------------------------ */
 
     if (
       problems.length === 0
     ) {
 
       liste.innerHTML = `
-        <div class="message info"
-             style="display:block;">
-          Aucun problème trouvé.
+
+        <div class="empty-message">
+
+          📭 Aucun problème trouvé.
+
         </div>
+
       `;
 
       return;
+
     }
 
 
-    /*
-       AFFICHAGE DE CHAQUE PROBLÈME
-    */
+    /* -----------------------------------------------
+       AFFICHER TOUS LES PROBLÈMES
+    ------------------------------------------------ */
 
     problems.forEach(
       function(problem) {
+
 
         const div =
           document.createElement(
@@ -881,46 +1071,12 @@ async function afficherProblemes() {
           "problem";
 
 
-        /*
-           URGENCE
-        */
-
-        let urgenceTexte =
-          problem.urgency || "";
-
-
-        let urgenceEmoji =
-          "🟢";
-
-
-        if (
-          normaliser(
-            problem.urgency
-          ) === "moyenne"
-        ) {
-
-          urgenceEmoji = "🟠";
-
-        }
-
-
-        if (
-          normaliser(
-            problem.urgency
-          ) === "elevee"
-        ) {
-
-          urgenceEmoji = "🔴";
-
-        }
-
-
-        /*
+        /* -----------------------------------------
            DATE
-        */
+        ------------------------------------------ */
 
-        let dateTexte =
-          "";
+        let dateAffichee =
+          "Date inconnue";
 
 
         if (
@@ -939,7 +1095,7 @@ async function afficherProblemes() {
             )
           ) {
 
-            dateTexte =
+            dateAffichee =
               date.toLocaleString(
                 "fr-FR"
               );
@@ -949,354 +1105,177 @@ async function afficherProblemes() {
         }
 
 
-        /*
-           CONTENU DU PROBLÈME
-        */
+        /* -----------------------------------------
+           URGENCE
+        ------------------------------------------ */
+
+        const urgence =
+          problem.urgency || "Non précisée";
+
+
+        let classeUrgence =
+          "";
+
+
+        let emojiUrgence =
+          "⚪";
+
+
+        if (
+          normaliser(
+            urgence
+          ) === "faible"
+        ) {
+
+          classeUrgence =
+            "urgency-low";
+
+          emojiUrgence =
+            "🟢";
+
+        }
+
+
+        else if (
+          normaliser(
+            urgence
+          ) === "moyenne"
+        ) {
+
+          classeUrgence =
+            "urgency-medium";
+
+          emojiUrgence =
+            "🟠";
+
+        }
+
+
+        else if (
+          normaliser(
+            urgence
+          ) === "elevee"
+        ) {
+
+          classeUrgence =
+            "urgency-high";
+
+          emojiUrgence =
+            "🔴";
+
+        }
+
+
+        /* -----------------------------------------
+           CATÉGORIE
+        ------------------------------------------ */
+
+        const categorie =
+          problem["Catégory"] ||
+          "Non précisée";
+
+
+        /* -----------------------------------------
+           AFFICHAGE
+        ------------------------------------------ */
 
         div.innerHTML = `
 
           <h3>
-            ${echapperHTML(
-              problem.Name || ""
+            📢 ${echapperHTML(
+              problem.Name || "Sans nom"
             )}
           </h3>
 
-          <p>
-            <strong>📍 Ville :</strong>
-            ${echapperHTML(
-              problem.City || ""
-            )}
-          </p>
 
           <p>
-            <strong>📂 Catégorie :</strong>
+            <strong>
+              📍 Ville :
+            </strong>
+
             ${echapperHTML(
-              problem["Catégory"] || ""
+              problem.City || "Non précisée"
             )}
+
           </p>
+
 
           <p>
-            <strong>📝 Description :</strong><br>
+            <strong>
+              🗂️ Catégorie :
+            </strong>
+
             ${echapperHTML(
-              problem.description || ""
+              categorie
             )}
+
           </p>
 
-          <p class="urgency">
-            <strong>🚨 Urgence :</strong>
-            ${urgenceEmoji}
-            ${echapperHTML(
-              urgenceTexte
-            )}
-          </p>
 
           <p>
-            <strong>📅 Publié le :</strong>
-            ${dateTexte}
+            <strong>
+              📝 Problème :
+            </strong>
+
+            <br>
+
+            ${echapperHTML(
+              problem.description ||
+              "Aucune description"
+            )}
+
           </p>
 
-          <div>
+
+          <p class="${classeUrgence}">
+
+            <strong>
+              🚨 Niveau d'urgence :
+            </strong>
+
+            ${emojiUrgence}
+
+            ${echapperHTML(
+              urgence
+            )}
+
+          </p>
+
+
+          <p>
+
+            <strong>
+              📅 Date de publication :
+            </strong>
+
+            ${echapperHTML(
+              dateAffichee
+            )}
+
+          </p>
+
+
+          <div class="problem-buttons">
+
 
             <button
               type="button"
-              class="solution-btn"
+              class="solution-button"
             >
               💡 Trouver une solution
             </button>
 
+
             <button
               type="button"
-              class="edit-btn"
+              class="edit-button"
             >
               ✏️ Modifier
             </button>
 
+
             <button
               type="button"
-              class="delete-btn"
+              class="delete-button"
             >
-              🗑️ Supprimer
-            </button>
-
-          </div>
-
-          <div
-            class="solution"
-            style="display:none;"
-          ></div>
-
-        `;
-
-
-        /*
-           BOUTON SOLUTION
-        */
-
-        const solutionButton =
-          div.querySelector(
-            ".solution-btn"
-          );
-
-
-        const solutionBox =
-          div.querySelector(
-            ".solution"
-          );
-
-
-        solutionButton
-          .addEventListener(
-            "click",
-            function() {
-
-              trouverSolution(
-                problem,
-                solutionBox
-              );
-
-            }
-          );
-
-
-        /*
-           BOUTON MODIFIER
-        */
-
-        const editButton =
-          div.querySelector(
-            ".edit-btn"
-          );
-
-
-        editButton
-          .addEventListener(
-            "click",
-            function() {
-
-              modifierProbleme(
-                problem
-              );
-
-            }
-          );
-
-
-        /*
-           BOUTON SUPPRIMER
-        */
-
-        const deleteButton =
-          div.querySelector(
-            ".delete-btn"
-          );
-
-
-        deleteButton
-          .addEventListener(
-            "click",
-            function() {
-
-              supprimerProbleme(
-                problem.id
-              );
-
-            }
-          );
-
-
-        liste.appendChild(
-          div
-        );
-
-      }
-    );
-
-  }
-
-
-  catch(error) {
-
-    console.error(error);
-
-    liste.innerHTML = `
-
-      <div
-        class="message error"
-        style="display:block;"
-      >
-
-        Impossible de charger les problèmes.
-
-        <br><br>
-
-        Erreur :
-        ${echapperHTML(
-          error.message
-        )}
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-/* ==================================================
-   PROTECTION DU HTML
-================================================== */
-
-function echapperHTML(
-  texte
-) {
-
-  if (
-    texte === null ||
-    texte === undefined
-  ) {
-
-    return "";
-
-  }
-
-
-  return String(texte)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-/* ==================================================
-   MODIFIER UN PROBLÈME
-================================================== */
-
-async function modifierProbleme(
-  problem
-) {
-
-  const nouveauNom =
-    prompt(
-      "Nom :",
-      problem.Name || ""
-    );
-
-
-  if (
-    nouveauNom === null
-  ) {
-    return;
-  }
-
-
-  const nouvelleVille =
-    prompt(
-      "Ville :",
-      problem.City || ""
-    );
-
-
-  if (
-    nouvelleVille === null
-  ) {
-    return;
-  }
-
-
-  const nouvelleCategorie =
-    prompt(
-      "Catégorie :",
-      problem["Catégory"] || ""
-    );
-
-
-  if (
-    nouvelleCategorie === null
-  ) {
-    return;
-  }
-
-
-  const nouvelleDescription =
-    prompt(
-      "Description :",
-      problem.description || ""
-    );
-
-
-  if (
-    nouvelleDescription === null
-  ) {
-    return;
-  }
-
-
-  const nouvelleUrgence =
-    prompt(
-      "Urgence :",
-      problem.urgency || ""
-    );
-
-
-  if (
-    nouvelleUrgence === null
-  ) {
-    return;
-  }
-
-
-  const data = {
-
-    Name:
-      nouveauNom.trim(),
-
-    City:
-      nouvelleVille.trim(),
-
-    "Catégory":
-      nouvelleCategorie.trim(),
-
-    description:
-      nouvelleDescription.trim(),
-
-    urgency:
-      nouvelleUrgence.trim()
-
-  };
-
-
-  try {
-
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/Problems?id=eq." +
-        encodeURIComponent(
-          problem.id
-        ),
-        {
-
-          method: "PATCH",
-
-          headers: {
-
-     
+              🗑️ Supprime
