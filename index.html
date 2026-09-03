@@ -844,86 +844,143 @@ document
 
 async function afficherProblemes() {
 
-  const liste =
-    document.getElementById(
-      "problems-list"
-    );
+  const liste = document.getElementById("problems-list");
 
-
-  if (!liste) {
-    return;
-  }
-
-
-  liste.innerHTML = `
-
-    <div class="empty-message">
-      🔄 Chargement des problèmes...
-    </div>
-
-  `;
-
+  liste.innerHTML = "<p>🔄 Connexion à Supabase...</p>";
 
   try {
 
-
-    /* -----------------------------------------------
-       RÉCUPÉRER RECHERCHE
-    ------------------------------------------------ */
-
-    const recherche =
-      normaliser(
-        document
-          .getElementById(
-            "search-problems"
-          )
-          .value
-      );
-
-
-    /* -----------------------------------------------
-       RÉCUPÉRER FILTRE
-    ------------------------------------------------ */
-
-    const categorieFiltre =
-      normaliser(
-        document
-          .getElementById(
-            "filter-category"
-          )
-          .value
-      );
-
-
-    /* -----------------------------------------------
-       DEMANDE À SUPABASE
-    ------------------------------------------------ */
-
-    const response =
-      await fetch(
-
-        SUPABASE_URL +
-        "/rest/v1/Problems?select=*&order=created_at.desc",
-
-        {
-
-          method: "GET",
-
-          headers: {
-
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              "Bearer " +
-              SUPABASE_KEY
-
-          }
-
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/Problems?select=*",
+      {
+        method: "GET",
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY
         }
+      }
+    );
 
-      );
+    const texte = await response.text();
 
+    alert(
+      "Réponse Supabase : " +
+      response.status +
+      "\n\n" +
+      texte.substring(0, 500)
+    );
+
+    if (!response.ok) {
+      throw new Error(texte);
+    }
+
+    const problems = JSON.parse(texte);
+
+    liste.innerHTML = "";
+
+    if (!Array.isArray(problems)) {
+      liste.innerHTML =
+        "<p>❌ Supabase n'a pas renvoyé une liste de problèmes.</p>";
+      return;
+    }
+
+    if (problems.length === 0) {
+      liste.innerHTML =
+        "<p>⚠️ Supabase répond correctement, mais 0 problème est retourné.</p>";
+      return;
+    }
+
+    problems.forEach(function(problem) {
+
+      const div = document.createElement("div");
+
+      div.className = "problem";
+
+      const date = problem.created_at
+        ? new Date(problem.created_at).toLocaleString("fr-FR")
+        : "Date inconnue";
+
+      div.innerHTML = `
+        <h3>📢 ${echapperHTML(problem.Name || "Sans nom")}</h3>
+
+        <p>
+          <strong>📍 Ville :</strong>
+          ${echapperHTML(problem.City || "Non précisée")}
+        </p>
+
+        <p>
+          <strong>🗂️ Catégorie :</strong>
+          ${echapperHTML(problem["Catégory"] || "Non précisée")}
+        </p>
+
+        <p>
+          <strong>📝 Problème :</strong><br>
+          ${echapperHTML(problem.description || "Aucune description")}
+        </p>
+
+        <p>
+          <strong>🚨 Niveau d'urgence :</strong>
+          ${echapperHTML(problem.urgency || "Non précisé")}
+        </p>
+
+        <p>
+          <strong>📅 Date :</strong>
+          ${date}
+        </p>
+
+        <button
+          type="button"
+          onclick="trouverSolutionDepuisCarte(this)"
+        >
+          💡 Trouver une solution
+        </button>
+
+        <button
+          type="button"
+          onclick="modifierProblemeDepuisCarte(this)"
+        >
+          ✏️ Modifier
+        </button>
+
+        <button
+          type="button"
+          onclick="supprimerProblemeDepuisCarte('${problem.id}')"
+        >
+          🗑️ Supprimer
+        </button>
+
+        <div class="solution-box"></div>
+      `;
+
+      div.dataset.problem =
+        JSON.stringify(problem);
+
+      liste.appendChild(div);
+
+    });
+
+  }
+
+  catch (error) {
+
+    liste.innerHTML = `
+      <div class="problem">
+        <h3>❌ Erreur</h3>
+        <p>${echapperHTML(error.message)}</p>
+      </div>
+    `;
+
+    alert(
+      "ERREUR JAVASCRIPT / SUPABASE :\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+
+  
 
     /* -----------------------------------------------
        VÉRIFIER LA RÉPONSE
