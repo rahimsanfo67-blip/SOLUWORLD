@@ -913,104 +913,7 @@ async function afficherProblemes() {
    AFFICHER LA LISTE
 ================================ */
 
-function afficherListe(problems) {
 
-  const liste = document.getElementById("problems-list");
-
-  if (!liste) return;
-
-  if (!problems || problems.length === 0) {
-
-    liste.innerHTML = `
-      <div class="empty-message">
-        📭 Aucun problème publié pour le moment.
-      </div>
-    `;
-
-    return;
-  }
-
-  let html = "";
-
-  problems.forEach(function(problem) {
-
-    const urgence = normaliser(problem.urgency);
-
-    let urgenceClasse = "";
-
-    if (urgence === "elevee" || urgence === "haute") {
-      urgenceClasse = "high";
-    }
-
-    else if (urgence === "moyenne") {
-      urgenceClasse = "medium";
-    }
-
-    else {
-      urgenceClasse = "low";
-    }
-
-    html += `
-      <div
-        class="problem ${urgenceClasse}"
-        data-category="${echapperHTML(problem["Catégory"] || "")}"
-        data-search="
-          ${echapperHTML(problem.Name || "")}
-          ${echapperHTML(problem.City || "")}
-          ${echapperHTML(problem["Catégory"] || "")}
-          ${echapperHTML(problem.description || "")}
-        "
-      >
-
-        <h3>
-          ${echapperHTML(problem.description || "Problème sans description")}
-        </h3>
-
-        <p>
-          👤 <strong>Nom :</strong>
-          ${echapperHTML(problem.Name || "Non renseigné")}
-        </p>
-
-        <p>
-          📍 <strong>Ville :</strong>
-          ${echapperHTML(problem.City || "Non renseignée")}
-        </p>
-
-        <p>
-          🏷️ <strong>Catégorie :</strong>
-          ${echapperHTML(problem["Catégory"] || "Non renseignée")}
-        </p>
-
-        <p>
-          🚨 <strong>Urgence :</strong>
-          ${echapperHTML(problem.urgency || "Non renseignée")}
-        </p>
-
-        <button
-          type="button"
-          class="solution-button"
-          data-problem='${JSON.stringify(problem)
-            .replace(/&/g, "&amp;")
-            .replace(/'/g, "&#039;")
-            .replace(/"/g, "&quot;")
-          }'
-          onclick="trouverSolution(this)"
-        >
-          💡 Trouver une solution
-        </button>
-
-        <div
-          class="solution-box"
-          style="display:none;"
-        ></div>
-
-      </div>
-    `;
-
-  });
-
-  liste.innerHTML = html;
-}
 
 
 /* ================================
@@ -1064,6 +967,128 @@ function filtrerProblemes() {
       carte.style.display = "block";
       nombre++;
 
+    function afficherListe(problems) {
+
+  const liste = document.getElementById("problems-list");
+
+  if (!liste) return;
+
+  if (!problems || problems.length === 0) {
+
+    liste.innerHTML = `
+      <div class="empty-message">
+        📭 Aucun problème publié pour le moment.
+      </div>
+    `;
+
+    return;
+  }
+
+  let html = "";
+
+  problems.forEach(function(problem) {
+
+    const urgence = normaliser(problem.urgency);
+
+    let urgenceClasse = "";
+
+    if (urgence === "elevee" || urgence === "haute") {
+      urgenceClasse = "high";
+    }
+
+    else if (urgence === "moyenne") {
+      urgenceClasse = "medium";
+    }
+
+    else {
+      urgenceClasse = "low";
+    }
+
+    const problemJSON = JSON.stringify(problem)
+      .replace(/&/g, "&amp;")
+      .replace(/'/g, "&#039;")
+      .replace(/"/g, "&quot;");
+
+    html += `
+      <div
+        class="problem ${urgenceClasse}"
+        data-category="${echapperHTML(problem["Catégory"] || "")}"
+        data-search="
+          ${echapperHTML(problem.Name || "")}
+          ${echapperHTML(problem.City || "")}
+          ${echapperHTML(problem["Catégory"] || "")}
+          ${echapperHTML(problem.description || "")}
+        "
+      >
+
+        <h3>
+          ${echapperHTML(
+            problem.description || "Problème sans description"
+          )}
+        </h3>
+
+        <p>
+          👤 <strong>Nom :</strong>
+          ${echapperHTML(problem.Name || "Non renseigné")}
+        </p>
+
+        <p>
+          📍 <strong>Ville :</strong>
+          ${echapperHTML(problem.City || "Non renseignée")}
+        </p>
+
+        <p>
+          🏷️ <strong>Catégorie :</strong>
+          ${echapperHTML(problem["Catégory"] || "Non renseignée")}
+        </p>
+
+        <p>
+          🚨 <strong>Urgence :</strong>
+          ${echapperHTML(problem.urgency || "Non renseignée")}
+        </p>
+
+        <div class="problem-buttons">
+
+          <button
+            type="button"
+            class="solution-button"
+            data-problem='${problemJSON}'
+            onclick="trouverSolution(this)"
+          >
+            💡 Trouver une solution
+          </button>
+
+          <button
+            type="button"
+            class="edit-button"
+            data-problem='${problemJSON}'
+            onclick="modifierProbleme(this)"
+          >
+            ✏️ Modifier
+          </button>
+
+          <button
+            type="button"
+            class="delete-button"
+            data-id="${echapperHTML(String(problem.id || ""))}"
+            onclick="supprimerProbleme(this)"
+          >
+            🗑️ Supprimer
+          </button>
+
+        </div>
+
+        <div
+          class="solution-box"
+          style="display:none;"
+        ></div>
+
+      </div>
+    `;
+
+  });
+
+  liste.innerHTML = html;
     }
 
     else {
