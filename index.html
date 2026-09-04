@@ -371,12 +371,13 @@ function modifierProbleme(bouton){
      "Prefer":"return=minimal"
     },
     body:JSON.stringify({
-     Name:nom,
-     City:ville,
-     "Catégory":categorie,
-     description:description,
-     urgency:urgence
-    })
+ Name:nom,
+ City:ville,
+ "Catégory":categorie,
+ description,
+ urgency:urgence,
+ created_at:new Date().toISOString()
+})
    }
   );
 
