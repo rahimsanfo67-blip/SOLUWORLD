@@ -66,6 +66,46 @@ button:disabled{opacity:.6;cursor:not-allowed}
 <div id="problems-list"><div class="loading">🔄 Chargement des problèmes...</div></div>
 </section>
 
+ <section id="edit-section" style="display:none;">
+<h2>✏️ Modifier le problème</h2>
+
+<form id="edit-form">
+
+<label for="edit-nom">Nom</label>
+<input type="text" id="edit-nom" required>
+
+<label for="edit-ville">Ville</label>
+<input type="text" id="edit-ville" required>
+
+<label for="edit-categorie">Catégorie</label>
+<select id="edit-categorie" required></select>
+
+<label for="edit-description">Description du problème</label>
+<textarea id="edit-description" required></textarea>
+
+<label for="edit-urgence">Niveau d'urgence</label>
+<select id="edit-urgence" required>
+<option value="">Choisir le niveau d'urgence</option>
+<option value="Faible">🟢 Faible</option>
+<option value="Moyenne">🟠 Moyenne</option>
+<option value="Élevée">🔴 Élevée</option>
+</select>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+<button type="submit" class="edit-button">
+💾 Enregistrer les modifications
+</button>
+
+<button type="button" id="cancel-edit" class="clear-button">
+❌ Annuler
+</button>
+</div>
+
+<div id="edit-message" class="message"></div>
+
+</form>
+ </section>
+
 <section>
 <h2>💡 Trouver une solution</h2>
 <div id="solution-content"><p>Sélectionnez <strong>« Trouver une solution »</strong> sur un problème pour afficher des solutions.</p></div>
@@ -248,25 +288,142 @@ async function supprimerProbleme(bouton){
  }catch(e){console.error(e);alert("❌ Impossible de supprimer le problème.\n\n"+e.message)}
 }
 
-async function modifierProbleme(bouton){
- const id=bouton.dataset.id, p=problemsCache.find(x=>String(x.id)===String(id));if(!p)return;
- const nom=prompt("Nom :",p.Name||"");if(nom===null)return;
- const ville=prompt("Ville :",p.City||"");if(ville===null)return;
- const categorie=prompt("Catégorie (Eau, Électricité, Route, Déchets, Santé, Éducation, Sécurité, Autre, Environnement, Assainissement, Transport, Emploi) :",p["Catégory"]||"");if(categorie===null)return;
- const description=prompt("Description :",p.description||"");if(description===null)return;
- const urgence=prompt("Urgence (Faible, Moyenne ou Élevée) :",p.urgency||"");if(urgence===null)return;
- const catVal=CATEGORIES.map(x=>x[0]).find(x=>normaliser(x)===normaliser(categorie));
- const urgVal=["Faible","Moyenne","Élevée"].find(x=>normaliser(x)===normaliser(urgence));
- if(!catVal||!urgVal){alert("❌ Catégorie ou urgence invalide.");return}
- try{
-  const r=await fetch(SUPABASE_URL+"/rest/v1/Problems?id=eq."+encodeURIComponent(id),{
-   method:"PATCH",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
-   body:JSON.stringify({Name:nom.trim(),City:ville.trim(),"Catégory":catVal,description:description.trim(),urgency:urgVal})
-  });
-  const t=await r.text();if(!r.ok)throw new Error("Supabase "+r.status+" : "+t);
-  alert("✅ Problème modifié avec succès.");await afficherProblemes();
- }catch(e){console.error(e);alert("❌ Impossible de modifier le problème.\n\n"+e.message)}
+let problemeEnModification = null;
+
+function modifierProbleme(bouton){
+ const id=String(bouton.dataset.id||"");
+
+ const p=problemsCache.find(x=>String(x.id)===id);
+
+ if(!p){
+  alert("❌ Impossible de trouver ce problème.");
+  return;
+ }
+
+ problemeEnModification=id;
+
+ document.getElementById("edit-nom").value=p.Name||"";
+ document.getElementById("edit-ville").value=p.City||"";
+ document.getElementById("edit-description").value=p.description||"";
+ document.getElementById("edit-urgence").value=p.urgency||"";
+
+ const select=document.getElementById("edit-categorie");
+
+ select.innerHTML='<option value="">Choisir une catégorie</option>';
+
+ CATEGORIES.forEach(([value,label])=>{
+  const option=document.createElement("option");
+  option.value=value;
+  option.textContent=label;
+
+  if(normaliser(value)===normaliser(p["Catégory"]||"")){
+   option.selected=true;
+  }
+
+  select.appendChild(option);
+ });
+
+ document.getElementById("edit-section").style.display="block";
+
+ document.getElementById("edit-section").scrollIntoView({
+  behavior:"smooth",
+  block:"start"
+ });
 }
+
+ document.getElementById("edit-form").addEventListener("submit",async e=>{
+ e.preventDefault();
+
+ if(!problemeEnModification){
+  alert("❌ Aucun problème sélectionné.");
+  return;
+ }
+
+ const nom=document.getElementById("edit-nom").value.trim();
+ const ville=document.getElementById("edit-ville").value.trim();
+ const categorie=document.getElementById("edit-categorie").value;
+ const description=document.getElementById("edit-description").value.trim();
+ const urgence=document.getElementById("edit-urgence").value;
+
+ if(!nom||!ville||!categorie||!description||!urgence){
+  afficherMessage(
+   "edit-message",
+   "⚠️ Veuillez remplir tous les champs.",
+   "error-message"
+  );
+  return;
+ }
+
+ const bouton=e.target.querySelector('button[type="submit"]');
+
+ bouton.disabled=true;
+
+ try{
+
+  const r=await fetch(
+   SUPABASE_URL+"/rest/v1/Problems?id=eq."+encodeURIComponent(problemeEnModification),
+   {
+    method:"PATCH",
+    headers:{
+     apikey:SUPABASE_KEY,
+     Authorization:"Bearer "+SUPABASE_KEY,
+     "Content-Type":"application/json",
+     "Prefer":"return=minimal"
+    },
+    body:JSON.stringify({
+     Name:nom,
+     City:ville,
+     "Catégory":categorie,
+     description:description,
+     urgency:urgence
+    })
+   }
+  );
+
+  const t=await r.text();
+
+  if(!r.ok){
+   throw new Error("Supabase "+r.status+" : "+t);
+  }
+
+  afficherMessage(
+   "edit-message",
+   "✅ Problème modifié avec succès !",
+   "success-message"
+  );
+
+  problemeEnModification=null;
+
+  await afficherProblemes();
+
+  setTimeout(()=>{
+   document.getElementById("edit-section").style.display="none";
+  },1200);
+
+ }catch(err){
+
+  console.error(err);
+
+  afficherMessage(
+   "edit-message",
+   "❌ Impossible de modifier le problème.\n\n"+err.message,
+   "error-message"
+  );
+
+ }finally{
+
+  bouton.disabled=false;
+
+ }
+});
+ document.getElementById("cancel-edit").addEventListener("click",()=>{
+ problemeEnModification=null;
+
+ document.getElementById("edit-form").reset();
+
+ document.getElementById("edit-section").style.display="none";
+});
+ 
 
 document.getElementById("problem-form").addEventListener("submit",async e=>{
  e.preventDefault();
