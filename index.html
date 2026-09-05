@@ -355,13 +355,43 @@ function filtrerProblemes(){
 }
 
 async function supprimerProbleme(bouton){
- const id=bouton.dataset.id;if(!id)return alert("❌ Identifiant introuvable.");
- if(!confirm("⚠️ Voulez-vous vraiment supprimer ce problème ?"))return;
- try{
-  const r=await fetch(SUPABASE_URL+"/rest/v1/Problems?id=eq."+encodeURIComponent(id),{method:"DELETE",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});
-  const t=await r.text();if(!r.ok)throw new Error("Supabase "+r.status+" : "+t);
-  alert("✅ Problème supprimé avec succès.");await afficherProblemes();
- }catch(e){console.error(e);alert("❌ Impossible de supprimer le problème.\n\n"+e.message)}
+  const id = bouton.dataset.id;
+  if (!id) return alert("❌ Identifiant introuvable.");
+
+  const token = localStorage.getItem("soluworld_admin_token");
+
+  if (!token) {
+    alert("🔐 Vous devez être connecté comme administrateur.");
+    return;
+  }
+
+  if (!confirm("⚠️ Voulez-vous vraiment supprimer ce problème ?")) return;
+
+  try {
+    const r = await fetch(
+      SUPABASE_URL + "/rest/v1/Problems?id=eq." + encodeURIComponent(id),
+      {
+        method: "DELETE",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: "Bearer " + token
+        }
+      }
+    );
+
+    const t = await r.text();
+
+    if (!r.ok) {
+      throw new Error("Supabase " + r.status + " : " + t);
+    }
+
+    alert("✅ Problème supprimé avec succès.");
+    await afficherProblemes();
+
+  } catch(e) {
+    console.error(e);
+    alert("❌ Impossible de supprimer le problème.\n\n" + e.message);
+  }
 }
 
 let problemeEnModification = null;
