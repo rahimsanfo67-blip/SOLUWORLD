@@ -116,6 +116,20 @@ button:disabled{opacity:.6;cursor:not-allowed}
 const SUPABASE_URL="https://cempljialofhnkvjpsko.supabase.co";
 const SUPABASE_KEY="sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
 
+ let sessionAdmin = null;
+
+async function verifierConnexionAdmin() {
+  const token = localStorage.getItem("soluworld_admin_token");
+
+  if (!token) {
+    sessionAdmin = null;
+    return false;
+  }
+
+  sessionAdmin = token;
+  return true;
+}
+
 const CATEGORIES=[
 ["Eau","💧 Eau"],["Électricité","⚡ Électricité"],["Route","🛣️ Route"],["Déchets","🗑️ Déchets"],
 ["Santé","🏥 Santé"],["Éducation","📚 Éducation"],["Sécurité","🛡️ Sécurité"],["Autre","📌 Autre"],
