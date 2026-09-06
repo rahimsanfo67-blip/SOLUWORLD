@@ -350,8 +350,11 @@ async function afficherProblemes(){
   const problems=JSON.parse(texte); if(!Array.isArray(problems))throw new Error("Supabase n'a pas renvoyé une liste.");
   problemsCache = problems;
 afficherListe(problems);
-mettreAJourDashboard(problems);
-afficherMessage("problems-message",problems.length+" problème(s) chargé(s).","info-message");problems.length+" problème(s) chargé(s).","info-message");
+afficherMessage(
+  "problems-message",
+  problems.length + " problème(s) chargé(s).",
+  "info-message"
+);
  }catch(e){console.error(e);liste.innerHTML=`<div class="problem"><h3>❌ Impossible de charger les problèmes</h3><p>${echapperHTML(e.message)}</p></div>`}
 }
 
