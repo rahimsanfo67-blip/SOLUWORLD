@@ -353,6 +353,32 @@ async function afficherProblemes(){
  }catch(e){console.error(e);liste.innerHTML=`<div class="problem"><h3>❌ Impossible de charger les problèmes</h3><p>${echapperHTML(e.message)}</p></div>`}
 }
 
+ function mettreAJourDashboard(problems){
+  const total = problems.length;
+
+  const urgents = problems.filter(p => {
+    const u = normaliser(p.urgency || "");
+    return u === "elevee" || u === "haute";
+  }).length;
+
+  const villes = new Set(
+    problems
+      .map(p => (p.City || "").trim())
+      .filter(v => v !== "")
+  );
+
+  const categories = new Set(
+    problems
+      .map(p => (p["Catégory"] || "").trim())
+      .filter(c => c !== "")
+  );
+
+  document.getElementById("total-problems").textContent = total;
+  document.getElementById("urgent-problems").textContent = urgents;
+  document.getElementById("cities-count").textContent = villes.size;
+  document.getElementById("categories-count").textContent = categories.size;
+ }
+ 
 function afficherListe(problems){
  const liste=document.getElementById("problems-list");if(!liste)return;
  if(!problems.length){liste.innerHTML='<div class="empty-message">📭 Aucun problème publié pour le moment.</div>';return}
