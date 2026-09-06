@@ -585,12 +585,19 @@ function modifierProbleme(bouton){
 
  document.getElementById("edit-section").style.display="none";
 });
- 
-
 document.getElementById("problem-form").addEventListener("submit",async e=>{
  e.preventDefault();
- const nom=document.getElementById("edit-nom").value.trim(),ville=document.getElementById("edit-ville").value.trim(),categorie=document.getElementById("edit-categorie").value,description=document.getElementById("edit-description").value.trim(),urgence=document.getElementById("edit-urgence").value;
- if(!nom||!ville||!categorie||!description||!urgence){alert("⚠️ Veuillez remplir tous les champs.");return}
+
+ const nom=document.getElementById("nom").value.trim();
+ const ville=document.getElementById("ville").value.trim();
+ const categorie=document.getElementById("catégorie").value;
+ const description=document.getElementById("problème").value.trim();
+ const urgence=document.getElementById("urgence").value;
+
+ if(!nom||!ville||!categorie||!description||!urgence){
+  alert("⚠️ Veuillez remplir tous les champs.");
+  return;
+ }
  const btn=document.getElementById("publish-button");btn.disabled=true;
  try{
   const r=await fetch(SUPABASE_URL+"/rest/v1/Problems",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({Name:nom,City:ville,"Catégory":categorie,description,urgency:urgence})});
