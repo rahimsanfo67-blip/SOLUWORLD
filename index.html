@@ -309,6 +309,100 @@
         width: 100%;
       }
     }
+    /* ================================
+   TABLEAU DE BORD
+================================ */
+
+#dashboard-section {
+  max-width: 1000px;
+  margin: 30px auto;
+}
+
+#dashboard-section > h2 {
+  margin-bottom: 20px;
+}
+
+#dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 20px 10px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+
+.dashboard-card strong {
+  display: block;
+  font-size: 36px;
+  color: #087f5b;
+  margin-bottom: 8px;
+}
+
+.dashboard-card span {
+  display: block;
+  font-size: 16px;
+  color: #333;
+}
+
+
+/* ================================
+   PROBLÈMES PAR CATÉGORIE / VILLE
+================================ */
+
+#dashboard-details {
+  margin-top: 20px;
+}
+
+#dashboard-details h3 {
+  margin-top: 25px;
+  margin-bottom: 12px;
+}
+
+#dashboard-details ul {
+  padding-left: 25px;
+}
+
+#dashboard-details li {
+  margin-bottom: 8px;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+
+  #dashboard-section {
+    margin: 20px 0;
+  }
+
+  #dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .dashboard-card {
+    padding: 16px 6px;
+    border-radius: 14px;
+  }
+
+  .dashboard-card strong {
+    font-size: 30px;
+  }
+
+  .dashboard-card span {
+    font-size: 14px;
+  }
+
+}
   </style>
 </head>
 
