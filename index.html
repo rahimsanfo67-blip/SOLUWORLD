@@ -396,26 +396,6 @@ async function afficherProblemes(){
   problemsCache=problems;
   afficherListe(problems);
   mettreAJourDashboard(problems);
-  function couleurUrgence(urgence) {
-  const u = normaliser(urgence || "");
-
-  if (u === "elevee" || u === "haute") {
-    return "red";
-  }
-
-  if (u === "moyenne" || u === "medium") {
-    return "orange";
-  }
-
-  return "green";
-  }
-  afficherProblemesSurCarte(problems);
-
-  afficherMessage(
-   "problems-message",
-   problems.length+" problème(s) chargé(s).",
-   "info-message"
-  );
 
  }catch(e){
   console.error(e);
