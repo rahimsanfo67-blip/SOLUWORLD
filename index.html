@@ -1350,60 +1350,87 @@ async function afficherProblemes() {
    SOLUTIONS
 ===================================================== */
 
-function trouverSolution(id) {
+function trouverSolution(bouton){
 
-  const probleme = problemsCache.find(function(p) {
-    return String(p.id) === String(id);
-  });
+  const id = String(
+    bouton.dataset.id || ""
+  );
 
-  if (!probleme) {
-    alert("Problème introuvable.");
+  const problem = problemsCache.find(
+    function(p){
+      return String(p.id) === id;
+    }
+  );
+
+  const carte =
+    bouton.closest(".problem");
+
+  const box =
+    carte?.querySelector(".solution-box");
+
+  if (!problem || !box) {
     return;
   }
 
-  const categorie = probleme["Catégory"] || "Autre";
+  /* Fermer les solutions si elles sont déjà ouvertes */
 
-  const solutions = solutionsParCategorie[categorie] || [];
+  if (box.style.display === "block") {
 
-  const boite = document.getElementById(
-    "solution-" + id
-  );
+    box.style.display = "none";
 
-  if (!boite) return;
+    bouton.textContent =
+      "💡 Trouver une solution";
 
-  if (solutions.length === 0) {
-
-    boite.innerHTML = `
-      <h4>💡 Solutions</h4>
-      <p>
-        Aucune solution disponible pour cette catégorie.
-      </p>
-    `;
-
-  } else {
-
-    boite.innerHTML = `
-      <h4>💡 Solutions pour ${echapperHTML(categorie)}</h4>
-
-      <ol>
-        ${solutions.map(function(solution) {
-          return `
-            <li>
-              ${echapperHTML(solution)}
-            </li>
-          `;
-        }).join("")}
-      </ol>
-    `;
-
+    return;
   }
 
-  boite.style.display = "block";
 
-  boite.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
+  /* Récupérer les solutions de la catégorie */
+
+  const solutions =
+    obtenirSolutions(
+      problem["Catégory"]
+    );
+
+
+  /* Afficher les 10 solutions */
+
+  box.innerHTML = `
+
+    <h4>
+      💡 10 solutions possibles
+    </h4>
+
+    <p>
+      Pour le problème :
+      <strong>
+        ${echapperHTML(
+          problem.description || ""
+        )}
+      </strong>
+    </p>
+
+    <ol class="solution-list">
+
+      ${solutions.map(function(solution){
+
+        return `
+          <li>
+            ${echapperHTML(solution)}
+          </li>
+        `;
+
+      }).join("")}
+
+    </ol>
+
+  `;
+
+
+  box.style.display = "block";
+
+  bouton.textContent =
+    "🔽 Masquer la solution";
 
 }
 
