@@ -1198,29 +1198,37 @@ function afficherListe(problems) {
 
           <div class="problem-buttons">
 
-            <button
-              type="button"
-              class="solution-button"
-              onclick="trouverSolution('${echapperHTML(p.id)}')"
-            >
-              💡 Trouver une solution
-            </button>
+  <button
+    type="button"
+    class="solution-button"
+    onclick="trouverSolution('${echapperHTML(p.id)}')"
+  >
+    💡 Trouver une solution
+  </button>
 
-            <button
-              type="button"
-              class="delete-button"
-              onclick="supprimerProbleme('${echapperHTML(p.id)}')"
-            >
-              🗑️ Supprimer
-            </button>
+  <button
+    type="button"
+    class="edit-button"
+    onclick="modifierProbleme('${echapperHTML(p.id)}')"
+  >
+    ✏️ Modifier
+  </button>
 
-          </div>
+  <button
+    type="button"
+    class="delete-button"
+    onclick="supprimerProbleme('${echapperHTML(p.id)}')"
+  >
+    🗑️ Supprimer
+  </button>
 
-          <div
-            id="solution-${echapperHTML(p.id)}"
-            class="solution-box"
-          ></div>
+</div>
 
+<div
+  id="solution-${echapperHTML(p.id)}"
+  class="solution-box"
+></div>
+          
         </div>
 
       `;
@@ -1342,56 +1350,35 @@ async function afficherProblemes() {
    SOLUTIONS
 ===================================================== */
 
-function trouverSolution(bouton){
-
-  const id = String(
-    bouton.dataset.id || ""
-  );
+function trouverSolution(id) {
 
   const problem = problemsCache.find(
-    function(p){
-      return String(p.id) === id;
+    function(p) {
+      return String(p.id) === String(id);
     }
   );
 
-  const carte =
-    bouton.closest(".problem");
-
-  const box =
-    carte?.querySelector(".solution-box");
+  const box = document.getElementById(
+    "solution-" + id
+  );
 
   if (!problem || !box) {
     return;
   }
 
-  /* Fermer les solutions si elles sont déjà ouvertes */
-
   if (box.style.display === "block") {
 
     box.style.display = "none";
 
-    bouton.textContent =
-      "💡 Trouver une solution";
-
     return;
   }
 
-
-  /* Récupérer les solutions de la catégorie */
-
-  const solutions =
-    obtenirSolutions(
-      problem["Catégory"]
-    );
-
-
-  /* Afficher les 10 solutions */
+  const solutions = obtenirSolutions(
+    problem["Catégory"]
+  );
 
   box.innerHTML = `
-
-    <h4>
-      💡 10 solutions possibles
-    </h4>
+    <h4>💡 10 solutions possibles</h4>
 
     <p>
       Pour le problème :
@@ -1404,7 +1391,7 @@ function trouverSolution(bouton){
 
     <ol class="solution-list">
 
-      ${solutions.map(function(solution){
+      ${solutions.map(function(solution) {
 
         return `
           <li>
@@ -1415,17 +1402,10 @@ function trouverSolution(bouton){
       }).join("")}
 
     </ol>
-
   `;
 
-
   box.style.display = "block";
-
-  bouton.textContent =
-    "🔽 Masquer la solution";
-
 }
-
 
 /* =====================================================
    SUPPRIMER
