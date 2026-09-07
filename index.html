@@ -1352,68 +1352,58 @@ async function afficherProblemes() {
 
 function trouverSolution(id) {
 
-  const problem =
-    problemsCache.find(
-      p => String(p.id) === String(id)
-    );
+  const probleme = problemsCache.find(function(p) {
+    return String(p.id) === String(id);
+  });
 
-
-  if (!problem) {
-
-    alert(
-      "❌ Problème introuvable."
-    );
-
+  if (!probleme) {
+    alert("Problème introuvable.");
     return;
   }
 
+  const categorie = probleme["Catégory"] || "Autre";
 
-  const box =
-    document.getElementById(
-      "solution-" + id
-    );
+  const solutions = solutionsParCategorie[categorie] || [];
 
+  const boite = document.getElementById(
+    "solution-" + id
+  );
 
-  if (!box) return;
+  if (!boite) return;
 
+  if (solutions.length === 0) {
 
-  if (box.style.display === "block") {
+    boite.innerHTML = `
+      <h4>💡 Solutions</h4>
+      <p>
+        Aucune solution disponible pour cette catégorie.
+      </p>
+    `;
 
-    box.style.display = "none";
+  } else {
 
-    return;
+    boite.innerHTML = `
+      <h4>💡 Solutions pour ${echapperHTML(categorie)}</h4>
+
+      <ol>
+        ${solutions.map(function(solution) {
+          return `
+            <li>
+              ${echapperHTML(solution)}
+            </li>
+          `;
+        }).join("")}
+      </ol>
+    `;
+
   }
 
+  boite.style.display = "block";
 
-  const categorie =
-    problem["Catégory"] || "Autre";
-
-
-  const solutions =
-    SOLUTIONS[categorie] ||
-    SOLUTIONS["Autre"];
-
-
-  box.innerHTML = `
-
-    <h4>
-      💡 10 solutions possibles
-    </h4>
-
-    <ol class="solution-list">
-
-      ${solutions.map(solution => `
-        <li>
-          ${echapperHTML(solution)}
-        </li>
-      `).join("")}
-
-    </ol>
-
-  `;
-
-
-  box.style.display = "block";
+  boite.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
 
 }
 
