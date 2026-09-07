@@ -1223,7 +1223,7 @@ function afficherListe(problems) {
   </button>
 
 </div>
-
+  
 <div
   id="solution-${echapperHTML(p.id)}"
   class="solution-box"
@@ -1386,13 +1386,16 @@ function trouverSolution(id) {
 
     <ol class="solution-list">
       ${solutions.map(function(solution) {
-        return `<li>${echapperHTML(solution)}</li>`;
+        return `
+          <li>${echapperHTML(solution)}</li>
+        `;
       }).join("")}
     </ol>
   `;
 
   box.style.display = "block";
 }
+
 
 /* =====================================================
    SUPPRIMER
