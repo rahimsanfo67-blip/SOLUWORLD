@@ -394,8 +394,9 @@ async function afficherProblemes(){
   }
 
   problemsCache=problems;
-  afficherListe(problems);
-  mettreAJourDashboard(problems);
+afficherListe(problems);
+mettreAJourDashboard(problems);
+afficherProblemesSurCarte(problems);
 
  }catch(e){
   console.error(e);
@@ -745,17 +746,6 @@ function afficherProblemesSurCarte(problems) {
       🚨 Urgence : ${echapperHTML(urgence)}<br>
       📝 ${echapperHTML(p.description || "")}
     `);
-
-    marqueursCarte.push(marqueur);
-  });
-}
-  .addTo(carte)
-      .bindPopup(`
-        <strong>${echapperHTML(categorie)}</strong><br>
-        🏙️ ${echapperHTML(ville)}<br>
-        🚨 Urgence : ${echapperHTML(urgence)}<br>
-        📝 ${echapperHTML(p.description || "")}
-      `);
 
     marqueursCarte.push(marqueur);
   });
