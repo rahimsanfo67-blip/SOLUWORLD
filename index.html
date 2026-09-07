@@ -403,6 +403,24 @@
   }
 
 }
+    /* Bouton carte */
+
+.bouton-carte {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #087f5b;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.bouton-carte:active {
+  transform: scale(0.98);
+}
   </style>
 </head>
 
@@ -1215,6 +1233,8 @@ function afficherListe(problems) {
       `;
 
     }).join("");
+  
+  ajouterBoutonsCarte();
 
 }
 
@@ -2586,7 +2606,135 @@ document.addEventListener(
 
   }
 );
+/* =========================================
+   VOIR UN PROBLÈME SUR LA CARTE
+========================================= */
 
+function allerVersVilleSurCarte(ville) {
+
+  if (!carte) {
+    alert("La carte n'est pas encore disponible.");
+    return;
+  }
+
+  const coordonnees =
+    obtenirCoordonneesVille(ville);
+
+  if (!coordonnees) {
+    alert(
+      "La ville \"" +
+      ville +
+      "\" n'est pas encore disponible sur la carte."
+    );
+    return;
+  }
+
+  /* Déplacer la carte */
+
+  carte.flyTo(
+    coordonnees,
+    12,
+    {
+      duration: 1.5
+    }
+  );
+
+  /* Ouvrir le marqueur correspondant */
+
+  const marqueur = marqueursCarte.find(function(m) {
+
+    const position = m.getLatLng();
+
+    return (
+      Math.abs(position.lat - coordonnees[0]) < 0.001 &&
+      Math.abs(position.lng - coordonnees[1]) < 0.001
+    );
+
+  });
+
+  if (marqueur) {
+    setTimeout(function() {
+      marqueur.openPopup();
+    }, 1500);
+  }
+
+}
+
+
+/* =========================================
+   AJOUTER LE BOUTON SUR LES PROBLÈMES
+========================================= */
+
+function ajouterBoutonsCarte() {
+
+  const liste =
+    document.getElementById("problems-list");
+
+  if (!liste) return;
+
+
+  const problemes =
+    liste.querySelectorAll(".problem");
+
+
+  problemes.forEach(function(probleme) {
+
+    /* Éviter les doublons */
+
+    if (
+      probleme.querySelector(".bouton-carte")
+    ) {
+      return;
+    }
+
+
+    const texte =
+      probleme.innerText;
+
+
+    const correspondance =
+      texte.match(/Ville\s*:\s*([^\n]+)/i);
+
+
+    if (!correspondance) return;
+
+
+    const ville =
+      correspondance[1].trim();
+
+
+    const bouton =
+      document.createElement("button");
+
+
+    bouton.type = "button";
+
+    bouton.className =
+      "bouton-carte";
+
+
+    bouton.textContent =
+      "📍 Voir sur la carte";
+
+
+    bouton.addEventListener(
+      "click",
+      function() {
+
+        allerVersVilleSurCarte(
+          ville
+        );
+
+      }
+    );
+
+
+    probleme.appendChild(bouton);
+
+  });
+
+}
+  
 </script>
 
 </body>
