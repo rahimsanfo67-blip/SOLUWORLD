@@ -1207,12 +1207,13 @@ function afficherListe(problems) {
             </button>
 
             <button
-              type="button"
-              class="edit-button"
-              onclick="modifierProbleme('${echapperHTML(p.id)}')"
-            >
-              ✏️ Modifier
-            </button>
+  type="button"
+  class="solution-button"
+  data-id="${echapperHTML(String(p.id||""))}"
+  onclick="trouverSolution(this)"
+>
+  💡 Trouver une solution
+</button>
 
             <button
               type="button"
