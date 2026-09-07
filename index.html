@@ -1352,24 +1352,21 @@ async function afficherProblemes() {
 
 function trouverSolution(id) {
 
-  const problem = problemsCache.find(
-    function(p) {
-      return String(p.id) === String(id);
-    }
-  );
+  const problem = problemsCache.find(function(p) {
+    return String(p.id) === String(id);
+  });
 
   const box = document.getElementById(
     "solution-" + id
   );
 
   if (!problem || !box) {
+    alert("❌ Problème introuvable.");
     return;
   }
 
   if (box.style.display === "block") {
-
     box.style.display = "none";
-
     return;
   }
 
@@ -1383,24 +1380,14 @@ function trouverSolution(id) {
     <p>
       Pour le problème :
       <strong>
-        ${echapperHTML(
-          problem.description || ""
-        )}
+        ${echapperHTML(problem.description || "")}
       </strong>
     </p>
 
     <ol class="solution-list">
-
       ${solutions.map(function(solution) {
-
-        return `
-          <li>
-            ${echapperHTML(solution)}
-          </li>
-        `;
-
+        return `<li>${echapperHTML(solution)}</li>`;
       }).join("")}
-
     </ol>
   `;
 
