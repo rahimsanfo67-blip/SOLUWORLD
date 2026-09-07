@@ -355,13 +355,14 @@ afficherMessage(
   "problems-message",
   problems.length + " problème(s) chargé(s).",
   "info-message"
-);
- }catch(e){console.error(e);liste.innerHTML=`<div class="problem"><h3>❌ Impossible de charger les problèmes</h3><p>${echapperHTML(e.message)}</p></div>`}
+
+ }catch(e){
+ console.error(e);
+ liste.innerHTML=`<div class="problem"><h3>❌ Impossible de charger les problèmes</h3><p>${echapperHTML(e.message)}</p></div>`;
 }
 
- egories-count").textContent = categories.size;
+function mettreAJourDashboard(problems){
 
- function mettreAJourDashboard(problems){
   const total = problems.length;
 
   const urgents = problems.filter(p => {
