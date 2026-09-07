@@ -1,782 +1,2262 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOLUWORLD - Problèmes et Solutions</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;padding:0;font-family:Arial,sans-serif;background:#f3f6f9;color:#222}
-header{background:#0b5ed7;color:white;text-align:center;padding:25px 15px}
-header h1{margin:0 0 10px;font-size:32px} header p{margin:0;font-size:16px}
-main{width:95%;max-width:1000px;margin:25px auto}
-section{background:white;padding:20px;margin-bottom:25px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-h2{margin-top:0;color:#0b5ed7}
-label{display:block;margin-top:14px;margin-bottom:6px;font-weight:bold}
-input,select,textarea{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:15px;background:white}
-textarea{min-height:120px;resize:vertical}
-button{border:none;border-radius:8px;padding:11px 16px;font-size:15px;font-weight:bold;cursor:pointer;margin-top:12px}
-button:disabled{opacity:.6;cursor:not-allowed}
-.publish-button{width:100%;background:#198754;color:white}.search-button{background:#0b5ed7;color:white}
-.clear-button{background:#6c757d;color:white}.edit-button{background:#ffc107;color:#222}
-.delete-button{background:#dc3545;color:white}.solution-button{background:#198754;color:white}
-.problem{background:#fafafa;border:1px solid #ddd;border-left:6px solid #0b5ed7;border-radius:10px;padding:18px;margin-top:18px}
-.problem h3{margin-top:0;margin-bottom:15px;color:#0b5ed7;font-size:21px}.problem p{line-height:1.5;margin:9px 0}
-.problem-buttons{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.problem-buttons button{margin-top:0}
-.solution-box{display:none;background:#eaf7ee;border-left:5px solid #198754;border-radius:8px;padding:15px;margin-top:15px}
-.solution-box h4{margin-top:0;color:#198754}.message{display:none;padding:12px;margin-top:15px;border-radius:8px}
-.success-message{background:#d1e7dd;color:#0f5132}.error-message{background:#f8d7da;color:#842029}.info-message{background:#cff4fc;color:#055160}
-.search-area{display:grid;grid-template-columns:1fr 1fr;gap:15px}.search-buttons{display:flex;gap:8px;flex-wrap:wrap}
-.empty-message{background:#f1f3f5;padding:20px;border-radius:8px;text-align:center;margin-top:15px}
-.loading{text-align:center;padding:20px;font-weight:bold}.solution-list{margin:10px 0;padding-left:20px}
-@media(max-width:700px){.search-area{grid-template-columns:1fr}header h1{font-size:27px}.problem-buttons{flex-direction:column}.problem-buttons button{width:100%}}
- #map-section {
-  max-width: 1000px;
-  margin: 30px auto;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-#map {
-  width: 100%;
-  height: 500px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-}
-</style>
- <link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
+  <title>SOLUWORLD - Signaler et résoudre les problèmes</title>
 
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-</script>
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    header {
+      background: #0b6e4f;
+      color: white;
+      padding: 25px 15px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 0;
+    }
+
+    main {
+      width: 95%;
+      max-width: 1100px;
+      margin: 25px auto;
+    }
+
+    section {
+      background: white;
+      margin-bottom: 25px;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+
+    h2 {
+      color: #0b6e4f;
+      margin-top: 0;
+    }
+
+    h3 {
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 11px 15px;
+      margin-top: 12px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .primary-button {
+      background: #0b6e4f;
+      color: white;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    .search-area {
+      display: grid;
+      grid-template-columns: 1fr 220px auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .search-area button {
+      background: #555;
+      color: white;
+      margin: 0;
+    }
+
+    #map-section {
+      max-width: 100%;
+    }
+
+    #map {
+      width: 100%;
+      height: 500px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+
+    .problem {
+      border: 1px solid #ddd;
+      border-left: 6px solid #0b6e4f;
+      padding: 18px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .problem.high {
+      border-left-color: red;
+    }
+
+    .problem.medium {
+      border-left-color: orange;
+    }
+
+    .problem.low {
+      border-left-color: green;
+    }
+
+    .problem p {
+      margin: 8px 0;
+    }
+
+    .problem-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .problem-buttons button {
+      margin: 0;
+    }
+
+    .solution-button {
+      background: #2563eb;
+      color: white;
+    }
+
+    .edit-button {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .delete-button {
+      background: #dc2626;
+      color: white;
+    }
+
+    .solution-box {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #f0fdf4;
+      border-radius: 10px;
+      border: 1px solid #bbf7d0;
+    }
+
+    .solution-list li {
+      margin-bottom: 8px;
+    }
+
+    .loading {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .empty-message {
+      padding: 25px;
+      text-align: center;
+    }
+
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .success-message {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .error-message {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .info-message {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    #dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    .dashboard-card strong {
+      display: block;
+      font-size: 30px;
+      color: #0b6e4f;
+      margin-bottom: 8px;
+    }
+
+    .dashboard-card span {
+      font-size: 14px;
+    }
+
+    #dashboard-details {
+      line-height: 1.7;
+    }
+
+    .admin-login {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    #edit-section {
+      display: none;
+    }
+
+    .cancel-button {
+      background: #666;
+      color: white;
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 800px) {
+      .search-area {
+        grid-template-columns: 1fr;
+      }
+
+      #dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      header h1 {
+        font-size: 25px;
+      }
+
+      #dashboard-stats {
+        grid-template-columns: 1fr;
+      }
+
+      #map {
+        height: 400px;
+      }
+
+      .problem-buttons {
+        flex-direction: column;
+      }
+
+      .problem-buttons button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
- <section id="dashboard-section">
-  <section id="map-section">
-  <h2>🗺️ Carte des problèmes</h2>
-  <div id="map"></div>
-  </section>
-  <h2>📊 Tableau de bord</h2>
+<header>
+  <h1>🌍 SOLUWORLD</h1>
+  <p>Signaler les problèmes de votre communauté et trouver des solutions.</p>
+</header>
 
-  <div id="dashboard-stats">
-    <div class="dashboard-card">
-      <strong id="total-problems">0</strong>
-      <span>Problèmes total</span>
-    </div>
-
-    <div class="dashboard-card">
-      <strong id="urgent-problems">0</strong>
-      <span>Problèmes urgents</span>
-    </div>
-
-    <div class="dashboard-card">
-      <strong id="cities-count">0</strong>
-      <span>Villes concernées</span>
-    </div>
-
-    <div class="dashboard-card">
-      <strong id="categories-count">0</strong>
-      <span>Catégories utilisées</span>
-    </div>
-  </div>
-
-  <div id="dashboard-details"></div>
- </section>
-
- <section id="admin-login-section">
-  <h2>🔐 Connexion administrateur</h2>
-
-  <form id="admin-login-form">
-    <input
-      type="email"
-      id="admin-email"
-      placeholder="Email administrateur"
-      required
-    >
-
-    <input
-      type="password"
-      id="admin-password"
-      placeholder="Mot de passe"
-      required
-    >
-
-    <button type="submit">🔐 Se connecter</button>
-  </form>
-
-  <p id="admin-login-message"></p>
- </section>
-<header><h1>🌍 SOLUWORLD</h1><p>Signaler les problèmes et trouver des solutions pour nos communautés</p></header>
 <main>
 
-<section>
-<h2>📢 Signaler un problème</h2>
-<form id="problem-form">
-<label for="nom">Nom</label><input type="text" id="nom" placeholder="Votre nom" required>
-<label for="ville">Ville</label><input type="text" id="ville" placeholder="Votre ville" required>
-<label for="catégorie">Catégorie</label>
-<select id="catégorie" required><option value="">Choisir une catégorie</option></select>
-<label for="problème">Description du problème</label>
-<textarea id="problème" placeholder="Décrivez clairement le problème..." required></textarea>
-<label for="urgence">Niveau d'urgence</label>
-<select id="urgence" required><option value="">Choisir le niveau d'urgence</option><option value="Faible">🟢 Faible</option><option value="Moyenne">🟠 Moyenne</option><option value="Élevée">🔴 Élevée</option></select>
-<button type="submit" class="publish-button" id="publish-button">📢 Publier le problème</button>
-</form>
-<div id="form-message" class="message"></div>
-</section>
+  <!-- PUBLICATION -->
+  <section id="publication-section">
+    <h2>📢 Signaler un problème</h2>
 
-<section>
-<h2>📋 Tous les problèmes publiés</h2>
-<div class="search-area">
-<div><label for="filter-category">🗂️ Filtrer par catégorie</label><select id="filter-category"><option value="">Toutes les catégories</option></select></div>
-<div><label for="search-problems">🔎 Rechercher</label><input type="text" id="search-problems" placeholder="Nom, ville, catégorie ou description..."></div>
-</div>
-<div class="search-buttons">
-<button type="button" id="search-btn" class="search-button">🔎 Rechercher</button>
-<button type="button" id="clear-search" class="clear-button">Effacer</button>
-</div>
-<div id="problems-message" class="message"></div>
-<div id="problems-list"><div class="loading">🔄 Chargement des problèmes...</div></div>
-</section>
+    <form id="problem-form">
 
- <section id="edit-section" style="display:none;">
-<h2>✏️ Modifier le problème</h2>
+      <label for="nom">Nom</label>
+      <input
+        type="text"
+        id="nom"
+        placeholder="Votre nom"
+        required
+      >
 
-<form id="edit-form">
+      <label for="ville">Ville</label>
+      <input
+        type="text"
+        id="ville"
+        placeholder="Exemple : Ouagadougou"
+        required
+      >
 
-<label for="edit-nom">Nom</label>
-<input type="text" id="edit-nom" required>
+      <label for="catégorie">Catégorie</label>
+      <select id="catégorie" required>
+        <option value="">-- Choisir une catégorie --</option>
+      </select>
 
-<label for="edit-ville">Ville</label>
-<input type="text" id="edit-ville" required>
+      <label for="problème">Description du problème</label>
+      <textarea
+        id="problème"
+        placeholder="Décrivez précisément le problème..."
+        required
+      ></textarea>
 
-<label for="edit-categorie">Catégorie</label>
-<select id="edit-categorie" required></select>
+      <label for="urgence">Niveau d'urgence</label>
+      <select id="urgence" required>
+        <option value="">-- Choisir --</option>
+        <option value="Élevée">🔴 Élevée</option>
+        <option value="Moyenne">🟠 Moyenne</option>
+        <option value="Faible">🟢 Faible</option>
+      </select>
 
-<label for="edit-description">Description du problème</label>
-<textarea id="edit-description" required></textarea>
+      <button
+        type="submit"
+        id="publish-button"
+        class="primary-button"
+      >
+        📢 Publier le problème
+      </button>
 
-<label for="edit-urgence">Niveau d'urgence</label>
-<select id="edit-urgence" required>
-<option value="">Choisir le niveau d'urgence</option>
-<option value="Faible">🟢 Faible</option>
-<option value="Moyenne">🟠 Moyenne</option>
-<option value="Élevée">🔴 Élevée</option>
-</select>
+    </form>
+  </section>
 
-<div style="display:flex;gap:10px;flex-wrap:wrap;">
-<button type="submit" class="edit-button">
-💾 Enregistrer les modifications
-</button>
 
-<button type="button" id="cancel-edit" class="clear-button">
-❌ Annuler
-</button>
-</div>
+  <!-- RECHERCHE -->
+  <section id="search-section">
+    <h2>🔎 Rechercher un problème</h2>
 
-<div id="edit-message" class="message"></div>
+    <div class="search-area">
 
-</form>
- </section>
+      <div>
+        <label for="search-problems">Recherche</label>
+        <input
+          type="text"
+          id="search-problems"
+          placeholder="Ville, nom, problème..."
+        >
+      </div>
 
-<section>
-<h2>💡 Trouver une solution</h2>
-<div id="solution-content"><p>Sélectionnez <strong>« Trouver une solution »</strong> sur un problème pour afficher des solutions.</p></div>
-</section>
+      <div>
+        <label for="filter-category">Catégorie</label>
+        <select id="filter-category">
+          <option value="">Toutes les catégories</option>
+        </select>
+      </div>
+
+      <button type="button" id="clear-search">
+        Réinitialiser
+      </button>
+
+    </div>
+
+    <div id="problems-message" class="message"></div>
+  </section>
+
+
+  <!-- CARTE -->
+  <section id="map-section">
+    <h2>🗺️ Carte des problèmes</h2>
+    <div id="map"></div>
+  </section>
+
+
+  <!-- TABLEAU DE BORD -->
+  <section id="dashboard-section">
+
+    <h2>📊 Tableau de bord</h2>
+
+    <div id="dashboard-stats">
+
+      <div class="dashboard-card">
+        <strong id="total-problems">0</strong>
+        <span>Problèmes total</span>
+      </div>
+
+      <div class="dashboard-card">
+        <strong id="urgent-problems">0</strong>
+        <span>Problèmes urgents</span>
+      </div>
+
+      <div class="dashboard-card">
+        <strong id="cities-count">0</strong>
+        <span>Villes concernées</span>
+      </div>
+
+      <div class="dashboard-card">
+        <strong id="categories-count">0</strong>
+        <span>Catégories utilisées</span>
+      </div>
+
+    </div>
+
+    <div id="dashboard-details"></div>
+
+  </section>
+
+
+  <!-- PROBLEMES -->
+  <section id="problems-section">
+
+    <h2>📋 Problèmes signalés</h2>
+
+    <div id="problems-list">
+      <div class="loading">
+        🔄 Chargement des problèmes...
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- CONNEXION ADMIN -->
+  <section id="admin-section">
+
+    <h2>🔐 Administration</h2>
+
+    <div class="admin-login">
+
+      <form id="admin-login-form">
+
+        <label for="admin-email">Email administrateur</label>
+
+        <input
+          type="email"
+          id="admin-email"
+          placeholder="Email"
+          required
+        >
+
+        <label for="admin-password">Mot de passe</label>
+
+        <input
+          type="password"
+          id="admin-password"
+          placeholder="Mot de passe"
+          required
+        >
+
+        <button
+          type="submit"
+          class="primary-button"
+        >
+          🔐 Se connecter
+        </button>
+
+        <p id="admin-login-message"></p>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- MODIFICATION -->
+  <section id="edit-section">
+
+    <h2>✏️ Modifier le problème</h2>
+
+    <form id="edit-form">
+
+      <label for="edit-nom">Nom</label>
+      <input
+        type="text"
+        id="edit-nom"
+        required
+      >
+
+      <label for="edit-ville">Ville</label>
+      <input
+        type="text"
+        id="edit-ville"
+        required
+      >
+
+      <label for="edit-categorie">Catégorie</label>
+      <select id="edit-categorie" required>
+        <option value="">-- Choisir --</option>
+      </select>
+
+      <label for="edit-description">Description</label>
+      <textarea
+        id="edit-description"
+        required
+      ></textarea>
+
+      <label for="edit-urgence">Urgence</label>
+      <select id="edit-urgence" required>
+        <option value="">-- Choisir --</option>
+        <option value="Élevée">🔴 Élevée</option>
+        <option value="Moyenne">🟠 Moyenne</option>
+        <option value="Faible">🟢 Faible</option>
+      </select>
+
+      <button
+        type="submit"
+        class="primary-button"
+      >
+        💾 Enregistrer les modifications
+      </button>
+
+      <button
+        type="button"
+        id="cancel-edit"
+        class="cancel-button"
+      >
+        Annuler
+      </button>
+
+      <div id="edit-message" class="message"></div>
+
+    </form>
+
+  </section>
+
 </main>
 
+
+<footer>
+  <p>🌍 SOLUWORLD — Ensemble pour améliorer nos communautés.</p>
+</footer>
+
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <script>
-const SUPABASE_URL="https://cempljialofhnkvjpsko.supabase.co";
-const SUPABASE_KEY="sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
 
- let sessionAdmin = null;
+const SUPABASE_URL =
+  "https://cempljialofhnkvjpsko.supabase.co";
 
- document.getElementById("admin-login-form").addEventListener("submit", async e => {
-  e.preventDefault();
+const SUPABASE_KEY =
+  "sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
 
-  const email = document.getElementById("admin-email").value.trim();
-  const password = document.getElementById("admin-password").value;
-  const message = document.getElementById("admin-login-message");
 
-  try {
-    const r = await fetch(SUPABASE_URL + "/auth/v1/token?grant_type=password", {
-      method: "POST",
-      headers: {
-        apikey: SUPABASE_KEY,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    });
+let problemsCache = [];
+let problemeEnModification = null;
+let carte = null;
+let marqueursCarte = [];
 
-    const data = await r.json();
 
-    if (!r.ok) {
-      throw new Error(data.error_description || data.msg || "Connexion impossible");
-    }
+/* =====================================================
+   CATÉGORIES
+===================================================== */
 
-    localStorage.setItem("soluworld_admin_token", data.access_token);
-    sessionAdmin = data.access_token;
-
-    message.textContent = "✅ Connexion administrateur réussie.";
-    message.style.color = "green";
-
-  } catch (e) {
-    message.textContent = "❌ " + e.message;
-    message.style.color = "red";
-  }
-});
-
-async function verifierConnexionAdmin() {
-  const token = localStorage.getItem("soluworld_admin_token");
-
-  if (!token) {
-    sessionAdmin = null;
-    return false;
-  }
-
-  sessionAdmin = token;
-  return true;
-}
-
-const CATEGORIES=[
-["Eau","💧 Eau"],["Électricité","⚡ Électricité"],["Route","🛣️ Route"],["Déchets","🗑️ Déchets"],
-["Santé","🏥 Santé"],["Éducation","📚 Éducation"],["Sécurité","🛡️ Sécurité"],["Autre","📌 Autre"],
-["Environnement","🌱 Environnement"],["Assainissement","🚰 Assainissement"],["Transport","🚌 Transport"],["Emploi","💼 Emploi"]
+const CATEGORIES = [
+  "Eau",
+  "Électricité",
+  "Route",
+  "Déchets",
+  "Santé",
+  "Éducation",
+  "Sécurité",
+  "Autre",
+  "Environnement",
+  "Assainissement",
+  "Transport",
+  "Emploi"
 ];
 
-const SOLUTIONS={
-"Eau":[
-"Signaler la fuite ou la coupure au service local de l'eau.","Identifier précisément la canalisation ou le point d'eau concerné.",
-"Vérifier les robinets et installations proches pour localiser la panne.","Demander une intervention technique rapide.",
-"Mettre en place un point d'approvisionnement temporaire si nécessaire.","Informer les habitants de la zone concernée.",
-"Contrôler la qualité de l'eau après une intervention.","Réparer ou remplacer les conduites endommagées.",
-"Prévoir un entretien régulier du réseau.","Suivre le dossier jusqu'au rétablissement complet du service."
-],
-"Électricité":[
-"Signaler la panne au service d'électricité.","Vérifier si la panne concerne une maison ou tout le quartier.",
-"Identifier les poteaux, câbles ou équipements concernés.","Faire intervenir un technicien qualifié.",
-"Installer une signalisation autour d'un câble dangereux.","Informer les habitants du délai d'intervention.",
-"Contrôler les branchements défectueux.","Remplacer les équipements endommagés.",
-"Prévoir l'entretien régulier du réseau.","Suivre le rétablissement jusqu'au retour complet du courant."
-],
-"Route":[
-"Identifier précisément la zone dégradée.","Signaler le problème aux services municipaux compétents.",
-"Installer une signalisation temporaire si la route est dangereuse.","Réparer les nids-de-poule rapidement.",
-"Améliorer le drainage des eaux de pluie.","Nettoyer les caniveaux et passages d'eau.",
-"Prévoir une réfection complète des portions très dégradées.","Sécuriser les abords des écoles et marchés.",
-"Programmer un entretien régulier des routes.","Informer les usagers des travaux et déviations."
-],
-"Déchets":[
-"Signaler la zone d'accumulation des déchets.","Demander une collecte rapide.",
-"Ajouter ou déplacer des bacs dans les zones très fréquentées.","Organiser des points de collecte réguliers.",
-"Sensibiliser les habitants au dépôt correct des déchets.","Mettre en place le tri lorsque cela est possible.",
-"Nettoyer les dépôts sauvages.","Identifier les horaires de collecte et les communiquer.",
-"Prévoir un suivi des zones régulièrement sales.","Renforcer le contrôle des dépôts illégaux."
-],
-"Santé":[
-"Signaler le problème au centre de santé ou aux autorités sanitaires.","Évaluer rapidement le danger pour la population.",
-"Orienter les personnes concernées vers un service de santé.","Renforcer l'information sanitaire dans la zone.",
-"Vérifier la disponibilité des médicaments essentiels.","Améliorer l'accès aux soins de proximité.",
-"Organiser une campagne de prévention adaptée.","Assurer l'entretien et l'hygiène des structures de santé.",
-"Signaler les équipements médicaux défectueux.","Suivre la situation avec les responsables sanitaires."
-],
-"Éducation":[
-"Signaler le problème à l'établissement concerné.","Informer les responsables locaux de l'éducation.",
-"Identifier les besoins prioritaires des élèves et enseignants.","Réparer les salles de classe dégradées.",
-"Améliorer l'accès aux tables, chaises et fournitures.","Renforcer l'accès à l'eau et aux sanitaires.",
-"Prévoir des solutions pour les classes surchargées.","Améliorer l'éclairage et la sécurité de l'école.",
-"Mobiliser les partenaires pour les équipements manquants.","Suivre la mise en œuvre des améliorations."
-],
-"Sécurité":[
-"Signaler immédiatement la situation aux autorités compétentes.","Éviter de s'exposer inutilement au danger.",
-"Identifier précisément le lieu concerné.","Renforcer l'éclairage des zones à risque.",
-"Améliorer la signalisation des endroits dangereux.","Informer les habitants des mesures de prévention.",
-"Organiser des patrouilles ou une présence adaptée lorsque nécessaire.","Sécuriser les abords des écoles et lieux publics.",
-"Réparer les équipements de sécurité défectueux.","Suivre le problème jusqu'à amélioration de la situation."
-],
-"Autre":[
-"Identifier précisément la cause du problème.","Signaler le problème au service compétent.",
-"Documenter le problème avec des informations précises.","Identifier les personnes ou structures responsables.",
-"Évaluer l'urgence et les risques.","Proposer une intervention temporaire si nécessaire.",
-"Informer les personnes concernées.","Définir les ressources nécessaires.",
-"Suivre l'avancement de la résolution.","Vérifier que le problème est réellement résolu."
-],
-"Environnement":[
-"Identifier la source de la pollution ou de la dégradation.","Signaler le problème aux services environnementaux.",
-"Nettoyer les zones polluées lorsque cela peut être fait sans danger.","Protéger les espaces verts menacés.",
-"Réduire les dépôts et rejets illégaux.","Sensibiliser les habitants à la protection de l'environnement.",
-"Planter et entretenir des arbres adaptés au milieu.","Améliorer la gestion des eaux usées.",
-"Organiser des journées communautaires de nettoyage.","Mettre en place un suivi régulier de la zone."
-],
-"Assainissement":[
-"Signaler les eaux stagnantes ou les caniveaux bouchés.","Nettoyer les caniveaux et drains.",
-"Réparer les réseaux d'évacuation endommagés.","Améliorer l'écoulement des eaux de pluie.",
-"Organiser une collecte régulière des eaux ou boues selon les besoins.","Réduire les zones favorisant les eaux stagnantes.",
-"Améliorer l'accès aux toilettes publiques propres.","Sensibiliser aux bonnes pratiques d'hygiène.",
-"Contrôler les rejets d'eaux usées.","Prévoir un entretien périodique des infrastructures."
-],
-"Transport":[
-"Signaler les routes ou arrêts dangereux.","Identifier les besoins de transport des habitants.",
-"Améliorer la signalisation des arrêts.","Organiser des horaires de transport plus adaptés.",
-"Entretenir les véhicules et équipements.","Améliorer l'accès aux transports pour les personnes vulnérables.",
-"Créer ou sécuriser des zones d'attente.","Réduire les stationnements dangereux.",
-"Informer les usagers des horaires et changements.","Suivre les problèmes récurrents avec les opérateurs."
-],
-"Emploi":[
-"Identifier les secteurs qui recrutent localement.","Signaler les besoins de formation professionnelle.",
-"Créer des espaces d'information sur les offres d'emploi.","Organiser des ateliers de rédaction de CV.",
-"Faciliter la mise en relation entre employeurs et candidats.","Développer les formations pratiques adaptées au marché local.",
-"Encourager les initiatives et activités génératrices de revenus.","Informer sur les programmes publics d'insertion.",
-"Accompagner les jeunes dans la recherche d'emploi.","Suivre les besoins des entreprises et des travailleurs."
-]
+
+/* =====================================================
+   SOLUTIONS
+===================================================== */
+
+const SOLUTIONS = {
+
+  "Eau": [
+    "Signaler la fuite ou la coupure au service local de l'eau.",
+    "Identifier précisément la canalisation ou le point d'eau concerné.",
+    "Vérifier les installations proches pour localiser la panne.",
+    "Demander une intervention technique rapide.",
+    "Mettre en place un point d'approvisionnement temporaire.",
+    "Informer les habitants de la zone concernée.",
+    "Contrôler la qualité de l'eau après intervention.",
+    "Réparer ou remplacer les conduites endommagées.",
+    "Prévoir un entretien régulier du réseau.",
+    "Suivre le dossier jusqu'au rétablissement complet."
+  ],
+
+  "Électricité": [
+    "Signaler la panne au service d'électricité.",
+    "Vérifier si la panne concerne une maison ou tout le quartier.",
+    "Identifier les poteaux, câbles ou équipements concernés.",
+    "Faire intervenir un technicien qualifié.",
+    "Installer une signalisation autour d'un câble dangereux.",
+    "Informer les habitants du délai d'intervention.",
+    "Contrôler les branchements défectueux.",
+    "Remplacer les équipements endommagés.",
+    "Prévoir l'entretien régulier du réseau.",
+    "Suivre le rétablissement jusqu'au retour complet du courant."
+  ],
+
+  "Route": [
+    "Identifier précisément la zone dégradée.",
+    "Signaler le problème aux services municipaux compétents.",
+    "Installer une signalisation temporaire.",
+    "Réparer les nids-de-poule rapidement.",
+    "Améliorer le drainage des eaux de pluie.",
+    "Nettoyer les caniveaux et passages d'eau.",
+    "Prévoir une réfection complète des portions très dégradées.",
+    "Sécuriser les abords des écoles et marchés.",
+    "Programmer un entretien régulier des routes.",
+    "Informer les usagers des travaux et déviations."
+  ],
+
+  "Déchets": [
+    "Signaler la zone d'accumulation des déchets.",
+    "Demander une collecte rapide.",
+    "Ajouter des bacs dans les zones très fréquentées.",
+    "Organiser des points de collecte réguliers.",
+    "Sensibiliser les habitants.",
+    "Mettre en place le tri lorsque cela est possible.",
+    "Nettoyer les dépôts sauvages.",
+    "Communiquer les horaires de collecte.",
+    "Prévoir un suivi des zones régulièrement sales.",
+    "Renforcer le contrôle des dépôts illégaux."
+  ],
+
+  "Santé": [
+    "Signaler le problème au centre de santé.",
+    "Évaluer rapidement le danger pour la population.",
+    "Orienter les personnes concernées vers un service de santé.",
+    "Renforcer l'information sanitaire.",
+    "Vérifier la disponibilité des médicaments essentiels.",
+    "Améliorer l'accès aux soins.",
+    "Organiser une campagne de prévention.",
+    "Assurer l'entretien des structures de santé.",
+    "Signaler les équipements médicaux défectueux.",
+    "Suivre la situation avec les responsables sanitaires."
+  ],
+
+  "Éducation": [
+    "Signaler le problème à l'établissement concerné.",
+    "Informer les responsables locaux de l'éducation.",
+    "Identifier les besoins prioritaires.",
+    "Réparer les salles de classe dégradées.",
+    "Améliorer l'accès aux tables et fournitures.",
+    "Renforcer l'accès à l'eau et aux sanitaires.",
+    "Prévoir des solutions pour les classes surchargées.",
+    "Améliorer l'éclairage et la sécurité.",
+    "Mobiliser les partenaires.",
+    "Suivre les améliorations."
+  ],
+
+  "Sécurité": [
+    "Signaler immédiatement la situation aux autorités.",
+    "Éviter de s'exposer inutilement au danger.",
+    "Identifier précisément le lieu concerné.",
+    "Renforcer l'éclairage des zones à risque.",
+    "Améliorer la signalisation.",
+    "Informer les habitants.",
+    "Organiser une présence adaptée lorsque nécessaire.",
+    "Sécuriser les abords des écoles.",
+    "Réparer les équipements de sécurité.",
+    "Suivre le problème jusqu'à amélioration."
+  ],
+
+  "Autre": [
+    "Identifier précisément la cause du problème.",
+    "Signaler le problème au service compétent.",
+    "Documenter le problème.",
+    "Identifier les personnes ou structures responsables.",
+    "Évaluer l'urgence et les risques.",
+    "Proposer une intervention temporaire.",
+    "Informer les personnes concernées.",
+    "Définir les ressources nécessaires.",
+    "Suivre l'avancement.",
+    "Vérifier que le problème est réellement résolu."
+  ],
+
+  "Environnement": [
+    "Identifier la source de la pollution.",
+    "Signaler le problème aux services environnementaux.",
+    "Nettoyer les zones polluées lorsque cela est sans danger.",
+    "Protéger les espaces verts.",
+    "Réduire les dépôts et rejets illégaux.",
+    "Sensibiliser les habitants.",
+    "Planter et entretenir des arbres.",
+    "Améliorer la gestion des eaux usées.",
+    "Organiser des journées de nettoyage.",
+    "Mettre en place un suivi régulier."
+  ],
+
+  "Assainissement": [
+    "Signaler les eaux stagnantes.",
+    "Nettoyer les caniveaux et drains.",
+    "Réparer les réseaux d'évacuation.",
+    "Améliorer l'écoulement des eaux de pluie.",
+    "Organiser la gestion des eaux ou boues.",
+    "Réduire les zones d'eau stagnante.",
+    "Améliorer l'accès aux toilettes propres.",
+    "Sensibiliser aux bonnes pratiques d'hygiène.",
+    "Contrôler les rejets d'eaux usées.",
+    "Prévoir un entretien périodique."
+  ],
+
+  "Transport": [
+    "Signaler les routes ou arrêts dangereux.",
+    "Identifier les besoins de transport.",
+    "Améliorer la signalisation des arrêts.",
+    "Organiser des horaires adaptés.",
+    "Entretenir les véhicules.",
+    "Améliorer l'accès aux transports.",
+    "Créer ou sécuriser les zones d'attente.",
+    "Réduire les stationnements dangereux.",
+    "Informer les usagers.",
+    "Suivre les problèmes récurrents."
+  ],
+
+  "Emploi": [
+    "Identifier les secteurs qui recrutent.",
+    "Signaler les besoins de formation.",
+    "Créer des espaces d'information.",
+    "Organiser des ateliers CV.",
+    "Faciliter la mise en relation employeurs-candidats.",
+    "Développer les formations professionnelles.",
+    "Encourager les activités génératrices de revenus.",
+    "Informer sur les programmes d'insertion.",
+    "Accompagner les jeunes.",
+    "Suivre les besoins des entreprises."
+  ]
+
 };
 
-let problemsCache=[];
 
-function normaliser(t){return t==null?"":String(t).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim()}
-function echapperHTML(t){return t==null?"":String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
-function afficherMessage(id,texte,type){const e=document.getElementById(id);if(!e)return;e.textContent=texte;e.className="message "+type;e.style.display="block"}
-function cacherMessage(id){const e=document.getElementById(id);if(e)e.style.display="none"}
+/* =====================================================
+   OUTILS
+===================================================== */
 
-function remplirCategories(){
- const formCat=document.getElementById("catégorie"),filter=document.getElementById("filter-category");
- CATEGORIES.forEach(([value,label])=>{
-  formCat.insertAdjacentHTML("beforeend",`<option value="${echapperHTML(value)}">${echapperHTML(label)}</option>`);
-  filter.insertAdjacentHTML("beforeend",`<option value="${echapperHTML(value)}">${echapperHTML(label)}</option>`);
- });
+function normaliser(texte) {
+
+  return String(texte || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+
 }
 
-function obtenirSolutions(categorie){return SOLUTIONS[categorie]||SOLUTIONS["Autre"]}
 
-function trouverSolution(bouton){
- const id=String(bouton.dataset.id||"");
- const problem=problemsCache.find(p=>String(p.id)===id);
- const carte=bouton.closest(".problem"),box=carte?.querySelector(".solution-box");
- if(!problem||!box)return;
- if(box.style.display==="block"){box.style.display="none";bouton.textContent="💡 Trouver une solution";return}
- const solutions=obtenirSolutions(problem["Catégory"]);
- box.innerHTML=`<h4>💡 10 solutions possibles</h4><p>Pour le problème : <strong>${echapperHTML(problem.description||"")}</strong></p><ol class="solution-list">${solutions.map(s=>`<li>${echapperHTML(s)}</li>`).join("")}</ol>`;
- box.style.display="block";bouton.textContent="🔽 Masquer la solution";
+function echapperHTML(texte) {
+
+  return String(texte || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
 }
- 
-async function afficherProblemes(){
- const liste=document.getElementById("problems-list");
- if(!liste)return;
 
- liste.innerHTML='<div class="loading">🔄 Chargement des problèmes...</div>';
 
- try{
-  const r=await fetch(
-   SUPABASE_URL+"/rest/v1/Problems?select=*&order=created_at.desc",
-   {
-    headers:{
-     apikey:SUPABASE_KEY,
-     Authorization:"Bearer "+SUPABASE_KEY
+/* =====================================================
+   CATÉGORIES DANS LES SELECT
+===================================================== */
+
+function remplirCategories() {
+
+  const categorie =
+    document.getElementById("catégorie");
+
+  const filtre =
+    document.getElementById("filter-category");
+
+  const edit =
+    document.getElementById("edit-categorie");
+
+
+  CATEGORIES.forEach(cat => {
+
+    if (categorie) {
+
+      const option =
+        document.createElement("option");
+
+      option.value = cat;
+      option.textContent = cat;
+
+      categorie.appendChild(option);
     }
-   }
-  );
 
-  const texte=await r.text();
 
-  if(!r.ok){
-   throw new Error("Supabase "+r.status+" : "+texte);
-  }
+    if (filtre) {
 
-  const problems=JSON.parse(texte);
+      const option =
+        document.createElement("option");
 
-  if(!Array.isArray(problems)){
-   throw new Error("Supabase n'a pas renvoyé une liste.");
-  }
+      option.value = cat;
+      option.textContent = cat;
 
-  problemsCache=problems;
-afficherListe(problems);
-mettreAJourDashboard(problems);
-afficherProblemesSurCarte(problems);
+      filtre.appendChild(option);
+    }
 
- }catch(e){
-  console.error(e);
 
-  liste.innerHTML=
-   `<div class="problem">
-    <h3>❌ Impossible de charger les problèmes</h3>
-    <p>${echapperHTML(e.message)}</p>
-   </div>`;
- }
+    if (edit) {
+
+      const option =
+        document.createElement("option");
+
+      option.value = cat;
+      option.textContent = cat;
+
+      edit.appendChild(option);
+    }
+
+  });
+
 }
 
-function mettreAJourDashboard(problems){
-  const total = problems.length;
 
-  const urgents = problems.filter(p => {
-    const u = normaliser(p.urgency || "");
-    return u === "elevee" || u === "haute";
-  }).length;
+/* =====================================================
+   TABLEAU DE BORD
+===================================================== */
+
+function mettreAJourDashboard(problems) {
+
+  const total =
+    problems.length;
+
+
+  const urgents =
+    problems.filter(p => {
+
+      const u =
+        normaliser(p.urgency);
+
+      return (
+        u === "elevee" ||
+        u === "haute"
+      );
+
+    }).length;
+
 
   const villes = {};
   const categories = {};
 
-  problems.forEach(p => {
-    const ville = (p.City || "Non renseignée").trim();
-    const categorie = (p["Catégory"] || "Autre").trim();
 
-    villes[ville] = (villes[ville] || 0) + 1;
-    categories[categorie] = (categories[categorie] || 0) + 1;
+  problems.forEach(p => {
+
+    const ville =
+      (p.City || "Non renseignée").trim();
+
+    const categorie =
+      (p["Catégory"] || "Autre").trim();
+
+
+    villes[ville] =
+      (villes[ville] || 0) + 1;
+
+    categories[categorie] =
+      (categories[categorie] || 0) + 1;
+
   });
 
-  document.getElementById("total-problems").textContent = total;
-  document.getElementById("urgent-problems").textContent = urgents;
-  document.getElementById("cities-count").textContent = Object.keys(villes).length;
-  document.getElementById("categories-count").textContent = Object.keys(categories).length;
 
-  const details = document.getElementById("dashboard-details");
+  document.getElementById(
+    "total-problems"
+  ).textContent = total;
 
-  if (!details) return;
 
-  const listeCategories = Object.entries(categories)
+  document.getElementById(
+    "urgent-problems"
+  ).textContent = urgents;
+
+
+  document.getElementById(
+    "cities-count"
+  ).textContent =
+    Object.keys(villes).length;
+
+
+  document.getElementById(
+    "categories-count"
+  ).textContent =
+    Object.keys(categories).length;
+
+
+  const details =
+    document.getElementById(
+      "dashboard-details"
+    );
+
+
+  let html =
+    
+    "<h3>🏷️ Problèmes par catégorie</h3><ul>";
+
+
+  Object.entries(categories)
     .sort((a,b) => b[1] - a[1])
-    .map(([nom,nombre]) => `<li>🏷️ <strong>${echapperHTML(nom)}</strong> : ${nombre} problème(s)</li>`)
-    .join("");
+    .forEach(([cat,nombre]) => {
 
-  const listeVilles = Object.entries(villes)
+      html += `
+        <li>
+          <strong>${echapperHTML(cat)}</strong>
+          : ${nombre} problème(s)
+        </li>
+      `;
+
+    });
+
+
+  html += "</ul>";
+
+  html +=
+    "<h3>📍 Problèmes par ville</h3><ul>";
+
+
+  Object.entries(villes)
     .sort((a,b) => b[1] - a[1])
-    .map(([nom,nombre]) => `<li>📍 <strong>${echapperHTML(nom)}</strong> : ${nombre} problème(s)</li>`)
-    .join("");
+    .forEach(([ville,nombre]) => {
 
-  details.innerHTML = `
-    <h3>🏷️ Problèmes par catégorie</h3>
-    <ul>${listeCategories || "<li>Aucune donnée</li>"}</ul>
+      html += `
+        <li>
+          <strong>${echapperHTML(ville)}</strong>
+          : ${nombre} problème(s)
+        </li>
+      `;
 
-    <h3>📍 Problèmes par ville</h3>
-    <ul>${listeVilles || "<li>Aucune donnée</li>"}</ul>
-  `;
- }
- 
-function afficherListe(problems){
- const liste=document.getElementById("problems-list");if(!liste)return;
- if(!problems.length){liste.innerHTML='<div class="empty-message">📭 Aucun problème publié pour le moment.</div>';return}
- liste.innerHTML=problems.map(p=>{
-  const urgence=normaliser(p.urgency),cl=urgence==="elevee"||urgence==="haute"?"high":urgence==="moyenne"?"medium":"low";
-  return `<div class="problem ${cl}" data-category="${echapperHTML(p["Catégory"]||"")}" data-search="${echapperHTML((p.Name||"")+" "+(p.City||"")+" "+(p["Catégory"]||"")+" "+(p.description||""))}">
-   <h3>${echapperHTML(p.description||"Problème sans description")}</h3>
-   <p>👤 <strong>Nom :</strong> ${echapperHTML(p.Name||"Non renseigné")}</p>
-   <p>📍 <strong>Ville :</strong> ${echapperHTML(p.City||"Non renseignée")}</p>
-   <p>🏷️ <strong>Catégorie :</strong> ${echapperHTML(p["Catégory"]||"Non renseignée")}</p>
-   <p>🚨 <strong>Urgence :</strong> ${echapperHTML(p.urgency||"Non renseignée")}</p>
-   <div class="problem-buttons">
-    <button type="button" class="solution-button" data-id="${echapperHTML(String(p.id||""))}" onclick="trouverSolution(this)">💡 Trouver une solution</button>
-    <button type="button" class="edit-button" data-id="${echapperHTML(String(p.id||""))}" onclick="modifierProbleme(this)">✏️ Modifier</button>
-    <button type="button" class="delete-button" data-id="${echapperHTML(String(p.id||""))}" onclick="supprimerProbleme(this)">🗑️ Supprimer</button>
-   </div>
-   <div class="solution-box"></div>
-  </div>`;
- }).join("");
+    });
+
+
+  html += "</ul>";
+
+  details.innerHTML = html;
+
 }
 
-function filtrerProblemes(){
- const recherche=normaliser(document.getElementById("search-problems")?.value||"");
- const categorie=normaliser(document.getElementById("filter-category")?.value||"");
- const cartes=document.querySelectorAll("#problems-list .problem");let n=0;
- cartes.forEach(c=>{const texte=normaliser(c.dataset.search||""),cat=normaliser(c.dataset.category||"");const ok=(recherche===""||texte.includes(recherche))&&(categorie===""||cat===categorie);c.style.display=ok?"block":"none";if(ok)n++});
- if(cartes.length)afficherMessage("problems-message",n+" problème(s) affiché(s).","info-message");
-}
 
-async function supprimerProbleme(bouton){
-  const id = bouton.dataset.id;
-  if (!id) return alert("❌ Identifiant introuvable.");
+/* =====================================================
+   AFFICHER LES PROBLÈMES
+===================================================== */
 
-  const token = localStorage.getItem("soluworld_admin_token");
+function afficherListe(problems) {
 
-  if (!token) {
-    alert("🔐 Vous devez être connecté comme administrateur.");
+  const liste =
+    document.getElementById(
+      "problems-list"
+    );
+
+
+  if (!problems.length) {
+
+    liste.innerHTML = `
+      <div class="empty-message">
+        📭 Aucun problème publié pour le moment.
+      </div>
+    `;
+
     return;
   }
 
-  if (!confirm("⚠️ Voulez-vous vraiment supprimer ce problème ?")) return;
 
-  try {
-    const r = await fetch(
-      SUPABASE_URL + "/rest/v1/Problems?id=eq." + encodeURIComponent(id),
-      {
-        method: "DELETE",
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: "Bearer " + token
-        }
+  liste.innerHTML =
+    problems.map(p => {
+
+      const urgence =
+        normaliser(p.urgency);
+
+
+      let classe = "low";
+
+
+      if (
+        urgence === "elevee" ||
+        urgence === "haute"
+      ) {
+
+        classe = "high";
+
       }
+      else if (
+        urgence === "moyenne" ||
+        urgence === "medium"
+      ) {
+
+        classe = "medium";
+
+      }
+
+
+      return `
+
+        <div
+          class="problem ${classe}"
+          data-id="${echapperHTML(p.id)}"
+          data-category="${echapperHTML(p["Catégory"] || "")}"
+          data-search="${echapperHTML(
+            (p.Name || "") + " " +
+            (p.City || "") + " " +
+            (p["Catégory"] || "") + " " +
+            (p.description || "")
+          )}"
+        >
+
+          <h3>
+            📝 ${echapperHTML(
+              p.description ||
+              "Problème sans description"
+            )}
+          </h3>
+
+          <p>
+            👤 <strong>Nom :</strong>
+            ${echapperHTML(
+              p.Name || "Non renseigné"
+            )}
+          </p>
+
+          <p>
+            📍 <strong>Ville :</strong>
+            ${echapperHTML(
+              p.City || "Non renseignée"
+            )}
+          </p>
+
+          <p>
+            🏷️ <strong>Catégorie :</strong>
+            ${echapperHTML(
+              p["Catégory"] || "Autre"
+            )}
+          </p>
+
+          <p>
+            🚨 <strong>Urgence :</strong>
+            ${echapperHTML(
+              p.urgency || "Non renseignée"
+            )}
+          </p>
+
+          <div class="problem-buttons">
+
+            <button
+              type="button"
+              class="solution-button"
+              onclick="trouverSolution('${echapperHTML(p.id)}')"
+            >
+              💡 Trouver une solution
+            </button>
+
+            <button
+              type="button"
+              class="edit-button"
+              onclick="modifierProbleme('${echapperHTML(p.id)}')"
+            >
+              ✏️ Modifier
+            </button>
+
+            <button
+              type="button"
+              class="delete-button"
+              onclick="supprimerProbleme('${echapperHTML(p.id)}')"
+            >
+              🗑️ Supprimer
+            </button>
+
+          </div>
+
+          <div
+            id="solution-${echapperHTML(p.id)}"
+            class="solution-box"
+          ></div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   CHARGER LES PROBLÈMES
+===================================================== */
+
+async function afficherProblemes() {
+
+  const liste =
+    document.getElementById(
+      "problems-list"
     );
 
-    const t = await r.text();
 
-    if (!r.ok) {
-      throw new Error("Supabase " + r.status + " : " + t);
+  liste.innerHTML = `
+    <div class="loading">
+      🔄 Chargement des problèmes...
+    </div>
+  `;
+
+
+  try {
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/Problems?select=*&order=created_at.desc",
+        {
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization:
+              "Bearer " + SUPABASE_KEY
+          }
+        }
+      );
+
+
+    const texte =
+      await response.text();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Supabase " +
+        response.status +
+        " : " +
+        texte
+      );
+
     }
 
-    alert("✅ Problème supprimé avec succès.");
+
+    const problems =
+      JSON.parse(texte);
+
+
+    if (!Array.isArray(problems)) {
+
+      throw new Error(
+        "Supabase n'a pas renvoyé une liste."
+      );
+
+    }
+
+
+    problemsCache = problems;
+
+
+    afficherListe(problems);
+
+    mettreAJourDashboard(problems);
+
+
+    /* IMPORTANT :
+       les problèmes sont aussi envoyés
+       sur la carte
+    */
+
+    afficherProblemesSurCarte(
+      problems
+    );
+
+
+  }
+  catch (error) {
+
+    console.error(error);
+
+    liste.innerHTML = `
+
+      <div class="problem high">
+
+        <h3>
+          ❌ Impossible de charger les problèmes
+        </h3>
+
+        <p>
+          ${echapperHTML(error.message)}
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
+   SOLUTIONS
+===================================================== */
+
+function trouverSolution(id) {
+
+  const problem =
+    problemsCache.find(
+      p => String(p.id) === String(id)
+    );
+
+
+  if (!problem) {
+
+    alert(
+      "❌ Problème introuvable."
+    );
+
+    return;
+  }
+
+
+  const box =
+    document.getElementById(
+      "solution-" + id
+    );
+
+
+  if (!box) return;
+
+
+  if (box.style.display === "block") {
+
+    box.style.display = "none";
+
+    return;
+  }
+
+
+  const categorie =
+    problem["Catégory"] || "Autre";
+
+
+  const solutions =
+    SOLUTIONS[categorie] ||
+    SOLUTIONS["Autre"];
+
+
+  box.innerHTML = `
+
+    <h4>
+      💡 10 solutions possibles
+    </h4>
+
+    <ol class="solution-list">
+
+      ${solutions.map(solution => `
+        <li>
+          ${echapperHTML(solution)}
+        </li>
+      `).join("")}
+
+    </ol>
+
+  `;
+
+
+  box.style.display = "block";
+
+}
+
+
+/* =====================================================
+   SUPPRIMER
+===================================================== */
+
+async function supprimerProbleme(id) {
+
+  const token =
+    localStorage.getItem(
+      "soluworld_admin_token"
+    );
+
+
+  if (!token) {
+
+    alert(
+      "🔐 Connectez-vous d'abord comme administrateur."
+    );
+
+    return;
+  }
+
+
+  if (
+    !confirm(
+      "⚠️ Voulez-vous vraiment supprimer ce problème ?"
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/Problems?id=eq." +
+        encodeURIComponent(id),
+        {
+          method: "DELETE",
+
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization:
+              "Bearer " + token
+          }
+        }
+      );
+
+
+    const texte =
+      await response.text();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Supabase " +
+        response.status +
+        " : " +
+        texte
+      );
+
+    }
+
+
+    alert(
+      "✅ Problème supprimé avec succès."
+    );
+
+
     await afficherProblemes();
 
-  } catch(e) {
-    console.error(e);
-    alert("❌ Impossible de supprimer le problème.\n\n" + e.message);
   }
+  catch (error) {
+
+    console.error(error);
+
+    alert(
+      "❌ Suppression impossible.\n\n" +
+      error.message
+    );
+
+  }
+
 }
 
-let problemeEnModification = null;
 
-function modifierProbleme(bouton){
- const id=String(bouton.dataset.id||"");
+/* =====================================================
+   MODIFIER
+===================================================== */
 
- const p=problemsCache.find(x=>String(x.id)===id);
+function modifierProbleme(id) {
 
- if(!p){
-  alert("❌ Impossible de trouver ce problème.");
-  return;
- }
+  const problem =
+    problemsCache.find(
+      p => String(p.id) === String(id)
+    );
 
- problemeEnModification=id;
 
- document.getElementById("edit-nom").value=p.Name||"";
- document.getElementById("edit-ville").value=p.City||"";
- document.getElementById("edit-description").value=p.description||"";
- document.getElementById("edit-urgence").value=p.urgency||"";
+  if (!problem) {
 
- const select=document.getElementById("edit-categorie");
+    alert(
+      "❌ Problème introuvable."
+    );
 
- select.innerHTML='<option value="">Choisir une catégorie</option>';
-
- CATEGORIES.forEach(([value,label])=>{
-  const option=document.createElement("option");
-  option.value=value;
-  option.textContent=label;
-
-  if(normaliser(value)===normaliser(p["Catégory"]||"")){
-   option.selected=true;
+    return;
   }
 
-  select.appendChild(option);
- });
 
- document.getElementById("edit-section").style.display="block";
+  problemeEnModification = id;
 
- document.getElementById("edit-section").scrollIntoView({
-  behavior:"smooth",
-  block:"start"
- });
+
+  document.getElementById(
+    "edit-nom"
+  ).value = problem.Name || "";
+
+
+  document.getElementById(
+    "edit-ville"
+  ).value = problem.City || "";
+
+
+  document.getElementById(
+    "edit-categorie"
+  ).value =
+    problem["Catégory"] || "";
+
+
+  document.getElementById(
+    "edit-description"
+  ).value =
+    problem.description || "";
+
+
+  document.getElementById(
+    "edit-urgence"
+  ).value =
+    problem.urgency || "";
+
+
+  const section =
+    document.getElementById(
+      "edit-section"
+    );
+
+
+  section.style.display = "block";
+
+
+  section.scrollIntoView({
+    behavior: "smooth"
+  });
+
 }
 
- document.getElementById("edit-form").addEventListener("submit",async e=>{
- e.preventDefault();
 
- if(!problemeEnModification){
-  alert("❌ Aucun problème sélectionné.");
-  return;
- }
-
- const nom=document.getElementById("edit-nom").value.trim();
- const ville=document.getElementById("edit-ville").value.trim();
- const categorie=document.getElementById("edit-categorie").value;
- const description=document.getElementById("edit-description").value.trim();
- const urgence=document.getElementById("edit-urgence").value;
-
- if(!nom||!ville||!categorie||!description||!urgence){
-  afficherMessage(
-   "edit-message",
-   "⚠️ Veuillez remplir tous les champs.",
-   "error-message"
-  );
-  return;
- }
-
- const bouton=e.target.querySelector('button[type="submit"]');
-
- bouton.disabled=true;
-
- try{
-
-  const r=await fetch(
-   SUPABASE_URL+"/rest/v1/Problems?id=eq."+encodeURIComponent(problemeEnModification),
-   {
-    method:"PATCH",
-    headers:{
-     apikey:SUPABASE_KEY,
-     Authorization: "Bearer " + localStorage.getItem("soluworld_admin_token"),
-"Content-Type":"application/json",
-     "Prefer":"return=minimal"
-    },
-    body:JSON.stringify({
- Name:nom,
- City:ville,
- "Catégory":categorie,
- description:description,
- urgency:urgence
-})
-   }
-  );
-
-  const t=await r.text();
-
-  if(!r.ok){
-   throw new Error("Supabase "+r.status+" : "+t);
-  }
-
-  afficherMessage(
-   "edit-message",
-   "✅ Problème modifié avec succès !",
-   "success-message"
-  );
-
-  problemeEnModification=null;
-
-  await afficherProblemes();
-
-  setTimeout(()=>{
-   document.getElementById("edit-section").style.display="none";
-  },1200);
-
- }catch(err){
-
-  console.error(err);
-
-  afficherMessage(
-   "edit-message",
-   "❌ Impossible de modifier le problème.\n\n"+err.message,
-   "error-message"
-  );
-
- }finally{
-
-  bouton.disabled=false;
-
- }
-});
- document.getElementById("cancel-edit").addEventListener("click",()=>{
- problemeEnModification=null;
-
- document.getElementById("edit-form").reset();
-
- document.getElementById("edit-section").style.display="none";
-});
-document.getElementById("problem-form").addEventListener("submit",async e=>{
- e.preventDefault();
-
- const nom=document.getElementById("nom").value.trim();
- const ville=document.getElementById("ville").value.trim();
- const categorie=document.getElementById("catégorie").value;
- const description=document.getElementById("problème").value.trim();
- const urgence=document.getElementById("urgence").value;
-
- if(!nom||!ville||!categorie||!description||!urgence){
-  alert("⚠️ Veuillez remplir tous les champs.");
-  return;
- }
- const btn=document.getElementById("publish-button");btn.disabled=true;
- try{
-  const r=await fetch(SUPABASE_URL+"/rest/v1/Problems",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({Name:nom,City:ville,"Catégory":categorie,description,urgency:urgence})});
-  const t=await r.text();if(!r.ok)throw new Error("Erreur "+r.status+" : "+t);
-  alert("✅ Problème publié avec succès !");e.target.reset();await afficherProblemes();
- }catch(err){console.error(err);alert("❌ Impossible de publier le problème.\n\n"+err.message)}finally{btn.disabled=false}
-});
-
-document.getElementById("search-btn").addEventListener("click",filtrerProblemes);
-document.getElementById("search-problems").addEventListener("input",filtrerProblemes);
-document.getElementById("filter-category").addEventListener("change",filtrerProblemes);
-document.getElementById("clear-search").addEventListener("click",
-()=>{document.getElementById("search-problems").value="";document.getElementById("filter-category").value="";afficherListe(problemsCache);afficherMessage("problems-message",problemsCache.length+" problème(s) chargé(s).","info-message")});
-let carte;
-let marqueursCarte = [];
+/* =====================================================
+   CARTE
+===================================================== */
 
 function initialiserCarte() {
-  carte = L.map("map").setView([12.3714, -1.5197], 6);
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors"
-  }).addTo(carte);
+  const mapElement =
+    document.getElementById("map");
+
+
+  if (
+    !mapElement ||
+    typeof L === "undefined"
+  ) {
+
+    console.error(
+      "Leaflet ou la carte est introuvable."
+    );
+
+    return;
+  }
+
+
+  carte =
+    L.map("map").setView(
+      [12.3714, -1.5197],
+      6
+    );
+
+
+  L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      attribution:
+        "&copy; OpenStreetMap contributors"
+    }
+  ).addTo(carte);
+
 }
 
-function afficherProblemesSurCarte(problems) {
-  if (!carte) return;
 
-  marqueursCarte.forEach(m => carte.removeLayer(m));
-  marqueursCarte = [];
+/* =====================================================
+   COORDONNÉES DES VILLES
+===================================================== */
 
-  problems.forEach(p => {
-    const ville = (p.City || "").trim();
-    if (!ville) return;
+function obtenirCoordonneesVille(ville) {
 
-    const coordonnees = obtenirCoordonneesVille(ville);
-    if (!coordonnees) return;
+  const villes = {
 
-    const urgence = p.urgency || "Non précisée";
-    const categorie = p["Catégory"] || "Autre";
+    "Ouagadougou":
+      [12.3714, -1.5197],
 
-    let couleur = "green";
-    const u = normaliser(urgence);
+    "Bobo-Dioulasso":
+      [11.1771, -4.2979],
 
-    if (u === "elevee" || u === "haute") {
-      couleur = "red";
-    } else if (u === "moyenne" || u === "medium") {
-      couleur = "orange";
-    }
+    "Koudougou":
+      [12.2526, -2.3627],
 
-    const icone = L.divIcon({
-      className: "marqueur-urgence",
-      html: `<div style="
+    "Ouahigouya":
+      [13.5828, -2.4216],
+
+    "Banfora":
+      [10.6333, -4.7667],
+
+    "Dédougou":
+      [12.4667, -3.4667],
+
+    "Fada N'Gourma":
+      [12.0614, 0.3581],
+
+    "Tenkodogo":
+      [11.7800, -0.3697],
+
+    "Kaya":
+      [13.0917, -1.0844],
+
+    "Ziniaré":
+      [12.5822, -0.9542]
+
+  };
+
+
+  const cle =
+    Object.keys(villes).find(
+      nom =>
+        normaliser(nom) ===
+        normaliser(ville)
+    );
+
+
+  return cle
+    ? villes[cle]
+    : null;
+
+}
+
+
+/* =====================================================
+   MARQUEUR
+===================================================== */
+
+function creerIcone(urgence) {
+
+  const u =
+    normaliser(urgence);
+
+
+  let couleur = "green";
+
+
+  if (
+    u === "elevee" ||
+    u === "haute"
+  ) {
+
+    couleur = "red";
+
+  }
+  else if (
+    u === "moyenne" ||
+    u === "medium"
+  ) {
+
+    couleur = "orange";
+
+  }
+
+
+  return L.divIcon({
+
+    className:
+      "marqueur-urgence",
+
+    html: `
+
+      <div style="
         width:18px;
         height:18px;
         background:${couleur};
         border:2px solid white;
         border-radius:50%;
-        box-shadow:0 0 5px rgba(0,0,0,0.5);
-      "></div>`,
-      iconSize: [22, 22],
-      iconAnchor: [11, 11]
-    });
+        box-shadow:0 0 5px rgba(0,0,0,.5);
+      "></div>
 
-    const marqueur = L.marker(coordonnees, {
-      icon: icone
-    })
-    .addTo(carte)
-    .bindPopup(`
-      <strong>${echapperHTML(categorie)}</strong><br>
-      🏙️ ${echapperHTML(ville)}<br>
-      🚨 Urgence : ${echapperHTML(urgence)}<br>
-      📝 ${echapperHTML(p.description || "")}
-    `);
+    `,
 
-    marqueursCarte.push(marqueur);
+    iconSize:
+      [22,22],
+
+    iconAnchor:
+      [11,11]
+
   });
+
 }
 
-function obtenirCoordonneesVille(ville) {
-  const villes = {
-    "Ouagadougou": [12.3714, -1.5197],
-    "Bobo-Dioulasso": [11.1771, -4.2979],
-    "Koudougou": [12.2526, -2.3627],
-    "Ouahigouya": [13.5828, -2.4216],
-    "Banfora": [10.6333, -4.7667],
-    "Dédougou": [12.4667, -3.4667],
-    "Fada N'Gourma": [12.0614, 0.3581],
-    "Tenkodogo": [11.7800, -0.3697],
-    "Kaya": [13.0917, -1.0844],
-    "Ziniaré": [12.5822, -0.9542]
-  };
 
-  const recherche = Object.keys(villes).find(
-    v => v.toLowerCase() === ville.toLowerCase()
+/* =====================================================
+   AFFICHER SUR LA CARTE
+===================================================== */
+
+function afficherProblemesSurCarte(problems) {
+
+  if (!carte) return;
+
+
+  marqueursCarte.forEach(
+    marqueur =>
+      carte.removeLayer(marqueur)
   );
 
-  return recherche ? villes[recherche] : null;
+
+  marqueursCarte = [];
+
+
+  problems.forEach(problem => {
+
+    const ville =
+      (problem.City || "").trim();
+
+
+    const coordonnees =
+      obtenirCoordonneesVille(ville);
+
+
+    if (!coordonnees) {
+
+      console.warn(
+        "Ville non reconnue sur la carte :",
+        ville
+      );
+
+      return;
+    }
+
+
+    const urgence =
+      problem.urgency ||
+      "Non précisée";
+
+
+    const categorie =
+      problem["Catégory"] ||
+      "Autre";
+
+
+    const marqueur =
+      L.marker(
+        coordonnees,
+        {
+          icon:
+            creerIcone(urgence)
+        }
+      )
+      .addTo(carte);
+
+
+    marqueur.bindPopup(`
+
+      <strong>
+        ${echapperHTML(categorie)}
+      </strong>
+
+      <br>
+
+      🏙️
+      ${echapperHTML(ville)}
+
+      <br>
+
+      🚨 Urgence :
+      ${echapperHTML(urgence)}
+
+      <br>
+
+      👤
+      ${echapperHTML(
+        problem.Name ||
+        "Non renseigné"
+      )}
+
+      <br>
+
+      📝
+      ${echapperHTML(
+        problem.description ||
+        ""
+      )}
+
+    `);
+
+
+    marqueur.problemData =
+      problem;
+
+
+    marqueursCarte.push(
+      marqueur
+    );
+
+  });
+
 }
+
+
+/* =====================================================
+   FILTRAGE
+===================================================== */
+
+function filtrerProblemes() {
+
+  const recherche =
+    normaliser(
+      document.getElementById(
+        "search-problems"
+      ).value
+    );
+
+
+  const categorie =
+    normaliser(
+      document.getElementById(
+        "filter-category"
+      ).value
+    );
+
+
+  const cartes =
+    document.querySelectorAll(
+      "#problems-list .problem"
+    );
+
+
+  let compteur = 0;
+
+
+  cartes.forEach(card => {
+
+    const texte =
+      normaliser(
+        card.dataset.search
+      );
+
+
+    const cat =
+      normaliser(
+        card.dataset.category
+      );
+
+
+    const correspond =
+      (
+        recherche === "" ||
+        texte.includes(recherche)
+      )
+      &&
+      (
+        categorie === "" ||
+        cat === categorie
+      );
+
+
+    card.style.display =
+      correspond
+        ? "block"
+        : "none";
+
+
+    if (correspond) {
+      compteur++;
+    }
+
+  });
+
+
+  document.getElementById(
+    "problems-message"
+  ).textContent =
+    compteur +
+    " problème(s) affiché(s).";
+
+
+  document.getElementById(
+    "problems-message"
+  ).className =
+    "message info-message";
+
+
+  document.getElementById(
+    "problems-message"
+  ).style.display =
+    "block";
+
+
+  filtrerCarte(
+    recherche,
+    categorie
+  );
+
+}
+
+
+/* =====================================================
+   FILTRER LA CARTE
+===================================================== */
+
+function filtrerCarte(
+  recherche,
+  categorie
+) {
+
+  marqueursCarte.forEach(
+    marqueur => {
+
+      const problem =
+        marqueur.problemData;
+
+
+      const texte =
+        normaliser(
+          (problem.Name || "") +
+          " " +
+          (problem.City || "") +
+          " " +
+          (problem["Catégory"] || "") +
+          " " +
+          (problem.description || "")
+        );
+
+
+      const cat =
+        normaliser(
+          problem["Catégory"] || ""
+        );
+
+
+      const correspond =
+        (
+          recherche === "" ||
+          texte.includes(recherche)
+        )
+        &&
+        (
+          categorie === "" ||
+          cat === categorie
+        );
+
+
+      if (correspond) {
+
+        if (
+          !carte.hasLayer(marqueur)
+        ) {
+
+          marqueur.addTo(carte);
+
+        }
+
+      }
+      else {
+
+        if (
+          carte.hasLayer(marqueur)
+        ) {
+
+          carte.removeLayer(
+            marqueur
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   CONNEXION ADMIN
+===================================================== */
+
+document
+  .getElementById(
+    "admin-login-form"
+  )
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const email =
+        document.getElementById(
+          "admin-email"
+        ).value.trim();
+
+
+      const password =
+        document.getElementById(
+          "admin-password"
+        ).value;
+
+
+      const message =
+        document.getElementById(
+          "admin-login-message"
+        );
+
+
+      try {
+
+        const response =
+          await fetch(
+            SUPABASE_URL +
+            "/auth/v1/token?grant_type=password",
+            {
+              method: "POST",
+
+              headers: {
+                apikey:
+                  SUPABASE_KEY,
+
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify({
+                  email,
+                  password
+                })
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error_description ||
+            data.msg ||
+            "Connexion impossible."
+          );
+
+        }
+
+
+        localStorage.setItem(
+          "soluworld_admin_token",
+          data.access_token
+        );
+
+
+        message.textContent =
+          "✅ Connexion administrateur réussie.";
+
+        message.style.color =
+          "green";
+
+
+      }
+      catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          "❌ " +
+          error.message;
+
+        message.style.color =
+          "red";
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   PUBLICATION
+===================================================== */
+
+document
+  .getElementById(
+    "problem-form"
+  )
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      const nom =
+        document.getElementById(
+          "nom"
+        ).value.trim();
+
+
+      const ville =
+        document.getElementById(
+          "ville"
+        ).value.trim();
+
+
+      const categorie =
+        document.getElementById(
+          "catégorie"
+        ).value;
+
+
+      const description =
+        document.getElementById(
+          "problème"
+        ).value.trim();
+
+
+      const urgence =
+        document.getElementById(
+          "urgence"
+        ).value;
+
+
+      const bouton =
+        document.getElementById(
+          "publish-button"
+        );
+
+
+      if (
+        !nom ||
+        !ville ||
+        !categorie ||
+        !description ||
+        !urgence
+      ) {
+
+        alert(
+          "⚠️ Veuillez remplir tous les champs."
+        );
+
+        return;
+
+      }
+
+
+      bouton.disabled = true;
+
+
+      try {
+
+        const response =
+          await fetch(
+            SUPABASE_URL +
+            "/rest/v1/Problems",
+            {
+              method: "POST",
+
+              headers: {
+
+                apikey:
+                  SUPABASE_KEY,
+
+                Authorization:
+                  "Bearer " +
+                  SUPABASE_KEY,
+
+                "Content-Type":
+                  "application/json",
+
+                Prefer:
+                  "return=minimal"
+
+              },
+
+              body:
+                JSON.stringify({
+
+                  Name:
+                    nom,
+
+                  City:
+                    ville,
+
+                  "Catégory":
+                    categorie,
+
+                  description:
+                    description,
+
+                  urgency:
+                    urgence
+
+                })
+
+            }
+          );
+
+
+        const texte =
+          await response.text();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Supabase " +
+            response.status +
+            " : " +
+            texte
+          );
+
+        }
+
+
+        alert(
+          "✅ Problème publié avec succès !"
+        );
+
+
+        document
+          .getElementById(
+            "problem-form"
+          )
+          .reset();
+
+
+        await afficherProblemes();
+
+      }
+      catch (error) {
+
+        console.error(error);
+
+        alert(
+          "❌ Impossible de publier le problème.\n\n" +
+          error.message
+        );
+
+      }
+      finally {
+
+        bouton.disabled = false;
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   MODIFICATION
+===================================================== */
+
+document
+  .getElementById(
+    "edit-form"
+  )
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      if (!problemeEnModification) {
+
+        alert(
+          "❌ Aucun problème sélectionné."
+        );
+
+        return;
+
+      }
+
+
+      const token =
+        localStorage.getItem(
+          "soluworld_admin_token"
+        );
+
+
+      if (!token) {
+
+        alert(
+          "🔐 Connectez-vous comme administrateur."
+        );
+
+        return;
+
+      }
+
+
+      const nom =
+        document.getElementById(
+          "edit-nom"
+        ).value.trim();
+
+
+      const ville =
+        document.getElementById(
+          "edit-ville"
+        ).value.trim();
+
+
+      const categorie =
+        document.getElementById(
+          "edit-categorie"
+        ).value;
+
+
+      const description =
+        document.getElementById(
+          "edit-description"
+        ).value.trim();
+
+
+      const urgence =
+        document.getElementById(
+          "edit-urgence"
+        ).value;
+
+
+      try {
+
+        const response =
+          await fetch(
+            SUPABASE_URL +
+            "/rest/v1/Problems?id=eq." +
  
-document.addEventListener("DOMContentLoaded",()=>{
-  remplirCategories();
-  initialiserCarte();
-  afficherProblemes();
-});
-</script>
-</body>
-</html>
