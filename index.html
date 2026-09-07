@@ -1207,15 +1207,6 @@ function afficherListe(problems) {
             </button>
 
             <button
-  type="button"
-  class="solution-button"
-  data-id="${echapperHTML(String(p.id||""))}"
-  onclick="trouverSolution(this)"
->
-  💡 Trouver une solution
-</button>
-
-            <button
               type="button"
               class="delete-button"
               onclick="supprimerProbleme('${echapperHTML(p.id)}')"
