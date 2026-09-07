@@ -396,6 +396,19 @@ async function afficherProblemes(){
   problemsCache=problems;
   afficherListe(problems);
   mettreAJourDashboard(problems);
+  function couleurUrgence(urgence) {
+  const u = normaliser(urgence || "");
+
+  if (u === "elevee" || u === "haute") {
+    return "red";
+  }
+
+  if (u === "moyenne" || u === "medium") {
+    return "orange";
+  }
+
+  return "green";
+  }
   afficherProblemesSurCarte(problems);
 
   afficherMessage(
@@ -719,8 +732,26 @@ function afficherProblemesSurCarte(problems) {
     const urgence = p.urgency || "Non précisée";
     const categorie = p["Catégory"] || "Autre";
 
-    const marqueur = L.marker(coordonnees)
-      .addTo(carte)
+    const couleur = couleurUrgence(urgence);
+
+const icone = L.divIcon({
+  className: "marqueur-urgence",
+  html: `<div style="
+    width: 18px;
+    height: 18px;
+    background: ${couleur};
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  "></div>`,
+  iconSize: [22, 22],
+  iconAnchor: [11, 11]
+});
+
+const marqueur = L.marker(coordonnees, {
+  icon: icone
+})
+  .addTo(carte)
       .bindPopup(`
         <strong>${echapperHTML(categorie)}</strong><br>
         🏙️ ${echapperHTML(ville)}<br>
