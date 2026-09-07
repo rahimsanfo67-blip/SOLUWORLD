@@ -396,6 +396,7 @@ async function afficherProblemes(){
   problemsCache=problems;
   afficherListe(problems);
   mettreAJourDashboard(problems);
+  afficherProblemesSurCarte(problems);
 
   afficherMessage(
    "problems-message",
@@ -691,8 +692,72 @@ document.getElementById("search-problems").addEventListener("input",filtrerProbl
 document.getElementById("filter-category").addEventListener("change",filtrerProblemes);
 document.getElementById("clear-search").addEventListener("click",
 ()=>{document.getElementById("search-problems").value="";document.getElementById("filter-category").value="";afficherListe(problemsCache);afficherMessage("problems-message",problemsCache.length+" problème(s) chargé(s).","info-message")});
+let carte;
+let marqueursCarte = [];
 
-document.addEventListener("DOMContentLoaded",()=>{remplirCategories();afficherProblemes()});
+function initialiserCarte() {
+  carte = L.map("map").setView([12.3714, -1.5197], 6);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(carte);
+}
+
+function afficherProblemesSurCarte(problems) {
+  if (!carte) return;
+
+  marqueursCarte.forEach(m => carte.removeLayer(m));
+  marqueursCarte = [];
+
+  problems.forEach(p => {
+    const ville = (p.City || "").trim();
+    if (!ville) return;
+
+    const coordonnees = obtenirCoordonneesVille(ville);
+    if (!coordonnees) return;
+
+    const urgence = p.urgency || "Non précisée";
+    const categorie = p["Catégory"] || "Autre";
+
+    const marqueur = L.marker(coordonnees)
+      .addTo(carte)
+      .bindPopup(`
+        <strong>${echapperHTML(categorie)}</strong><br>
+        🏙️ ${echapperHTML(ville)}<br>
+        🚨 Urgence : ${echapperHTML(urgence)}<br>
+        📝 ${echapperHTML(p.description || "")}
+      `);
+
+    marqueursCarte.push(marqueur);
+  });
+}
+
+function obtenirCoordonneesVille(ville) {
+  const villes = {
+    "Ouagadougou": [12.3714, -1.5197],
+    "Bobo-Dioulasso": [11.1771, -4.2979],
+    "Koudougou": [12.2526, -2.3627],
+    "Ouahigouya": [13.5828, -2.4216],
+    "Banfora": [10.6333, -4.7667],
+    "Dédougou": [12.4667, -3.4667],
+    "Fada N'Gourma": [12.0614, 0.3581],
+    "Tenkodogo": [11.7800, -0.3697],
+    "Kaya": [13.0917, -1.0844],
+    "Ziniaré": [12.5822, -0.9542]
+  };
+
+  const recherche = Object.keys(villes).find(
+    v => v.toLowerCase() === ville.toLowerCase()
+  );
+
+  return recherche ? villes[recherche] : null;
+}
+ 
+document.addEventListener("DOMContentLoaded",()=>{
+  remplirCategories();
+  initialiserCarte();
+  afficherProblemes();
+});
 </script>
 </body>
 </html>
