@@ -359,6 +359,8 @@ afficherMessage(
  }catch(e){console.error(e);liste.innerHTML=`<div class="problem"><h3>❌ Impossible de charger les problèmes</h3><p>${echapperHTML(e.message)}</p></div>`}
 }
 
+ egories-count").textContent = categories.size;
+
  function mettreAJourDashboard(problems){
   const total = problems.length;
 
@@ -367,22 +369,43 @@ afficherMessage(
     return u === "elevee" || u === "haute";
   }).length;
 
-  const villes = new Set(
-    problems
-      .map(p => (p.City || "").trim())
-      .filter(v => v !== "")
-  );
+  const villes = {};
+  const categories = {};
 
-  const categories = new Set(
-    problems
-      .map(p => (p["Catégory"] || "").trim())
-      .filter(c => c !== "")
-  );
+  problems.forEach(p => {
+    const ville = (p.City || "Non renseignée").trim();
+    const categorie = (p["Catégory"] || "Autre").trim();
+
+    villes[ville] = (villes[ville] || 0) + 1;
+    categories[categorie] = (categories[categorie] || 0) + 1;
+  });
 
   document.getElementById("total-problems").textContent = total;
   document.getElementById("urgent-problems").textContent = urgents;
-  document.getElementById("cities-count").textContent = villes.size;
-  document.getElementById("categories-count").textContent = categories.size;
+  document.getElementById("cities-count").textContent = Object.keys(villes).length;
+  document.getElementById("categories-count").textContent = Object.keys(categories).length;
+
+  const details = document.getElementById("dashboard-details");
+
+  if (!details) return;
+
+  const listeCategories = Object.entries(categories)
+    .sort((a,b) => b[1] - a[1])
+    .map(([nom,nombre]) => `<li>🏷️ <strong>${echapperHTML(nom)}</strong> : ${nombre} problème(s)</li>`)
+    .join("");
+
+  const listeVilles = Object.entries(villes)
+    .sort((a,b) => b[1] - a[1])
+    .map(([nom,nombre]) => `<li>📍 <strong>${echapperHTML(nom)}</strong> : ${nombre} problème(s)</li>`)
+    .join("");
+
+  details.innerHTML = `
+    <h3>🏷️ Problèmes par catégorie</h3>
+    <ul>${listeCategories || "<li>Aucune donnée</li>"}</ul>
+
+    <h3>📍 Problèmes par ville</h3>
+    <ul>${listeVilles || "<li>Aucune donnée</li>"}</ul>
+  `;
  }
  
 function afficherListe(problems){
