@@ -2259,4 +2259,242 @@ document
           await fetch(
             SUPABASE_URL +
             "/rest/v1/Problems?id=eq." +
+            encodeURIComponent(
+              problemeEnModification
+            ),
+            {
+
+              method: "PATCH",
+
+              headers: {
+
+                apikey:
+                  SUPABASE_KEY,
+
+                Authorization:
+                  "Bearer " +
+                  token,
+
+                "Content-Type":
+                  "application/json",
+
+                Prefer:
+                  "return=minimal"
+
+              },
+
+              body:
+                JSON.stringify({
+
+                  Name:
+                    nom,
+
+                  City:
+                    ville,
+
+                  "Catégory":
+                    categorie,
+
+                  description:
+                    description,
+
+                  urgency:
+                    urgence
+
+                })
+
+            }
+          );
+
+
+        const texte =
+          await response.text();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Supabase " +
+            response.status +
+            " : " +
+            texte
+          );
+
+        }
+
+
+        document.getElementById(
+          "edit-message"
+        ).textContent =
+          "✅ Modification enregistrée.";
+
+
+        document.getElementById(
+          "edit-message"
+        ).className =
+          "message success-message";
+
+
+        document.getElementById(
+          "edit-message"
+        ).style.display =
+          "block";
+
+
+        problemeEnModification =
+          null;
+
+
+        await afficherProblemes();
+
+
+      }
+      catch (error) {
+
+        console.error(error);
+
+        const message =
+          document.getElementById(
+            "edit-message"
+          );
+
+
+        message.textContent =
+          "❌ " +
+          error.message;
+
+
+        message.className =
+          "message error-message";
+
+
+        message.style.display =
+          "block";
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   ANNULER MODIFICATION
+===================================================== */
+
+document
+  .getElementById(
+    "cancel-edit"
+  )
+  .addEventListener(
+    "click",
+    function() {
+
+      problemeEnModification =
+        null;
+
+
+      document
+        .getElementById(
+          "edit-form"
+        )
+        .reset();
+
+
+      document
+        .getElementById(
+          "edit-section"
+        )
+        .style.display =
+        "none";
+
+    }
+  );
+
+
+/* =====================================================
+   RECHERCHE
+===================================================== */
+
+document
+  .getElementById(
+    "search-problems"
+  )
+  .addEventListener(
+    "input",
+    filtrerProblemes
+  );
+
+
+document
+  .getElementById(
+    "filter-category"
+  )
+  .addEventListener(
+    "change",
+    filtrerProblemes
+  );
+
+
+/* =====================================================
+   RÉINITIALISER
+===================================================== */
+
+document
+  .getElementById(
+    "clear-search"
+  )
+  .addEventListener(
+    "click",
+    function() {
+
+      document.getElementById(
+        "search-problems"
+      ).value = "";
+
+
+      document.getElementById(
+        "filter-category"
+      ).value = "";
+
+
+      afficherListe(
+        problemsCache
+      );
+
+
+      afficherProblemesSurCarte(
+        problemsCache
+      );
+
+
+      document.getElementById(
+        "problems-message"
+      ).style.display =
+        "none";
+
+    }
+  );
+
+
+/* =====================================================
+   DÉMARRAGE
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    remplirCategories();
+
+    initialiserCarte();
+
+    afficherProblemes();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
  
