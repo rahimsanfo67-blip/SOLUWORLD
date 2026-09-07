@@ -732,25 +732,43 @@ function afficherProblemesSurCarte(problems) {
     const urgence = p.urgency || "Non précisée";
     const categorie = p["Catégory"] || "Autre";
 
-    const couleur = couleurUrgence(urgence);
+    let couleur = "green";
+    const u = normaliser(urgence);
 
-const icone = L.divIcon({
-  className: "marqueur-urgence",
-  html: `<div style="
-    width: 18px;
-    height: 18px;
-    background: ${couleur};
-    border: 2px solid white;
-    border-radius: 50%;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
-  "></div>`,
-  iconSize: [22, 22],
-  iconAnchor: [11, 11]
-});
+    if (u === "elevee" || u === "haute") {
+      couleur = "red";
+    } else if (u === "moyenne" || u === "medium") {
+      couleur = "orange";
+    }
 
-const marqueur = L.marker(coordonnees, {
-  icon: icone
-})
+    const icone = L.divIcon({
+      className: "marqueur-urgence",
+      html: `<div style="
+        width:18px;
+        height:18px;
+        background:${couleur};
+        border:2px solid white;
+        border-radius:50%;
+        box-shadow:0 0 5px rgba(0,0,0,0.5);
+      "></div>`,
+      iconSize: [22, 22],
+      iconAnchor: [11, 11]
+    });
+
+    const marqueur = L.marker(coordonnees, {
+      icon: icone
+    })
+    .addTo(carte)
+    .bindPopup(`
+      <strong>${echapperHTML(categorie)}</strong><br>
+      🏙️ ${echapperHTML(ville)}<br>
+      🚨 Urgence : ${echapperHTML(urgence)}<br>
+      📝 ${echapperHTML(p.description || "")}
+    `);
+
+    marqueursCarte.push(marqueur);
+  });
+}
   .addTo(carte)
       .bindPopup(`
         <strong>${echapperHTML(categorie)}</strong><br>
