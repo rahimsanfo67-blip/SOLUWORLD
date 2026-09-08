@@ -671,6 +671,14 @@ button[type="submit"]:hover {
   background: #dcfce7;
   color: #15803d;
 }
+    .status-button {
+  background: #7c3aed;
+  color: white;
+}
+
+.status-button:hover {
+  background: #6d28d9;
+}
   </style>
 </head>
 
@@ -1478,6 +1486,14 @@ function afficherListe(problems) {
           >
             ✏️ Modifier
           </button>
+
+          <button
+  type="button"
+  class="status-button"
+  onclick="changerStatut('${echapperHTML(id)}')"
+>
+  🔄 Changer le statut
+</button>
 
           <button
             type="button"
@@ -2981,6 +2997,101 @@ function ajouterBoutonsCarte() {
   });
 
 }
+
+  async function changerStatut(id) {
+
+  const problem = problemsCache.find(function(p) {
+    return String(p.id) === String(id);
+  });
+
+  if (!problem) {
+    alert("❌ Problème introuvable.");
+    return;
+  }
+
+  const statutActuel = problem.statut || "Nouveau";
+
+  let nouveauStatut = "Nouveau";
+
+  if (statutActuel === "Nouveau") {
+    nouveauStatut = "En cours";
+  }
+  else if (statutActuel === "En cours") {
+    nouveauStatut = "Résolu";
+  }
+  else {
+    nouveauStatut = "Nouveau";
+  }
+
+  const token = localStorage.getItem("soluworld_admin_token");
+
+  if (!token) {
+    alert("🔐 Vous devez être connecté en administrateur.");
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/Problems?id=eq.${encodeURIComponent(id)}`,
+      {
+        method: "PATCH",
+
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + token,
+          "Content-Type": "application/json",
+          "Prefer": "return=representation"
+        },
+
+        body: JSON.stringify({
+          statut: nouveauStatut
+        })
+      }
+    );
+
+    if (!response.ok) {
+
+      const erreur = await response.text();
+
+      console.error("Erreur changement statut :", erreur);
+
+      alert(
+        "❌ Impossible de modifier le statut.\n\n" +
+        erreur
+      );
+
+      return;
+    }
+
+    /* Mettre à jour le cache local */
+
+    problem.statut = nouveauStatut;
+
+    /* Réafficher la liste */
+
+    afficherListe(problemsCache);
+
+    /* Actualiser le tableau de bord si nécessaire */
+
+    if (typeof mettreAJourDashboard === "function") {
+      mettreAJourDashboard(problemsCache);
+    }
+
+    alert(
+      "✅ Statut modifié : " +
+      nouveauStatut
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "❌ Une erreur est survenue lors du changement de statut."
+    );
+  }
+  }
   
 </script>
 
