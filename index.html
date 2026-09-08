@@ -1564,178 +1564,124 @@ function afficherListe(problems) {
    CHARGER LES PROBLÈMES
 ===================================================== */
 
-function afficherListe(problems) {
+async function afficherProblemes() {
 
-  const liste = document.getElementById("problems-list");
+  const liste =
+    document.getElementById("problems-list");
 
-  if (!liste) return;
-
-  if (!problems.length) {
-    liste.innerHTML = `
-      <div class="empty-message">
-        📭 Aucun problème publié pour le moment.
-      </div>
-    `;
+  if (!liste) {
+    console.error("❌ problems-list introuvable.");
     return;
   }
 
-  liste.innerHTML = problems.map(function(p) {
+  liste.innerHTML = `
+    <div class="loading">
+      🔄 Chargement des problèmes...
+    </div>
+  `;
 
-    const urgence = normaliser(p.urgency);
+  try {
 
-    let classe = "low";
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/Problems?select=*&order=created_at.desc",
+        {
+          method: "GET",
+
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization:
+              "Bearer " + SUPABASE_KEY,
+            Accept:
+              "application/json"
+          }
+        }
+      );
+
+    const texte =
+      await response.text();
+
+    console.log(
+      "Réponse Supabase :",
+      texte
+    );
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Supabase " +
+        response.status +
+        " : " +
+        texte
+      );
+
+    }
+
+    const problems =
+      JSON.parse(texte);
+
+    if (!Array.isArray(problems)) {
+
+      throw new Error(
+        "Supabase n'a pas renvoyé une liste."
+      );
+
+    }
+
+    console.log(
+      "✅ Nombre de problèmes :",
+      problems.length
+    );
+
+    problemsCache =
+      problems;
+
+    afficherListe(
+      problems
+    );
+
+    mettreAJourDashboard(
+      problems
+    );
 
     if (
-      urgence === "elevee" ||
-      urgence === "haute"
+      typeof afficherProblemesSurCarte ===
+      "function"
     ) {
-      classe = "high";
-    }
-    else if (
-      urgence === "moyenne" ||
-      urgence === "medium"
-    ) {
-      classe = "medium";
+
+      afficherProblemesSurCarte(
+        problems
+      );
+
     }
 
-    /* ==============================
-       STATUT DU PROBLÈME
-       ============================== */
+  }
+  catch (error) {
 
-    const statut = p.statut || "Nouveau";
+    console.error(
+      "❌ Erreur chargement :",
+      error
+    );
 
-    let classeStatut = "statut-nouveau";
-    let iconeStatut = "🔴";
-
-    if (statut === "En cours") {
-      classeStatut = "statut-en-cours";
-      iconeStatut = "🟠";
-    }
-
-    if (statut === "Résolu") {
-      classeStatut = "statut-resolu";
-      iconeStatut = "🟢";
-    }
-
-    const id = String(p.id || "");
-
-    /* ==============================
-       NUMÉRO DE SUIVI
-       ============================== */
-
-    const numeroSuivi =
-      p.numero_suivi || "Non disponible";
-
-    return `
-      <div
-        class="problem ${classe}"
-        data-id="${echapperHTML(id)}"
-        data-category="${echapperHTML(
-          p["Catégory"] || ""
-        )}"
-        data-search="${echapperHTML(
-          (p.Name || "") + " " +
-          (p.City || "") + " " +
-          (p["Catégory"] || "") + " " +
-          (p.description || "") + " " +
-          (p.numero_suivi || "")
-        )}"
-      >
+    liste.innerHTML = `
+      <div class="problem high">
 
         <h3>
-          📝 ${echapperHTML(
-            p.description ||
-            "Problème sans description"
-          )}
+          ❌ Impossible de charger les problèmes
         </h3>
 
         <p>
-          👤 <strong>Nom :</strong>
           ${echapperHTML(
-            p.Name || "Non renseigné"
+            error.message
           )}
         </p>
-
-        <p>
-          📍 <strong>Ville :</strong>
-          ${echapperHTML(
-            p.City || "Non renseignée"
-          )}
-        </p>
-
-        <p>
-          🏷️ <strong>Catégorie :</strong>
-          ${echapperHTML(
-            p["Catégory"] || "Autre"
-          )}
-        </p>
-
-        <p>
-          🚨 <strong>Urgence :</strong>
-          ${echapperHTML(
-            p.urgency || "Non renseignée"
-          )}
-        </p>
-
-        <p>
-          📋 <strong>N° de suivi :</strong>
-          <span class="numero-suivi">
-            ${echapperHTML(numeroSuivi)}
-          </span>
-        </p>
-
-        <p>
-          📌 <strong>Statut :</strong>
-          <span class="statut-badge ${classeStatut}">
-            ${iconeStatut}
-            ${echapperHTML(statut)}
-          </span>
-        </p>
-
-        <div class="problem-buttons">
-
-          <button
-            type="button"
-            class="solution-button"
-            onclick="trouverSolution('${echapperHTML(id)}')"
-          >
-            💡 Trouver une solution
-          </button>
-
-          <button
-            type="button"
-            class="edit-button"
-            onclick="modifierProbleme('${echapperHTML(id)}')"
-          >
-            ✏️ Modifier
-          </button>
-
-          <button
-            type="button"
-            class="status-button"
-            onclick="changerStatut('${echapperHTML(id)}')"
-          >
-            🔄 Changer le statut
-          </button>
-
-          <button
-            type="button"
-            class="delete-button"
-            onclick="supprimerProbleme('${echapperHTML(id)}')"
-          >
-            🗑️ Supprimer
-          </button>
-
-        </div>
-
-        <div
-          id="solution-${echapperHTML(id)}"
-          class="solution-box"
-        ></div>
 
       </div>
     `;
-  }).join("");
+
+  }
+
 }
 
 
