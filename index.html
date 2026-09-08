@@ -436,6 +436,56 @@
 .solution-box li {
   margin-bottom: 8px;
 }
+    /* =====================================================
+   📱 AMÉLIORATION MOBILE DES BOUTONS
+===================================================== */
+
+.problem-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.problem-buttons button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.solution-button {
+  flex: 1 1 180px;
+}
+
+.edit-button {
+  flex: 1 1 120px;
+}
+
+.delete-button {
+  flex: 1 1 120px;
+}
+
+/* Téléphone */
+@media (max-width: 600px) {
+
+  .problem-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .problem-buttons button {
+    width: 100%;
+    min-height: 46px;
+    font-size: 15px;
+  }
+
+}
   </style>
 </head>
 
