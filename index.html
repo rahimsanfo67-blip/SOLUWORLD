@@ -642,6 +642,35 @@ button[type="submit"]:hover {
     margin: auto;
   }
 }
+    /* =========================================================
+   STATUT DES PROBLÈMES
+   ========================================================= */
+
+.statut-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.statut-nouveau {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.statut-en-cours {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.statut-resolu {
+  background: #dcfce7;
+  color: #15803d;
+}
   </style>
 </head>
 
@@ -1321,141 +1350,153 @@ function mettreAJourDashboard(problems) {
 
 function afficherListe(problems) {
 
-  const liste =
-    document.getElementById(
-      "problems-list"
-    );
+  const liste = document.getElementById("problems-list");
 
+  if (!liste) return;
 
   if (!problems.length) {
-
     liste.innerHTML = `
       <div class="empty-message">
         📭 Aucun problème publié pour le moment.
       </div>
     `;
-
     return;
-    ajouterBoutonsCarte();
   }
 
+  liste.innerHTML = problems.map(function(p) {
 
-  liste.innerHTML =
-    problems.map(p => {
+    const urgence = normaliser(p.urgency);
 
-      const urgence =
-        normaliser(p.urgency);
+    let classe = "low";
 
+    if (
+      urgence === "elevee" ||
+      urgence === "haute"
+    ) {
+      classe = "high";
+    }
+    else if (
+      urgence === "moyenne" ||
+      urgence === "medium"
+    ) {
+      classe = "medium";
+    }
 
-      let classe = "low";
+    /* ==============================
+       STATUT DU PROBLÈME
+       ============================== */
 
+    const statut = p.statut || "Nouveau";
 
-      if (
-        urgence === "elevee" ||
-        urgence === "haute"
-      ) {
+    let classeStatut = "statut-nouveau";
+    let iconeStatut = "🔴";
 
-        classe = "high";
+    if (statut === "En cours") {
+      classeStatut = "statut-en-cours";
+      iconeStatut = "🟠";
+    }
 
-      }
-      else if (
-        urgence === "moyenne" ||
-        urgence === "medium"
-      ) {
+    if (statut === "Résolu") {
+      classeStatut = "statut-resolu";
+      iconeStatut = "🟢";
+    }
 
-        classe = "medium";
+    const id = String(p.id || "");
 
-      }
+    return `
+      <div
+        class="problem ${classe}"
+        data-id="${echapperHTML(id)}"
+        data-category="${echapperHTML(
+          p["Catégory"] || ""
+        )}"
+        data-search="${echapperHTML(
+          (p.Name || "") + " " +
+          (p.City || "") + " " +
+          (p["Catégory"] || "") + " " +
+          (p.description || "")
+        )}"
+      >
 
+        <h3>
+          📝 ${echapperHTML(
+            p.description ||
+            "Problème sans description"
+          )}
+        </h3>
 
-      return `
+        <p>
+          👤 <strong>Nom :</strong>
+          ${echapperHTML(
+            p.Name || "Non renseigné"
+          )}
+        </p>
 
-        <div
-          class="problem ${classe}"
-          data-id="${echapperHTML(p.id)}"
-          data-category="${echapperHTML(p["Catégory"] || "")}"
-          data-search="${echapperHTML(
-            (p.Name || "") + " " +
-            (p.City || "") + " " +
-            (p["Catégory"] || "") + " " +
-            (p.description || "")
-          )}"
-        >
+        <p>
+          📍 <strong>Ville :</strong>
+          ${echapperHTML(
+            p.City || "Non renseignée"
+          )}
+        </p>
 
-          <h3>
-            📝 ${echapperHTML(
-              p.description ||
-              "Problème sans description"
-            )}
-          </h3>
+        <p>
+          🏷️ <strong>Catégorie :</strong>
+          ${echapperHTML(
+            p["Catégory"] || "Autre"
+          )}
+        </p>
 
-          <p>
-            👤 <strong>Nom :</strong>
-            ${echapperHTML(
-              p.Name || "Non renseigné"
-            )}
-          </p>
+        <p>
+          🚨 <strong>Urgence :</strong>
+          ${echapperHTML(
+            p.urgency || "Non renseignée"
+          )}
+        </p>
 
-          <p>
-            📍 <strong>Ville :</strong>
-            ${echapperHTML(
-              p.City || "Non renseignée"
-            )}
-          </p>
+        <p>
+          📌 <strong>Statut :</strong>
+          <span class="statut-badge ${classeStatut}">
+            ${iconeStatut}
+            ${echapperHTML(statut)}
+          </span>
+        </p>
 
-          <p>
-            🏷️ <strong>Catégorie :</strong>
-            ${echapperHTML(
-              p["Catégory"] || "Autre"
-            )}
-          </p>
+        <div class="problem-buttons">
 
-          <p>
-            🚨 <strong>Urgence :</strong>
-            ${echapperHTML(
-              p.urgency || "Non renseignée"
-            )}
-          </p>
+          <button
+            type="button"
+            class="solution-button"
+            onclick="trouverSolution('${echapperHTML(id)}')"
+          >
+            💡 Trouver une solution
+          </button>
 
-          <div class="problem-buttons">
+          <button
+            type="button"
+            class="edit-button"
+            onclick="modifierProbleme('${echapperHTML(id)}')"
+          >
+            ✏️ Modifier
+          </button>
 
-  <button
-    type="button"
-    class="solution-button"
-    onclick="trouverSolution('${echapperHTML(p.id)}')"
-  >
-    💡 Trouver une solution
-  </button>
+          <button
+            type="button"
+            class="delete-button"
+            onclick="supprimerProbleme('${echapperHTML(id)}')"
+          >
+            🗑️ Supprimer
+          </button>
 
-  <button
-    type="button"
-    class="edit-button"
-    onclick="modifierProbleme('${echapperHTML(p.id)}')"
-  >
-    ✏️ Modifier
-  </button>
-
-  <button
-    type="button"
-    class="delete-button"
-    onclick="supprimerProbleme('${echapperHTML(p.id)}')"
-  >
-    🗑️ Supprimer
-  </button>
-
-</div>
-  
-<div
-  id="solution-${echapperHTML(p.id)}"
-  class="solution-box"
-></div>
-          
         </div>
 
-      `;
+        <div
+          id="solution-${echapperHTML(id)}"
+          class="solution-box"
+        ></div>
 
-    }).join("");
-
+      </div>
+    `;
+  }).join("");
 }
 
 
