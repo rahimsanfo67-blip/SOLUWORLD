@@ -1402,7 +1402,7 @@ function afficherListe(problems) {
 
   if (!liste) return;
 
-  if (!problems.length) {
+  if (!Array.isArray(problems) || problems.length === 0) {
     liste.innerHTML = `
       <div class="empty-message">
         📭 Aucun problème publié pour le moment.
@@ -1413,7 +1413,7 @@ function afficherListe(problems) {
 
   liste.innerHTML = problems.map(function(p) {
 
-    const urgence = normaliser(p.urgency);
+    const urgence = normaliser(p.urgency || "");
 
     let classe = "low";
 
@@ -1422,17 +1422,12 @@ function afficherListe(problems) {
       urgence === "haute"
     ) {
       classe = "high";
-    }
-    else if (
+    } else if (
       urgence === "moyenne" ||
       urgence === "medium"
     ) {
       classe = "medium";
     }
-
-    /* ==============================
-       STATUT DU PROBLÈME
-       ============================== */
 
     const statut = p.statut || "Nouveau";
 
@@ -1451,6 +1446,9 @@ function afficherListe(problems) {
 
     const id = String(p.id || "");
 
+    const numeroSuivi =
+      p.numero_suivi || "Non disponible";
+
     return `
       <div
         class="problem ${classe}"
@@ -1462,7 +1460,8 @@ function afficherListe(problems) {
           (p.Name || "") + " " +
           (p.City || "") + " " +
           (p["Catégory"] || "") + " " +
-          (p.description || "")
+          (p.description || "") + " " +
+          (p.numero_suivi || "")
         )}"
       >
 
@@ -1502,6 +1501,11 @@ function afficherListe(problems) {
         </p>
 
         <p>
+          📋 <strong>N° de suivi :</strong>
+          ${echapperHTML(numeroSuivi)}
+        </p>
+
+        <p>
           📌 <strong>Statut :</strong>
           <span class="statut-badge ${classeStatut}">
             ${iconeStatut}
@@ -1528,12 +1532,12 @@ function afficherListe(problems) {
           </button>
 
           <button
-  type="button"
-  class="status-button"
-  onclick="changerStatut('${echapperHTML(id)}')"
->
-  🔄 Changer le statut
-</button>
+            type="button"
+            class="status-button"
+            onclick="changerStatut('${echapperHTML(id)}')"
+          >
+            🔄 Changer le statut
+          </button>
 
           <button
             type="button"
