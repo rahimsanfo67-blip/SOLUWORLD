@@ -1252,45 +1252,75 @@ function remplirCategories() {
 }
 
 
-/* =====================================================
-   TABLEAU DE BORD
+   /* =====================================================
+   METTRE À JOUR LE TABLEAU DE BORD
 ===================================================== */
 
 function mettreAJourDashboard(problems) {
 
-  const total =
-    problems.length;
+  if (!Array.isArray(problems)) {
+    problems = [];
+  }
 
+  const total = problems.length;
 
-  const urgents =
-    problems.filter(p => {
-
-      const u =
-        normaliser(p.urgency);
-
-      return (
-        u === "elevee" ||
-        u === "haute"
-      );
-
-    }).length;
-
+  let nouveaux = 0;
+  let enCours = 0;
+  let resolus = 0;
+  let urgents = 0;
 
   const villes = {};
   const categories = {};
 
+  problems.forEach(function(p) {
 
-  problems.forEach(p => {
+    /* =========================
+       STATUT
+       ========================= */
+
+    const statut = p.statut || "Nouveau";
+
+    if (statut === "Nouveau") {
+      nouveaux++;
+    }
+    else if (statut === "En cours") {
+      enCours++;
+    }
+    else if (statut === "Résolu") {
+      resolus++;
+    }
+
+    /* =========================
+       URGENCE
+       ========================= */
+
+    const urgence = normaliser(
+      p.urgency || ""
+    );
+
+    if (
+      urgence === "elevee" ||
+      urgence === "haute"
+    ) {
+      urgents++;
+    }
+
+    /* =========================
+       VILLE
+       ========================= */
 
     const ville =
       (p.City || "Non renseignée").trim();
 
-    const categorie =
-      (p["Catégory"] || "Autre").trim();
-
-
     villes[ville] =
       (villes[ville] || 0) + 1;
+
+    /* =========================
+       CATÉGORIE
+       ========================= */
+
+    const categorie =
+      (p["Catégory"] || "Autre").trim();
 
     categories[categorie] =
       (categories[categorie] || 0) + 1;
@@ -1298,76 +1328,66 @@ function mettreAJourDashboard(problems) {
   });
 
 
-  document.getElementById(
-    "total-problems"
-  ).textContent = total;
+  /* =========================
+     AFFICHER LES COMPTEURS
+     ========================= */
+
+  const totalElement =
+    document.getElementById("stat-total");
+
+  if (totalElement) {
+    totalElement.textContent = total;
+  }
 
 
-  document.getElementById(
-    "urgent-problems"
-  ).textContent = urgents;
+  const nouveauxElement =
+    document.getElementById("stat-nouveaux");
+
+  if (nouveauxElement) {
+    nouveauxElement.textContent = nouveaux;
+  }
 
 
-  document.getElementById(
-    "cities-count"
-  ).textContent =
-    Object.keys(villes).length;
+  const enCoursElement =
+    document.getElementById("stat-en-cours");
+
+  if (enCoursElement) {
+    enCoursElement.textContent = enCours;
+  }
 
 
-  document.getElementById(
-    "categories-count"
-  ).textContent =
-    Object.keys(categories).length;
+  const resolusElement =
+    document.getElementById("stat-resolus");
+
+  if (resolusElement) {
+    resolusElement.textContent = resolus;
+  }
 
 
-  const details =
-    document.getElementById(
-      "dashboard-details"
-    );
+  const urgentsElement =
+    document.getElementById("stat-urgents");
+
+  if (urgentsElement) {
+    urgentsElement.textContent = urgents;
+  }
 
 
-  let html =
-    
-    "<h3>🏷️ Problèmes par catégorie</h3><ul>";
+  const villesElement =
+    document.getElementById("stat-villes");
+
+  if (villesElement) {
+    villesElement.textContent =
+      Object.keys(villes).length;
+  }
 
 
-  Object.entries(categories)
-    .sort((a,b) => b[1] - a[1])
-    .forEach(([cat,nombre]) => {
+  const categoriesElement =
+    document.getElementById("stat-categories");
 
-      html += `
-        <li>
-          <strong>${echapperHTML(cat)}</strong>
-          : ${nombre} problème(s)
-        </li>
-      `;
-
-    });
-
-
-  html += "</ul>";
-
-  html +=
-    "<h3>📍 Problèmes par ville</h3><ul>";
-
-
-  Object.entries(villes)
-    .sort((a,b) => b[1] - a[1])
-    .forEach(([ville,nombre]) => {
-
-      html += `
-        <li>
-          <strong>${echapperHTML(ville)}</strong>
-          : ${nombre} problème(s)
-        </li>
-      `;
-
-    });
-
-
-  html += "</ul>";
-
-  details.innerHTML = html;
+  if (categoriesElement) {
+    categoriesElement.textContent =
+      Object.keys(categories).length;
+  }
 
 }
 
