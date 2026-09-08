@@ -13,564 +13,633 @@
   />
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    /* =========================================================
+   SOLUWORLD — DESIGN PROFESSIONNEL & MOBILE FIRST
+   Formulaire • Dashboard • Recherche • Carte
+   Problèmes • Solutions • Modifier • Supprimer
+   ========================================================= */
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
-      color: #222;
-    }
-
-    header {
-      background: #0b6e4f;
-      color: white;
-      padding: 25px 15px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0 0 10px;
-      font-size: 32px;
-    }
-
-    header p {
-      margin: 0;
-    }
-
-    main {
-      width: 95%;
-      max-width: 1100px;
-      margin: 25px auto;
-    }
-
-    section {
-      background: white;
-      margin-bottom: 25px;
-      padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.08);
-    }
-
-    h2 {
-      color: #0b6e4f;
-      margin-top: 0;
-    }
-
-    h3 {
-      color: #333;
-    }
-
-    label {
-      display: block;
-      margin-top: 12px;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
-
-    input,
-textarea,
-select {
-  width: 100%;
+* {
   box-sizing: border-box;
-  padding: 14px;
-  margin-top: 6px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 16px;
-  background: #fff;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border: 2px solid #0b6e4f;
-  box-shadow: 0 0 0 2px rgba(11, 110, 79, 0.12);
+html {
+  scroll-behavior: smooth;
 }
 
-textarea {
-  min-height: 140px;
-  resize: vertical;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f7f5;
+  color: #1f2937;
+  line-height: 1.5;
 }
 
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
+/* =========================================================
+   CONTENEUR PRINCIPAL
+   ========================================================= */
 
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 11px 15px;
-      margin-top: 12px;
-      cursor: pointer;
-      font-size: 15px;
-    }
+.container {
+  width: min(1180px, 94%);
+  margin: 0 auto;
+}
 
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
+/* =========================================================
+   HEADER
+   ========================================================= */
 
-    .primary-button {
-  background: #0b6e4f;
+header {
+  background: linear-gradient(135deg, #087f5b, #0b9b6d);
   color: white;
-  width: 100%;
-  min-height: 50px;
-  font-weight: bold;
-  font-size: 16px;
-  border-radius: 10px;
-    }
-    @media (max-width: 600px) {
-
-  input,
-  textarea,
-  select {
-    font-size: 16px;
-    padding: 14px;
-  }
-
-  .primary-button {
-    min-height: 52px;
-    font-size: 17px;
-  }
-    }
-
-    .search-area {
-      display: grid;
-      grid-template-columns: 1fr 220px auto;
-      gap: 10px;
-      align-items: end;
-    }
-
-    .search-area button {
-      background: #555;
-      color: white;
-      margin: 0;
-    }
-
-    #map-section {
-      max-width: 100%;
-    }
-
-    #map {
-      width: 100%;
-      height: 500px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-    }
-
-    .problem {
-      border: 1px solid #ddd;
-      border-left: 6px solid #0b6e4f;
-      padding: 18px;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      background: #fff;
-    }
-
-    .problem.high {
-      border-left-color: red;
-    }
-
-    .problem.medium {
-      border-left-color: orange;
-    }
-
-    .problem.low {
-      border-left-color: green;
-    }
-
-    .problem p {
-      margin: 8px 0;
-    }
-
-    .problem-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .problem-buttons button {
-      margin: 0;
-    }
-
-    .solution-button {
-      background: #2563eb;
-      color: white;
-    }
-
-    .edit-button {
-      background: #f59e0b;
-      color: white;
-    }
-
-    .delete-button {
-      background: #dc2626;
-      color: white;
-    }
-
-    .solution-box {
-      display: none;
-      margin-top: 15px;
-      padding: 15px;
-      background: #f0fdf4;
-      border-radius: 10px;
-      border: 1px solid #bbf7d0;
-    }
-
-    .solution-list li {
-      margin-bottom: 8px;
-    }
-
-    .loading {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .empty-message {
-      padding: 25px;
-      text-align: center;
-    }
-
-    .message {
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 10px;
-      display: none;
-    }
-
-    .success-message {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .error-message {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .info-message {
-      background: #dbeafe;
-      color: #1e40af;
-    }
-
-    #dashboard-stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .dashboard-card {
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
-
-    .dashboard-card strong {
-      display: block;
-      font-size: 30px;
-      color: #0b6e4f;
-      margin-bottom: 8px;
-    }
-
-    .dashboard-card span {
-      font-size: 14px;
-    }
-
-    #dashboard-details {
-      line-height: 1.7;
-    }
-
-    .admin-login {
-      max-width: 600px;
-      margin: auto;
-    }
-
-    #edit-section {
-      display: none;
-    }
-
-    .cancel-button {
-      background: #666;
-      color: white;
-    }
-
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 25px;
-      margin-top: 30px;
-    }
-
-    @media (max-width: 800px) {
-      .search-area {
-        grid-template-columns: 1fr;
-      }
-
-      #dashboard-stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 500px) {
-      header h1 {
-        font-size: 25px;
-      }
-
-      #dashboard-stats {
-        grid-template-columns: 1fr;
-      }
-
-      #map {
-        height: 400px;
-      }
-
-      .problem-buttons {
-        flex-direction: column;
-      }
-
-      .problem-buttons button {
-        width: 100%;
-      }
-    }
-    /* ================================
-   TABLEAU DE BORD
-================================ */
-
-#dashboard-section {
-  max-width: 1000px;
-  margin: 30px auto;
-}
-
-#dashboard-section > h2 {
-  margin-bottom: 20px;
-}
-
-#dashboard-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-bottom: 30px;
-}
-
-.dashboard-card {
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  padding: 20px 10px;
+  padding: 22px 16px;
   text-align: center;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
 }
 
-.dashboard-card strong {
-  display: block;
-  font-size: 36px;
-  color: #087f5b;
-  margin-bottom: 8px;
+header h1 {
+  margin: 0;
+  font-size: clamp(28px, 6vw, 46px);
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
-.dashboard-card span {
-  display: block;
-  font-size: 16px;
-  color: #333;
+header p {
+  margin: 7px 0 0;
+  font-size: clamp(14px, 3.5vw, 18px);
+  opacity: 0.95;
 }
 
+/* =========================================================
+   SECTIONS
+   ========================================================= */
 
-/* ================================
-   PROBLÈMES PAR CATÉGORIE / VILLE
-================================ */
-
-#dashboard-details {
-  margin-top: 20px;
+section {
+  background: #ffffff;
+  margin: 22px auto;
+  padding: clamp(18px, 4vw, 30px);
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
 }
 
-#dashboard-details h3 {
-  margin-top: 25px;
-  margin-bottom: 12px;
-}
-
-#dashboard-details ul {
-  padding-left: 25px;
-}
-
-#dashboard-details li {
-  margin-bottom: 8px;
-}
-
-
-/* ================================
-   MOBILE
-================================ */
-
-@media (max-width: 600px) {
-
-  #dashboard-section {
-    margin: 20px 0;
-  }
-
-  #dashboard-stats {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .dashboard-card {
-    padding: 16px 6px;
-    border-radius: 14px;
-  }
-
-  .dashboard-card strong {
-    font-size: 30px;
-  }
-
-  .dashboard-card span {
-    font-size: 14px;
-  }
-
-}
-    /* Bouton carte */
-
-.bouton-carte {
-  width: 100%;
-  margin-top: 10px;
-  padding: 14px;
-  border: none;
-  border-radius: 10px;
-  background: #087f5b;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.bouton-carte:active {
-  transform: scale(0.98);
-}
-    .solution-box {
-  display: none;
-  margin-top: 15px;
-  padding: 15px;
-  background: #f0f8f0;
-  border-radius: 10px;
-}
-
-.solution-box h4 {
+section h2 {
   margin-top: 0;
+  margin-bottom: 20px;
+  color: #087f5b;
+  font-size: clamp(20px, 5vw, 28px);
 }
 
-.solution-box li {
-  margin-bottom: 8px;
-}
-    /* =====================================================
-   📱 AMÉLIORATION MOBILE DES BOUTONS
-===================================================== */
+/* =========================================================
+   FORMULAIRE
+   ========================================================= */
 
-.problem-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 15px;
+form {
+  width: 100%;
 }
 
-.problem-buttons button {
-  min-height: 44px;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
+.form-group {
+  margin-bottom: 16px;
 }
 
-.solution-button {
-  flex: 1 1 180px;
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 700;
+  color: #374151;
+  font-size: 15px;
 }
-
-.edit-button {
-  flex: 1 1 120px;
-}
-
-.delete-button {
-  flex: 1 1 120px;
-}
-
-/* Téléphone */
-@media (max-width: 600px) {
-
-  .problem-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-  }
-
-  .problem-buttons button {
-    width: 100%;
-    min-height: 46px;
-    font-size: 15px;
-  }
-
-}
-    /* ===== AMELIORATION DU FORMULAIRE ===== */
 
 input,
 select,
 textarea {
   width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
-  margin-top: 6px;
-  margin-bottom: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  min-height: 48px;
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111827;
   font-size: 16px;
-  background: white;
+  outline: none;
+  transition: 0.2s ease;
 }
 
 textarea {
-  min-height: 120px;
+  min-height: 125px;
   resize: vertical;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  outline: none;
-  border: 2px solid #198754;
+  border-color: #0b9b6d;
+  box-shadow: 0 0 0 3px rgba(11, 155, 109, 0.13);
 }
 
+/* =========================================================
+   BOUTONS GÉNÉRAUX
+   ========================================================= */
+
+button {
+  min-height: 46px;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+  touch-action: manipulation;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* =========================================================
+   BOUTON PUBLICATION
+   ========================================================= */
+
+#publish-button,
 button[type="submit"] {
   width: 100%;
-  min-height: 48px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 12px;
+  background: #087f5b;
+  color: white;
+  box-shadow: 0 4px 10px rgba(8, 127, 91, 0.2);
 }
 
-/* Téléphone */
-@media (max-width: 600px) {
+#publish-button:hover,
+button[type="submit"]:hover {
+  background: #066b4d;
+}
+
+/* =========================================================
+   RECHERCHE ET FILTRES
+   ========================================================= */
+
+.search-container,
+.filters,
+.filter-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+#search,
+#search-input,
+#filter-search,
+#filter-category {
+  width: 100%;
+}
+
+/* =========================================================
+   TABLEAU DE BORD
+   ========================================================= */
+
+.dashboard,
+.dashboard-container,
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.stat-card,
+.dashboard-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px 15px;
+  text-align: center;
+  min-height: 115px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stat-card h3,
+.dashboard-card h3 {
+  margin: 0 0 8px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.stat-card strong,
+.dashboard-card strong,
+.stat-number {
+  font-size: clamp(25px, 5vw, 35px);
+  color: #087f5b;
+  font-weight: 800;
+}
+
+/* =========================================================
+   CARTE
+   ========================================================= */
+
+#map {
+  width: 100%;
+  height: 500px;
+  min-height: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================================
+   LISTE DES PROBLÈMES
+   ========================================================= */
+
+#problems-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.problem {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 6px solid #94a3b8;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.problem h3 {
+  margin: 0 0 15px;
+  color: #111827;
+  font-size: 18px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.problem p {
+  margin: 9px 0;
+  color: #4b5563;
+  overflow-wrap: anywhere;
+}
+
+.problem p strong {
+  color: #1f2937;
+}
+
+/* =========================================================
+   NIVEAUX D'URGENCE
+   ========================================================= */
+
+.problem.high {
+  border-left-color: #dc2626;
+}
+
+.problem.medium {
+  border-left-color: #f59e0b;
+}
+
+.problem.low {
+  border-left-color: #16a34a;
+}
+
+/* =========================================================
+   BOUTONS D'UN PROBLÈME
+   ========================================================= */
+
+.problem-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.problem-buttons button {
+  flex: 1 1 150px;
+  min-height: 46px;
+}
+
+/* SOLUTION */
+
+.solution-button {
+  background: #0b9b6d;
+  color: white;
+}
+
+.solution-button:hover {
+  background: #087f5b;
+}
+
+/* MODIFIER */
+
+.edit-button {
+  background: #2563eb;
+  color: white;
+}
+
+.edit-button:hover {
+  background: #1d4ed8;
+}
+
+/* SUPPRIMER */
+
+.delete-button {
+  background: #dc2626;
+  color: white;
+}
+
+.delete-button:hover {
+  background: #b91c1c;
+}
+
+/* =========================================================
+   BOÎTE DES SOLUTIONS
+   ========================================================= */
+
+.solution-box {
+  display: none;
+  margin-top: 16px;
+  padding: 18px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  color: #14532d;
+  animation: apparition 0.2s ease;
+}
+
+.solution-box h4 {
+  margin: 0 0 10px;
+  color: #087f5b;
+  font-size: 18px;
+}
+
+.solution-box p {
+  margin-bottom: 12px;
+}
+
+.solution-list {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.solution-list li {
+  margin-bottom: 9px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   FORMULAIRE DE MODIFICATION
+   ========================================================= */
+
+#edit-form,
+.edit-form {
+  background: #f8fafc;
+  border: 1px solid #dbe3ea;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+#edit-form h3,
+.edit-form h3 {
+  margin-top: 0;
+  color: #2563eb;
+}
+
+#edit-form button,
+.edit-form button {
+  margin-top: 8px;
+}
+
+/* =========================================================
+   MESSAGE VIDE
+   ========================================================= */
+
+.empty-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 35px 20px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  color: #64748b;
+  font-size: 16px;
+}
+
+/* =========================================================
+   POPUP CARTE
+   ========================================================= */
+
+.leaflet-popup-content {
+  max-width: 280px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.leaflet-popup-content strong {
+  color: #087f5b;
+}
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   MOBILE — TÉLÉPHONE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  body {
+    font-size: 15px;
+  }
+
+  header {
+    padding: 18px 12px;
+  }
+
+  section {
+    width: 94%;
+    margin: 14px auto;
+    padding: 17px 14px;
+    border-radius: 13px;
+  }
+
+  section h2 {
+    font-size: 21px;
+    margin-bottom: 16px;
+  }
 
   input,
   select,
   textarea {
+    min-height: 50px;
     font-size: 16px;
-    padding: 13px;
+    border-radius: 9px;
   }
 
-  button[type="submit"] {
-    min-height: 50px;
+  textarea {
+    min-height: 115px;
+  }
+
+  button {
+    min-height: 48px;
+    font-size: 15px;
+  }
+
+  /* Dashboard téléphone */
+
+  .dashboard,
+  .dashboard-container,
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .stat-card,
+  .dashboard-card {
+    min-height: 100px;
+    padding: 15px 8px;
+  }
+
+  .stat-card strong,
+  .dashboard-card strong,
+  .stat-number {
+    font-size: 27px;
+  }
+
+  /* Liste téléphone */
+
+  #problems-list {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .problem {
+    padding: 16px 14px;
+    border-left-width: 5px;
+    border-radius: 12px;
+  }
+
+  .problem h3 {
     font-size: 17px;
+  }
+
+  .problem p {
+    font-size: 14px;
+  }
+
+  /* Boutons téléphone */
+
+  .problem-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .problem-buttons button {
+    width: 100%;
+    min-height: 50px;
+    flex: none;
+  }
+
+  /* Carte téléphone */
+
+  #map {
+    height: 400px;
+    min-height: 350px;
+    border-radius: 11px;
+  }
+
+  .leaflet-control-zoom a {
+    width: 38px !important;
+    height: 38px !important;
+    line-height: 38px !important;
+  }
+}
+
+/* =========================================================
+   PETITS TÉLÉPHONES
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  header h1 {
+    font-size: 30px;
+  }
+
+  header p {
+    font-size: 13px;
+  }
+
+  section {
+    width: 96%;
+    padding: 15px 12px;
+  }
+
+  .dashboard,
+  .dashboard-container,
+  .stats-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .stat-card,
+  .dashboard-card {
+    min-height: 90px;
+    padding: 12px 5px;
+  }
+
+  .stat-card h3,
+  .dashboard-card h3 {
+    font-size: 12px;
+  }
+
+  .stat-card strong,
+  .dashboard-card strong,
+  .stat-number {
+    font-size: 24px;
+  }
+
+  #map {
+    height: 350px;
+  }
+}
+
+/* =========================================================
+   GRAND ÉCRAN
+   ========================================================= */
+
+@media (min-width: 1000px) {
+
+  .search-container,
+  .filters,
+  .filter-container {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  form {
+    max-width: 850px;
+    margin: auto;
   }
 }
   </style>
