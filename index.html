@@ -787,33 +787,53 @@ button[type="submit"]:hover {
   <!-- TABLEAU DE BORD -->
   <section id="dashboard-section">
 
-    <h2>📊 Tableau de bord</h2>
+  <h2>📊 Tableau de bord SOLUWORLD</h2>
 
-    <div id="dashboard-stats">
+  <div class="dashboard">
 
-      <div class="dashboard-card">
-        <strong id="total-problems">0</strong>
-        <span>Problèmes total</span>
-      </div>
-
-      <div class="dashboard-card">
-        <strong id="urgent-problems">0</strong>
-        <span>Problèmes urgents</span>
-      </div>
-
-      <div class="dashboard-card">
-        <strong id="cities-count">0</strong>
-        <span>Villes concernées</span>
-      </div>
-
-      <div class="dashboard-card">
-        <strong id="categories-count">0</strong>
-        <span>Catégories utilisées</span>
-      </div>
-
+    <div class="stat-card">
+      <h3>📋 Total</h3>
+      <strong id="stat-total">0</strong>
+      <span>problèmes</span>
     </div>
 
-    <div id="dashboard-details"></div>
+    <div class="stat-card">
+      <h3>🔴 Nouveaux</h3>
+      <strong id="stat-nouveaux">0</strong>
+      <span>à traiter</span>
+    </div>
+
+    <div class="stat-card">
+      <h3>🟠 En cours</h3>
+      <strong id="stat-en-cours">0</strong>
+      <span>en traitement</span>
+    </div>
+
+    <div class="stat-card">
+      <h3>🟢 Résolus</h3>
+      <strong id="stat-resolus">0</strong>
+      <span>problèmes</span>
+    </div>
+
+    <div class="stat-card">
+      <h3>🚨 Urgents</h3>
+      <strong id="stat-urgents">0</strong>
+      <span>prioritaires</span>
+    </div>
+
+    <div class="stat-card">
+      <h3>🏙️ Villes</h3>
+      <strong id="stat-villes">0</strong>
+      <span>concernées</span>
+    </div>
+
+    <div class="stat-card">
+      <h3>🏷️ Catégories</h3>
+      <strong id="stat-categories">0</strong>
+      <span>identifiées</span>
+    </div>
+
+  </div>
 
   </section>
 
