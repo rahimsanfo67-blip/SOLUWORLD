@@ -2430,171 +2430,165 @@ document
 ===================================================== */
 
 document
-  .getElementById(
-    "problem-form"
-  )
-  .addEventListener(
-    "submit",
-    async function(event) {
+  .getElementById("problem-form")
+  .addEventListener("submit", async function(event) {
 
-      event.preventDefault();
+    event.preventDefault();
+
+    const nom =
+      document.getElementById("nom").value.trim();
+
+    const ville =
+      document.getElementById("ville").value.trim();
+
+    const categorie =
+      document.getElementById("catégorie").value;
+
+    const description =
+      document.getElementById("problème").value.trim();
+
+    const urgence =
+      document.getElementById("urgence").value;
+
+    const bouton =
+      document.getElementById("publish-button");
+
+    if (
+      !nom ||
+      !ville ||
+      !categorie ||
+      !description ||
+      !urgence
+    ) {
+      alert(
+        "⚠️ Veuillez remplir tous les champs."
+      );
+      return;
+    }
+
+    bouton.disabled = true;
+
+    try {
+
+      /* =================================================
+         NUMÉRO DE SUIVI
+      ================================================= */
+
+      const annee = new Date().getFullYear();
+
+      const numeroAleatoire =
+        Math.floor(
+          100000 +
+          Math.random() * 900000
+        );
+
+      const numeroSuivi =
+        "SW-" +
+        annee +
+        "-" +
+        numeroAleatoire;
 
 
-      const nom =
-        document.getElementById(
-          "nom"
-        ).value.trim();
+      /* =================================================
+         ENVOI À SUPABASE
+      ================================================= */
 
+      const response =
+        await fetch(
+          SUPABASE_URL +
+          "/rest/v1/Problems",
+          {
+            method: "POST",
 
-      const ville =
-        document.getElementById(
-          "ville"
-        ).value.trim();
+            headers: {
+              apikey:
+                SUPABASE_KEY,
 
+              Authorization:
+                "Bearer " +
+                SUPABASE_KEY,
 
-      const categorie =
-        document.getElementById(
-          "catégorie"
-        ).value;
+              "Content-Type":
+                "application/json",
 
+              Prefer:
+                "return=minimal"
+            },
 
-      const description =
-        document.getElementById(
-          "problème"
-        ).value.trim();
+            body:
+              JSON.stringify({
 
+                Name:
+                  nom,
 
-      const urgence =
-        document.getElementById(
-          "urgence"
-        ).value;
+                City:
+                  ville,
 
+                "Catégory":
+                  categorie,
 
-      const bouton =
-        document.getElementById(
-          "publish-button"
+                description:
+                  description,
+
+                urgency:
+                  urgence,
+
+                numero_suivi:
+                  numeroSuivi
+
+              })
+          }
         );
 
 
-      if (
-        !nom ||
-        !ville ||
-        !categorie ||
-        !description ||
-        !urgence
-      ) {
-
-        alert(
-          "⚠️ Veuillez remplir tous les champs."
-        );
-
-        return;
-
-      }
+      const texte =
+        await response.text();
 
 
-      bouton.disabled = true;
+      if (!response.ok) {
 
-
-      try {
-
-        const response =
-          await fetch(
-            SUPABASE_URL +
-            "/rest/v1/Problems",
-            {
-              method: "POST",
-
-              headers: {
-
-                apikey:
-                  SUPABASE_KEY,
-
-                Authorization:
-                  "Bearer " +
-                  SUPABASE_KEY,
-
-                "Content-Type":
-                  "application/json",
-
-                Prefer:
-                  "return=minimal"
-
-              },
-
-              body:
-                JSON.stringify({
-
-                  Name:
-                    nom,
-
-                  City:
-                    ville,
-
-                  "Catégory":
-                    categorie,
-
-                  description:
-                    description,
-
-                  urgency:
-                    urgence
-
-                })
-
-            }
-          );
-
-
-        const texte =
-          await response.text();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "Supabase " +
-            response.status +
-            " : " +
-            texte
-          );
-
-        }
-
-
-        alert(
-          "✅ Problème publié avec succès !"
-        );
-
-
-        document
-          .getElementById(
-            "problem-form"
-          )
-          .reset();
-
-
-        await afficherProblemes();
-
-      }
-      catch (error) {
-
-        console.error(error);
-
-        alert(
-          "❌ Impossible de publier le problème.\n\n" +
-          error.message
+        throw new Error(
+          "Supabase " +
+          response.status +
+          " : " +
+          texte
         );
 
       }
-      finally {
 
-        bouton.disabled = false;
 
-      }
+      alert(
+        "✅ Problème publié avec succès !\n\n" +
+        "📋 Votre numéro de suivi :\n" +
+        numeroSuivi
+      );
+
+
+      document
+        .getElementById("problem-form")
+        .reset();
+
+
+      await afficherProblemes();
 
     }
-  );
+    catch (error) {
+
+      console.error(error);
+
+      alert(
+        "❌ Impossible de publier le problème.\n\n" +
+        error.message
+      );
+
+    }
+    finally {
+
+      bouton.disabled = false;
+
+    }
+
+  });
 
 
 /* =====================================================
