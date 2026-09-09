@@ -1535,9 +1535,22 @@ function afficherListe(problems) {
         </p>
 
         <p>
-          📋 <strong>N° de suivi :</strong>
-          ${echapperHTML(numeroSuivi)}
-        </p>
+  📋 <strong>N° de suivi :</strong>
+  <span id="numero-suivi-affiche">
+    ${echapperHTML(
+      p.numero_suivi || numero
+    )}
+  </span>
+
+  <button
+    type="button"
+    onclick="copierNumeroSuivi('${echapperHTML(
+      p.numero_suivi || numero
+    )}')"
+  >
+    📋 Copier
+  </button>
+</p>
 
         <p>
           📌 <strong>Statut :</strong>
@@ -2870,6 +2883,37 @@ async function suivreSignalement() {
     `;
 
   }
+
+}
+
+  /* =====================================================
+   COPIER LE NUMÉRO DE SUIVI
+===================================================== */
+
+function copierNumeroSuivi(numero) {
+
+  navigator.clipboard
+    .writeText(numero)
+    .then(function() {
+
+      alert(
+        "✅ Numéro de suivi copié !\n\n" +
+        numero
+      );
+
+    })
+    .catch(function(error) {
+
+      console.error(
+        "Erreur copie :",
+        error
+      );
+
+      alert(
+        "❌ Impossible de copier automatiquement le numéro."
+      );
+
+    });
 
 }
 
