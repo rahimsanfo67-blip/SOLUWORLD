@@ -2645,6 +2645,234 @@ document
 
   });
 
+  /* =====================================================
+   SUIVRE UN SIGNALEMENT
+===================================================== */
+
+async function suivreSignalement() {
+
+  const input =
+    document.getElementById("tracking-number");
+
+  const resultat =
+    document.getElementById("tracking-result");
+
+  if (!input || !resultat) {
+    console.error(
+      "❌ Zone de suivi introuvable."
+    );
+    return;
+  }
+
+  const numero =
+    input.value.trim();
+
+  if (!numero) {
+
+    resultat.innerHTML = `
+      <div class="problem high">
+        ⚠️ Veuillez entrer un numéro de suivi.
+      </div>
+    `;
+
+    return;
+  }
+
+  resultat.innerHTML = `
+    <div class="loading">
+      🔄 Recherche du signalement...
+    </div>
+  `;
+
+  try {
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/Problems?numero_suivi=eq." +
+        encodeURIComponent(numero) +
+        "&select=*",
+        {
+          method: "GET",
+
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization:
+              "Bearer " + SUPABASE_KEY,
+            Accept:
+              "application/json"
+          }
+        }
+      );
+
+    const texte =
+      await response.text();
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Supabase " +
+        response.status +
+        " : " +
+        texte
+      );
+
+    }
+
+    const problems =
+      JSON.parse(texte);
+
+    if (
+      !Array.isArray(problems) ||
+      problems.length === 0
+    ) {
+
+      resultat.innerHTML = `
+        <div class="problem medium">
+          <h3>
+            ❌ Signalement introuvable
+          </h3>
+
+          <p>
+            Aucun signalement ne correspond au numéro :
+          </p>
+
+          <strong>
+            ${echapperHTML(numero)}
+          </strong>
+        </div>
+      `;
+
+      return;
+    }
+
+    const p = problems[0];
+
+    const statut =
+      p.statut || "Nouveau";
+
+    let iconeStatut = "🔴";
+
+    if (statut === "En cours") {
+      iconeStatut = "🟠";
+    }
+
+    if (statut === "Résolu") {
+      iconeStatut = "🟢";
+    }
+
+    let dateSignalement =
+      "Date inconnue";
+
+    if (p.created_at) {
+
+      dateSignalement =
+        new Date(
+          p.created_at
+        ).toLocaleString("fr-FR");
+
+    }
+
+    resultat.innerHTML = `
+
+      <div class="problem">
+
+        <h3>
+          ✅ Signalement trouvé
+        </h3>
+
+        <p>
+          📋 <strong>N° de suivi :</strong>
+          ${echapperHTML(
+            p.numero_suivi || numero
+          )}
+        </p>
+
+        <p>
+          📝 <strong>Problème :</strong>
+          ${echapperHTML(
+            p.description ||
+            "Non renseigné"
+          )}
+        </p>
+
+        <p>
+          👤 <strong>Nom :</strong>
+          ${echapperHTML(
+            p.Name ||
+            "Non renseigné"
+          )}
+        </p>
+
+        <p>
+          📍 <strong>Ville :</strong>
+          ${echapperHTML(
+            p.City ||
+            "Non renseignée"
+          )}
+        </p>
+
+        <p>
+          🏷️ <strong>Catégorie :</strong>
+          ${echapperHTML(
+            p["Catégory"] ||
+            "Autre"
+          )}
+        </p>
+
+        <p>
+          🚨 <strong>Urgence :</strong>
+          ${echapperHTML(
+            p.urgency ||
+            "Non renseignée"
+          )}
+        </p>
+
+        <p>
+          📌 <strong>Statut :</strong>
+          ${iconeStatut}
+          ${echapperHTML(statut)}
+        </p>
+
+        <p>
+          📅 <strong>Signalé le :</strong>
+          ${echapperHTML(
+            dateSignalement
+          )}
+        </p>
+
+      </div>
+
+    `;
+
+  }
+  catch (error) {
+
+    console.error(
+      "❌ Erreur suivi :",
+      error
+    );
+
+    resultat.innerHTML = `
+      <div class="problem high">
+
+        <h3>
+          ❌ Erreur de recherche
+        </h3>
+
+        <p>
+          ${echapperHTML(
+            error.message
+          )}
+        </p>
+
+      </div>
+    `;
+
+  }
+
+}
+
 
 /* =====================================================
    MODIFICATION
