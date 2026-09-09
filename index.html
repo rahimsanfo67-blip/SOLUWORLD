@@ -1538,15 +1538,15 @@ function afficherListe(problems) {
   📋 <strong>N° de suivi :</strong>
   <span id="numero-suivi-affiche">
     ${echapperHTML(
-      p.numero_suivi || numero
-    )}
+  p.numero_suivi || "Non disponible"
+)}
   </span>
 
   <button
     type="button"
     onclick="copierNumeroSuivi('${echapperHTML(
-      p.numero_suivi || numero
-    )}')"
+  p.numero_suivi || "Non disponible"
+)}')"
   >
     📋 Copier
   </button>
