@@ -1683,10 +1683,12 @@ async function afficherProblemes() {
 
     problemsCache =
       problems;
+    console.log("✅ PROBLÈMES CHARGÉS :", problems);
 
     afficherListe(
       problems
     );
+    console.log("✅ AFFICHAGE DE LA LISTE TERMINÉ");
 
     mettreAJourDashboard(
       problems
