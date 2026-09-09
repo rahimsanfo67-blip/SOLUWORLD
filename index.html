@@ -837,6 +837,40 @@ button[type="submit"]:hover {
 
   </section>
 
+  <!-- SUIVI DU SIGNALEMENT -->
+<section id="tracking-section">
+
+  <h2>📋 Suivre mon signalement</h2>
+
+  <div class="tracking-area">
+
+    <label for="tracking-number">
+      Numéro de suivi
+    </label>
+
+    <input
+      type="text"
+      id="tracking-number"
+      placeholder="Exemple : SW-2026-483921"
+    >
+
+    <button
+      type="button"
+      id="tracking-button"
+      onclick="suivreSignalement()"
+    >
+      🔎 Rechercher
+    </button>
+
+  </div>
+
+  <div
+    id="tracking-result"
+    class="tracking-result"
+  ></div>
+
+</section>
+
 
   <!-- PROBLEMES -->
   <section id="problems-section">
