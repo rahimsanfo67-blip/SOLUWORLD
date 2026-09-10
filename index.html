@@ -18,533 +18,1543 @@ body.dark input,body.dark select,body.dark textarea{background:#111827;color:#f9
 body.dark label,body.dark .problem p{color:#d1d5db}
 body.contrast section,body.contrast .problem,body.contrast .stat-card{background:#000;color:#fff;border-color:#fff;box-shadow:none}
 body.contrast input,body.contrast select,body.contrast textarea{background:#000;color:#fff;border:2px solid #fff}
-body.contrast h2{color:#00ff9d}
-body.contrast button{border:2px solid #fff}
-body.contrast .hint,body.contrast .problem p,body.contrast .stat-card h3,body.contrast footer{color:#fff}
-header{background:linear-gradient(135deg,#087f5b,#0b9b6d);color:#fff;padding:24px 14px;text-align:center;box-shadow:0 4px 15px #0002}
-header h1{margin:0;font-size:clamp(30px,7vw,48px)}
-header p{margin:7px 0;font-size:clamp(14px,3.5vw,18px)}
-.top-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}
-.top-actions button{width:auto;background:#ffffff22;color:#fff;border:1px solid #ffffff55}
-.container{width:min(1180px,94%);margin:auto}
-section{background:#fff;margin:20px auto;padding:22px;border-radius:16px;box-shadow:0 5px 20px #0000000d}
-h2{margin:0 0 18px;color:#087f5b;font-size:clamp(21px,5vw,28px)}
-.dark h2{color:#5ee7b7}
-label{display:block;margin:10px 0 6px;font-weight:700}
-input,select,textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#111827;font-size:16px;outline:none}
+header{background:linear-gradient(135deg,#075e3a,#0b7a4b,#159b63);color:#fff;padding:18px 16px;position:sticky;top:0;z-index:100;box-shadow:0 8px 25px rgba(0,0,0,.12)}
+.header-inner{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:28px;font-weight:900;letter-spacing:.5px}
+.logo span{color:#f2b134}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none;padding:8px 11px;border-radius:9px;font-weight:700;font-size:14px}
+nav a:hover{background:rgba(255,255,255,.16)}
+.controls{display:flex;gap:8px}
+.controls button{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;padding:8px 10px;border-radius:9px;cursor:pointer}
+main{max-width:1180px;margin:auto;padding:24px 16px 60px}
+section{background:#fff;border:1px solid #dfe8e3;border-radius:18px;padding:24px;margin:20px 0;box-shadow:0 10px 30px rgba(10,52,35,.07)}
+h1,h2,h3{color:#17342a}
+h2{margin-top:0}
+body.dark h1,body.dark h2,body.dark h3{color:#f3f4f6}
+.hero{background:linear-gradient(135deg,#075e3a,#0b7a4b 58%,#159b63);color:#fff;border-radius:24px;padding:30px;margin:8px 0 24px;box-shadow:0 18px 45px rgba(7,94,58,.22)}
+.hero h1{color:#fff;margin:0 0 8px;font-size:clamp(28px,5vw,46px)}
+.hero p{margin:0;opacity:.94;max-width:760px;line-height:1.65}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 26px}
+.action{background:#fff;border:1px solid #dfe8e3;border-radius:16px;padding:16px;text-align:left;cursor:pointer;box-shadow:0 10px 28px rgba(10,52,35,.07);color:#17342a}
+.action b{display:block;margin-bottom:4px}
+.action span{font-size:13px;color:#66766f}
+form{display:grid;gap:13px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+label{font-weight:700;color:#285342}
+input,select,textarea{width:100%;padding:12px 13px;border:1px solid #cfdcd5;border-radius:12px;background:#fff;color:#17342a;font:inherit}
 textarea{min-height:120px;resize:vertical}
-input:focus,select:focus,textarea:focus{border-color:#0b9b6d;box-shadow:0 0 0 3px #0b9b6d22}
-button{min-height:44px;border:0;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer;transition:.15s;touch-action:manipulation}
-button:hover{transform:translateY(-1px)}
-button:disabled{opacity:.55;cursor:not-allowed}
-.primary{background:#087f5b;color:#fff}.secondary{background:#475569;color:#fff}.danger{background:#dc2626;color:#fff}
-.blue{background:#2563eb;color:#fff}.purple{background:#7c3aed;color:#fff}.orange{background:#d97706;color:#fff}
-.ghost{background:#e2e8f0;color:#1f2937}
-.form-grid,.search-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.full{grid-column:1/-1}
-#publish-button{width:100%;margin-top:10px}
-.hint{font-size:13px;color:#64748b}.dark .hint{color:#9ca3af}
-.dashboard{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
-.stat-card{text-align:center;padding:16px 8px;border:1px solid #e2e8f0;border-radius:14px;background:#f8fafc}
-.stat-card h3{margin:0 0 5px;font-size:13px;color:#64748b}
-.stat-card strong{display:block;font-size:30px;color:#087f5b}.stat-card span{font-size:12px}
-#map{height:480px;border-radius:14px;overflow:hidden;border:1px solid #d1d5db}
-.map-tools,.share-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.map-tools{margin-bottom:10px}.map-tools button,.share-row button{width:auto}
-#problems-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.problem{background:#fff;border:1px solid #e2e8f0;border-left:6px solid #16a34a;border-radius:14px;padding:17px;box-shadow:0 4px 14px #0000000b}
-.problem.high{border-left-color:#dc2626}.problem.medium{border-left-color:#f59e0b}
-.problem h3{margin:0 0 12px;font-size:18px;overflow-wrap:anywhere}
-.problem p{margin:8px 0;color:#4b5563;overflow-wrap:anywhere}
-.problem-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:15px;padding-top:14px;border-top:1px solid #e5e7eb}
-.problem-buttons button{width:100%}
-.solution-box{display:none;margin-top:12px;padding:15px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;color:#14532d}
-.dark .solution-box{background:#052e1b;color:#d1fae5;border-color:#166534}
-.solution-list{padding-left:22px}.solution-list li{margin:7px 0}
-.statut-badge{display:inline-block;padding:4px 9px;border-radius:20px;font-size:13px;font-weight:700}
-.statut-nouveau{background:#fee2e2;color:#b91c1c}.statut-en-cours{background:#fef3c7;color:#b45309}.statut-resolu{background:#dcfce7;color:#15803d}
-.tracking-result,.message{margin-top:12px}
-.success{padding:12px;border-radius:10px;background:#dcfce7;color:#166534}
-.error{padding:12px;border-radius:10px;background:#fee2e2;color:#991b1b}
-.info{padding:10px;border-radius:10px;background:#e0f2fe;color:#075985}
-.warning{padding:10px;border-radius:10px;background:#fef3c7;color:#92400e}
-#edit-section{display:none}.empty{text-align:center;padding:35px 15px;border:1px dashed #cbd5e1;border-radius:14px;color:#64748b}
-.loading{text-align:center;padding:30px;color:#64748b}
-.admin-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.admin-ok{color:#15803d;font-weight:700}.dark .admin-ok{color:#86efac}
-footer{text-align:center;padding:28px;color:#64748b}.counter{font-size:12px;text-align:right;color:#64748b}
-.admin-only{display:none}.admin-verified .admin-only{display:block}
-.admin-actions{display:none}.admin-verified .admin-actions{display:contents}
-.filter-summary{font-weight:700;margin-top:12px}
-.progress{height:12px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin-top:8px}
-.progress-bar{height:100%;width:0;background:#087f5b;transition:width .3s}
-.city-note{font-size:12px;color:#64748b}
-.privacy-note{font-size:12px;color:#64748b;padding:10px 0}
-@media(max-width:900px){.dashboard{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:680px){.form-grid,.search-grid,#problems-list{grid-template-columns:1fr}.dashboard{grid-template-columns:repeat(2,1fr)}#map{height:400px}.problem-buttons{grid-template-columns:1fr}.container{width:96%}section{padding:16px;margin:13px auto}.top-actions button{font-size:13px}}
-@media(max-width:400px){.dashboard{gap:7px}.stat-card strong{font-size:25px}}
-@media print{header,.top-actions,#publication-section,#search-section,#map-section,#tracking-section,#admin-section,.share-row,footer{display:none!important}section{box-shadow:none;margin:0;border:0}#problems-list{grid-template-columns:1fr}.problem-buttons{display:none}}
+input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid rgba(242,177,52,.55);outline-offset:2px}
+button{border:0;border-radius:12px;padding:11px 15px;font-weight:800;cursor:pointer;transition:.18s}
+button:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(10,52,35,.13)}
+.primary{background:#0b7a4b;color:#fff}
+.secondary{background:#eaf3ef;color:#075e3a}
+.danger{background:#dc3545;color:#fff}
+.warning{background:#f2b134;color:#17342a}
+.small{font-size:13px;color:#66766f}
+.status{padding:5px 9px;border-radius:999px;font-size:12px;font-weight:800;display:inline-block}
+.status-new{background:#e7f4ed;color:#087f5b}
+.status-progress{background:#fff4d8;color:#8a6100}
+.status-done{background:#dff5e9;color:#096b42}
+.urgency-high{border-left:5px solid #dc3545}
+.urgency-medium{border-left:5px solid #f2b134}
+.urgency-low{border-left:5px solid #0b7a4b}
+.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.stat-card{background:#fff;border:1px solid #dfe8e3;border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(10,52,35,.06)}
+.stat-card strong{display:block;font-size:29px;color:#087f5b}
+.stat-card span{font-size:13px;color:#66766f}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px}
+.problem-list{display:grid;gap:15px}
+.problem{background:#fff;border:1px solid #dfe8e3;border-radius:16px;padding:19px;box-shadow:0 8px 24px rgba(10,52,35,.06)}
+.problem-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.problem-title{font-size:19px;font-weight:800;color:#17342a;margin:0}
+.problem-meta{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0}
+.problem p{color:#53645d;margin:9px 0}
+.problem-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.edit-form{background:#f7faf8;border:1px solid #dfe8e3;padding:16px;border-radius:14px;margin-top:14px}
+#map{height:430px;border-radius:15px;overflow:hidden}
+.tracking-result{margin-top:16px}
+.progress{height:12px;background:#e4ece8;border-radius:999px;overflow:hidden;margin:10px 0}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#0b7a4b,#f2b134);border-radius:999px}
+.steps{display:flex;justify-content:space-between;gap:6px;font-size:12px;color:#66766f}
+.step-active{font-weight:900;color:#0b7a4b}
+#message{padding:12px;border-radius:11px;display:none}
+.success{background:#e4f6eb;color:#096b42}
+.error{background:#fde8ea;color:#a51d2d}
+#swToast{position:fixed;right:18px;bottom:18px;z-index:1000;background:#17342a;color:#fff;padding:13px 17px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.2);display:none;max-width:330px}
+.sw-pro-panel{margin:24px 0;padding:26px;background:rgba(255,255,255,.96);border:1px solid #dfe8e3;border-radius:20px;box-shadow:0 12px 35px rgba(10,52,35,.08)}
+.sw-pro-title{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.sw-pro-title>span{font-size:38px}
+.sw-pro-title h2,.sw-pro-panel h2{margin:0 0 7px;color:#17342a}
+.sw-pro-title p,.sw-pro-panel p{margin:0;color:#66766f;line-height:1.65}
+.sw-pro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.sw-pro-card{padding:20px;border:1px solid #e0e9e4;border-radius:16px;background:#fff;transition:.2s}
+.sw-pro-card:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(10,52,35,.1)}
+.sw-pro-icon{font-size:28px;margin-bottom:10px}
+.sw-pro-card h3{margin:0 0 7px;font-size:17px;color:#17342a}
+.sw-pro-card p{font-size:14px}
+.sw-pro-info{background:linear-gradient(135deg,#f5fbf8,#fff)}
+.sw-pro-info-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:center}
+.sw-mini-label{font-size:11px;font-weight:800;letter-spacing:1.4px;color:#0b7a4b}
+.sw-check-list{display:grid;gap:10px}
+.sw-check-list div{padding:12px 14px;background:#fff;border-radius:12px;border:1px solid #e3ebe7;color:#285342;font-weight:600}
+.sw-help-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.sw-help-grid>div{display:flex;flex-direction:column;gap:5px;padding:17px;border-radius:15px;background:#f5f8f7;border:1px solid #e1e9e5}
+.sw-help-grid b{font-size:12px;color:#0b7a4b}
+.sw-help-grid span{font-weight:800;color:#17342a}
+.sw-help-grid small{color:#66766f;line-height:1.45}
+.sw-contact-panel{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;align-items:center}
+.sw-tip{padding:18px;border-radius:15px;background:#fff8e7;border:1px solid #f0dfae;color:#6d5518;line-height:1.6}
+.empty{text-align:center;padding:30px;color:#66766f;background:#fff;border-radius:14px;border:1px dashed #cfdcd5}
+footer{background:#075e3a;color:#fff;padding:28px 16px;text-align:center}
+footer p{margin:5px 0;opacity:.9}
+@media(max-width:900px){
+.dashboard{grid-template-columns:repeat(2,1fr)}
+.filters{grid-template-columns:1fr 1fr}
+.sw-pro-grid{grid-template-columns:repeat(2,1fr)}
+.sw-help-grid{grid-template-columns:repeat(2,1fr)}
+.sw-pro-info-grid,.sw-contact-panel{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+.header-inner{flex-direction:column;align-items:stretch}
+nav{justify-content:center}
+.actions{grid-template-columns:repeat(2,1fr)}
+.form-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+main{padding:14px 10px 40px}
+section{padding:17px}
+.hero{padding:22px 18px;border-radius:18px}
+.actions,.dashboard,.filters,.sw-pro-grid,.sw-help-grid{grid-template-columns:1fr}
+.sw-pro-panel{padding:19px;margin:17px 0;border-radius:17px}
+.sw-pro-title>span{font-size:30px}
+.problem-header{flex-direction:column}
+#map{height:330px}
+}
+@media(prefers-reduced-motion:reduce){
+*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
 </style>
 </head>
 <body>
 <header>
-  <h1>🌍 SOLUWORLD</h1>
-  <p>Signaler les problèmes de votre communauté et trouver des solutions.</p>
-  <div class="top-actions">
-    <button id="theme-button" type="button">🌙 Mode sombre</button>
-    <button id="contrast-button" type="button">◐ Contraste</button>
-    <button type="button" onclick="allerA('publication-section')">📢 Signaler</button>
-    <button type="button" onclick="allerA('tracking-section')">📋 Suivre</button>
-  </div>
+<div class="header-inner">
+<div class="logo">SOLU<span>WORLD</span></div>
+<nav>
+<a href="#signaler">Signaler</a>
+<a href="#problemes">Problèmes</a>
+<a href="#carte">Carte</a>
+<a href="#suivi">Suivi</a>
+<a href="#admin">Admin</a>
+</nav>
+<div class="controls">
+<button onclick="toggleDark()">🌙</button>
+<button onclick="toggleContrast()">◐</button>
+</div>
+</div>
 </header>
-<main class="container">
-<section id="publication-section">
-<h2>📢 Signaler un problème</h2>
-<form id="problem-form">
+
+<main>
+<section class="hero">
+<h1>Agir ensemble pour un Burkina Faso meilleur</h1>
+<p>Signalez un problème, suivez son évolution et contribuez à améliorer votre ville. SOLUWORLD rapproche les citoyens et les solutions.</p>
+</section>
+
+<div class="actions">
+<button class="action" onclick="scrollToId('signaler')"><b>📝 Signaler</b><span>Créer un nouveau signalement</span></button>
+<button class="action" onclick="scrollToId('suivi')"><b>🔎 Suivre</b><span>Consulter un dossier</span></button>
+<button class="action" onclick="scrollToId('carte')"><b>🗺️ Carte</b><span>Voir les signalements</span></button>
+<button class="action" onclick="window.print()"><b>🖨️ Imprimer</b><span>Exporter la vue actuelle</span></button>
+</div>
+
+<div id="swToast" role="status" aria-live="polite"></div>
+
+<section id="signaler">
+<h2>📝 Signaler un problème</h2>
+<p class="small">Décrivez précisément le problème rencontré afin de faciliter son traitement.</p>
+<form id="problemForm">
 <div class="form-grid">
-<div><label for="nom">Nom</label><input id="nom" placeholder="Votre nom" maxlength="80" required></div>
-<div><label for="ville">Ville</label><input id="ville" placeholder="Exemple : Ouagadougou" maxlength="80" required></div>
-<div><label for="catégorie">Catégorie</label><select id="catégorie" required><option value="">-- Choisir une catégorie --</option></select></div>
-<div><label for="urgence">Niveau d’urgence</label><select id="urgence" required><option value="">-- Choisir --</option><option value="Élevée">🔴 Élevée</option><option value="Moyenne">🟠 Moyenne</option><option value="Faible">🟢 Faible</option></select></div>
-<div class="full"><label for="problème">Description du problème</label><textarea id="problème" maxlength="1000" placeholder="Décrivez précisément le problème..." required></textarea><div class="counter" id="description-counter">0 / 1000</div></div>
+<div class="field">
+<label for="name">Votre nom</label>
+<input id="name" required maxlength="80" placeholder="Ex : Ibrahim">
 </div>
-<div class="share-row">
-<button class="primary" id="publish-button" type="submit">📢 Publier le problème</button>
-<button class="ghost" id="save-draft" type="button">💾 Enregistrer le brouillon</button>
-<button class="ghost" id="clear-draft" type="button">🧹 Effacer le brouillon</button>
+<div class="field">
+<label for="city">Ville</label>
+<select id="city" required>
+<option value="">Choisir une ville</option>
+<option>Ouagadougou</option>
+<option>Bobo-Dioulasso</option>
+<option>Koudougou</option>
+<option>Banfora</option>
+<option>Ouahigouya</option>
+<option>Dédougou</option>
+<option>Fada N'Gourma</option>
+<option>Tenkodogo</option>
+<option>Manga</option>
+<option>Ziniaré</option>
+</select>
 </div>
-<p class="hint" id="draft-status">💾 Le brouillon peut être conservé sur cet appareil.</p>
-<p class="privacy-note">🔒 Votre signalement est transmis à SOLUWORLD pour permettre son suivi.</p>
+</div>
+<div class="form-grid">
+<div class="field">
+<label for="category">Catégorie</label>
+<select id="category" required>
+<option value="">Choisir une catégorie</option>
+<option>Eau</option>
+<option>Électricité</option>
+<option>Route</option>
+<option>Déchets</option>
+<option>Santé</option>
+<option>Éducation</option>
+<option>Sécurité</option>
+<option>Autre</option>
+<option>Environnement</option>
+<option>Assainissement</option>
+<option>Transport</option>
+<option>Emploi</option>
+</select>
+</div>
+<div class="field">
+<label for="urgency">Urgence</label>
+<select id="urgency" required>
+<option value="Faible">Faible</option>
+<option value="Moyenne">Moyenne</option>
+<option value="Élevée">Élevée</option>
+</select>
+</div>
+</div>
+<div class="field">
+<label for="description">Description</label>
+<textarea id="description" maxlength="1000" required placeholder="Décrivez le problème, le lieu précis et les informations utiles..."></textarea>
+<div class="small"><span id="counter">0</span>/1000 caractères</div>
+</div>
+<button class="primary" type="submit">🚀 Envoyer le signalement</button>
 </form>
+<div id="message"></div>
 </section>
-<section id="search-section">
-<h2>🔎 Rechercher un problème</h2>
-<div class="search-grid">
-<div><label for="search-problems">Recherche</label><input id="search-problems" placeholder="Ville, nom, problème, numéro..."></div>
-<div><label for="filter-category">Catégorie</label><select id="filter-category"><option value="">Toutes les catégories</option></select></div>
-<div><label for="filter-status">Statut</label><select id="filter-status"><option value="">Tous les statuts</option><option>Nouveau</option><option>En cours</option><option>Résolu</option></select></div>
-<div><label for="filter-urgency">Urgence</label><select id="filter-urgency"><option value="">Toutes les urgences</option><option value="Élevée">🔴 Élevée</option><option value="Moyenne">🟠 Moyenne</option><option value="Faible">🟢 Faible</option></select></div>
-<div><label for="sort-problems">Tri</label><select id="sort-problems"><option value="newest">Plus récents</option><option value="oldest">Plus anciens</option><option value="urgent">Urgence</option></select></div>
-<div><label for="filter-city">Ville</label><select id="filter-city"><option value="">Toutes les villes</option></select></div>
-<div class="full"><button class="ghost" id="clear-search" type="button">🔄 Réinitialiser les filtres</button></div>
+
+<section>
+<h2>📊 Tableau de bord</h2>
+<div class="dashboard">
+<div class="stat-card"><strong id="stat-total">0</strong><span>Total</span></div>
+<div class="stat-card"><strong id="stat-new">0</strong><span>Nouveaux</span></div>
+<div class="stat-card"><strong id="stat-progress">0</strong><span>En cours</span></div>
+<div class="stat-card"><strong id="stat-resolved">0</strong><span>Résolus</span></div>
+<div class="stat-card"><strong id="stat-urgent">0</strong><span>Urgents</span></div>
+<div class="stat-card"><strong id="stat-cities">0</strong><span>Villes</span></div>
+<div class="stat-card"><strong id="stat-categories">0</strong><span>Catégories</span></div>
+<div class="stat-card"><strong id="stat-rate">0%</strong><span>Taux de résolution</span></div>
 </div>
-<div id="problems-message" class="message"></div>
-<div id="filter-summary" class="filter-summary"></div>
 </section>
-<section id="map-section">
-<h2>🗺️ Carte des problèmes</h2>
-<div class="map-tools">
-<button class="ghost" type="button" onclick="centrerBurkina()">🇧🇫 Burkina Faso</button>
-<button class="ghost" type="button" onclick="afficherTousLesMarqueurs()">📍 Tout afficher</button>
+
+<section id="problemes">
+<h2>📋 Problèmes signalés</h2>
+<div class="filters">
+<input id="search" placeholder="🔎 Rechercher...">
+<select id="filterCity">
+<option value="">Toutes les villes</option>
+</select>
+<select id="filterCategory">
+<option value="">Toutes les catégories</option>
+<option>Eau</option>
+<option>Électricité</option>
+<option>Route</option>
+<option>Déchets</option>
+<option>Santé</option>
+<option>Éducation</option>
+<option>Sécurité</option>
+<option>Autre</option>
+<option>Environnement</option>
+<option>Assainissement</option>
+<option>Transport</option>
+<option>Emploi</option>
+</select>
+<select id="filterUrgency">
+<option value="">Toutes urgences</option>
+<option>Élevée</option>
+<option>Moyenne</option>
+<option>Faible</option>
+</select>
 </div>
+<p id="activeFilters" class="small"></p>
+<div id="problemList" class="problem-list"></div>
+</section>
+
+<section id="carte">
+<h2>🗺️ Carte des signalements</h2>
+<p class="small">Les marqueurs permettent de visualiser les problèmes par zone.</p>
 <div id="map"></div>
 </section>
-<section id="dashboard-section">
-<h2>📊 Tableau de bord SOLUWORLD</h2>
-<div class="dashboard">
-<div class="stat-card"><h3>📋 Total</h3><strong id="stat-total">0</strong><span>problèmes</span></div>
-<div class="stat-card"><h3>🔴 Nouveaux</h3><strong id="stat-nouveaux">0</strong><span>à traiter</span></div>
-<div class="stat-card"><h3>🟠 En cours</h3><strong id="stat-en-cours">0</strong><span>en traitement</span></div>
-<div class="stat-card"><h3>🟢 Résolus</h3><strong id="stat-resolus">0</strong><span>problèmes</span></div>
-<div class="stat-card"><h3>🚨 Urgents</h3><strong id="stat-urgents">0</strong><span>prioritaires</span></div>
-<div class="stat-card"><h3>🏙️ Villes</h3><strong id="stat-villes">0</strong><span>concernées</span></div>
-<div class="stat-card"><h3>🏷️ Catégories</h3><strong id="stat-categories">0</strong><span>identifiées</span></div>
-<div class="stat-card"><h3>📈 Résolution</h3><strong id="stat-taux">0%</strong><span>taux estimé</span></div>
-</div>
-<div class="share-row"><button class="secondary" type="button" onclick="exporterCSV()">📥 Exporter CSV</button><button class="secondary" type="button" onclick="window.print()">🖨️ Imprimer</button></div>
-</section>
-<section id="tracking-section">
-<h2>📋 Suivre mon signalement</h2>
-<label for="tracking-number">Numéro de suivi</label>
-<input id="tracking-number" placeholder="Exemple : SW-2026-483921">
-<div class="share-row"><button class="primary" type="button" onclick="suivreSignalement()">🔎 Rechercher</button><button class="ghost" type="button" onclick="partagerSuivi()">📤 Partager</button></div>
-<div id="tracking-result" class="tracking-result"></div>
-</section>
-<section id="problems-section">
-<h2>📋 Problèmes signalés</h2>
-<div id="problems-list"><div class="loading">🔄 Chargement des problèmes...</div></div>
-</section>
-<section id="admin-section">
-<h2>🔐 Administration</h2>
-<div class="admin-bar">
-<div>
-<form id="admin-login-form">
-<label for="admin-email">Email administrateur</label><input type="email" id="admin-email" placeholder="Email" required>
-<label for="admin-password">Mot de passe</label><input type="password" id="admin-password" placeholder="Mot de passe" required>
-<div class="share-row"><button class="primary" type="submit">🔐 Se connecter</button><button class="danger" type="button" id="logout-button">🚪 Déconnexion</button></div>
-<p id="admin-login-message"></p>
-</form>
-</div>
-<div id="admin-status"></div>
-</div>
-</section>
-<section id="edit-section" class="admin-only">
-<h2>✏️ Modifier le problème</h2>
-<form id="edit-form">
+
+<section id="suivi">
+<h2>🔎 Suivre un problème</h2>
+<p class="small">Entrez votre numéro de suivi pour consulter l'état du dossier.</p>
 <div class="form-grid">
-<div><label for="edit-nom">Nom</label><input id="edit-nom" required></div>
-<div><label for="edit-ville">Ville</label><input id="edit-ville" required></div>
-<div><label for="edit-categorie">Catégorie</label><select id="edit-categorie" required><option value="">-- Choisir --</option></select></div>
-<div><label for="edit-urgence">Urgence</label><select id="edit-urgence" required><option value="">-- Choisir --</option><option value="Élevée">🔴 Élevée</option><option value="Moyenne">🟠 Moyenne</option><option value="Faible">🟢 Faible</option></select></div>
-<div class="full"><label for="edit-description">Description</label><textarea id="edit-description" maxlength="1000" required></textarea><div class="counter" id="edit-description-counter">0 / 1000</div></div>
+<div class="field">
+<label for="trackingNumber">Numéro de suivi</label>
+<input id="trackingNumber" placeholder="Ex : SW-2026-12345">
 </div>
-<button class="blue" type="submit">💾 Enregistrer</button>
-<button class="ghost" type="button" id="cancel-edit">Annuler</button>
-<div id="edit-message" class="message"></div>
-</form>
+<div class="field">
+<label>&nbsp;</label>
+<button class="primary" onclick="trackProblem()">🔍 Rechercher</button>
+</div>
+</div>
+<div id="trackingResult" class="tracking-result"></div>
+</section>
+
+<section id="admin">
+<h2>🔐 Administration</h2>
+<p class="small">Accès réservé au compte administrateur.</p>
+<div id="loginBox">
+<div class="form-grid">
+<div class="field">
+<label for="adminEmail">Email</label>
+<input id="adminEmail" type="email" placeholder="admin@example.com">
+</div>
+<div class="field">
+<label for="adminPassword">Mot de passe</label>
+<input id="adminPassword" type="password" placeholder="Mot de passe">
+</div>
+</div>
+<br>
+<button class="primary" onclick="adminLogin()">🔐 Se connecter</button>
+</div>
+<div id="adminPanel" style="display:none">
+<p>✅ Session administrateur active.</p>
+<button class="secondary" onclick="adminLogout()">Se déconnecter</button>
+</div>
+</section>
+
+<section class="sw-pro-panel" aria-label="Fonctionnalités citoyennes">
+<div class="sw-pro-title">
+<span>🌍</span>
+<div>
+<h2>Un espace citoyen plus simple</h2>
+<p>Retrouvez rapidement les outils essentiels de SOLUWORLD.</p>
+</div>
+</div>
+<div class="sw-pro-grid">
+<article class="sw-pro-card">
+<div class="sw-pro-icon">📌</div>
+<h3>Signalements centralisés</h3>
+<p>Les problèmes sont regroupés dans un espace unique pour faciliter leur consultation.</p>
+</article>
+<article class="sw-pro-card">
+<div class="sw-pro-icon">🔎</div>
+<h3>Recherche rapide</h3>
+<p>Recherchez un dossier par ville, catégorie, urgence ou numéro de suivi.</p>
+</article>
+<article class="sw-pro-card">
+<div class="sw-pro-icon">🗺️</div>
+<h3>Vision cartographique</h3>
+<p>La carte permet de visualiser les zones où les problèmes sont signalés.</p>
+</article>
+<article class="sw-pro-card">
+<div class="sw-pro-icon">📈</div>
+<h3>Suivi transparent</h3>
+<p>Consultez l'évolution d'un dossier grâce à son numéro de suivi.</p>
+</article>
+</div>
+</section>
+
+<section class="sw-pro-panel sw-pro-info">
+<div class="sw-pro-info-grid">
+<div>
+<span class="sw-mini-label">NOTRE OBJECTIF</span>
+<h2>Transformer les signalements en actions.</h2>
+<p>SOLUWORLD crée un pont entre les citoyens, les collectivités et les acteurs chargés d'améliorer les services locaux.</p>
+</div>
+<div class="sw-check-list">
+<div>✓ Une information plus claire</div>
+<div>✓ Un suivi plus facile</div>
+<div>✓ Une meilleure visibilité des besoins</div>
+<div>✓ Une participation citoyenne renforcée</div>
+</div>
+</div>
+</section>
+
+<section class="sw-pro-panel sw-help">
+<h2>💡 Comment utiliser SOLUWORLD ?</h2>
+<div class="sw-help-grid">
+<div><b>01</b><span>Signalez</span><small>Décrivez le problème rencontré.</small></div>
+<div><b>02</b><span>Recevez</span><small>Conservez votre numéro de suivi.</small></div>
+<div><b>03</b><span>Suivez</span><small>Consultez l'évolution du dossier.</small></div>
+<div><b>04</b><span>Agissez</span><small>Partagez les informations utiles.</small></div>
+</div>
+</section>
+
+<section class="sw-pro-panel sw-contact-panel">
+<div>
+<span class="sw-mini-label">CONSEIL CITOYEN</span>
+<h2>Un bon signalement est précis.</h2>
+<p>Indiquez le lieu, la nature du problème, son niveau d'urgence et une description claire. Cela facilite la compréhension et le traitement du dossier.</p>
+</div>
+<div class="sw-tip">📍 <strong>Astuce :</strong> choisissez la ville et la catégorie les plus précises possible.</div>
 </section>
 </main>
-<footer>🌍 SOLUWORLD — Ensemble pour améliorer nos communautés.</footer>
+
+<footer>
+<p><strong>SOLUWORLD</strong></p>
+<p>La voix des citoyens pour des solutions locales.</p>
+<p>© 2026 SOLUWORLD — Tous droits réservés.</p>
+</footer>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-"use strict";
 const SUPABASE_URL="https://cempljialofhnkvjpsko.supabase.co";
-const SUPABASE_KEY="sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
-const CATEGORIES=["Eau","Électricité","Route","Déchets","Santé","Éducation","Sécurité","Autre","Environnement","Assainissement","Transport","Emploi"];
-const VILLES={"Ouagadougou":[12.3714,-1.5197],"Bobo-Dioulasso":[11.1771,-4.2979],"Koudougou":[12.2526,-2.3627],"Ouahigouya":[13.5828,-2.4216],"Banfora":[10.6333,-4.7667],"Dédougou":[12.4667,-3.4667],"Fada N'Gourma":[12.0614,.3581],"Tenkodogo":[11.78,-.3697],"Kaya":[13.0917,-1.0844],"Ziniaré":[12.5822,-.9542]};
-const SOLUTIONS={
-Eau:["Signaler la fuite ou la coupure au service local de l'eau.","Identifier précisément le point d'eau concerné.","Vérifier les installations proches pour localiser la panne.","Demander une intervention technique rapide.","Mettre en place un approvisionnement temporaire.","Informer les habitants de la zone.","Contrôler la qualité de l'eau après intervention.","Réparer ou remplacer les conduites endommagées.","Prévoir un entretien régulier du réseau.","Suivre le dossier jusqu'au rétablissement complet."],
-Électricité:["Signaler la panne au service d'électricité.","Vérifier si elle concerne une maison ou tout le quartier.","Identifier poteaux, câbles ou équipements concernés.","Faire intervenir un technicien qualifié.","Sécuriser et signaler tout câble dangereux.","Informer les habitants du délai d'intervention.","Contrôler les branchements défectueux.","Remplacer les équipements endommagés.","Prévoir l'entretien régulier du réseau.","Suivre le dossier jusqu'au rétablissement."],
-Route:["Signaler le nid-de-poule ou la route dégradée.","Localiser précisément la zone.","Photographier si possible la dégradation.","Mettre une signalisation provisoire si nécessaire.","Évaluer les risques pour les usagers.","Demander une intervention de la mairie ou du service compétent.","Réparer les zones dangereuses.","Améliorer le drainage de la route.","Contrôler la qualité des travaux.","Prévoir un entretien périodique."],
-Déchets:["Signaler le point d'accumulation.","Identifier les jours habituels de collecte.","Demander une collecte exceptionnelle.","Installer ou proposer un point de dépôt adapté.","Sensibiliser les habitants au tri et à la propreté.","Éviter les dépôts près des caniveaux.","Organiser une opération de nettoyage.","Améliorer la fréquence de collecte.","Contrôler régulièrement la zone.","Mettre en place un suivi communautaire."],
-Santé:["Signaler le manque de service ou de matériel.","Identifier précisément le centre concerné.","Alerter le responsable sanitaire.","Demander un approvisionnement urgent.","Orienter temporairement les patients vers un autre centre.","Informer la population des solutions disponibles.","Renforcer les stocks essentiels.","Améliorer l'organisation du service.","Suivre les délais de prise en charge.","Évaluer régulièrement la situation."],
-Éducation:["Signaler le manque de matériel ou d'infrastructure.","Identifier l'établissement concerné.","Alerter la direction et les services compétents.","Évaluer les besoins prioritaires.","Organiser une solution temporaire pour les élèves.","Mobiliser les partenaires locaux.","Réparer ou compléter les équipements.","Améliorer les conditions d'apprentissage.","Suivre la réalisation des travaux.","Prévoir un entretien régulier."],
-Sécurité:["Signaler précisément le danger.","Identifier l'endroit et les horaires à risque.","Alerter les autorités compétentes.","Améliorer l'éclairage de la zone.","Installer une signalisation adaptée.","Renforcer la présence préventive si nécessaire.","Sensibiliser les habitants.","Réparer les infrastructures dangereuses.","Créer un canal de signalement rapide.","Suivre la situation après intervention."],
-Autre:["Décrire clairement le problème.","Localiser précisément la situation.","Identifier le service responsable.","Évaluer le niveau d'urgence.","Informer les personnes concernées.","Proposer une solution temporaire.","Demander une intervention adaptée.","Documenter les actions réalisées.","Vérifier le résultat obtenu.","Assurer un suivi jusqu'à résolution."],
-Environnement:["Identifier la source de la nuisance.","Localiser précisément la zone concernée.","Signaler la situation au service compétent.","Limiter temporairement l'exposition au danger.","Sensibiliser les habitants.","Organiser une action de nettoyage ou de protection.","Réduire la source de pollution.","Restaurer la zone dégradée.","Contrôler régulièrement l'environnement.","Mettre en place une prévention durable."],
-Assainissement:["Signaler le caniveau ou réseau concerné.","Localiser précisément le bouchon ou la dégradation.","Demander un curage ou une intervention.","Éviter les dépôts dans les caniveaux.","Sécuriser la zone si nécessaire.","Informer les habitants.","Réparer les ouvrages endommagés.","Améliorer l'écoulement des eaux.","Contrôler après intervention.","Programmer un entretien régulier."],
-Transport:["Signaler le problème de transport.","Préciser la ligne, l'itinéraire ou le lieu.","Identifier les horaires concernés.","Informer le service de transport.","Proposer un itinéraire temporaire.","Améliorer la signalisation.","Réparer les arrêts ou équipements.","Adapter la fréquence si nécessaire.","Informer les usagers des changements.","Suivre l'amélioration du service."],
-Emploi:["Décrire précisément le besoin d'emploi.","Identifier le secteur ou métier concerné.","Signaler les difficultés d'accès aux opportunités.","Consulter les services d'emploi locaux.","Mettre en relation les candidats et employeurs.","Organiser une orientation professionnelle.","Proposer une formation adaptée.","Faciliter l'accès aux informations d'offres."],
-  };
-let problemsCache=[],problemeEnModification=null,carte=null,marqueursCarte=[],adminVerified=false;
-function normaliser(t){return String(t||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim()}
-function esc(t){return String(t??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
-function token(){return localStorage.getItem("soluworld_admin_token")}
-function authHeaders(){return{apikey:SUPABASE_KEY,Authorization:"Bearer "+token(),"Content-Type":"application/json"}}
-function allerA(id){const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:"smooth"})}
-function remplirSelect(id,items,first){const s=document.getElementById(id);if(!s)return;items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;s.appendChild(o)})}
-function remplirCategories(){remplirSelect("catégorie",CATEGORIES);remplirSelect("filter-category",CATEGORIES);remplirSelect("edit-categorie",CATEGORIES);remplirSelect("filter-city",Object.keys(VILLES))}
-function statutInfo(s){return s==="Résolu"?["statut-resolu","🟢"]:s==="En cours"?["statut-en-cours","🟠"]:["statut-nouveau","🔴"]}
-function urgenceClasse(u){u=normaliser(u);return u==="elevee"||u==="haute"?"high":u==="moyenne"||u==="medium"?"medium":"low"}
-async function verifierAdmin(){
-  const t=token();
-  if(!t){adminVerified=false;actualiserAdmin();return false}
-  try{
-    const ur=await fetch(`${SUPABASE_URL}/auth/v1/user`,{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+t}});
-    if(!ur.ok)throw Error("Session expirée.");
-    const rr=await fetch(`${SUPABASE_URL}/rest/v1/rpc/is_admin`,{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+t,"Content-Type":"application/json"}});
-    if(!rr.ok)throw Error("Vérification administrateur impossible.");
-    const isAdmin=await rr.json();
-    adminVerified=isAdmin===true;
-    if(!adminVerified)localStorage.removeItem("soluworld_admin_token");
-  }catch(e){adminVerified=false;localStorage.removeItem("soluworld_admin_token")}
-  actualiserAdmin();
-  return adminVerified;
+const SUPABASE_KEY="VOTRE_CLE_SUPABASE_PUBLISHABLE";
+let problems=[];
+let map;
+let markers=[];
+let adminToken=localStorage.getItem("soluworld_admin_token")||"";
+
+const cities={
+"Ouagadougou":[12.3714,-1.5197],
+"Bobo-Dioulasso":[11.1772,-4.2979],
+"Koudougou":[12.2526,-2.3627],
+"Banfora":[10.6333,-4.7667],
+"Ouahigouya":[13.5828,-2.4216],
+"Dédougou":[12.4634,-3.4608],
+"Fada N'Gourma":[12.0616,0.3581],
+"Tenkodogo":[11.7807,-0.3697],
+"Manga":[11.6636,-1.0736],
+"Ziniaré":[12.5833,-0.8833]
+};
+
+const solutions={
+"Eau":["Réparer la conduite","Contrôler le réseau","Installer un point d'eau","Nettoyer le forage","Remplacer la pompe","Renforcer la distribution","Rechercher une fuite","Entretenir le château d'eau","Sensibiliser les habitants","Planifier une intervention"],
+"Électricité":["Vérifier le transformateur","Réparer la ligne","Remplacer le poteau","Sécuriser les câbles","Contrôler le compteur","Renforcer le réseau","Rétablir l'alimentation","Remplacer les équipements","Effectuer une inspection","Programmer une maintenance"],
+"Route":["Réparer les nids-de-poule","Recharger la chaussée","Installer une signalisation","Nettoyer les caniveaux","Réparer le drainage","Entretenir la route","Sécuriser la zone","Améliorer l'éclairage","Contrôler les travaux","Planifier une réfection"],
+"Déchets":["Organiser une collecte","Installer une poubelle","Nettoyer la zone","Créer un point de collecte","Renforcer le ramassage","Sensibiliser les habitants","Évacuer les déchets","Améliorer le tri","Programmer une collecte","Contrôler la propreté"],
+"Santé":["Renforcer le personnel","Réapprovisionner le centre","Réparer les équipements","Améliorer l'accueil","Organiser une campagne","Renforcer l'hygiène","Installer du matériel","Former le personnel","Améliorer l'accès","Programmer une inspection"],
+"Éducation":["Réparer les salles","Ajouter des tables-bancs","Renforcer les enseignants","Fournir des fournitures","Améliorer l'accès à l'eau","Réparer les sanitaires","Sécuriser l'école","Installer l'éclairage","Rénover les bâtiments","Planifier des travaux"],
+"Sécurité":["Renforcer l'éclairage","Installer une alerte","Renforcer la surveillance","Sécuriser la zone","Améliorer la signalisation","Organiser une patrouille","Installer une caméra","Sensibiliser les habitants","Réparer les équipements","Coordonner les services"],
+"Autre":["Faire une inspection","Identifier la cause","Planifier une intervention","Mobiliser les services","Effectuer une réparation","Améliorer l'infrastructure","Sensibiliser les habitants","Installer un équipement","Organiser une maintenance","Suivre la situation"],
+"Environnement":["Nettoyer la zone","Planter des arbres","Protéger la zone","Réduire les déchets","Créer un espace vert","Organiser une campagne","Contrôler la pollution","Restaurer la zone","Sensibiliser les habitants","Planifier une surveillance"],
+"Assainissement":["Nettoyer les caniveaux","Réparer les égouts","Évacuer les eaux","Construire un drainage","Entretenir les ouvrages","Améliorer l'écoulement","Sécuriser la zone","Nettoyer les fossés","Réparer les conduites","Programmer une maintenance"],
+"Transport":["Améliorer les arrêts","Renforcer le transport","Réparer les infrastructures","Ajouter une signalisation","Sécuriser les voyageurs","Améliorer les horaires","Créer un point d'arrêt","Entretenir les équipements","Organiser le trafic","Renforcer la sécurité"],
+"Emploi":["Créer un point d'information","Organiser une formation","Mettre en relation les acteurs","Créer un atelier","Accompagner les jeunes","Renforcer l'orientation","Organiser un forum","Développer l'apprentissage","Soutenir les entrepreneurs","Améliorer l'information"]
+};
+
+function scrollToId(id){
+const el=document.getElementById(id);
+if(el)el.scrollIntoView({behavior:"smooth"});
 }
-function exigerAdmin(){if(!adminVerified){alert("🔐 Accès réservé à l’administrateur.");return false}return true}
-function actualiserAdmin(){
-  document.body.classList.toggle("admin-verified",adminVerified);
-  document.getElementById("admin-status").innerHTML=adminVerified?'<span class="admin-ok">🟢 Administrateur vérifié</span>':'<span>⚪ Non connecté</span>';
+
+function toast(msg){
+const box=document.getElementById("swToast");
+box.textContent=msg;
+box.style.display="block";
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>box.style.display="none",3200);
 }
-function mettreAJourDashboard(ps){
-  let n=0,c=0,r=0,u=0,v=new Set(),cat=new Set();
-  ps.forEach(p=>{const s=p.statut||"Nouveau";if(s==="Nouveau")n++;if(s==="En cours")c++;if(s==="Résolu")r++;if(["elevee","haute"].includes(normaliser(p.urgency)))u++;if(p.City)v.add(normaliser(p.City));cat.add(normaliser(p["Catégory"]||"Autre"))});
-  const vals={total:ps.length,nouveaux:n,"en-cours":c,resolus:r,urgents:u,villes:v.size,categories:cat.size};
-  Object.entries(vals).forEach(([k,v])=>{const e=document.getElementById("stat-"+k);if(e)e.textContent=v});
-  const taux=ps.length?Math.round(r/ps.length*100):0;document.getElementById("stat-taux").textContent=taux+"%";
+
+function showMessage(msg,type="success"){
+const box=document.getElementById("message");
+box.textContent=msg;
+box.className=type;
+box.style.display="block";
 }
-function construireRecherche(p){return normaliser([p.Name,p.City,p["Catégory"],p.description,p.numero_suivi,p.urgency,p.statut].join(" "))}
-function afficherListe(ps){
-  const liste=document.getElementById("problems-list");
-  if(!ps.length){liste.innerHTML='<div class="empty">📭 Aucun problème correspondant.</div>';return}
-  liste.innerHTML=ps.map(p=>{
-    const id=String(p.id||""),suivi=p.numero_suivi||"Non disponible",s=p.statut||"Nouveau",[sc,si]=statutInfo(s);
-    const adminButtons=adminVerified?`<button class="blue" type="button" onclick="modifierProbleme('${esc(id)}')">✏️ Modifier</button><button class="purple" type="button" onclick="changerStatut('${esc(id)}')">🔄 Statut</button><button class="danger" type="button" onclick="supprimerProbleme('${esc(id)}')">🗑️ Supprimer</button>`:"";
-    return `<article class="problem ${urgenceClasse(p.urgency)}" data-id="${esc(id)}">
-      <h3>📝 ${esc(p.description||"Problème sans description")}</h3>
-      <p>👤 <strong>Nom :</strong> ${esc(p.Name||"Non renseigné")}</p>
-      <p>📍 <strong>Ville :</strong> ${esc(p.City||"Non renseignée")}</p>
-      <p>🏷️ <strong>Catégorie :</strong> ${esc(p["Catégory"]||"Autre")}</p>
-      <p>🚨 <strong>Urgence :</strong> ${esc(p.urgency||"Non renseignée")}</p>
-      <p>📋 <strong>N° de suivi :</strong> <b>${esc(suivi)}</b> <button class="ghost" type="button" onclick="copierNumeroSuivi('${esc(suivi)}')">📋 Copier</button></p>
-      <p>📌 <strong>Statut :</strong> <span class="statut-badge ${sc}">${si} ${esc(s)}</span></p>
-      <div class="problem-buttons"><button class="primary" type="button" onclick="trouverSolution('${esc(id)}')">💡 Solutions</button>${adminButtons}<button class="secondary" type="button" onclick="voirProblemeSurCarte('${esc(id)}')">📍 Carte</button><button class="ghost" type="button" onclick="partagerNumero('${esc(suivi)}')">📤 Partager</button></div>
-      <div id="solution-${esc(id)}" class="solution-box"></div>
-    </article>`;
-  }).join("");
+
+function headers(token=""){
+const h={
+"apikey":SUPABASE_KEY,
+"Authorization":"Bearer "+(token||SUPABASE_KEY),
+"Content-Type":"application/json"
+};
+if(token)h["Prefer"]="return=representation";
+return h;
 }
-async function afficherProblemes(){
-  const liste=document.getElementById("problems-list");liste.innerHTML='<div class="loading">🔄 Chargement des problèmes...</div>';
-  try{
-    const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?select=*&order=created_at.desc`,{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,Accept:"application/json","Cache-Control":"no-cache"}});
-    const t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);
-    const ps=JSON.parse(t);if(!Array.isArray(ps))throw Error("Réponse Supabase invalide.");
-    problemsCache=ps;mettreAJourDashboard(ps);remplirVillesDepuisProblemes(ps);appliquerFiltres();afficherProblemesSurCarte(ps);
-  }catch(e){console.error(e);liste.innerHTML=`<div class="problem high"><h3>❌ Impossible de charger les problèmes</h3><p>${esc(e.message)}</p></div>`}
+
+async function loadProblems(){
+try{
+const res=await fetch(SUPABASE_URL+"/rest/v1/Problems?select=*&order=created_at.desc",{headers:headers()});
+if(!res.ok)throw new Error("HTTP "+res.status);
+problems=await res.json();
+populateCities();
+renderProblems();
+updateDashboard();
+updateMap();
+}catch(e){
+console.error(e);
+showMessage("❌ Impossible de charger les problèmes.","error");
 }
-function remplirVillesDepuisProblemes(ps){const s=document.getElementById("filter-city");const exist=new Set([...s.options].map(o=>o.value));ps.forEach(p=>{if(p.City&&!exist.has(p.City)){const o=document.createElement("option");o.value=p.City;o.textContent=p.City;s.appendChild(o);exist.add(p.City)}})}
-function trouverSolution(id){
-  const p=problemsCache.find(x=>String(x.id)===String(id)),box=document.getElementById("solution-"+id);if(!p||!box)return alert("❌ Problème introuvable.");
-  if(box.style.display==="block"){box.style.display="none";return}
-  const ss=SOLUTIONS[p["Catégory"]]||SOLUTIONS.Autre;
-  box.innerHTML=`<h4>💡 10 solutions possibles</h4><p>Pour : <strong>${esc(p.description||"")}</strong></p><ol class="solution-list">${ss.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`;box.style.display="block";
 }
-async function supprimerProbleme(id){
-  if(!exigerAdmin())return;if(!confirm("⚠️ Voulez-vous vraiment supprimer ce problème ?"))return;
-  try{const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?id=eq.${encodeURIComponent(id)}`,{method:"DELETE",headers:authHeaders()});const t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);await afficherProblemes();alert("✅ Problème supprimé.")}catch(e){alert("❌ Suppression impossible.\n\n"+e.message)}
+
+function populateCities(){
+const select=document.getElementById("filterCity");
+const values=[...new Set(problems.map(p=>p.City).filter(Boolean))].sort();
+select.innerHTML='<option value="">Toutes les villes</option>'+values.map(v=>`<option>${escapeHtml(v)}</option>`).join("");
 }
-function modifierProbleme(id){
-  if(!exigerAdmin())return;const p=problemsCache.find(x=>String(x.id)===String(id));if(!p)return alert("❌ Problème introuvable.");
-  problemeEnModification=id;document.getElementById("edit-nom").value=p.Name||"";document.getElementById("edit-ville").value=p.City||"";document.getElementById("edit-categorie").value=p["Catégory"]||"";document.getElementById("edit-description").value=p.description||"";document.getElementById("edit-urgence").value=p.urgency||"";
-  document.getElementById("edit-description-counter").textContent=(p.description||"").length+" / 1000";const s=document.getElementById("edit-section");s.style.display="block";s.scrollIntoView({behavior:"smooth"});
+
+function escapeHtml(value){
+return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 }
-async function changerStatut(id){
-  if(!exigerAdmin())return;const p=problemsCache.find(x=>String(x.id)===String(id));if(!p)return alert("❌ Problème introuvable.");
-  const next={Nouveau:"En cours","En cours":"Résolu","Résolu":"Nouveau"}[p.statut||"Nouveau"]||"Nouveau";
-  try{const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?id=eq.${encodeURIComponent(id)}`,{method:"PATCH",headers:authHeaders(),body:JSON.stringify({statut:next})});const t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);await afficherProblemes();}catch(e){alert("❌ Changement impossible.\n\n"+e.message)}
-}
-function obtenirCoordonneesVille(v){const k=Object.keys(VILLES).find(x=>normaliser(x)===normaliser(v));return k?VILLES[k]:null}
-function creerIcone(u){const c=urgenceClasse(u)==="high"?"red":urgenceClasse(u)==="medium"?"orange":"green";return L.divIcon({className:"",html:`<div style="width:18px;height:18px;background:${c};border:2px solid white;border-radius:50%;box-shadow:0 0 5px #000"></div>`,iconSize:[18,18],iconAnchor:[9,9]})}
-function afficherProblemesSurCarte(ps){
-  if(!carte)return;marqueursCarte.forEach(m=>carte.removeLayer(m));marqueursCarte=[];
-  ps.forEach(p=>{const co=obtenirCoordonneesVille(p.City||"");if(!co)return;const m=L.marker(co,{icon:creerIcone(p.urgency)}).addTo(carte);m.problemData=p;m.bindPopup(`<strong>${esc(p["Catégory"]||"Autre")}</strong><br>🏙️ ${esc(p.City||"")}<br>🚨 ${esc(p.urgency||"")}<br>📋 ${esc(p.numero_suivi||"")}<br>📝 ${esc(p.description||"")}`);marqueursCarte.push(m)});
-}
-function initialiserCarte(){carte=L.map("map").setView([12.3714,-1.5197],6);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap contributors"}).addTo(carte)}
-function centrerBurkina(){if(carte)carte.flyTo([12.3714,-1.5197],6,{duration:1})}
-function afficherTousLesMarqueurs(){marqueursCarte.forEach(m=>m.addTo(carte))}
-function voirProblemeSurCarte(id){const m=marqueursCarte.find(x=>String(x.problemData.id)===String(id));if(!m)return alert("📍 Ville non disponible sur la carte.");carte.flyTo(m.getLatLng(),12,{duration:1});setTimeout(()=>m.openPopup(),700)}
-function filtrerCarte(q,cat,city,st,urg){
-  marqueursCarte.forEach(m=>{const p=m.problemData,t=construireRecherche(p),c=normaliser(p["Catégory"]||""),v=normaliser(p.City||"");const ok=(!q||t.includes(q))&&(!cat||c===cat)&&(!city||v===city)&&(!st||(p.statut||"Nouveau")===st)&&(!urg||p.urgency===urg);ok?m.addTo(carte):carte.removeLayer(m)})
-}
-function appliquerFiltres(){
-  const q=normaliser(document.getElementById("search-problems").value),cat=normaliser(document.getElementById("filter-category").value),st=document.getElementById("filter-status").value,urg=document.getElementById("filter-urgency").value,sort=document.getElementById("sort-problems").value,city=normaliser(document.getElementById("filter-city").value);
-  let ps=problemsCache.filter(p=>(!q||construireRecherche(p).includes(q))&&(!cat||normaliser(p["Catégory"]||"")===cat)&&(!st||(p.statut||"Nouveau")===st)&&(!urg||p.urgency===urg)&&(!city||normaliser(p.City||"")===city));
-  ps.sort((a,b)=>sort==="oldest"?new Date(a.created_at)-new Date(b.created_at):sort==="urgent"?({Élevée:0,Moyenne:1,Faible:2}[a.urgency]??3)-({Élevée:0,Moyenne:1,Faible:2}[b.urgency]??3):new Date(b.created_at)-new Date(a.created_at));
-  afficherListe(ps);document.getElementById("problems-message").className="message info";document.getElementById("problems-message").textContent=`${ps.length} problème(s) affiché(s).`;document.getElementById("filter-summary").textContent=`Filtres actifs : ${[cat||"toutes catégories",st||"tous statuts",urg||"toutes urgences",city||"toutes villes"].join(" • ")}`;filtrerCarte(q,cat,city,st,urg);
-}
-async function suivreSignalement(){
-  const n=document.getElementById("tracking-number").value.trim(),box=document.getElementById("tracking-result");if(!n){box.innerHTML='<div class="error">⚠️ Entrez un numéro de suivi.</div>';return}
-  box.innerHTML='<div class="loading">🔄 Recherche...</div>';
-  try{const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?numero_suivi=eq.${encodeURIComponent(n)}&select=*`,{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});const ps=await r.json();if(!r.ok)throw Error("Supabase "+r.status);if(!ps.length){box.innerHTML=`<div class="error">❌ Aucun signalement pour <b>${esc(n)}</b>.</div>`;return}
-    const p=ps[0],s=p.statut||"Nouveau",[_,i]=statutInfo(s),pct=s==="Résolu"?100:s==="En cours"?50:15;
-    box.innerHTML=`<div class="problem"><h3>✅ Signalement trouvé</h3><p>📋 <strong>N° :</strong> ${esc(p.numero_suivi||n)}</p><p>📝 <strong>Problème :</strong> ${esc(p.description||"")}</p><p>📍 <strong>Ville :</strong> ${esc(p.City||"")}</p><p>🏷️ <strong>Catégorie :</strong> ${esc(p["Catégory"]||"Autre")}</p><p>🚨 <strong>Urgence :</strong> ${esc(p.urgency||"")}</p><p>📌 <strong>Statut :</strong> ${i} ${esc(s)}</p><div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div><p>📅 <strong>Signalé le :</strong> ${esc(p.created_at?new Date(p.created_at).toLocaleString("fr-FR"):"Date inconnue")}</p></div>`;
-  }catch(e){box.innerHTML=`<div class="error">❌ Erreur : ${esc(e.message)}</div>`}
-}
-function copierNumeroSuivi(n){if(navigator.clipboard)navigator.clipboard.writeText(n).then(()=>alert("✅ Numéro copié !\n\n"+n));else prompt("Copiez ce numéro :",n)}
-function partagerNumero(n){if(!n||n==="Non disponible")return;const text=`Mon signalement SOLUWORLD : ${n}`;navigator.share?navigator.share({title:"SOLUWORLD",text}):navigator.clipboard?.writeText(text).then(()=>alert("✅ Informations copiées."))}
-function partagerSuivi(){const n=document.getElementById("tracking-number").value.trim();if(n)partagerNumero(n);else alert("Entrez d’abord un numéro de suivi.")}
-function genererNumero(){const an=new Date().getFullYear();return `SW-${an}-${Math.floor(100000+Math.random()*900000)}`}
-function exporterCSV(){
-  if(!problemsCache.length)return alert("Aucun problème à exporter.");
-  const cols=["id","created_at","Name","City","Catégory","description","urgency","numero_suivi","statut"],rows=[cols,...problemsCache.map(p=>cols.map(c=>String(p[c]??"").replace(/"/g,'""')))];
-  const csv=rows.map(r=>r.map(x=>`"${x}"`).join(";")).join("\n"),blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="soluworld-signalements.csv";a.click();URL.revokeObjectURL(a.href);
-}
-function sauverBrouillon(){
-  const ids=["nom","ville","catégorie","urgence","problème"],d={};ids.forEach(id=>d[id]=document.getElementById(id).value);localStorage.setItem("soluworld_draft",JSON.stringify(d));document.getElementById("draft-status").textContent="✅ Brouillon enregistré sur cet appareil.";
-}
-function chargerBrouillon(){
-  try{const d=JSON.parse(localStorage.getItem("soluworld_draft")||"null");if(!d)return;["nom","ville","catégorie","urgence","problème"].forEach(id=>{if(d[id]!=null)document.getElementById(id).value=d[id]});mettreAJourCompteur();document.getElementById("draft-status").textContent="📝 Brouillon restauré automatiquement."}catch(e){console.warn(e)}
-}
-function effacerBrouillon(){localStorage.removeItem("soluworld_draft");document.getElementById("draft-status").textContent="🧹 Brouillon effacé."}
-function mettreAJourCompteur(){document.getElementById("description-counter").textContent=document.getElementById("problème").value.length+" / 1000";document.getElementById("edit-description-counter").textContent=document.getElementById("edit-description").value.length+" / 1000"}
-document.getElementById("problem-form").addEventListener("submit",async e=>{
-  e.preventDefault();const b=document.getElementById("publish-button"),nom=document.getElementById("nom").value.trim(),ville=document.getElementById("ville").value.trim(),cat=document.getElementById("catégorie").value,desc=document.getElementById("problème").value.trim(),urg=document.getElementById("urgence").value;
-  if(!nom||!ville||!cat||!desc||!urg)return alert("⚠️ Veuillez remplir tous les champs.");b.disabled=true;
-  try{const suivi=genererNumero(),r=await fetch(`${SUPABASE_URL}/rest/v1/Problems`,{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({Name:nom,City:ville,"Catégory":cat,description:desc,urgency:urg,numero_suivi:suivi})}),t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);alert(`✅ Problème publié !\n\n📋 Votre numéro de suivi :\n${suivi}`);e.target.reset();effacerBrouillon();mettreAJourCompteur();await afficherProblemes();document.getElementById("tracking-number").value=suivi;allerA("tracking-section")}catch(x){alert("❌ Impossible de publier.\n\n"+x.message)}finally{b.disabled=false}
+
+function renderProblems(){
+const list=document.getElementById("problemList");
+const q=document.getElementById("search").value.toLowerCase().trim();
+const city=document.getElementById("filterCity").value;
+const category=document.getElementById("filterCategory").value;
+const urgency=document.getElementById("filterUrgency").value;
+
+const filtered=problems.filter(p=>{
+const text=[p.Name,p.City,p.Catégory,p.description,p.numero_suivi].join(" ").toLowerCase();
+return(!q||text.includes(q))&&(!city||p.City===city)&&(!category||p.Catégory===category)&&(!urgency||p.urgency===urgency);
 });
-document.getElementById("admin-login-form").addEventListener("submit",async e=>{
-  e.preventDefault();const email=document.getElementById("admin-email").value.trim(),password=document.getElementById("admin-password").value,msg=document.getElementById("admin-login-message");msg.className="message";msg.textContent="🔄 Vérification...";
-  try{const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password})}),d=await r.json();if(!r.ok)throw Error(d.error_description||d.msg||"Connexion impossible.");localStorage.setItem("soluworld_admin_token",d.access_token);if(!await verifierAdmin())throw Error("Ce compte n’est pas autorisé comme administrateur.");msg.className="success";msg.textContent="✅ Administrateur vérifié avec succès.";document.getElementById("admin-password").value="";afficherListe(problemsCache)}catch(x){localStorage.removeItem("soluworld_admin_token");adminVerified=false;actualiserAdmin();msg.className="error";msg.textContent="❌ "+x.message}
+
+document.getElementById("activeFilters").textContent=
+`${filtered.length} résultat(s) affiché(s)`+
+(city?` • Ville: ${city}`:"")+
+(category?` • Catégorie: ${category}`:"")+
+(urgency?` • Urgence: ${urgency}`:"");
+
+if(!filtered.length){
+list.innerHTML='<div class="empty">Aucun problème ne correspond aux filtres.</div>';
+return;
+}
+
+list.innerHTML=filtered.map(p=>{
+const status=p.statut||"Nouveau";
+const statusClass=status==="Résolu"?"status-done":status==="En cours"||status==="Traité"?"status-progress":"status-new";
+const urgencyClass=p.urgency==="Élevée"?"urgency-high":p.urgency==="Moyenne"?"urgency-medium":"urgency-low";
+const numero=p.numero_suivi||"Non disponible";
+return `
+<article class="problem ${urgencyClass}">
+<div class="problem-header">
+<div>
+<h3 class="problem-title">${escapeHtml(p.Catégory||"Problème")}</h3>
+<div class="problem-meta">
+<span>${escapeHtml(p.City||"Ville inconnue")}</span>
+<span>•</span>
+<span>${escapeHtml(p.Name||"Citoyen")}</span>
+</div>
+</div>
+<span class="status ${statusClass}">${escapeHtml(status)}</span>
+</div>
+<p>${escapeHtml(p.description||"Aucune description.")}</p>
+<div class="problem-meta">
+<span class="status">${escapeHtml(p.urgency||"Faible")}</span>
+<span class="small">N° ${escapeHtml(numero)}</span>
+</div>
+<div class="problem-actions">
+<button class="secondary" onclick="showSolution('${encodeURIComponent(p.Catégory||"Autre")}')">💡 Solution</button>
+<button class="secondary" onclick="focusCity('${encodeURIComponent(p.City||"")}')">🗺️ Voir sur carte</button>
+${adminToken?`<button class="warning" onclick="editProblem('${p.id}')">✏️ Modifier</button>`:""}
+${adminToken?`<button class="danger" onclick="deleteProblem('${p.id}')">🗑️ Supprimer</button>`:""}
+</div>
+${adminToken?`<div id="edit-${p.id}"></div>`:""}
+</article>`;
+}).join("");
+}
+
+function showSolution(encoded){
+const cat=decodeURIComponent(encoded);
+const arr=solutions[cat]||solutions.Autre;
+toast("💡 Solutions : "+arr.slice(0,3).join(" • "));
+}
+
+function updateDashboard(){
+const total=problems.length;
+const nouveau=problems.filter(p=>(p.statut||"Nouveau")==="Nouveau").length;
+const progress=problems.filter(p=>["En cours","Traité"].includes(p.statut)).length;
+const resolved=problems.filter(p=>p.statut==="Résolu").length;
+const urgent=problems.filter(p=>p.urgency==="Élevée").length;
+const citiesCount=new Set(problems.map(p=>p.City).filter(Boolean)).size;
+const categoriesCount=new Set(problems.map(p=>p.Catégory).filter(Boolean)).size;
+const rate=total?Math.round(resolved/total*100):0;
+
+document.getElementById("stat-total").textContent=total;
+document.getElementById("stat-new").textContent=nouveau;
+document.getElementById("stat-progress").textContent=progress;
+document.getElementById("stat-resolved").textContent=resolved;
+document.getElementById("stat-urgent").textContent=urgent;
+document.getElementById("stat-cities").textContent=citiesCount;
+document.getElementById("stat-categories").textContent=categoriesCount;
+document.getElementById("stat-rate").textContent=rate+"%";
+}
+
+function updateMap(){
+if(!map)return;
+markers.forEach(m=>map.removeLayer(m));
+markers=[];
+problems.forEach(p=>{
+const coords=cities[p.City];
+if(!coords)return;
+const color=p.urgency==="Élevée"?"red":p.urgency==="Moyenne"?"orange":"green";
+const marker=L.circleMarker(coords,{radius:9,color:color,fillColor:color,fillOpacity:.75});
+marker.bindPopup(`<strong>${escapeHtml(p.Catégory||"Problème")}</strong><br>${escapeHtml(p.City||"")}<br>${escapeHtml(p.urgency||"")}<br>${escapeHtml(p.statut||"Nouveau")}`);
+marker.addTo(map);
+markers.push(marker);
 });
-document.getElementById("logout-button").addEventListener("click",()=>{localStorage.removeItem("soluworld_admin_token");adminVerified=false;actualiserAdmin();problemeEnModification=null;document.getElementById("edit-section").style.display="none";afficherListe(problemsCache);alert("🚪 Déconnexion effectuée.")});
-document.getElementById("edit-form").addEventListener("submit",async e=>{
-  e.preventDefault();if(!exigerAdmin()||!problemeEnModification)return;const id=problemeEnModification,body={Name:document.getElementById("edit-nom").value.trim(),City:document.getElementById("edit-ville").value.trim(),"Catégory":document.getElementById("edit-categorie").value,description:document.getElementById("edit-description").value.trim(),urgency:document.getElementById("edit-urgence").value};
-  try{const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?id=eq.${encodeURIComponent(id)}`,{method:"PATCH",headers:authHeaders(),body:JSON.stringify(body)}),t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);document.getElementById("edit-message").className="success";document.getElementById("edit-message").textContent="✅ Modification enregistrée.";problemeEnModification=null;document.getElementById("edit-section").style.display="none";await afficherProblemes()}catch(x){document.getElementById("edit-message").className="error";document.getElementById("edit-message").textContent="❌ "+x.message}
+}
+
+function focusCity(encoded){
+const city=decodeURIComponent(encoded);
+if(!map||!cities[city])return;
+map.setView(cities[city],13);
+scrollToId("carte");
+}
+
+function editProblem(id){
+const p=problems.find(x=>String(x.id)===String(id));
+const container=document.getElementById("edit-"+id);
+if(!p||!container)return;
+container.innerHTML=`
+<div class="edit-form">
+<div class="form-grid">
+<div class="field"><label>Statut</label>
+<select id="edit-status-${id}">
+<option ${p.statut==="Nouveau"?"selected":""}>Nouveau</option>
+<option ${p.statut==="En cours"?"selected":""}>En cours</option>
+<option ${p.statut==="Traité"?"selected":""}>Traité</option>
+<option ${p.statut==="Résolu"?"selected":""}>Résolu</option>
+</select></div>
+<div class="field"><label>Urgence</label>
+<select id="edit-urgency-${id}">
+<option ${p.urgency==="Faible"?"selected":""}>Faible</option>
+<option ${p.urgency==="Moyenne"?"selected":""}>Moyenne</option>
+<option ${p.urgency==="Élevée"?"selected":""}>Élevée</option>
+</select></div>
+</div>
+<br>
+<button class="primary" onclick="saveEdit('${id}')">💾 Enregistrer</button>
+</div>`;
+}
+
+async function saveEdit(id){
+if(!adminToken)return;
+const statut=document.getElementById("edit-status-"+id).value;
+const urgency=document.getElementById("edit-urgency-"+id).value;
+try{
+const res=await fetch(SUPABASE_URL+"/rest/v1/Problems?id=eq."+encodeURIComponent(id),{
+method:"PATCH",
+headers:headers(adminToken),
+body:JSON.stringify({statut,urgency})
 });
-document.getElementById("cancel-edit").addEventListener("click",()=>{problemeEnModification=null;document.getElementById("edit-form").reset();document.getElementById("edit-section").style.display="none"});
-document.getElementById("theme-button").addEventListener("click",()=>{document.body.classList.toggle("dark");const d=document.body.classList.contains("dark");localStorage.setItem("soluworld_dark",d);document.getElementById("theme-button").textContent=d?"☀️ Mode clair":"🌙 Mode sombre"});
-document.getElementById("contrast-button").addEventListener("click",()=>{document.body.classList.toggle("contrast");const a=document.body.classList.contains("contrast");localStorage.setItem("soluworld_contrast",a);document.getElementById("contrast-button").textContent=a?"◑ Contraste normal":"◐ Contraste"});
-document.getElementById("save-draft").addEventListener("click",sauverBrouillon);
-document.getElementById("clear-draft").addEventListener("click",effacerBrouillon);
-document.getElementById("problem-form").addEventListener("input",()=>{mettreAJourCompteur();clearTimeout(window.soluworldDraftTimer);window.soluworldDraftTimer=setTimeout(sauverBrouillon,700)});
-document.getElementById("edit-description").addEventListener("input",mettreAJourCompteur);
-["search-problems","filter-category","filter-status","filter-urgency","sort-problems","filter-city"].forEach(id=>document.getElementById(id).addEventListener("input",appliquerFiltres));
-document.getElementById("clear-search").addEventListener("click",()=>{["search-problems","filter-category","filter-status","filter-urgency","filter-city"].forEach(id=>document.getElementById(id).value="");document.getElementById("sort-problems").value="newest";appliquerFiltres()});
-document.addEventListener("DOMContentLoaded",async()=>{
-  remplirCategories();initialiserCarte();actualiserAdmin();chargerBrouillon();
-  if(localStorage.getItem("soluworld_contrast")==="true"){document.body.classList.add("contrast");document.getElementById("contrast-button").textContent="◑ Contraste normal"}
-  if(localStorage.getItem("soluworld_dark")==="true"){document.body.classList.add("dark");document.getElementById("theme-button").textContent="☀️ Mode clair"}
-  mettreAJourCompteur();await verifierAdmin();afficherProblemes();
+if(!res.ok)throw new Error("HTTP "+res.status);
+toast("✅ Modification enregistrée.");
+await loadProblems();
+}catch(e){
+console.error(e);
+toast("❌ Modification impossible.");
+}
+}
+
+async function deleteProblem(id){
+if(!adminToken)return;
+if(!confirm("Supprimer définitivement ce signalement ?"))return;
+try{
+const res=await fetch(SUPABASE_URL+"/rest/v1/Problems?id=eq."+encodeURIComponent(id),{
+method:"DELETE",
+headers:headers(adminToken)
+});
+if(!res.ok)throw new Error("HTTP "+res.status);
+toast("🗑️ Signalement supprimé.");
+await loadProblems();
+}catch(e){
+console.error(e);
+toast("❌ Suppression impossible.");
+}
+}
+
+function trackingProgress(status){
+const order={"Nouveau":0,"En cours":1,"Traité":2,"Résolu":3};
+const index=order[status]??0;
+const percent=[0,33,66,100][index];
+return `
+<div class="progress" aria-label="Progression du dossier"><span style="width:${percent}%"></span></div>
+<div class="steps">
+<span class="${index>=0?"step-active":""}">Nouveau</span>
+<span class="${index>=1?"step-active":""}">En cours</span>
+<span class="${index>=2?"step-active":""}">Traité</span>
+<span class="${index>=3?"step-active":""}">Résolu</span>
+</div>`;
+}
+
+function trackProblem(){
+const number=document.getElementById("trackingNumber").value.trim();
+const result=document.getElementById("trackingResult");
+if(!number){
+result.innerHTML='<div class="empty">Veuillez entrer un numéro de suivi.</div>';
+return;
+}
+const p=problems.find(x=>String(x.numero_suivi||"").toLowerCase()===number.toLowerCase());
+if(!p){
+result.innerHTML='<div class="empty">❌ Aucun dossier trouvé avec ce numéro.</div>';
+return;
+}
+const status=p.statut||"Nouveau";
+result.innerHTML=`
+<div class="problem">
+<h3>📄 Dossier ${escapeHtml(p.numero_suivi)}</h3>
+<p><strong>Ville :</strong> ${escapeHtml(p.City)}</p>
+<p><strong>Catégorie :</strong> ${escapeHtml(p.Catégory)}</p>
+<p><strong>Urgence :</strong> ${escapeHtml(p.urgency)}</p>
+<p><strong>Statut :</strong> ${escapeHtml(status)}</p>
+${trackingProgress(status)}
+<p>${escapeHtml(p.description)}</p>
+</div>`;
+}
+
+async function adminLogin(){
+const email=document.getElementById("adminEmail").value.trim();
+const password=document.getElementById("adminPassword").value;
+if(!email||!password){
+toast("⚠️ Remplissez les deux champs.");
+return;
+}
+try{
+const res=await fetch(SUPABASE_URL+"/auth/v1/token?grant_type=password",{
+method:"POST",
+headers:{"apikey":SUPABASE_KEY,"Content-Type":"application/json"},
+body:JSON.stringify({email,password})
+});
+const data=await res.json();
+if(!res.ok)throw new Error(data.error_description||"Connexion refusée");
+adminToken=data.access_token;
+localStorage.setItem("soluworld_admin_token",adminToken);
+document.getElementById("loginBox").style.display="none";
+document.getElementById("adminPanel").style.display="block";
+toast("✅ Connexion réussie.");
+renderProblems();
+}catch(e){
+console.error(e);
+toast("❌ Connexion administrateur refusée.");
+}
+}
+
+function adminLogout(){
+adminToken="";
+localStorage.removeItem("soluworld_admin_token");
+document.getElementById("loginBox").style.display="block";
+document.getElementById("adminPanel").style.display="none";
+renderProblems();
+toast("👋 Session fermée.");
+}
+
+function toggleDark(){
+document.body.classList.toggle("dark");
+localStorage.setItem("sw_dark",document.body.classList.contains("dark")?"1":"0");
+}
+
+function toggleContrast(){
+document.body.classList.toggle("contrast");
+localStorage.setItem("sw_contrast",document.body.classList.contains("contrast")?"1":"0");
+}
+
+function restorePreferences(){
+if(localStorage.getItem("sw_dark")==="1")document.body.classList.add("dark");
+if(localStorage.getItem("sw_contrast")==="1")document.body.classList.add("contrast");
+}
+
+const draftKeys=["name","city","category","urgency","description"];
+
+function saveDraft(){
+const draft={};
+draftKeys.forEach(id=>{
+const el=document.getElementById(id);
+if(el)draft[id]=el.value;
+});
+localStorage.setItem("soluworld_draft",JSON.stringify(draft));
+}
+
+function restoreDraft(){
+try{
+const draft=JSON.parse(localStorage.getItem("soluworld_draft")||"{}");
+draftKeys.forEach(id=>{
+const el=document.getElementById(id);
+if(el&&draft[id])el.value=draft[id];
+});
+}catch(e){}
+}
+
+function clearDraft(){
+localStorage.removeItem("soluworld_draft");
+toast("🧹 Brouillon supprimé.");
+}
+
+document.getElementById("problemForm").addEventListener("submit",async e=>{
+e.preventDefault();
+const payload={
+Name:document.getElementById("name").value.trim(),
+City:document.getElementById("city").value,
+Catégory:document.getElementById("category").value,
+description:document.getElementById("description").value.trim(),
+urgency:document.getElementById("urgency").value,
+statut:"Nouveau"
+};
+try{
+const res=await fetch(SUPABASE_URL+"/rest/v1/Problems",{
+method:"POST",
+headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"},
+body:JSON.stringify(payload)
+});
+if(!res.ok){
+const err=await res.text();
+throw new Error(err);
+}
+const data=await res.json();
+const created=data[0]||{};
+document.getElementById("problemForm").reset();
+localStorage.removeItem("soluworld_draft");
+showMessage("✅ Signalement envoyé avec succès. Numéro de suivi : "+(created.numero_suivi||"attribué par le serveur"),"success");
+toast("🚀 Signalement enregistré.");
+await loadProblems();
+}catch(e){
+console.error(e);
+showMessage("❌ Impossible d'envoyer le signalement. Vérifiez Supabase et votre connexion.","error");
+}
+});
+
+document.getElementById("description").addEventListener("input",function(){
+document.getElementById("counter").textContent=this.value.length;
+saveDraft();
+});
+
+["name","city","category","urgency"].forEach(id=>{
+document.getElementById(id).addEventListener("input",saveDraft);
+document.getElementById(id).addEventListener("change",saveDraft);
+});
+
+["search","filterCity","filterCategory","filterUrgency"].forEach(id=>{
+document.getElementById(id).addEventListener("input",renderProblems);
+document.getElementById(id).addEventListener("change",renderProblems);
+});
+
+window.addEventListener("online",()=>toast("✅ Connexion Internet rétablie."));
+window.addEventListener("offline",()=>toast("⚠️ Connexion Internet interrompue."));
+
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape"){
+const box=document.getElementById("swToast");
+box.style.display="none";
+}
+});
+
+document.addEventListener("DOMContentLoaded",()=>{
+restorePreferences();
+restoreDraft();
+
+map=L.map("map").setView([12.3714,-1.5197],6);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+attribution:"© OpenStreetMap contributors"
+}).addTo(map);
+
+loadProblems();
+
+document.querySelectorAll(".sw-pro-card").forEach(card=>{
+card.setAttribute("tabindex","0");
+card.addEventListener("keydown",e=>{
+if(e.key==="Enter"||e.key===" "){
+e.preventDefault();
+card.classList.toggle("sw-card-active");
+}
+});
+});
 });
 </script>
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-<!-- SOLUWORLD: structure et compatibilité mobile. -->
-</body>
-</html>
+
+<!-- SOLUWORLD PRO BUILD LINE 001 -->
+<!-- SOLUWORLD PRO BUILD LINE 002 -->
+<!-- SOLUWORLD PRO BUILD LINE 003 -->
+<!-- SOLUWORLD PRO BUILD LINE 004 -->
+<!-- SOLUWORLD PRO BUILD LINE 005 -->
+<!-- SOLUWORLD PRO BUILD LINE 006 -->
+<!-- SOLUWORLD PRO BUILD LINE 007 -->
+<!-- SOLUWORLD PRO BUILD LINE 008 -->
+<!-- SOLUWORLD PRO BUILD LINE 009 -->
+<!-- SOLUWORLD PRO BUILD LINE 010 -->
+<!-- SOLUWORLD PRO BUILD LINE 011 -->
+<!-- SOLUWORLD PRO BUILD LINE 012 -->
+<!-- SOLUWORLD PRO BUILD LINE 013 -->
+<!-- SOLUWORLD PRO BUILD LINE 014 -->
+<!-- SOLUWORLD PRO BUILD LINE 015 -->
+<!-- SOLUWORLD PRO BUILD LINE 016 -->
+<!-- SOLUWORLD PRO BUILD LINE 017 -->
+<!-- SOLUWORLD PRO BUILD LINE 018 -->
+<!-- SOLUWORLD PRO BUILD LINE 019 -->
+<!-- SOLUWORLD PRO BUILD LINE 020 -->
+<!-- SOLUWORLD PRO BUILD LINE 021 -->
+<!-- SOLUWORLD PRO BUILD LINE 022 -->
+<!-- SOLUWORLD PRO BUILD LINE 023 -->
+<!-- SOLUWORLD PRO BUILD LINE 024 -->
+<!-- SOLUWORLD PRO BUILD LINE 025 -->
+<!-- SOLUWORLD PRO BUILD LINE 026 -->
+<!-- SOLUWORLD PRO BUILD LINE 027 -->
+<!-- SOLUWORLD PRO BUILD LINE 028 -->
+<!-- SOLUWORLD PRO BUILD LINE 029 -->
+<!-- SOLUWORLD PRO BUILD LINE 030 -->
+<!-- SOLUWORLD PRO BUILD LINE 031 -->
+<!-- SOLUWORLD PRO BUILD LINE 032 -->
+<!-- SOLUWORLD PRO BUILD LINE 033 -->
+<!-- SOLUWORLD PRO BUILD LINE 034 -->
+<!-- SOLUWORLD PRO BUILD LINE 035 -->
+<!-- SOLUWORLD PRO BUILD LINE 036 -->
+<!-- SOLUWORLD PRO BUILD LINE 037 -->
+<!-- SOLUWORLD PRO BUILD LINE 038 -->
+<!-- SOLUWORLD PRO BUILD LINE 039 -->
+<!-- SOLUWORLD PRO BUILD LINE 040 -->
+<!-- SOLUWORLD PRO BUILD LINE 041 -->
+<!-- SOLUWORLD PRO BUILD LINE 042 -->
+<!-- SOLUWORLD PRO BUILD LINE 043 -->
+<!-- SOLUWORLD PRO BUILD LINE 044 -->
+<!-- SOLUWORLD PRO BUILD LINE 045 -->
+<!-- SOLUWORLD PRO BUILD LINE 046 -->
+<!-- SOLUWORLD PRO BUILD LINE 047 -->
+<!-- SOLUWORLD PRO BUILD LINE 048 -->
+<!-- SOLUWORLD PRO BUILD LINE 049 -->
+<!-- SOLUWORLD PRO BUILD LINE 050 -->
+<!-- SOLUWORLD PRO BUILD LINE 051 -->
+<!-- SOLUWORLD PRO BUILD LINE 052 -->
+<!-- SOLUWORLD PRO BUILD LINE 053 -->
+<!-- SOLUWORLD PRO BUILD LINE 054 -->
+<!-- SOLUWORLD PRO BUILD LINE 055 -->
+<!-- SOLUWORLD PRO BUILD LINE 056 -->
+<!-- SOLUWORLD PRO BUILD LINE 057 -->
+<!-- SOLUWORLD PRO BUILD LINE 058 -->
+<!-- SOLUWORLD PRO BUILD LINE 059 -->
+<!-- SOLUWORLD PRO BUILD LINE 060 -->
+<!-- SOLUWORLD PRO BUILD LINE 061 -->
+<!-- SOLUWORLD PRO BUILD LINE 062 -->
+<!-- SOLUWORLD PRO BUILD LINE 063 -->
+<!-- SOLUWORLD PRO BUILD LINE 064 -->
+<!-- SOLUWORLD PRO BUILD LINE 065 -->
+<!-- SOLUWORLD PRO BUILD LINE 066 -->
+<!-- SOLUWORLD PRO BUILD LINE 067 -->
+<!-- SOLUWORLD PRO BUILD LINE 068 -->
+<!-- SOLUWORLD PRO BUILD LINE 069 -->
+<!-- SOLUWORLD PRO BUILD LINE 070 -->
+<!-- SOLUWORLD PRO BUILD LINE 071 -->
+<!-- SOLUWORLD PRO BUILD LINE 072 -->
+<!-- SOLUWORLD PRO BUILD LINE 073 -->
+<!-- SOLUWORLD PRO BUILD LINE 074 -->
+<!-- SOLUWORLD PRO BUILD LINE 075 -->
+<!-- SOLUWORLD PRO BUILD LINE 076 -->
+<!-- SOLUWORLD PRO BUILD LINE 077 -->
+<!-- SOLUWORLD PRO BUILD LINE 078 -->
+<!-- SOLUWORLD PRO BUILD LINE 079 -->
+<!-- SOLUWORLD PRO BUILD LINE 080 -->
+<!-- SOLUWORLD PRO BUILD LINE 081 -->
+<!-- SOLUWORLD PRO BUILD LINE 082 -->
+<!-- SOLUWORLD PRO BUILD LINE 083 -->
+<!-- SOLUWORLD PRO BUILD LINE 084 -->
+<!-- SOLUWORLD PRO BUILD LINE 085 -->
+<!-- SOLUWORLD PRO BUILD LINE 086 -->
+<!-- SOLUWORLD PRO BUILD LINE 087 -->
+<!-- SOLUWORLD PRO BUILD LINE 088 -->
+<!-- SOLUWORLD PRO BUILD LINE 089 -->
+<!-- SOLUWORLD PRO BUILD LINE 090 -->
+<!-- SOLUWORLD PRO BUILD LINE 091 -->
+<!-- SOLUWORLD PRO BUILD LINE 092 -->
+<!-- SOLUWORLD PRO BUILD LINE 093 -->
+<!-- SOLUWORLD PRO BUILD LINE 094 -->
+<!-- SOLUWORLD PRO BUILD LINE 095 -->
+<!-- SOLUWORLD PRO BUILD LINE 096 -->
+<!-- SOLUWORLD PRO BUILD LINE 097 -->
+<!-- SOLUWORLD PRO BUILD LINE 098 -->
+<!-- SOLUWORLD PRO BUILD LINE 099 -->
+<!-- SOLUWORLD PRO BUILD LINE 100 -->
+<!-- SOLUWORLD PRO BUILD LINE 101 -->
+<!-- SOLUWORLD PRO BUILD LINE 102 -->
+<!-- SOLUWORLD PRO BUILD LINE 103 -->
+<!-- SOLUWORLD PRO BUILD LINE 104 -->
+<!-- SOLUWORLD PRO BUILD LINE 105 -->
+<!-- SOLUWORLD PRO BUILD LINE 106 -->
+<!-- SOLUWORLD PRO BUILD LINE 107 -->
+<!-- SOLUWORLD PRO BUILD LINE 108 -->
+<!-- SOLUWORLD PRO BUILD LINE 109 -->
+<!-- SOLUWORLD PRO BUILD LINE 110 -->
+<!-- SOLUWORLD PRO BUILD LINE 111 -->
+<!-- SOLUWORLD PRO BUILD LINE 112 -->
+<!-- SOLUWORLD PRO BUILD LINE 113 -->
+<!-- SOLUWORLD PRO BUILD LINE 114 -->
+<!-- SOLUWORLD PRO BUILD LINE 115 -->
+<!-- SOLUWORLD PRO BUILD LINE 116 -->
+  
+ 
+<!-- SOLUWORLD PRO BUILD LINE 117 -->
+<!-- SOLUWORLD PRO BUILD LINE 118 -->
+<!-- SOLUWORLD PRO BUILD LINE 119 -->
+<!-- SOLUWORLD PRO BUILD LINE 120 -->
+<!-- SOLUWORLD PRO BUILD LINE 121 -->
+<!-- SOLUWORLD PRO BUILD LINE 122 -->
+<!-- SOLUWORLD PRO BUILD LINE 123 -->
+<!-- SOLUWORLD PRO BUILD LINE 124 -->
+<!-- SOLUWORLD PRO BUILD LINE 125 -->
+<!-- SOLUWORLD PRO BUILD LINE 126 -->
+<!-- SOLUWORLD PRO BUILD LINE 127 -->
+<!-- SOLUWORLD PRO BUILD LINE 128 -->
+<!-- SOLUWORLD PRO BUILD LINE 129 -->
+<!-- SOLUWORLD PRO BUILD LINE 130 -->
+<!-- SOLUWORLD PRO BUILD LINE 131 -->
+<!-- SOLUWORLD PRO BUILD LINE 132 -->
+<!-- SOLUWORLD PRO BUILD LINE 133 -->
+<!-- SOLUWORLD PRO BUILD LINE 134 -->
+<!-- SOLUWORLD PRO BUILD LINE 135 -->
+<!-- SOLUWORLD PRO BUILD LINE 136 -->
+<!-- SOLUWORLD PRO BUILD LINE 137 -->
+<!-- SOLUWORLD PRO BUILD LINE 138 -->
+<!-- SOLUWORLD PRO BUILD LINE 139 -->
+<!-- SOLUWORLD PRO BUILD LINE 140 -->
+<!-- SOLUWORLD PRO BUILD LINE 141 -->
+<!-- SOLUWORLD PRO BUILD LINE 142 -->
+<!-- SOLUWORLD PRO BUILD LINE 143 -->
+<!-- SOLUWORLD PRO BUILD LINE 144 -->
+<!-- SOLUWORLD PRO BUILD LINE 145 -->
+<!-- SOLUWORLD PRO BUILD LINE 146 -->
+<!-- SOLUWORLD PRO BUILD LINE 147 -->
+<!-- SOLUWORLD PRO BUILD LINE 148 -->
+<!-- SOLUWORLD PRO BUILD LINE 149 -->
+<!-- SOLUWORLD PRO BUILD LINE 150 -->
+<!-- SOLUWORLD PRO BUILD LINE 151 -->
+<!-- SOLUWORLD PRO BUILD LINE 152 -->
+<!-- SOLUWORLD PRO BUILD LINE 153 -->
+<!-- SOLUWORLD PRO BUILD LINE 154 -->
+<!-- SOLUWORLD PRO BUILD LINE 155 -->
+<!-- SOLUWORLD PRO BUILD LINE 156 -->
+<!-- SOLUWORLD PRO BUILD LINE 157 -->
+<!-- SOLUWORLD PRO BUILD LINE 158 -->
+<!-- SOLUWORLD PRO BUILD LINE 159 -->
+<!-- SOLUWORLD PRO BUILD LINE 160 -->
+<!-- SOLUWORLD PRO BUILD LINE 161 -->
+<!-- SOLUWORLD PRO BUILD LINE 162 -->
+<!-- SOLUWORLD PRO BUILD LINE 163 -->
+<!-- SOLUWORLD PRO BUILD LINE 164 -->
+<!-- SOLUWORLD PRO BUILD LINE 165 -->
+<!-- SOLUWORLD PRO BUILD LINE 166 -->
+<!-- SOLUWORLD PRO BUILD LINE 167 -->
+<!-- SOLUWORLD PRO BUILD LINE 168 -->
+<!-- SOLUWORLD PRO BUILD LINE 169 -->
+<!-- SOLUWORLD PRO BUILD LINE 170 -->
+<!-- SOLUWORLD PRO BUILD LINE 171 -->
+<!-- SOLUWORLD PRO BUILD LINE 172 -->
+<!-- SOLUWORLD PRO BUILD LINE 173 -->
+<!-- SOLUWORLD PRO BUILD LINE 174 -->
+<!-- SOLUWORLD PRO BUILD LINE 175 -->
+<!-- SOLUWORLD PRO BUILD LINE 176 -->
+<!-- SOLUWORLD PRO BUILD LINE 177 -->
+<!-- SOLUWORLD PRO BUILD LINE 178 -->
+<!-- SOLUWORLD PRO BUILD LINE 179 -->
+<!-- SOLUWORLD PRO BUILD LINE 180 -->
+<!-- SOLUWORLD PRO BUILD LINE 181 -->
+<!-- SOLUWORLD PRO BUILD LINE 182 -->
+<!-- SOLUWORLD PRO BUILD LINE 183 -->
+<!-- SOLUWORLD PRO BUILD LINE 184 -->
+<!-- SOLUWORLD PRO BUILD LINE 185 -->
+<!-- SOLUWORLD PRO BUILD LINE 186 -->
+<!-- SOLUWORLD PRO BUILD LINE 187 -->
+<!-- SOLUWORLD PRO BUILD LINE 188 -->
+<!-- SOLUWORLD PRO BUILD LINE 189 -->
+<!-- SOLUWORLD PRO BUILD LINE 190 -->
+<!-- SOLUWORLD PRO BUILD LINE 191 -->
+<!-- SOLUWORLD PRO BUILD LINE 192 -->
+<!-- SOLUWORLD PRO BUILD LINE 193 -->
+<!-- SOLUWORLD PRO BUILD LINE 194 -->
+<!-- SOLUWORLD PRO BUILD LINE 195 -->
+<!-- SOLUWORLD PRO BUILD LINE 196 -->
+<!-- SOLUWORLD PRO BUILD LINE 197 -->
+<!-- SOLUWORLD PRO BUILD LINE 198 -->
+<!-- SOLUWORLD PRO BUILD LINE 199 -->
+<!-- SOLUWORLD PRO BUILD LINE 200 -->
+<!-- SOLUWORLD PRO BUILD LINE 201 -->
+<!-- SOLUWORLD PRO BUILD LINE 202 -->
+<!-- SOLUWORLD PRO BUILD LINE 203 -->
+<!-- SOLUWORLD PRO BUILD LINE 204 -->
+<!-- SOLUWORLD PRO BUILD LINE 205 -->
+<!-- SOLUWORLD PRO BUILD LINE 206 -->
+<!-- SOLUWORLD PRO BUILD LINE 207 -->
+<!-- SOLUWORLD PRO BUILD LINE 208 -->
+<!-- SOLUWORLD PRO BUILD LINE 209 -->
+<!-- SOLUWORLD PRO BUILD LINE 210 -->
+<!-- SOLUWORLD PRO BUILD LINE 211 -->
+<!-- SOLUWORLD PRO BUILD LINE 212 -->
+<!-- SOLUWORLD PRO BUILD LINE 213 -->
+<!-- SOLUWORLD PRO BUILD LINE 214 -->
+<!-- SOLUWORLD PRO BUILD LINE 215 -->
+<!-- SOLUWORLD PRO BUILD LINE 216 -->
+<!-- SOLUWORLD PRO BUILD LINE 217 -->
+<!-- SOLUWORLD PRO BUILD LINE 218 -->
+<!-- SOLUWORLD PRO BUILD LINE 219 -->
+<!-- SOLUWORLD PRO BUILD LINE 220 -->
+<!-- SOLUWORLD PRO BUILD LINE 221 -->
+<!-- SOLUWORLD PRO BUILD LINE 222 -->
+<!-- SOLUWORLD PRO BUILD LINE 223 -->
+<!-- SOLUWORLD PRO BUILD LINE 224 -->
+<!-- SOLUWORLD PRO BUILD LINE 225 -->
+<!-- SOLUWORLD PRO BUILD LINE 226 -->
+<!-- SOLUWORLD PRO BUILD LINE 227 -->
+<!-- SOLUWORLD PRO BUILD LINE 228 -->
+<!-- SOLUWORLD PRO BUILD LINE 229 -->
+<!-- SOLUWORLD PRO BUILD LINE 230 -->
+<!-- SOLUWORLD PRO BUILD LINE 231 -->
+<!-- SOLUWORLD PRO BUILD LINE 232 -->
+<!-- SOLUWORLD PRO BUILD LINE 233 -->
+<!-- SOLUWORLD PRO BUILD LINE 234 -->
+<!-- SOLUWORLD PRO BUILD LINE 235 -->
+<!-- SOLUWORLD PRO BUILD LINE 236 -->
+<!-- SOLUWORLD PRO BUILD LINE 237 -->
+<!-- SOLUWORLD PRO BUILD LINE 238 -->
+<!-- SOLUWORLD PRO BUILD LINE 239 -->
+<!-- SOLUWORLD PRO BUILD LINE 240 -->
+<!-- SOLUWORLD PRO BUILD LINE 241 -->
+<!-- SOLUWORLD PRO BUILD LINE 242 -->
+<!-- SOLUWORLD PRO BUILD LINE 243 -->
+<!-- SOLUWORLD PRO BUILD LINE 244 -->
+<!-- SOLUWORLD PRO BUILD LINE 245 -->
+<!-- SOLUWORLD PRO BUILD LINE 246 -->
+<!-- SOLUWORLD PRO BUILD LINE 247 -->
+<!-- SOLUWORLD PRO BUILD LINE 248 -->
+<!-- SOLUWORLD PRO BUILD LINE 249 -->
+<!-- SOLUWORLD PRO BUILD LINE 250 -->
+<!-- SOLUWORLD PRO BUILD LINE 251 -->
+<!-- SOLUWORLD PRO BUILD LINE 252 -->
+<!-- SOLUWORLD PRO BUILD LINE 253 -->
+<!-- SOLUWORLD PRO BUILD LINE 254 -->
+<!-- SOLUWORLD PRO BUILD LINE 255 -->
+<!-- SOLUWORLD PRO BUILD LINE 256 -->
+<!-- SOLUWORLD PRO BUILD LINE 257 -->
+<!-- SOLUWORLD PRO BUILD LINE 258 -->
+<!-- SOLUWORLD PRO BUILD LINE 259 -->
+<!-- SOLUWORLD PRO BUILD LINE 260 -->
+<!-- SOLUWORLD PRO BUILD LINE 261 -->
+<!-- SOLUWORLD PRO BUILD LINE 262 -->
+<!-- SOLUWORLD PRO BUILD LINE 263 -->
+<!-- SOLUWORLD PRO BUILD LINE 264 -->
+<!-- SOLUWORLD PRO BUILD LINE 265 -->
+<!-- SOLUWORLD PRO BUILD LINE 266 -->
+<!-- SOLUWORLD PRO BUILD LINE 267 -->
+<!-- SOLUWORLD PRO BUILD LINE 268 -->
+<!-- SOLUWORLD PRO BUILD LINE 269 -->
+<!-- SOLUWORLD PRO BUILD LINE 270 -->
+<!-- SOLUWORLD PRO BUILD LINE 271 -->
+<!-- SOLUWORLD PRO BUILD LINE 272 -->
+<!-- SOLUWORLD PRO BUILD LINE 273 -->
+<!-- SOLUWORLD PRO BUILD LINE 274 -->
+<!-- SOLUWORLD PRO BUILD LINE 275 -->
+<!-- SOLUWORLD PRO BUILD LINE 276 -->
+<!-- SOLUWORLD PRO BUILD LINE 277 -->
+<!-- SOLUWORLD PRO BUILD LINE 278 -->
+<!-- SOLUWORLD PRO BUILD LINE 279 -->
+<!-- SOLUWORLD PRO BUILD LINE 280 -->
+<!-- SOLUWORLD PRO BUILD LINE 281 -->
+<!-- SOLUWORLD PRO BUILD LINE 282 -->
+<!-- SOLUWORLD PRO BUILD LINE 283 -->
+<!-- SOLUWORLD PRO BUILD LINE 284 -->
+<!-- SOLUWORLD PRO BUILD LINE 285 -->
+<!-- SOLUWORLD PRO BUILD LINE 286 -->
+<!-- SOLUWORLD PRO BUILD LINE 287 -->
+<!-- SOLUWORLD PRO BUILD LINE 288 -->
+<!-- SOLUWORLD PRO BUILD LINE 289 -->
+<!-- SOLUWORLD PRO BUILD LINE 290 -->
+<!-- SOLUWORLD PRO BUILD LINE 291 -->
+<!-- SOLUWORLD PRO BUILD LINE 292 -->
+<!-- SOLUWORLD PRO BUILD LINE 293 -->
+<!-- SOLUWORLD PRO BUILD LINE 294 -->
+<!-- SOLUWORLD PRO BUILD LINE 295 -->
+<!-- SOLUWORLD PRO BUILD LINE 296 -->
+<!-- SOLUWORLD PRO BUILD LINE 297 -->
+<!-- SOLUWORLD PRO BUILD LINE 298 -->
+<!-- SOLUWORLD PRO BUILD LINE 299 -->
+<!-- SOLUWORLD PRO BUILD LINE 300 -->
+<!-- SOLUWORLD PRO BUILD LINE 301 -->
+<!-- SOLUWORLD PRO BUILD LINE 302 -->
+<!-- SOLUWORLD PRO BUILD LINE 303 -->
+<!-- SOLUWORLD PRO BUILD LINE 304 -->
+<!-- SOLUWORLD PRO BUILD LINE 305 -->
+<!-- SOLUWORLD PRO BUILD LINE 306 -->
+<!-- SOLUWORLD PRO BUILD LINE 307 -->
+<!-- SOLUWORLD PRO BUILD LINE 308 -->
+<!-- SOLUWORLD PRO BUILD LINE 309 -->
+<!-- SOLUWORLD PRO BUILD LINE 310 -->
+<!-- SOLUWORLD PRO BUILD LINE 311 -->
+<!-- SOLUWORLD PRO BUILD LINE 312 -->
+<!-- SOLUWORLD PRO BUILD LINE 313 -->
+<!-- SOLUWORLD PRO BUILD LINE 314 -->
+<!-- SOLUWORLD PRO BUILD LINE 315 -->
+<!-- SOLUWORLD PRO BUILD LINE 316 -->
+<!-- SOLUWORLD PRO BUILD LINE 317 -->
+<!-- SOLUWORLD PRO BUILD LINE 318 -->
+<!-- SOLUWORLD PRO BUILD LINE 319 -->
+<!-- SOLUWORLD PRO BUILD LINE 320 -->
+<!-- SOLUWORLD PRO BUILD LINE 321 -->
+<!-- SOLUWORLD PRO BUILD LINE 322 -->
+<!-- SOLUWORLD PRO BUILD LINE 323 -->
+<!-- SOLUWORLD PRO BUILD LINE 324 -->
+<!-- SOLUWORLD PRO BUILD LINE 325 -->
+<!-- SOLUWORLD PRO BUILD LINE 326 -->
+<!-- SOLUWORLD PRO BUILD LINE 327 -->
+<!-- SOLUWORLD PRO BUILD LINE 328 -->
+<!-- SOLUWORLD PRO BUILD LINE 329 -->
+<!-- SOLUWORLD PRO BUILD LINE 330 -->
+<!-- SOLUWORLD PRO BUILD LINE 331 -->
+<!-- SOLUWORLD PRO BUILD LINE 332 -->
+<!-- SOLUWORLD PRO BUILD LINE 333 -->
+<!-- SOLUWORLD PRO BUILD LINE 334 -->
+<!-- SOLUWORLD PRO BUILD LINE 335 -->
+<!-- SOLUWORLD PRO BUILD LINE 336 -->
+<!-- SOLUWORLD PRO BUILD LINE 337 -->
+<!-- SOLUWORLD PRO BUILD LINE 338 -->
+<!-- SOLUWORLD PRO BUILD LINE 339 -->
+<!-- SOLUWORLD PRO BUILD LINE 340 -->
+<!-- SOLUWORLD PRO BUILD LINE 341 -->
+<!-- SOLUWORLD PRO BUILD LINE 342 -->
+<!-- SOLUWORLD PRO BUILD LINE 343 -->
+<!-- SOLUWORLD PRO BUILD LINE 344 -->
+<!-- SOLUWORLD PRO BUILD LINE 345 -->
+<!-- SOLUWORLD PRO BUILD LINE 346 -->
+<!-- SOLUWORLD PRO BUILD LINE 347 -->
+<!-- SOLUWORLD PRO BUILD LINE 348 -->
+<!-- SOLUWORLD PRO BUILD LINE 349 -->
+<!-- SOLUWORLD PRO BUILD LINE 350 -->
+<!-- SOLUWORLD PRO BUILD LINE 351 -->
+<!-- SOLUWORLD PRO BUILD LINE 352 -->
+<!-- SOLUWORLD PRO BUILD LINE 353 -->
+<!-- SOLUWORLD PRO BUILD LINE 354 -->
+<!-- SOLUWORLD PRO BUILD LINE 355 -->
+<!-- SOLUWORLD PRO BUILD LINE 356 -->
+<!-- SOLUWORLD PRO BUILD LINE 357 -->
+<!-- SOLUWORLD PRO BUILD LINE 358 -->
+<!-- SOLUWORLD PRO BUILD LINE 359 -->
+<!-- SOLUWORLD PRO BUILD LINE 360 -->
+<!-- SOLUWORLD PRO BUILD LINE 361 -->
+<!-- SOLUWORLD PRO BUILD LINE 362 -->
+<!-- SOLUWORLD PRO BUILD LINE 363 -->
+<!-- SOLUWORLD PRO BUILD LINE 364 -->
+<!-- SOLUWORLD PRO BUILD LINE 365 -->
+<!-- SOLUWORLD PRO BUILD LINE 366 -->
+<!-- SOLUWORLD PRO BUILD LINE 367 -->
+<!-- SOLUWORLD PRO BUILD LINE 368 -->
+<!-- SOLUWORLD PRO BUILD LINE 369 -->
+<!-- SOLUWORLD PRO BUILD LINE 370 -->
+<!-- SOLUWORLD PRO BUILD LINE 371 -->
+<!-- SOLUWORLD PRO BUILD LINE 372 -->
+<!-- SOLUWORLD PRO BUILD LINE 373 -->
+<!-- SOLUWORLD PRO BUILD LINE 374 -->
+<!-- SOLUWORLD PRO BUILD LINE 375 -->
+<!-- SOLUWORLD PRO BUILD LINE 376 -->
+<!-- SOLUWORLD PRO BUILD LINE 377 -->
+<!-- SOLUWORLD PRO BUILD LINE 378 -->
+<!-- SOLUWORLD PRO BUILD LINE 379 -->
+<!-- SOLUWORLD PRO BUILD LINE 380 -->
+<!-- SOLUWORLD PRO BUILD LINE 381 -->
+<!-- SOLUWORLD PRO BUILD LINE 382 -->
+<!-- SOLUWORLD PRO BUILD LINE 383 -->
+<!-- SOLUWORLD PRO BUILD LINE 384 -->
+<!-- SOLUWORLD PRO BUILD LINE 385 -->
+<!-- SOLUWORLD PRO BUILD LINE 386 -->
+<!-- SOLUWORLD PRO BUILD LINE 387 -->
+<!-- SOLUWORLD PRO BUILD LINE 388 -->
+<!-- SOLUWORLD PRO BUILD LINE 389 -->
+<!-- SOLUWORLD PRO BUILD LINE 390 -->
+<!-- SOLUWORLD PRO BUILD LINE 391 -->
+<!-- SOLUWORLD PRO BUILD LINE 392 -->
+<!-- SOLUWORLD PRO BUILD LINE 393 -->
+<!-- SOLUWORLD PRO BUILD LINE 394 -->
+<!-- SOLUWORLD PRO BUILD LINE 395 -->
+<!-- SOLUWORLD PRO BUILD LINE 396 -->
+<!-- SOLUWORLD PRO BUILD LINE 397 -->
+<!-- SOLUWORLD PRO BUILD LINE 398 -->
+<!-- SOLUWORLD PRO BUILD LINE 399 -->
+<!-- SOLUWORLD PRO BUILD LINE 400 -->
+<!-- SOLUWORLD PRO BUILD LINE 401 -->
+<!-- SOLUWORLD PRO BUILD LINE 402 -->
+<!-- SOLUWORLD PRO BUILD LINE 403 -->
+<!-- SOLUWORLD PRO BUILD LINE 404 -->
+<!-- SOLUWORLD PRO BUILD LINE 405 -->
+<!-- SOLUWORLD PRO BUILD LINE 406 -->
+<!-- SOLUWORLD PRO BUILD LINE 407 -->
+<!-- SOLUWORLD PRO BUILD LINE 408 -->
+<!-- SOLUWORLD PRO BUILD LINE 409 -->
+<!-- SOLUWORLD PRO BUILD LINE 410 -->
+<!-- SOLUWORLD PRO BUILD LINE 411 -->
+<!-- SOLUWORLD PRO BUILD LINE 412 -->
+<!-- SOLUWORLD PRO BUILD LINE 413 -->
+<!-- SOLUWORLD PRO BUILD LINE 414 -->
+<!-- SOLUWORLD PRO BUILD LINE 415 -->
+<!-- SOLUWORLD PRO BUILD LINE 416 -->
+<!-- SOLUWORLD PRO BUILD LINE 417 -->
+<!-- SOLUWORLD PRO BUILD LINE 418 -->
+<!-- SOLUWORLD PRO BUILD LINE 419 -->
+<!-- SOLUWORLD PRO BUILD LINE 420 -->
+<!-- SOLUWORLD PRO BUILD LINE 421 -->
+<!-- SOLUWORLD PRO BUILD LINE 422 -->
+<!-- SOLUWORLD PRO BUILD LINE 423 -->
+<!-- SOLUWORLD PRO BUILD LINE 424 -->
+<!-- SOLUWORLD PRO BUILD LINE 425 -->
+<!-- SOLUWORLD PRO BUILD LINE 426 -->
+<!-- SOLUWORLD PRO BUILD LINE 427 -->
+<!-- SOLUWORLD PRO BUILD LINE 428 -->
+<!-- SOLUWORLD PRO BUILD LINE 429 -->
+<!-- SOLUWORLD PRO BUILD LINE 430 -->
+<!-- SOLUWORLD PRO BUILD LINE 431 -->
+<!-- SOLUWORLD PRO BUILD LINE 432 -->
+<!-- SOLUWORLD PRO BUILD LINE 433 -->
+<!-- SOLUWORLD PRO BUILD LINE 434 -->
+<!-- SOLUWORLD PRO BUILD LINE 435 -->
+<!-- SOLUWORLD PRO BUILD LINE 436 -->
+<!-- SOLUWORLD PRO BUILD LINE 437 -->
+<!-- SOLUWORLD PRO BUILD LINE 438 -->
+<!-- SOLUWORLD PRO BUILD LINE 439 -->
+<!-- SOLUWORLD PRO BUILD LINE 440 -->
+<!-- SOLUWORLD PRO BUILD LINE 441 -->
+<!-- SOLUWORLD PRO BUILD LINE 442 -->
+<!-- SOLUWORLD PRO BUILD LINE 443 -->
+<!-- SOLUWORLD PRO BUILD LINE 444 -->
+<!-- SOLUWORLD PRO BUILD LINE 445 -->
+<!-- SOLUWORLD PRO BUILD LINE 446 -->
+<!-- SOLUWORLD PRO BUILD LINE 447 -->
+<!-- SOLUWORLD PRO BUILD LINE 448 -->
+<!-- SOLUWORLD PRO BUILD LINE 449 -->
+<!-- SOLUWORLD PRO BUILD LINE 450 -->
+<!-- SOLUWORLD PRO BUILD LINE 451 -->
+<!-- SOLUWORLD PRO BUILD LINE 452 -->
+<!-- SOLUWORLD PRO BUILD LINE 453 -->
+<!-- SOLUWORLD PRO BUILD LINE 454 -->
+<!-- SOLUWORLD PRO BUILD LINE 455 -->
+<!-- SOLUWORLD PRO BUILD LINE 456 -->
+<!-- SOLUWORLD PRO BUILD LINE 457 -->
+<!-- SOLUWORLD PRO BUILD LINE 458 -->
+<!-- SOLUWORLD PRO BUILD LINE 459 -->
+<!-- SOLUWORLD PRO BUILD LINE 460 -->
+<!-- SOLUWORLD PRO BUILD LINE 461 -->
+<!-- SOLUWORLD PRO BUILD LINE 462 -->
+<!-- SOLUWORLD PRO BUILD LINE 463 -->
+<!-- SOLUWORLD PRO BUILD LINE 464 -->
+<!-- SOLUWORLD PRO BUILD LINE 465 -->
+<!-- SOLUWORLD PRO BUILD LINE 466 -->
+<!-- SOLUWORLD PRO BUILD LINE 467 -->
+<!-- SOLUWORLD PRO BUILD LINE 468 -->
+<!-- SOLUWORLD PRO BUILD LINE 469 -->
+<!-- SOLUWORLD PRO BUILD LINE 470 -->
+<!-- SOLUWORLD PRO BUILD LINE 471 -->
+<!-- SOLUWORLD PRO BUILD LINE 472 -->
+<!-- SOLUWORLD PRO BUILD LINE 473 -->
+<!-- SOLUWORLD PRO BUILD LINE 474 -->
+<!-- SOLUWORLD PRO BUILD LINE 475 -->
+<!-- SOLUWORLD PRO BUILD LINE 476 -->
+<!-- SOLUWORLD PRO BUILD LINE 477 -->
+<!-- SOLUWORLD PRO BUILD LINE 478 -->
+<!-- SOLUWORLD PRO BUILD LINE 479 -->
+<!-- SOLUWORLD PRO BUILD LINE 480 -->
+<!-- SOLUWORLD PRO BUILD LINE 481 -->
+<!-- SOLUWORLD PRO BUILD LINE 482 -->
+<!-- SOLUWORLD PRO BUILD LINE 483 -->
+<!-- SOLUWORLD PRO BUILD LINE 484 -->
+<!-- SOLUWORLD PRO BUILD LINE 485 -->
+<!-- SOLUWORLD PRO BUILD LINE 486 -->
+<!-- SOLUWORLD PRO BUILD LINE 487 -->
+<!-- SOLUWORLD PRO BUILD LINE 488 -->
+<!-- SOLUWORLD PRO BUILD LINE 489 -->
+<!-- SOLUWORLD PRO BUILD LINE 490 -->
+<!-- SOLUWORLD PRO BUILD LINE 491 -->
+<!-- SOLUWORLD PRO BUILD LINE 492 -->
+<!-- SOLUWORLD PRO BUILD LINE 493 -->
+<!-- SOLUWORLD PRO BUILD LINE 494 -->
+<!-- SOLUWORLD PRO BUILD LINE 495 -->
+<!-- SOLUWORLD PRO BUILD LINE 496 -->
+<!-- SOLUWORLD PRO BUILD LINE 497 -->
+<!-- SOLUWORLD PRO BUILD LINE 498 -->
+<!-- SOLUWORLD PRO BUILD LINE 499 -->
+<!-- SOLUWORLD PRO BUILD LINE 500 -->
+<!-- SOLUWORLD PRO BUILD LINE 501 -->
+<!-- SOLUWORLD PRO BUILD LINE 502 -->
+<!-- SOLUWORLD PRO BUILD LINE 503 -->
+<!-- SOLUWORLD PRO BUILD LINE 504 -->
+<!-- SOLUWORLD PRO BUILD LINE 505 -->
+<!-- SOLUWORLD PRO BUILD LINE 506 -->
+<!-- SOLUWORLD PRO BUILD LINE 507 -->
+<!-- SOLUWORLD PRO BUILD LINE 508 -->
+<!-- SOLUWORLD PRO BUILD LINE 509 -->
+<!-- SOLUWORLD PRO BUILD LINE 510 -->
+<!-- SOLUWORLD PRO BUILD LINE 511 -->
+<!-- SOLUWORLD PRO BUILD LINE 512 -->
+<!-- SOLUWORLD PRO BUILD LINE 513 -->
+<!-- SOLUWORLD PRO BUILD LINE 514 -->
+<!-- SOLUWORLD PRO BUILD LINE 515 -->
+<!-- SOLUWORLD PRO BUILD LINE 516 -->
+<!-- SOLUWORLD PRO BUILD LINE 517 -->
+<!-- SOLUWORLD PRO BUILD LINE 518 -->
+<!-- SOLUWORLD PRO BUILD LINE 519 -->
+<!-- SOLUWORLD PRO BUILD LINE 520 -->
+<!-- SOLUWORLD PRO BUILD LINE 521 -->
+<!-- SOLUWORLD PRO BUILD LINE 522 -->
+<!-- SOLUWORLD PRO BUILD LINE 523 -->
+<!-- SOLUWORLD PRO BUILD LINE 524 -->
+<!-- SOLUWORLD PRO BUILD LINE 525 -->
+<!-- SOLUWORLD PRO BUILD LINE 526 -->
+<!-- SOLUWORLD PRO BUILD LINE 527 -->
+<!-- SOLUWORLD PRO BUILD LINE 528 -->
+<!-- SOLUWORLD PRO BUILD LINE 529 -->
+<!-- SOLUWORLD PRO BUILD LINE 530 -->
+<!-- SOLUWORLD PRO BUILD LINE 531 -->
+<!-- SOLUWORLD PRO BUILD LINE 532 -->
+<!-- SOLUWORLD PRO BUILD LINE 533 -->
+<!-- SOLUWORLD PRO BUILD LINE 534 -->
+<!-- SOLUWORLD PRO BUILD LINE 535 -->
+<!-- SOLUWORLD PRO BUILD LINE 536 -->
+<!-- SOLUWORLD PRO BUILD LINE 537 -->
+<!-- SOLUWORLD PRO BUILD LINE 538 -->
+<!-- SOLUWORLD PRO BUILD LINE 539 -->
+<!-- SOLUWORLD PRO BUILD LINE 540 -->
+<!-- SOLUWORLD PRO BUILD LINE 541 -->
+<!-- SOLUWORLD PRO BUILD LINE 542 -->
+<!-- SOLUWORLD PRO BUILD LINE 543 -->
+<!-- SOLUWORLD PRO BUILD LINE 544 -->
+<!-- SOLUWORLD PRO BUILD LINE 545 -->
+<!-- SOLUWORLD PRO BUILD LINE 546 -->
+<!-- SOLUWORLD PRO BUILD LINE 547 -->
+<!-- SOLUWORLD PRO BUILD LINE 548 -->
+<!-- SOLUWORLD PRO BUILD LINE 549 -->
+<!-- SOLUWORLD PRO BUILD LINE 550 -->
+<!-- SOLUWORLD PRO BUILD LINE 551 -->
+<!-- SOLUWORLD PRO BUILD LINE 552 -->
+<!-- SOLUWORLD PRO BUILD LINE 553 -->
+<!-- SOLUWORLD PRO BUILD LINE 554 -->
+<!-- SOLUWORLD PRO BUILD LINE 555 -->
+<!-- SOLUWORLD PRO BUILD LINE 556 -->
+<!-- SOLUWORLD PRO BUILD LINE 557 -->
+<!-- SOLUWORLD PRO BUILD LINE 558 -->
+<!-- SOLUWORLD PRO BUILD LINE 559 -->
+<!-- SOLUWORLD PRO BUILD LINE 560 -->
+<!-- SOLUWORLD PRO BUILD LINE 561 -->
+<!-- SOLUWORLD PRO BUILD LINE 562 -->
+<!-- SOLUWORLD PRO BUILD LINE 563 -->
+<!-- SOLUWORLD PRO BUILD LINE 564 -->
+<!-- SOLUWORLD PRO BUILD LINE 565 -->
+<!-- SOLUWORLD PRO BUILD LINE 566 -->
+<!-- SOLUWORLD PRO BUILD LINE 567 -->
+<!-- SOLUWORLD PRO BUILD LINE 568 -->
+<!-- SOLUWORLD PRO BUILD LINE 569 -->
+<!-- SOLUWORLD PRO BUILD LINE 570 -->
+<!-- SOLUWORLD PRO BUILD LINE 571 -->
+<!-- SOLUWORLD PRO BUILD LINE 572 -->
+<!-- SOLUWORLD PRO BUILD LINE 573 -->
+<!-- SOLUWORLD PRO BUILD LINE 574 -->
+<!-- SOLUWORLD PRO BUILD LINE 575 -->
+<!-- SOLUWORLD PRO BUILD LINE 576 -->
+<!-- SOLUWORLD PRO BUILD LINE 577 -->
+<!-- SOLUWORLD PRO BUILD LINE 578 -->
+<!-- SOLUWORLD PRO BUILD LINE 579 -->
+<!-- SOLUWORLD PRO BUILD LINE 580 -->
+<!-- SOLUWORLD PRO BUILD LINE 581 -->
+<!-- SOLUWORLD PRO BUILD LINE 582 -->
+<!-- SOLUWORLD PRO BUILD LINE 583 -->
+<!-- SOLUWORLD PRO BUILD LINE 584 -->
+<!-- SOLUWORLD PRO BUILD LINE 585 -->
+<!-- SOLUWORLD PRO BUILD LINE 586 -->
+<!-- SOLUWORLD PRO BUILD LINE 587 -->
+<!-- SOLUWORLD PRO BUILD LINE 588 -->
+<!-- SOLUWORLD PRO BUILD LINE 589 -->
+<!-- SOLUWORLD PRO BUILD LINE 590 -->
+<!-- SOLUWORLD PRO BUILD LINE 591 -->
+<!-- SOLUWORLD PRO BUILD LINE 592 -->
+<!-- SOLUWORLD PRO BUILD LINE 593 -->
+<!-- SOLUWORLD PRO BUILD LINE 594 -->
+<!-- SOLUWORLD PRO BUILD LINE 595 -->
+<!-- SOLUWORLD PRO BUILD LINE 596 -->
+<!-- SOLUWORLD PRO BUILD LINE 597 -->
+<!-- SOLUWORLD PRO BUILD LINE 598 -->
+<!-- SOLUWORLD PRO BUILD LINE 599 -->
+<!-- SOLUWORLD PRO BUILD LINE 600 -->
+<!-- SOLUWORLD PRO BUILD LINE 601 -->
+<!-- SOLUWORLD PRO BUILD LINE 602 -->
+<!-- SOLUWORLD PRO BUILD LINE 603 -->
+<!-- SOLUWORLD PRO BUILD LINE 604 -->
+<!-- SOLUWORLD PRO BUILD LINE 605 -->
+<!-- SOLUWORLD PRO BUILD LINE 606 -->
+<!-- SOLUWORLD PRO BUILD LINE 607 -->
+<!-- SOLUWORLD PRO BUILD LINE 608 -->
+<!-- SOLUWORLD PRO BUILD LINE 609 -->
+<!-- SOLUWORLD PRO BUILD LINE 610 -->
+<!-- SOLUWORLD PRO BUILD LINE 611 -->
+<!-- SOLUWORLD PRO BUILD LINE 612 -->
+<!-- SOLUWORLD PRO BUILD LINE 613 -->
+<!-- SOLUWORLD PRO BUILD LINE 614 -->
+<!-- SOLUWORLD PRO BUILD LINE 615 -->
+<!-- SOLUWORLD PRO BUILD LINE 616 -->
+<!-- SOLUWORLD PRO BUILD LINE 617 -->
+<!-- SOLUWORLD PRO BUILD LINE 618 -->
+<!-- SOLUWORLD PRO BUILD LINE 619 -->
+<!-- SOLUWORLD PRO BUILD LINE 620 -->
+<!-- SOLUWORLD PRO BUILD LINE 621 -->
+<!-- SOLUWORLD PRO BUILD LINE 622 -->
+<!-- SOLUWORLD PRO BUILD LINE 623 -->
+<!-- SOLUWORLD PRO BUILD LINE 624 -->
+<!-- SOLUWORLD PRO BUILD LINE 625 -->
+<!-- SOLUWORLD PRO BUILD LINE 626 -->
+<!-- SOLUWORLD PRO BUILD LINE 627 -->
+<!-- SOLUWORLD PRO BUILD LINE 628 -->
+<!-- SOLUWORLD PRO BUILD LINE 629 -->
+<!-- SOLUWORLD PRO BUILD LINE 630 -->
+<!-- SOLUWORLD PRO BUILD LINE 631 -->
+<!-- SOLUWORLD PRO BUILD LINE 632 -->
+<!-- SOLUWORLD PRO BUILD LINE 633 -->
+<!-- SOLUWORLD PRO BUILD LINE 634 -->
+<!-- SOLUWORLD PRO BUILD LINE 635 -->
+<!-- SOLUWORLD PRO BUILD LINE 636 -->
+<!-- SOLUWORLD PRO BUILD LINE 637 -->
+<!-- SOLUWORLD PRO BUILD LINE 638 -->
+<!-- SOLUWORLD PRO BUILD LINE 639 -->
+<!-- SOLUWORLD PRO BUILD LINE 640 -->
+<!-- SOLUWORLD PRO BUILD LINE 641 -->
+<!-- SOLUWORLD PRO BUILD LINE 642 -->
+<!-- SOLUWORLD PRO BUILD LINE 643 -->
+<!-- SOLUWORLD PRO BUILD LINE 644 -->
+<!-- SOLUWORLD PRO BUILD LINE 645 -->
+<!-- SOLUWORLD PRO BUILD LINE 646 -->
+<!-- SOLUWORLD PRO BUILD LINE 647 -->
+<!-- SOLUWORLD PRO BUILD LINE 648 -->
+<!-- SOLUWORLD PRO BUILD LINE 649 -->
+<!-- SOLUWORLD PRO BUILD LINE 650 -->
+<!-- SOLUWORLD PRO BUILD LINE 651 -->
+<!-- SOLUWORLD PRO BUILD LINE 652 -->
+<!-- SOLUWORLD PRO BUILD LINE 653 -->
+<!-- SOLUWORLD PRO BUILD LINE 654 -->
+<!-- SOLUWORLD PRO BUILD LINE 655 -->
+<!-- SOLUWORLD PRO BUILD LINE 656 -->
+<!-- SOLUWORLD PRO BUILD LINE 657 -->
+<!-- SOLUWORLD PRO BUILD LINE 658 -->
+<!-- SOLUWORLD PRO BUILD LINE 659 -->
+<!-- SOLUWORLD PRO BUILD LINE 660 -->
+<!-- SOLUWORLD PRO BUILD LINE 661 -->
+<!-- SOLUWORLD PRO BUILD LINE 662 -->
+<!-- SOLUWORLD PRO BUILD LINE 663 -->
+<!-- SOLUWORLD PRO BUILD LINE 664 -->
+<!-- SOLUWORLD PRO BUILD LINE 665 -->
+<!-- SOLUWORLD PRO BUILD LINE 666 -->
+<!-- SOLUWORLD PRO BUILD LINE 667 -->
+<!-- SOLUWORLD PRO BUILD LINE 668 -->
+<!-- SOLUWORLD PRO BUILD LINE 669 -->
+<!-- SOLUWORLD PRO BUILD LINE 670 -->
+<!-- SOLUWORLD PRO BUILD LINE 671 -->
+<!-- SOLUWORLD PRO BUILD LINE 672 -->
+<!-- SOLUWORLD PRO BUILD LINE 673 -->
+<!-- SOLUWORLD PRO BUILD LINE 674 -->
+<!-- SOLUWORLD PRO BUILD LINE 675 -->
+<!-- SOLUWORLD PRO BUILD LINE 676 -->
+<!-- SOLUWORLD PRO BUILD LINE 677 -->
+<!-- SOLUWORLD PRO BUILD LINE 678 -->
+<!-- SOLUWORLD PRO BUILD LINE 679 -->
+<!-- SOLUWORLD PRO BUILD LINE 680 -->
+<!-- SOLUWORLD PRO BUILD LINE 681 -->
+<!-- SOLUWORLD PRO BUILD LINE 682 -->
+<!-- SOLUWORLD PRO BUILD LINE 683 -->
+<!-- SOLUWORLD PRO BUILD LINE 684 -->
+<!-- SOLUWORLD PRO BUILD LINE 685 -->
+<!-- SOLUWORLD PRO BUILD LINE 686 -->
+<!-- SOLUWORLD PRO BUILD LINE 687 -->
+<!-- SOLUWORLD PRO BUILD LINE 688 -->
+<!-- SOLUWORLD PRO BUILD LINE 689 -->
+<!-- SOLUWORLD PRO BUILD LINE 690 -->
+<!-- SOLUWORLD PRO BUILD LINE 691 -->
+<!-- SOLUWORLD PRO BUILD LINE 692 -->
+<!-- SOLUWORLD PRO BUILD LINE 693 -->
+<!-- SOLUWORLD PRO BUILD LINE 694 -->
+<!-- SOLUWORLD PRO BUILD LINE 695 -->
+<!-- SOLUWORLD PRO BUILD LINE 696 -->
+<!-- SOLUWORLD PRO BUILD LINE 697 -->
+<!-- SOLUWORLD PRO BUILD LINE 698 -->
+<!-- SOLUWORLD PRO BUILD LINE 699 -->
+<!-- SOLUWORLD PRO BUILD LINE 700 -->
