@@ -6,2804 +6,432 @@
 <meta name="theme-color" content="#087f5b">
 <meta name="description" content="SOLUWORLD permet de signaler, suivre et résoudre les problèmes de la communauté.">
 <title>SOLUWORLD — Signaler et résoudre les problèmes</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-:root{
-  --green:#087f5b;
-  --green2:#0b9b6d;
-  --dark:#12372f;
-  --light:#f3f8f6;
-  --white:#fff;
-  --orange:#f4b400;
-  --red:#d64545;
-  --blue:#2878d0;
-  --gray:#66736f;
-  --border:#dce7e3;
-  --shadow:0 10px 30px rgba(0,0,0,.08);
-}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--light);
-  color:var(--dark);
-  line-height:1.6;
-}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-header{
-  background:linear-gradient(135deg,#087f5b,#0b9b6d);
-  color:white;
-  padding:28px 20px 30px;
-  position:relative;
-}
-.header-inner{
-  max-width:1200px;
-  margin:auto;
-}
-.logo{
-  font-size:42px;
-  font-weight:900;
-  letter-spacing:-2px;
-  margin-bottom:25px;
-}
-.logo span{color:var(--orange)}
-nav{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  align-items:center;
-}
-nav a{
-  color:#fff;
-  text-decoration:none;
-  font-weight:700;
-  padding:10px 15px;
-  border-radius:12px;
-}
-nav a:hover{background:rgba(255,255,255,.15)}
-.header-actions{
-  display:flex;
-  gap:12px;
-  margin-top:20px;
-}
-.icon-btn{
-  width:58px;
-  height:58px;
-  border:1px solid rgba(255,255,255,.35);
-  border-radius:15px;
-  background:rgba(255,255,255,.12);
-  color:white;
-  font-size:24px;
-}
-main{
-  max-width:1200px;
-  margin:auto;
-  padding:34px 18px 70px;
-}
-.hero{
-  background:linear-gradient(135deg,#087f5b,#16a873);
-  color:white;
-  border-radius:28px;
-  padding:38px 28px;
-  box-shadow:var(--shadow);
-  margin-bottom:26px;
-}
-.hero h1{
-  font-size:42px;
-  line-height:1.2;
-  margin:0 0 18px;
-}
-.hero p{
-  font-size:21px;
-  margin:0;
-  max-width:850px;
-}
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin-bottom:38px;
-}
-.quick-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:22px;
-  box-shadow:var(--shadow);
-  cursor:pointer;
-  transition:.2s;
-}
-.quick-card:hover{
-  transform:translateY(-3px);
-}
-.quick-card strong{
-  display:block;
-  font-size:18px;
-  margin-bottom:4px;
-}
-.quick-card span{
-  color:var(--gray);
-  font-weight:600;
-}
-section{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:28px;
-  margin-bottom:25px;
-  box-shadow:0 6px 24px rgba(0,0,0,.05);
-}
-section h2{
-  margin-top:0;
-  font-size:30px;
-}
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-}
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-.field.full{grid-column:1/-1}
-label{
-  font-weight:800;
-}
-input,select,textarea{
-  width:100%;
-  border:1px solid #cbd9d5;
-  border-radius:13px;
-  padding:13px 14px;
-  background:#fff;
-  color:var(--dark);
-  outline:none;
-}
-input:focus,select:focus,textarea:focus{
-  border-color:var(--green);
-  box-shadow:0 0 0 3px rgba(8,127,91,.12);
-}
-textarea{
-  min-height:130px;
-  resize:vertical;
-}
-.actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:18px;
-}
-.btn{
-  border:0;
-  border-radius:13px;
-  padding:12px 18px;
-  font-weight:800;
-  background:var(--green);
-  color:white;
-}
-.btn:hover{filter:brightness(.95)}
-.btn.secondary{
-  background:#e8f2ef;
-  color:var(--dark);
-}
-.btn.danger{background:var(--red)}
-.btn.warning{
-  background:var(--orange);
-  color:#332700;
-}
-.btn.blue{background:var(--blue)}
-.counter{
-  text-align:right;
-  color:var(--gray);
-  font-size:13px;
-  font-weight:700;
-}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-}
-.stat{
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-  background:#f9fcfb;
-}
-.stat .num{
-  display:block;
-  font-size:32px;
-  font-weight:900;
-  color:var(--green);
-}
-.stat small{
-  color:var(--gray);
-  font-weight:700;
-}
-.filters{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:12px;
-}
-.filter-summary{
-  margin-top:14px;
-  color:var(--gray);
-  font-weight:700;
-}
-.problem-list{
-  display:grid;
-  gap:18px;
-  margin-top:20px;
-}
-.problem-card{
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:22px;
-  background:#fff;
-}
-.problem-head{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  align-items:flex-start;
-}
-.problem-title{
-  font-size:21px;
-  font-weight:900;
-}
-.badge{
-  display:inline-block;
-  padding:5px 10px;
-  border-radius:30px;
-  font-size:12px;
-  font-weight:900;
-  background:#e9f4f0;
-  color:var(--green);
-}
-.badge.urgent{
-  background:#fde8e8;
-  color:var(--red);
-}
-.badge.medium{
-  background:#fff5d9;
-  color:#806000;
-}
-.badge.low{
-  background:#e8f1fb;
-  color:#245b9c;
-}
-.problem-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:10px 0;
-  color:var(--gray);
-  font-size:14px;
-}
-.problem-description{
-  white-space:pre-wrap;
-}
-.solution-box{
-  background:#f0f8f5;
-  border-left:5px solid var(--green);
-  padding:15px;
-  border-radius:10px;
-  margin-top:15px;
-}
-.error-box{
-  background:#fdecec;
-  color:#9e2f2f;
-  border:1px solid #f0bcbc;
-  padding:15px;
-  border-radius:12px;
-}
-.success-box{
-  background:#e9f8f1;
-  color:#176b4f;
-  border:1px solid #bfe5d4;
-  padding:15px;
-  border-radius:12px;
-}
-.empty{
-  text-align:center;
-  padding:35px;
-  color:var(--gray);
-  font-weight:700;
-}
-#map{
-  height:430px;
-  border-radius:20px;
-  overflow:hidden;
-  border:1px solid var(--border);
-}
-.tracking-result{
-  margin-top:18px;
-}
-.progress{
-  height:14px;
-  background:#e4ece9;
-  border-radius:20px;
-  overflow:hidden;
-}
-.progress-bar{
-  height:100%;
-  background:var(--green);
-  width:0;
-  transition:.4s;
-}
-.toast{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:9999;
-  max-width:360px;
-  background:#12372f;
-  color:white;
-  padding:15px 18px;
-  border-radius:14px;
-  box-shadow:var(--shadow);
-  display:none;
-}
-.online{
-  font-size:13px;
-  font-weight:800;
-  margin-top:12px;
-}
-footer{
-  background:#12372f;
-  color:white;
-  text-align:center;
-  padding:30px 18px;
-}
-.dark{
-  --light:#101917;
-  --white:#18221f;
-  --dark:#eaf5f1;
-  --border:#31413c;
-}
-.dark body{background:#101917;color:#eaf5f1}
-.dark section,.dark .quick-card,.dark .problem-card{
-  background:#18221f;
-  color:#eaf5f1;
-}
-.dark input,.dark select,.dark textarea{
-  background:#111916;
-  color:#eaf5f1;
-  border-color:#3b4d47;
-}
-.dark .stat{background:#14201d}
-.high-contrast body{
-  background:#000!important;
-  color:#fff!important;
-}
-.high-contrast section,
-.high-contrast .quick-card,
-.high-contrast .problem-card{
-  background:#000!important;
-  color:#fff!important;
-  border:2px solid #fff!important;
-}
-@media(max-width:900px){
-  .quick-grid{grid-template-columns:repeat(2,1fr)}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .filters{grid-template-columns:1fr 1fr}
-}
-@media(max-width:600px){
-  header{padding:22px 16px 25px}
-  .logo{font-size:35px}
-  nav{gap:5px}
-  nav a{padding:8px 9px;font-size:14px}
-  main{padding:20px 12px 50px}
-  .hero{padding:28px 22px;border-radius:22px}
-  .hero h1{font-size:34px}
-  .hero p{font-size:18px}
-  .quick-grid,.form-grid,.filters,.stats{
-    grid-template-columns:1fr;
-  }
-  section{padding:20px;border-radius:20px}
-  .problem-head{flex-direction:column}
-  #map{height:350px}
-}
-@media(prefers-reduced-motion:reduce){
-  *{scroll-behavior:auto!important;transition:none!important}
-}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7f5;color:#1f2937;line-height:1.5}
+body.dark{background:#111827;color:#e5e7eb}
+body.contrast{background:#000;color:#fff}
+body.dark section,body.dark .problem,body.dark .stat-card,body.dark .edit-form,body.dark .empty{background:#1f2937;color:#e5e7eb;border-color:#374151}
+body.dark input,body.dark select,body.dark textarea{background:#111827;color:#f9fafb;border-color:#4b5563}
+body.dark label,body.dark .problem p{color:#d1d5db}
+body.contrast section,body.contrast .problem,body.contrast .stat-card{background:#000;color:#fff;border-color:#fff;box-shadow:none}
+body.contrast input,body.contrast select,body.contrast textarea{background:#000;color:#fff;border:2px solid #fff}
+body.contrast h2{color:#00ff9d}
+body.contrast button{border:2px solid #fff}
+body.contrast .hint,body.contrast .problem p,body.contrast .stat-card h3,body.contrast footer{color:#fff}
+header{background:linear-gradient(135deg,#087f5b,#0b9b6d);color:#fff;padding:24px 14px;text-align:center;box-shadow:0 4px 15px #0002}
+header h1{margin:0;font-size:clamp(30px,7vw,48px)}
+header p{margin:7px 0;font-size:clamp(14px,3.5vw,18px)}
+.top-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.top-actions button{width:auto;background:#ffffff22;color:#fff;border:1px solid #ffffff55}
+.container{width:min(1180px,94%);margin:auto}
+section{background:#fff;margin:20px auto;padding:22px;border-radius:16px;box-shadow:0 5px 20px #0000000d}
+h2{margin:0 0 18px;color:#087f5b;font-size:clamp(21px,5vw,28px)}
+.dark h2{color:#5ee7b7}
+label{display:block;margin:10px 0 6px;font-weight:700}
+input,select,textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#111827;font-size:16px;outline:none}
+textarea{min-height:120px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:#0b9b6d;box-shadow:0 0 0 3px #0b9b6d22}
+button{min-height:44px;border:0;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer;transition:.15s;touch-action:manipulation}
+button:hover{transform:translateY(-1px)}
+button:disabled{opacity:.55;cursor:not-allowed}
+.primary{background:#087f5b;color:#fff}.secondary{background:#475569;color:#fff}.danger{background:#dc2626;color:#fff}
+.blue{background:#2563eb;color:#fff}.purple{background:#7c3aed;color:#fff}.orange{background:#d97706;color:#fff}
+.ghost{background:#e2e8f0;color:#1f2937}
+.form-grid,.search-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
+#publish-button{width:100%;margin-top:10px}
+.hint{font-size:13px;color:#64748b}.dark .hint{color:#9ca3af}
+.dashboard{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
+.stat-card{text-align:center;padding:16px 8px;border:1px solid #e2e8f0;border-radius:14px;background:#f8fafc}
+.stat-card h3{margin:0 0 5px;font-size:13px;color:#64748b}
+.stat-card strong{display:block;font-size:30px;color:#087f5b}.stat-card span{font-size:12px}
+#map{height:480px;border-radius:14px;overflow:hidden;border:1px solid #d1d5db}
+.map-tools,.share-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.map-tools{margin-bottom:10px}.map-tools button,.share-row button{width:auto}
+#problems-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.problem{background:#fff;border:1px solid #e2e8f0;border-left:6px solid #16a34a;border-radius:14px;padding:17px;box-shadow:0 4px 14px #0000000b}
+.problem.high{border-left-color:#dc2626}.problem.medium{border-left-color:#f59e0b}
+.problem h3{margin:0 0 12px;font-size:18px;overflow-wrap:anywhere}
+.problem p{margin:8px 0;color:#4b5563;overflow-wrap:anywhere}
+.problem-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:15px;padding-top:14px;border-top:1px solid #e5e7eb}
+.problem-buttons button{width:100%}
+.solution-box{display:none;margin-top:12px;padding:15px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;color:#14532d}
+.dark .solution-box{background:#052e1b;color:#d1fae5;border-color:#166534}
+.solution-list{padding-left:22px}.solution-list li{margin:7px 0}
+.statut-badge{display:inline-block;padding:4px 9px;border-radius:20px;font-size:13px;font-weight:700}
+.statut-nouveau{background:#fee2e2;color:#b91c1c}.statut-en-cours{background:#fef3c7;color:#b45309}.statut-resolu{background:#dcfce7;color:#15803d}
+.tracking-result,.message{margin-top:12px}
+.success{padding:12px;border-radius:10px;background:#dcfce7;color:#166534}
+.error{padding:12px;border-radius:10px;background:#fee2e2;color:#991b1b}
+.info{padding:10px;border-radius:10px;background:#e0f2fe;color:#075985}
+.warning{padding:10px;border-radius:10px;background:#fef3c7;color:#92400e}
+#edit-section{display:none}.empty{text-align:center;padding:35px 15px;border:1px dashed #cbd5e1;border-radius:14px;color:#64748b}
+.loading{text-align:center;padding:30px;color:#64748b}
+.admin-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.admin-ok{color:#15803d;font-weight:700}.dark .admin-ok{color:#86efac}
+footer{text-align:center;padding:28px;color:#64748b}.counter{font-size:12px;text-align:right;color:#64748b}
+.admin-only{display:none}.admin-verified .admin-only{display:block}
+.admin-actions{display:none}.admin-verified .admin-actions{display:contents}
+.filter-summary{font-weight:700;margin-top:12px}
+.progress{height:12px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin-top:8px}
+.progress-bar{height:100%;width:0;background:#087f5b;transition:width .3s}
+.city-note{font-size:12px;color:#64748b}
+.privacy-note{font-size:12px;color:#64748b;padding:10px 0}
+@media(max-width:900px){.dashboard{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:680px){.form-grid,.search-grid,#problems-list{grid-template-columns:1fr}.dashboard{grid-template-columns:repeat(2,1fr)}#map{height:400px}.problem-buttons{grid-template-columns:1fr}.container{width:96%}section{padding:16px;margin:13px auto}.top-actions button{font-size:13px}}
+@media(max-width:400px){.dashboard{gap:7px}.stat-card strong{font-size:25px}}
+@media print{header,.top-actions,#publication-section,#search-section,#map-section,#tracking-section,#admin-section,.share-row,footer{display:none!important}section{box-shadow:none;margin:0;border:0}#problems-list{grid-template-columns:1fr}.problem-buttons{display:none}}
+
+/* PRO DESIGN */
+:root{--sw-primary:#0b7a4b;--sw-dark:#075e3a;--sw-gold:#f2b134;--sw-bg:#f4f7f6;--sw-border:#dfe8e3;--sw-shadow:0 12px 35px rgba(10,52,35,.09);}
+body{background:linear-gradient(180deg,#eef7f2 0,#f7f9f8 320px,#f4f7f6 100%);}
+header{box-shadow:0 8px 25px rgba(0,0,0,.10);}
+main{max-width:1180px;margin:auto;padding:24px 16px 60px}
+section,.card,.dashboard-card,.problem-card{border:1px solid var(--sw-border)!important;border-radius:18px!important;box-shadow:var(--sw-shadow)!important}
+button{border-radius:12px!important;font-weight:700;transition:transform .18s ease,box-shadow .18s ease}
+button:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(10,52,35,.13)}
+input,select,textarea{border:1px solid #cfdcd5!important;border-radius:12px!important;background:#fff}
+input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid rgba(242,177,52,.55)!important;outline-offset:2px}
+.sw-hero{background:linear-gradient(135deg,#075e3a,#0b7a4b 58%,#159b63);color:#fff;border-radius:24px;padding:28px;margin:8px 0 24px;box-shadow:0 18px 45px rgba(7,94,58,.22)}
+.sw-hero h1{margin:0 0 8px;font-size:clamp(28px,5vw,46px)}.sw-hero p{margin:0;opacity:.92;max-width:720px;line-height:1.6}
+.sw-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 26px}.sw-action{background:#fff;border:1px solid var(--sw-border);border-radius:16px;padding:16px;color:#17342a;cursor:pointer}.sw-action b{display:block;margin-bottom:4px}.sw-action span{font-size:13px;color:#66766f}
+#swToast{position:fixed;right:18px;bottom:18px;z-index:1000;background:#17342a;color:#fff;padding:13px 17px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.2);display:none;max-width:330px}
+.sw-progress{height:12px;background:#e4ece8;border-radius:999px;overflow:hidden;margin:10px 0}.sw-progress>span{display:block;height:100%;background:linear-gradient(90deg,#0b7a4b,#f2b134);border-radius:999px}.sw-step-row{display:flex;justify-content:space-between;gap:6px;font-size:12px;color:#66766f}
+@media(max-width:760px){main{padding:14px 10px 40px}.sw-actions{grid-template-columns:repeat(2,1fr)}.sw-hero{padding:22px 18px;border-radius:18px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 </style>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<style>
+.sw-pro-panel{margin:24px 0;padding:26px;background:rgba(255,255,255,.96);border:1px solid #dfe8e3;border-radius:20px;box-shadow:0 12px 35px rgba(10,52,35,.08)}
+.sw-pro-title{display:flex;align-items:center;gap:14px;margin-bottom:20px}.sw-pro-title>span{font-size:38px}.sw-pro-title h2,.sw-pro-panel h2{margin:0 0 7px;color:#17342a}.sw-pro-title p,.sw-pro-panel p{margin:0;color:#66766f;line-height:1.65}
+.sw-pro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.sw-pro-card{padding:20px;border:1px solid #e0e9e4;border-radius:16px;background:#fff;transition:.2s}.sw-pro-card:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(10,52,35,.1)}
+.sw-pro-icon{font-size:28px;margin-bottom:10px}.sw-pro-card h3{margin:0 0 7px;font-size:17px;color:#17342a}.sw-pro-card p{font-size:14px}
+.sw-pro-info{background:linear-gradient(135deg,#f5fbf8,#fff)}.sw-pro-info-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:center}.sw-mini-label{font-size:11px;font-weight:800;letter-spacing:1.4px;color:#0b7a4b}
+.sw-check-list{display:grid;gap:10px}.sw-check-list div{padding:12px 14px;background:#fff;border-radius:12px;border:1px solid #e3ebe7;color:#285342;font-weight:600}
+.sw-help-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.sw-help-grid>div{display:flex;flex-direction:column;gap:5px;padding:17px;border-radius:15px;background:#f5f8f7;border:1px solid #e1e9e5}.sw-help-grid b{font-size:12px;color:#0b7a4b}.sw-help-grid span{font-weight:800;color:#17342a}.sw-help-grid small{color:#66766f;line-height:1.45}
+.sw-contact-panel{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;align-items:center}.sw-tip{padding:18px;border-radius:15px;background:#fff8e7;border:1px solid #f0dfae;color:#6d5518;line-height:1.6}
+@media(max-width:900px){.sw-pro-grid{grid-template-columns:repeat(2,1fr)}.sw-help-grid{grid-template-columns:repeat(2,1fr)}.sw-pro-info-grid,.sw-contact-panel{grid-template-columns:1fr}}
+@media(max-width:560px){.sw-pro-panel{padding:19px;margin:17px 0;border-radius:17px}.sw-pro-grid,.sw-help-grid{grid-template-columns:1fr}.sw-pro-title>span{font-size:30px}}
+</style>
+
 </head>
 <body>
 <header>
-  <div class="header-inner">
-    <div class="logo">SOLU<span>WORLD</span></div>
-    <nav>
-      <a href="#signaler">Signaler</a>
-      <a href="#problemes">Problèmes</a>
-      <a href="#carte">Carte</a>
-      <a href="#suivi">Suivi</a>
-      <a href="#admin">Admin</a>
-    </nav>
-    <div class="header-actions">
-      <button class="icon-btn" id="darkBtn" onclick="toggleDark()" aria-label="Mode sombre">🌙</button>
-      <button class="icon-btn" id="contrastBtn" onclick="toggleContrast()" aria-label="Contraste">◐</button>
-    </div>
-    <div class="online" id="onlineStatus">🟢 En ligne</div>
+  <h1>🌍 SOLUWORLD</h1>
+  <p>Signaler les problèmes de votre communauté et trouver des solutions.</p>
+  <div class="top-actions">
+    <button id="theme-button" type="button">🌙 Mode sombre</button>
+    <button id="contrast-button" type="button">◐ Contraste</button>
+    <button type="button" onclick="allerA('publication-section')">📢 Signaler</button>
+    <button type="button" onclick="allerA('tracking-section')">📋 Suivre</button>
   </div>
 </header>
-
-<main>
-<section class="hero">
-  <h1>Agir ensemble pour un monde meilleur</h1>
-  <p>Signalez un problème, suivez son évolution et contribuez à améliorer votre ville. SOLUWORLD rapproche les citoyens et les solutions.</p>
-</section>
-
-<div class="quick-grid">
-  <div class="quick-card" onclick="document.getElementById('signaler').scrollIntoView()">
-    <strong>📝 Signaler</strong>
-    <span>Créer un nouveau signalement</span>
-  </div>
-  <div class="quick-card" onclick="document.getElementById('suivi').scrollIntoView()">
-    <strong>🔎 Suivre</strong>
-    <span>Consulter un dossier</span>
-  </div>
-  <div class="quick-card" onclick="document.getElementById('carte').scrollIntoView()">
-    <strong>🗺️ Carte</strong>
-    <span>Voir les signalements</span>
-  </div>
-  <div class="quick-card" onclick="window.print()">
-    <strong>🖨️ Imprimer</strong>
-    <span>Exporter la vue actuelle</span>
-  </div>
+<main class="container">
+<section id="publication-section">
+<h2>📢 Signaler un problème</h2>
+<form id="problem-form">
+<div class="form-grid">
+<div><label for="nom">Nom</label><input id="nom" placeholder="Votre nom" maxlength="80" required></div>
+<div><label for="ville">Ville</label><input id="ville" placeholder="Exemple : Ouagadougou" maxlength="80" required></div>
+<div><label for="catégorie">Catégorie</label><select id="catégorie" required><option value="">-- Choisir une catégorie --</option></select></div>
+<div><label for="urgence">Niveau d’urgence</label><select id="urgence" required><option value="">-- Choisir --</option><option value="Élevée">🔴 Élevée</option><option value="Moyenne">🟠 Moyenne</option><option value="Faible">🟢 Faible</option></select></div>
+<div class="full"><label for="problème">Description du problème</label><textarea id="problème" maxlength="1000" placeholder="Décrivez précisément le problème..." required></textarea><div class="counter" id="description-counter">0 / 1000</div></div>
 </div>
-<section id="signaler">
-  <h2>📝 Signaler un problème</h2>
-
-  <form id="problemForm">
-    <div class="form-grid">
-
-      <div class="field">
-        <label for="name">Nom</label>
-        <input
-          id="name"
-          name="Name"
-          type="text"
-          placeholder="Votre nom"
-          maxlength="100"
-          required>
-      </div>
-
-      <div class="field">
-        <label for="city">Ville</label>
-        <select id="city" name="City" required>
-          <option value="">Choisir une ville</option>
-          <option>Ouagadougou</option>
-          <option>Bobo-Dioulasso</option>
-          <option>Koudougou</option>
-          <option>Banfora</option>
-          <option>Ouahigouya</option>
-          <option>Fada N'Gourma</option>
-          <option>Tenkodogo</option>
-          <option>Dédougou</option>
-          <option>Kaya</option>
-          <option>Ziniaré</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="category">Catégorie</label>
-        <select id="category" name="Catégory" required>
-          <option value="">Choisir une catégorie</option>
-          <option>Eau</option>
-          <option>Électricité</option>
-          <option>Route</option>
-          <option>Déchets</option>
-          <option>Santé</option>
-          <option>Éducation</option>
-          <option>Sécurité</option>
-          <option>Autre</option>
-          <option>Environnement</option>
-          <option>Assainissement</option>
-          <option>Transport</option>
-          <option>Emploi</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="urgency">Urgence</label>
-        <select id="urgency" name="urgency" required>
-          <option value="">Choisir le niveau</option>
-          <option value="Élevée">Élevée</option>
-          <option value="Moyenne">Moyenne</option>
-          <option value="Faible">Faible</option>
-        </select>
-      </div>
-
-      <div class="field full">
-        <label for="description">Description du problème</label>
-        <textarea
-          id="description"
-          name="description"
-          maxlength="1000"
-          placeholder="Décrivez précisément le problème..."
-          required></textarea>
-        <div class="counter">
-          <span id="charCount">0</span>/1000 caractères
-        </div>
-      </div>
-
-    </div>
-
-    <div class="actions">
-      <button class="btn" type="submit">
-        🚀 Publier le signalement
-      </button>
-
-      <button
-        class="btn secondary"
-        type="button"
-        onclick="saveDraft()">
-        💾 Enregistrer le brouillon
-      </button>
-
-      <button
-        class="btn secondary"
-        type="button"
-        onclick="clearDraft()">
-        🗑️ Effacer le brouillon
-      </button>
-    </div>
-
-    <div id="formMessage"></div>
-  </form>
+<div class="share-row">
+<button class="primary" id="publish-button" type="submit">📢 Publier le problème</button>
+<button class="ghost" id="save-draft" type="button">💾 Enregistrer le brouillon</button>
+<button class="ghost" id="clear-draft" type="button">🧹 Effacer le brouillon</button>
+</div>
+<p class="hint" id="draft-status">💾 Le brouillon peut être conservé sur cet appareil.</p>
+<p class="privacy-note">🔒 Votre signalement est transmis à SOLUWORLD pour permettre son suivi.</p>
+</form>
+</section>
+<section id="search-section">
+<h2>🔎 Rechercher un problème</h2>
+<div class="search-grid">
+<div><label for="search-problems">Recherche</label><input id="search-problems" placeholder="Ville, nom, problème, numéro..."></div>
+<div><label for="filter-category">Catégorie</label><select id="filter-category"><option value="">Toutes les catégories</option></select></div>
+<div><label for="filter-status">Statut</label><select id="filter-status"><option value="">Tous les statuts</option><option>Nouveau</option><option>En cours</option><option>Résolu</option></select></div>
+<div><label for="filter-urgency">Urgence</label><select id="filter-urgency"><option value="">Toutes les urgences</option><option value="Élevée">🔴 Élevée</option><option value="Moyenne">🟠 Moyenne</option><option value="Faible">🟢 Faible</option></select></div>
+<div><label for="sort-problems">Tri</label><select id="sort-problems"><option value="newest">Plus récents</option><option value="oldest">Plus anciens</option><option value="urgent">Urgence</option></select></div>
+<div><label for="filter-city">Ville</label><select id="filter-city"><option value="">Toutes les villes</option></select></div>
+<div class="full"><button class="ghost" id="clear-search" type="button">🔄 Réinitialiser les filtres</button></div>
+</div>
+<div id="problems-message" class="message"></div>
+<div id="filter-summary" class="filter-summary"></div>
+</section>
+<section id="map-section">
+<h2>🗺️ Carte des problèmes</h2>
+<div class="map-tools">
+<button class="ghost" type="button" onclick="centrerBurkina()">🇧🇫 Burkina Faso</button>
+<button class="ghost" type="button" onclick="afficherTousLesMarqueurs()">📍 Tout afficher</button>
+</div>
+<div id="map"></div>
+</section>
+<section id="dashboard-section">
+<h2>📊 Tableau de bord SOLUWORLD</h2>
+<div class="dashboard">
+<div class="stat-card"><h3>📋 Total</h3><strong id="stat-total">0</strong><span>problèmes</span></div>
+<div class="stat-card"><h3>🔴 Nouveaux</h3><strong id="stat-nouveaux">0</strong><span>à traiter</span></div>
+<div class="stat-card"><h3>🟠 En cours</h3><strong id="stat-en-cours">0</strong><span>en traitement</span></div>
+<div class="stat-card"><h3>🟢 Résolus</h3><strong id="stat-resolus">0</strong><span>problèmes</span></div>
+<div class="stat-card"><h3>🚨 Urgents</h3><strong id="stat-urgents">0</strong><span>prioritaires</span></div>
+<div class="stat-card"><h3>🏙️ Villes</h3><strong id="stat-villes">0</strong><span>concernées</span></div>
+<div class="stat-card"><h3>🏷️ Catégories</h3><strong id="stat-categories">0</strong><span>identifiées</span></div>
+<div class="stat-card"><h3>📈 Résolution</h3><strong id="stat-taux">0%</strong><span>taux estimé</span></div>
+</div>
+<div class="share-row"><button class="secondary" type="button" onclick="exporterCSV()">📥 Exporter CSV</button><button class="secondary" type="button" onclick="window.print()">🖨️ Imprimer</button></div>
+</section>
+<section id="tracking-section">
+<h2>📋 Suivre mon signalement</h2>
+<label for="tracking-number">Numéro de suivi</label>
+<input id="tracking-number" placeholder="Exemple : SW-2026-483921">
+<div class="share-row"><button class="primary" type="button" onclick="suivreSignalement()">🔎 Rechercher</button><button class="ghost" type="button" onclick="partagerSuivi()">📤 Partager</button></div>
+<div id="tracking-result" class="tracking-result"></div>
+</section>
+<section id="problems-section">
+<h2>📋 Problèmes signalés</h2>
+<div id="problems-list"><div class="loading">🔄 Chargement des problèmes...</div></div>
+</section>
+<section id="admin-section">
+<h2>🔐 Administration</h2>
+<div class="admin-bar">
+<div>
+<form id="admin-login-form">
+<label for="admin-email">Email administrateur</label><input type="email" id="admin-email" placeholder="Email" required>
+<label for="admin-password">Mot de passe</label><input type="password" id="admin-password" placeholder="Mot de passe" required>
+<div class="share-row"><button class="primary" type="submit">🔐 Se connecter</button><button class="danger" type="button" id="logout-button">🚪 Déconnexion</button></div>
+<p id="admin-login-message"></p>
+</form>
+</div>
+<div id="admin-status"></div>
+</div>
+</section>
+<section id="edit-section" class="admin-only">
+<h2>✏️ Modifier le problème</h2>
+<form id="edit-form">
+<div class="form-grid">
+<div><label for="edit-nom">Nom</label><input id="edit-nom" required></div>
+<div><label for="edit-ville">Ville</label><input id="edit-ville" required></div>
+<div><label for="edit-categorie">Catégorie</label><select id="edit-categorie" required><option value="">-- Choisir --</option></select></div>
+<div><label for="edit-urgence">Urgence</label><select id="edit-urgence" required><option value="">-- Choisir --</option><option value="Élevée">🔴 Élevée</option><option value="Moyenne">🟠 Moyenne</option><option value="Faible">🟢 Faible</option></select></div>
+<div class="full"><label for="edit-description">Description</label><textarea id="edit-description" maxlength="1000" required></textarea><div class="counter" id="edit-description-counter">0 / 1000</div></div>
+</div>
+<button class="blue" type="submit">💾 Enregistrer</button>
+<button class="ghost" type="button" id="cancel-edit">Annuler</button>
+<div id="edit-message" class="message"></div>
+</form>
 </section>
 
-<section>
-  <h2>📊 Tableau de bord</h2>
-
-  <div class="stats">
-
-    <div class="stat">
-      <span class="num" id="stat-total">0</span>
-      <small>Total des problèmes</small>
-    </div>
-
-    <div class="stat">
-      <span class="num" id="stat-new">0</span>
-      <small>Nouveaux</small>
-    </div>
-
-    <div class="stat">
-      <span class="num" id="stat-progress">0</span>
-      <small>En cours</small>
-    </div>
-
-    <div class="stat">
-      <span class="num" id="stat-resolved">0</span>
-      <small>Résolus</small>
-    </div>
-
-    <div class="stat">
-      <span class="num" id="stat-urgent">0</span>
-      <small>Urgents</small>
-    </div>
-
-    <div class="stat">
-      <span class="num" id="stat-cities">0</span>
-      <small>Villes concernées</small>
-    </div>
-
-    <div class="stat">
-      <span class="num" id="stat-categories">0</span>
-      <small>Catégories</small>
-    </div>
-
-    <div class="stat">
-      <span class="num" id="stat-rate">0%</span>
-      <small>Taux de résolution</small>
-    </div>
-
+<!-- ===== SOLUWORLD PRO EXTENSIONS ===== -->
+<section class="sw-pro-panel" aria-label="Fonctionnalités citoyennes">
+  <div class="sw-pro-title"><span>🌍</span><div><h2>Un espace citoyen plus simple</h2><p>Retrouvez rapidement les outils essentiels de SOLUWORLD.</p></div></div>
+  <div class="sw-pro-grid">
+    <article class="sw-pro-card"><div class="sw-pro-icon">📌</div><h3>Signalements centralisés</h3><p>Les problèmes sont regroupés dans un espace unique pour faciliter leur consultation.</p></article>
+    <article class="sw-pro-card"><div class="sw-pro-icon">🔎</div><h3>Recherche rapide</h3><p>Recherchez un dossier par ville, catégorie, urgence ou numéro de suivi.</p></article>
+    <article class="sw-pro-card"><div class="sw-pro-icon">🗺️</div><h3>Vision cartographique</h3><p>La carte permet de visualiser les zones où les problèmes sont signalés.</p></article>
+    <article class="sw-pro-card"><div class="sw-pro-icon">📈</div><h3>Suivi transparent</h3><p>Consultez l'évolution d'un dossier grâce à son numéro de suivi.</p></article>
   </div>
 </section>
-
-<section id="problemes">
-  <h2>📋 Problèmes signalés</h2>
-
-  <div class="filters">
-
-    <div class="field">
-      <label for="search">🔎 Rechercher</label>
-      <input
-        id="search"
-        type="search"
-        placeholder="Rechercher un problème..."
-        oninput="afficherListe()">
-    </div>
-
-    <div class="field">
-      <label for="filterCategory">Catégorie</label>
-      <select id="filterCategory" onchange="afficherListe()">
-        <option value="">Toutes</option>
-        <option>Eau</option>
-        <option>Électricité</option>
-        <option>Route</option>
-        <option>Déchets</option>
-        <option>Santé</option>
-        <option>Éducation</option>
-        <option>Sécurité</option>
-        <option>Autre</option>
-        <option>Environnement</option>
-        <option>Assainissement</option>
-        <option>Transport</option>
-        <option>Emploi</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="filterUrgency">Urgence</label>
-      <select id="filterUrgency" onchange="afficherListe()">
-        <option value="">Toutes</option>
-        <option value="Élevée">Élevée</option>
-        <option value="Moyenne">Moyenne</option>
-        <option value="Faible">Faible</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="filterCity">Ville</label>
-      <select id="filterCity" onchange="afficherListe()">
-        <option value="">Toutes</option>
-        <option>Ouagadougou</option>
-        <option>Bobo-Dioulasso</option>
-        <option>Koudougou</option>
-        <option>Banfora</option>
-        <option>Ouahigouya</option>
-        <option>Fada N'Gourma</option>
-        <option>Tenkodogo</option>
-        <option>Dédougou</option>
-        <option>Kaya</option>
-        <option>Ziniaré</option>
-      </select>
-    </div>
-
-  </div>
-
-  <div class="filter-summary" id="filterSummary">
-    Aucun filtre actif.
-  </div>
-
-  <div class="actions">
-    <button
-      class="btn secondary"
-      type="button"
-      onclick="resetFilters()">
-      🔄 Réinitialiser les filtres
-    </button>
-
-    <button
-      class="btn blue"
-      type="button"
-      onclick="exportCSV()">
-      📥 Exporter CSV
-    </button>
-  </div>
-
-  <div id="liste-problemes" class="problem-list">
-    <div class="empty">
-      ⏳ Chargement des problèmes...
-    </div>
-  </div>
+<section class="sw-pro-panel sw-pro-info" aria-label="Engagement SOLUWORLD">
+  <div class="sw-pro-info-grid"><div><span class="sw-mini-label">NOTRE OBJECTIF</span><h2>Transformer les signalements en actions.</h2><p>SOLUWORLD crée un pont entre les citoyens, les collectivités et les acteurs chargés d'améliorer les services locaux.</p></div>
+  <div class="sw-check-list"><div>✓ Une information plus claire</div><div>✓ Un suivi plus facile</div><div>✓ Une meilleure visibilité des besoins</div><div>✓ Une participation citoyenne renforcée</div></div></div>
 </section>
-
-<section id="carte">
-  <h2>🗺️ Carte des problèmes</h2>
-  <p>
-    Consultez les signalements sur la carte et localisez
-    les problèmes selon leur ville.
-  </p>
-
-  <div id="map"></div>
+<section class="sw-pro-panel sw-help" aria-label="Aide">
+  <h2>💡 Comment utiliser SOLUWORLD ?</h2>
+  <div class="sw-help-grid"><div><b>01</b><span>Signalez</span><small>Décrivez le problème rencontré.</small></div><div><b>02</b><span>Recevez</span><small>Conservez votre numéro de suivi.</small></div><div><b>03</b><span>Suivez</span><small>Consultez l'évolution du dossier.</small></div><div><b>04</b><span>Agissez</span><small>Partagez les informations utiles.</small></div></div>
 </section>
-
-<section id="suivi">
-  <h2>🔎 Suivre un problème</h2>
-
-  <p>
-    Entrez votre numéro de suivi pour consulter l'état
-    de votre signalement.
-  </p>
-
-  <div class="form-grid">
-
-    <div class="field">
-      <label for="trackingNumber">
-        Numéro de suivi
-      </label>
-
-      <input
-        id="trackingNumber"
-        type="text"
-        placeholder="Exemple : SW-123456">
-    </div>
-
-  </div>
-
-  <div class="actions">
-    <button
-      class="btn"
-      type="button"
-      onclick="suivreProbleme()">
-      🔎 Rechercher
-    </button>
-
-    <button
-      class="btn secondary"
-      type="button"
-      onclick="partagerSuivi()">
-      📤 Partager
-    </button>
-  </div>
-
-  <div id="trackingResult" class="tracking-result"></div>
-</section>
-<section id="admin">
-  <h2>🔐 Administration</h2>
-
-  <p>
-    Cette section est réservée à l'administration de SOLUWORLD.
-    Connectez-vous pour gérer les signalements.
-  </p>
-
-  <div id="adminLogin">
-
-    <div class="form-grid">
-
-      <div class="field">
-        <label for="adminEmail">
-          📧 Adresse e-mail
-        </label>
-
-        <input
-          id="adminEmail"
-          type="email"
-          placeholder="Adresse e-mail administrateur"
-          autocomplete="username">
-      </div>
-
-      <div class="field">
-        <label for="adminPassword">
-          🔑 Mot de passe
-        </label>
-
-        <input
-          id="adminPassword"
-          type="password"
-          placeholder="Mot de passe"
-          autocomplete="current-password">
-      </div>
-
-    </div>
-
-    <div class="actions">
-
-      <button
-        class="btn"
-        type="button"
-        onclick="connexionAdmin()">
-        🔐 Se connecter
-      </button>
-
-      <button
-        class="btn secondary"
-        type="button"
-        onclick="deconnexionAdmin()">
-        🚪 Se déconnecter
-      </button>
-
-    </div>
-
-    <div id="adminMessage"></div>
-
-  </div>
-
-  <div id="adminPanel" style="display:none">
-
-    <div class="success-box">
-      ✅ Vous êtes connecté en tant qu'administrateur.
-    </div>
-
-    <div class="actions">
-
-      <button
-        class="btn"
-        type="button"
-        onclick="chargerProblemes()">
-        🔄 Actualiser les problèmes
-      </button>
-
-      <button
-        class="btn blue"
-        type="button"
-        onclick="exportCSV()">
-        📥 Exporter les données
-      </button>
-
-      <button
-        class="btn secondary"
-        type="button"
-        onclick="window.print()">
-        🖨️ Imprimer
-      </button>
-
-    </div>
-
-  </div>
+<section class="sw-pro-panel sw-contact-panel" aria-label="Conseils">
+  <div><span class="sw-mini-label">CONSEIL CITOYEN</span><h2>Un bon signalement est précis.</h2><p>Indiquez le lieu, la nature du problème, son niveau d'urgence et une description claire. Cela facilite la compréhension et le traitement du dossier.</p></div>
+  <div class="sw-tip">📍 <strong>Astuce :</strong> choisissez la ville et la catégorie les plus précises possible.</div>
 </section>
 
 </main>
-
-<div id="toast" class="toast"></div>
-
-<footer>
-  <strong>SOLUWORLD</strong>
-  <p>
-    Agir ensemble pour un monde meilleur.
-  </p>
-  <p>
-    © 2026 SOLUWORLD — Plateforme citoyenne.
-  </p>
-</footer>
-
+<footer>🌍 SOLUWORLD — Ensemble pour améliorer nos communautés.</footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
-/* ==========================================
-   SOLUWORLD — CONFIGURATION SUPABASE
-   ========================================== */
-
-const SUPABASE_URL =
-  "https://cempljialofhnkvjpsko.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_XXXXXXXXXXXXXXXXXXXXXXXX";
-
-/*
-  La clé publique Supabase doit être remplacée
-  par ta clé publishable actuelle.
-*/
-
-let problemes = [];
-let adminToken = localStorage.getItem("soluworld_admin_token") || "";
-let map = null;
-let markers = [];
-
-
-/* ==========================================
-   VILLES DU BURKINA FASO
-   ========================================== */
-
-const villes = {
-
-  "Ouagadougou": [12.3714, -1.5197],
-
-  "Bobo-Dioulasso": [11.1771, -4.2979],
-
-  "Koudougou": [12.2526, -2.3627],
-
-  "Banfora": [10.6333, -4.7667],
-
-  "Ouahigouya": [13.5828, -2.4216],
-
-  "Fada N'Gourma": [12.0616, 0.3581],
-
-  "Tenkodogo": [11.7800, -0.3697],
-
-  "Dédougou": [12.4634, -3.4608],
-
-  "Kaya": [13.0917, -1.0844],
-
-  "Ziniaré": [12.5833, -0.9333]
-
+"use strict";
+const SUPABASE_URL="https://cempljialofhnkvjpsko.supabase.co";
+const SUPABASE_KEY="sb_publishable_TYTq252UBISGbU9qIFWSrA_YR5Jh-4f";
+const CATEGORIES=["Eau","Électricité","Route","Déchets","Santé","Éducation","Sécurité","Autre","Environnement","Assainissement","Transport","Emploi"];
+const VILLES={"Ouagadougou":[12.3714,-1.5197],"Bobo-Dioulasso":[11.1771,-4.2979],"Koudougou":[12.2526,-2.3627],"Ouahigouya":[13.5828,-2.4216],"Banfora":[10.6333,-4.7667],"Dédougou":[12.4667,-3.4667],"Fada N'Gourma":[12.0614,.3581],"Tenkodogo":[11.78,-.3697],"Kaya":[13.0917,-1.0844],"Ziniaré":[12.5822,-.9542]};
+const SOLUTIONS={
+Eau:["Signaler la fuite ou la coupure au service local de l'eau.","Identifier précisément le point d'eau concerné.","Vérifier les installations proches pour localiser la panne.","Demander une intervention technique rapide.","Mettre en place un approvisionnement temporaire.","Informer les habitants de la zone.","Contrôler la qualité de l'eau après intervention.","Réparer ou remplacer les conduites endommagées.","Prévoir un entretien régulier du réseau.","Suivre le dossier jusqu'au rétablissement complet."],
+Électricité:["Signaler la panne au service d'électricité.","Vérifier si elle concerne une maison ou tout le quartier.","Identifier poteaux, câbles ou équipements concernés.","Faire intervenir un technicien qualifié.","Sécuriser et signaler tout câble dangereux.","Informer les habitants du délai d'intervention.","Contrôler les branchements défectueux.","Remplacer les équipements endommagés.","Prévoir l'entretien régulier du réseau.","Suivre le dossier jusqu'au rétablissement."],
+Route:["Signaler le nid-de-poule ou la route dégradée.","Localiser précisément la zone.","Photographier si possible la dégradation.","Mettre une signalisation provisoire si nécessaire.","Évaluer les risques pour les usagers.","Demander une intervention de la mairie ou du service compétent.","Réparer les zones dangereuses.","Améliorer le drainage de la route.","Contrôler la qualité des travaux.","Prévoir un entretien périodique."],
+Déchets:["Signaler le point d'accumulation.","Identifier les jours habituels de collecte.","Demander une collecte exceptionnelle.","Installer ou proposer un point de dépôt adapté.","Sensibiliser les habitants au tri et à la propreté.","Éviter les dépôts près des caniveaux.","Organiser une opération de nettoyage.","Améliorer la fréquence de collecte.","Contrôler régulièrement la zone.","Mettre en place un suivi communautaire."],
+Santé:["Signaler le manque de service ou de matériel.","Identifier précisément le centre concerné.","Alerter le responsable sanitaire.","Demander un approvisionnement urgent.","Orienter temporairement les patients vers un autre centre.","Informer la population des solutions disponibles.","Renforcer les stocks essentiels.","Améliorer l'organisation du service.","Suivre les délais de prise en charge.","Évaluer régulièrement la situation."],
+Éducation:["Signaler le manque de matériel ou d'infrastructure.","Identifier l'établissement concerné.","Alerter la direction et les services compétents.","Évaluer les besoins prioritaires.","Organiser une solution temporaire pour les élèves.","Mobiliser les partenaires locaux.","Réparer ou compléter les équipements.","Améliorer les conditions d'apprentissage.","Suivre la réalisation des travaux.","Prévoir un entretien régulier."],
+Sécurité:["Signaler précisément le danger.","Identifier l'endroit et les horaires à risque.","Alerter les autorités compétentes.","Améliorer l'éclairage de la zone.","Installer une signalisation adaptée.","Renforcer la présence préventive si nécessaire.","Sensibiliser les habitants.","Réparer les infrastructures dangereuses.","Créer un canal de signalement rapide.","Suivre la situation après intervention."],
+Autre:["Décrire clairement le problème.","Localiser précisément la situation.","Identifier le service responsable.","Évaluer le niveau d'urgence.","Informer les personnes concernées.","Proposer une solution temporaire.","Demander une intervention adaptée.","Documenter les actions réalisées.","Vérifier le résultat obtenu.","Assurer un suivi jusqu'à résolution."],
+Environnement:["Identifier la source de la nuisance.","Localiser précisément la zone concernée.","Signaler la situation au service compétent.","Limiter temporairement l'exposition au danger.","Sensibiliser les habitants.","Organiser une action de nettoyage ou de protection.","Réduire la source de pollution.","Restaurer la zone dégradée.","Contrôler régulièrement l'environnement.","Mettre en place une prévention durable."],
+Assainissement:["Signaler le caniveau ou réseau concerné.","Localiser précisément le bouchon ou la dégradation.","Demander un curage ou une intervention.","Éviter les dépôts dans les caniveaux.","Sécuriser la zone si nécessaire.","Informer les habitants.","Réparer les ouvrages endommagés.","Améliorer l'écoulement des eaux.","Contrôler après intervention.","Programmer un entretien régulier."],
+Transport:["Signaler le problème de transport.","Préciser la ligne, l'itinéraire ou le lieu.","Identifier les horaires concernés.","Informer le service de transport.","Proposer un itinéraire temporaire.","Améliorer la signalisation.","Réparer les arrêts ou équipements.","Adapter la fréquence si nécessaire.","Informer les usagers des changements.","Suivre l'amélioration du service."],
+Emploi:["Décrire précisément le besoin d'emploi.","Identifier le secteur ou métier concerné.","Signaler les difficultés d'accès aux opportunités.","Consulter les services d'emploi locaux.","Mettre en relation les candidats et employeurs.","Organiser une orientation professionnelle.","Proposer une formation adaptée.","Faciliter l'accès aux informations d'offres.","Suivre les candidatures et résultats.","Créer des partenariats locaux durables."]
 };
-
-
-/* ==========================================
-   SOLUTIONS PAR CATÉGORIE
-   ========================================== */
-
-const solutions = {
-
-  "Eau": [
-    "Réparer rapidement les conduites endommagées.",
-    "Installer ou réhabiliter les bornes-fontaines.",
-    "Contrôler régulièrement la qualité de l'eau.",
-    "Améliorer le réseau de distribution.",
-    "Signaler les fuites aux services compétents.",
-    "Créer des points d'approvisionnement temporaires.",
-    "Entretenir les châteaux d'eau.",
-    "Renforcer la disponibilité des pièces de réparation.",
-    "Sensibiliser à l'utilisation responsable de l'eau.",
-    "Mettre en place un suivi des pannes."
-  ],
-
-  "Électricité": [
-    "Réparer les poteaux électriques défectueux.",
-    "Remplacer les câbles endommagés.",
-    "Renforcer les transformateurs.",
-    "Améliorer l'éclairage public.",
-    "Effectuer des contrôles réguliers du réseau.",
-    "Réduire les branchements dangereux.",
-    "Installer des équipements de protection.",
-    "Améliorer la maintenance préventive.",
-    "Développer l'éclairage solaire.",
-    "Accélérer le traitement des pannes."
-  ],
-
-  "Route": [
-    "Réparer les nids-de-poule.",
-    "Réhabiliter les routes fortement dégradées.",
-    "Améliorer le drainage des eaux de pluie.",
-    "Installer une signalisation adaptée.",
-    "Entretenir régulièrement les axes routiers.",
-    "Sécuriser les zones dangereuses.",
-    "Améliorer l'éclairage des routes.",
-    "Créer des passages sécurisés.",
-    "Contrôler les travaux routiers.",
-    "Mettre en place un programme d'entretien."
-  ],
-
-  "Déchets": [
-    "Installer davantage de poubelles publiques.",
-    "Organiser régulièrement la collecte.",
-    "Créer des points de regroupement.",
-    "Sensibiliser les habitants.",
-    "Sanctionner les dépôts sauvages.",
-    "Développer le tri des déchets.",
-    "Favoriser le recyclage.",
-    "Améliorer les équipements de collecte.",
-    "Nettoyer les zones insalubres.",
-    "Mettre en place un calendrier de collecte."
-  ],
-
-  "Santé": [
-    "Renforcer les centres de santé.",
-    "Améliorer l'accès aux médicaments essentiels.",
-    "Augmenter le personnel médical.",
-    "Réhabiliter les infrastructures sanitaires.",
-    "Améliorer l'accueil des patients.",
-    "Développer les campagnes de prévention.",
-    "Renforcer les équipements médicaux.",
-    "Améliorer l'hygiène des établissements.",
-    "Créer des services de proximité.",
-    "Renforcer les systèmes d'alerte sanitaire."
-  ],
-
-  "Éducation": [
-    "Réhabiliter les salles de classe.",
-    "Construire de nouvelles écoles.",
-    "Fournir davantage de matériel scolaire.",
-    "Améliorer l'accès à l'eau dans les écoles.",
-    "Renforcer la sécurité des établissements.",
-    "Augmenter le nombre d'enseignants.",
-    "Développer les bibliothèques scolaires.",
-    "Améliorer les sanitaires.",
-    "Favoriser l'accès au numérique.",
-    "Renforcer le suivi des élèves."
-  ],
-
-  "Sécurité": [
-    "Renforcer l'éclairage public.",
-    "Améliorer la présence des services de sécurité.",
-    "Installer des dispositifs de surveillance adaptés.",
-    "Sécuriser les zones isolées.",
-    "Créer des mécanismes d'alerte citoyenne.",
-    "Renforcer la sensibilisation.",
-    "Améliorer la signalisation des zones dangereuses.",
-    "Organiser des patrouilles préventives.",
-    "Faciliter le signalement des incidents.",
-    "Renforcer la collaboration communautaire."
-  ],
-
-  "Autre": [
-    "Identifier précisément la cause du problème.",
-    "Transmettre le signalement au service compétent.",
-    "Évaluer les besoins nécessaires.",
-    "Proposer une intervention rapide.",
-    "Mettre en place un suivi.",
-    "Informer les habitants concernés.",
-    "Évaluer régulièrement l'évolution.",
-    "Prioriser les situations urgentes.",
-    "Documenter les interventions.",
-    "Vérifier la résolution finale."
-  ],
-
-  "Environnement": [
-    "Planter davantage d'arbres.",
-    "Protéger les espaces verts.",
-    "Nettoyer les zones polluées.",
-    "Réduire les dépôts sauvages.",
-    "Sensibiliser à la protection de l'environnement.",
-    "Développer le recyclage.",
-    "Protéger les ressources naturelles.",
-    "Améliorer la gestion des eaux usées.",
-    "Encourager les transports propres.",
-    "Renforcer les contrôles environnementaux."
-  ],
-
-  "Assainissement": [
-    "Nettoyer les caniveaux.",
-    "Réhabiliter les réseaux d'évacuation.",
-    "Améliorer le drainage.",
-    "Organiser des opérations de nettoyage.",
-    "Réduire les eaux stagnantes.",
-    "Sensibiliser à l'hygiène.",
-    "Entretenir les ouvrages d'assainissement.",
-    "Améliorer la gestion des eaux usées.",
-    "Sécuriser les zones inondables.",
-    "Mettre en place un entretien régulier."
-  ],
-
-  "Transport": [
-    "Améliorer les arrêts de transport.",
-    "Renforcer la sécurité des passagers.",
-    "Améliorer l'état des véhicules.",
-    "Développer les transports publics.",
-    "Créer des zones de stationnement adaptées.",
-    "Améliorer la signalisation.",
-    "Réduire les embouteillages.",
-    "Sécuriser les traversées.",
-    "Améliorer l'information des usagers.",
-    "Renforcer les contrôles techniques."
-  ],
-
-  "Emploi": [
-    "Développer les formations professionnelles.",
-    "Créer des programmes d'insertion.",
-    "Faciliter l'accès aux informations sur l'emploi.",
-    "Soutenir l'entrepreneuriat local.",
-    "Développer les stages professionnels.",
-    "Renforcer les partenariats avec les entreprises.",
-    "Accompagner les jeunes diplômés.",
-    "Favoriser les activités génératrices de revenus.",
-    "Créer des espaces d'orientation professionnelle.",
-    "Améliorer l'accès aux opportunités locales."
-  ]
-
-};
-  <script>
-
-/* ==========================================
-   OUTILS GÉNÉRAUX
-   ========================================== */
-
-function afficherToast(message){
-  const toast = document.getElementById("toast");
-
-  if(!toast) return;
-
-  toast.textContent = message;
-  toast.style.display = "block";
-
-  clearTimeout(window.toastTimer);
-
-  window.toastTimer = setTimeout(()=>{
-    toast.style.display = "none";
-  },3500);
-}
-
-
-function escapeHTML(value){
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-
-/* ==========================================
-   MODE SOMBRE
-   ========================================== */
-
-function toggleDark(){
-
-  document.documentElement.classList.toggle("dark");
-
-  const active =
-    document.documentElement.classList.contains("dark");
-
-  localStorage.setItem(
-    "soluworld_dark",
-    active ? "1" : "0"
-  );
-
-  afficherToast(
-    active
-      ? "🌙 Mode sombre activé"
-      : "☀️ Mode clair activé"
-  );
-}
-
-
-/* ==========================================
-   MODE CONTRASTE
-   ========================================== */
-
-function toggleContrast(){
-
-  document.documentElement.classList.toggle(
-    "high-contrast"
-  );
-
-  const active =
-    document.documentElement.classList.contains(
-      "high-contrast"
-    );
-
-  localStorage.setItem(
-    "soluworld_contrast",
-    active ? "1" : "0"
-  );
-
-  afficherToast(
-    active
-      ? "◐ Mode contraste élevé activé"
-      : "◐ Mode contraste désactivé"
-  );
-}
-
-
-/* ==========================================
-   RESTAURATION DES MODES
-   ========================================== */
-
-function restaurerAffichage(){
-
-  if(localStorage.getItem("soluworld_dark")==="1"){
-    document.documentElement.classList.add("dark");
-  }
-
-  if(localStorage.getItem("soluworld_contrast")==="1"){
-    document.documentElement.classList.add(
-      "high-contrast"
-    );
-  }
-}
-
-
-/* ==========================================
-   BROUILLON AUTOMATIQUE
-   ========================================== */
-
-function obtenirDonneesFormulaire(){
-
-  return {
-    Name:
-      document.getElementById("name")?.value || "",
-
-    City:
-      document.getElementById("city")?.value || "",
-
-    Catégory:
-      document.getElementById("category")?.value || "",
-
-    urgency:
-      document.getElementById("urgency")?.value || "",
-
-    description:
-      document.getElementById("description")?.value || ""
-  };
-}
-
-
-function saveDraft(){
-
-  const data =
-    obtenirDonneesFormulaire();
-
-  localStorage.setItem(
-    "soluworld_draft",
-    JSON.stringify(data)
-  );
-
-  afficherToast(
-    "💾 Brouillon enregistré sur cet appareil."
-  );
-}
-
-
-function restoreDraft(){
-
-  const raw =
-    localStorage.getItem("soluworld_draft");
-
-  if(!raw) return;
-
+let problemsCache=[],problemeEnModification=null,carte=null,marqueursCarte=[],adminVerified=false;
+function normaliser(t){return String(t||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim()}
+function esc(t){return String(t??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function token(){return localStorage.getItem("soluworld_admin_token")}
+function authHeaders(){return{apikey:SUPABASE_KEY,Authorization:"Bearer "+token(),"Content-Type":"application/json"}}
+function allerA(id){const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:"smooth"})}
+function remplirSelect(id,items,first){const s=document.getElementById(id);if(!s)return;items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;s.appendChild(o)})}
+function remplirCategories(){remplirSelect("catégorie",CATEGORIES);remplirSelect("filter-category",CATEGORIES);remplirSelect("edit-categorie",CATEGORIES);remplirSelect("filter-city",Object.keys(VILLES))}
+function statutInfo(s){return s==="Résolu"?["statut-resolu","🟢"]:s==="En cours"?["statut-en-cours","🟠"]:["statut-nouveau","🔴"]}
+function urgenceClasse(u){u=normaliser(u);return u==="elevee"||u==="haute"?"high":u==="moyenne"||u==="medium"?"medium":"low"}
+async function verifierAdmin(){
+  const t=token();
+  if(!t){adminVerified=false;actualiserAdmin();return false}
   try{
-
-    const data = JSON.parse(raw);
-
-    if(document.getElementById("name"))
-      document.getElementById("name").value =
-        data.Name || "";
-
-    if(document.getElementById("city"))
-      document.getElementById("city").value =
-        data.City || "";
-
-    if(document.getElementById("category"))
-      document.getElementById("category").value =
-        data.Catégory || "";
-
-    if(document.getElementById("urgency"))
-      document.getElementById("urgency").value =
-        data.urgency || "";
-
-    if(document.getElementById("description"))
-      document.getElementById("description").value =
-        data.description || "";
-
-    updateCharCount();
-
-  }catch(error){
-
-    console.error(
-      "Erreur restauration brouillon:",
-      error
-    );
-
-  }
+    const ur=await fetch(`${SUPABASE_URL}/auth/v1/user`,{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+t}});
+    if(!ur.ok)throw Error("Session expirée.");
+    const rr=await fetch(`${SUPABASE_URL}/rest/v1/rpc/is_admin`,{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+t,"Content-Type":"application/json"}});
+    if(!rr.ok)throw Error("Vérification administrateur impossible.");
+    const isAdmin=await rr.json();
+    adminVerified=isAdmin===true;
+    if(!adminVerified)localStorage.removeItem("soluworld_admin_token");
+  }catch(e){adminVerified=false;localStorage.removeItem("soluworld_admin_token")}actualiserAdmin();
+  return adminVerified;
 }
-
-
-function clearDraft(){
-
-  localStorage.removeItem(
-    "soluworld_draft"
-  );
-
-  afficherToast(
-    "🗑️ Brouillon supprimé."
-  );
+function exigerAdmin(){if(!adminVerified){alert("🔐 Accès réservé à l’administrateur.");return false}return true}
+function actualiserAdmin(){
+  document.body.classList.toggle("admin-verified",adminVerified);
+  document.getElementById("admin-status").innerHTML=adminVerified?'<span class="admin-ok">🟢 Administrateur vérifié</span>':'<span>⚪ Non connecté</span>';
 }
-
-
-/* ==========================================
-   COMPTEUR DE CARACTÈRES
-   ========================================== */
-
-function updateCharCount(){
-
-  const textarea =
-    document.getElementById("description");
-
-  const counter =
-    document.getElementById("charCount");
-
-  if(!textarea || !counter) return;
-
-  counter.textContent =
-    textarea.value.length;
+function mettreAJourDashboard(ps){
+  let n=0,c=0,r=0,u=0,v=new Set(),cat=new Set();
+  ps.forEach(p=>{const s=p.statut||"Nouveau";if(s==="Nouveau")n++;if(s==="En cours")c++;if(s==="Résolu")r++;if(["elevee","haute"].includes(normaliser(p.urgency)))u++;if(p.City)v.add(normaliser(p.City));cat.add(normaliser(p["Catégory"]||"Autre"))});
+  const vals={total:ps.length,nouveaux:n,"en-cours":c,resolus:r,urgents:u,villes:v.size,categories:cat.size};
+  Object.entries(vals).forEach(([k,v])=>{const e=document.getElementById("stat-"+k);if(e)e.textContent=v});
+  const taux=ps.length?Math.round(r/ps.length*100):0;document.getElementById("stat-taux").textContent=taux+"%";
 }
-
-
-/* ==========================================
-   NUMÉRO DE SUIVI
-   ========================================== */
-
-function genererNumeroSuivi(){
-
-  const maintenant =
-    Date.now().toString(36).toUpperCase();
-
-  const hasard =
-    Math.random()
-      .toString(36)
-      .substring(2,7)
-      .toUpperCase();
-
-  return `SW-${maintenant}-${hasard}`;
+function construireRecherche(p){return normaliser([p.Name,p.City,p["Catégory"],p.description,p.numero_suivi,p.urgency,p.statut].join(" "))}
+function afficherListe(ps){
+  const liste=document.getElementById("problems-list");
+  if(!ps.length){liste.innerHTML='<div class="empty">📭 Aucun problème correspondant.</div>';return}
+  liste.innerHTML=ps.map(p=>{
+    const id=String(p.id||""),suivi=p.numero_suivi||"Non disponible",s=p.statut||"Nouveau",[sc,si]=statutInfo(s);
+    const adminButtons=adminVerified?`<button class="blue" type="button" onclick="modifierProbleme('${esc(id)}')">✏️ Modifier</button><button class="purple" type="button" onclick="changerStatut('${esc(id)}')">🔄 Statut</button><button class="danger" type="button" onclick="supprimerProbleme('${esc(id)}')">🗑️ Supprimer</button>`:"";
+    return `<article class="problem ${urgenceClasse(p.urgency)}" data-id="${esc(id)}">
+      <h3>📝 ${esc(p.description||"Problème sans description")}</h3>
+      <p>👤 <strong>Nom :</strong> ${esc(p.Name||"Non renseigné")}</p>
+      <p>📍 <strong>Ville :</strong> ${esc(p.City||"Non renseignée")}</p>
+      <p>🏷️ <strong>Catégorie :</strong> ${esc(p["Catégory"]||"Autre")}</p>
+      <p>🚨 <strong>Urgence :</strong> ${esc(p.urgency||"Non renseignée")}</p>
+      <p>📋 <strong>N° de suivi :</strong> <b>${esc(suivi)}</b> <button class="ghost" type="button" onclick="copierNumeroSuivi('${esc(suivi)}')">📋 Copier</button></p>
+      <p>📌 <strong>Statut :</strong> <span class="statut-badge ${sc}">${si} ${esc(s)}</span></p>
+      <div class="problem-buttons"><button class="primary" type="button" onclick="trouverSolution('${esc(id)}')">💡 Solutions</button>${adminButtons}<button class="secondary" type="button" onclick="voirProblemeSurCarte('${esc(id)}')">📍 Carte</button><button class="ghost" type="button" onclick="partagerNumero('${esc(suivi)}')">📤 Partager</button></div>
+      <div id="solution-${esc(id)}" class="solution-box"></div>
+    </article>`;
+  }).join("");
 }
-
-
-/* ==========================================
-   PUBLICATION D'UN PROBLÈME
-   ========================================== */
-
-async function publierProbleme(event){
-
-  event.preventDefault();
-
-  const formMessage =
-    document.getElementById("formMessage");
-
-  formMessage.innerHTML =
-    '<div class="success-box">⏳ Publication en cours...</div>';
-
-  const data =
-    obtenirDonneesFormulaire();
-
-  if(
-    !data.Name ||
-    !data.City ||
-    !data.Catégory ||
-    !data.urgency ||
-    !data.description
-  ){
-
-    formMessage.innerHTML =
-      '<div class="error-box">❌ Veuillez remplir tous les champs obligatoires.</div>';
-
-    return;
-  }
-
-  const numero =
-    genererNumeroSuivi();
-
-  const payload = {
-
-    Name: data.Name,
-
-    City: data.City,
-
-    Catégory: data.Catégory,
-
-    description: data.description,
-
-    urgency: data.urgency,
-
-    statut: "Nouveau",
-
-    numero_suivi: numero
-
-  };
-
+async function afficherProblemes(){
+  const liste=document.getElementById("problems-list");liste.innerHTML='<div class="loading">🔄 Chargement des problèmes...</div>';
   try{
-
-    const response =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/Problems`,
-        {
-          method:"POST",
-
-          headers:{
-            "apikey":SUPABASE_KEY,
-
-            "Authorization":
-              `Bearer ${SUPABASE_KEY}`,
-
-            "Content-Type":
-              "application/json",
-
-            "Prefer":
-              "return=representation"
-          },
-
-          body:
-            JSON.stringify(payload)
-        }
-      );
-
-    const raw =
-      await response.text();
-
-    let result = [];
-
-    try{
-      result =
-        raw ? JSON.parse(raw) : [];
-    }catch(error){
-      result = [];
-    }
-
-    if(!response.ok){
-
-      const message =
-        result?.message ||
-        result?.hint ||
-        result?.details ||
-        `Erreur HTTP ${response.status}`;
-
-      throw new Error(message);
-    }
-
-    formMessage.innerHTML = `
-      <div class="success-box">
-        ✅ Votre problème a été publié avec succès.<br><br>
-        <strong>Numéro de suivi :</strong>
-        ${escapeHTML(numero)}
-      </div>
-    `;
-
-    document.getElementById(
-      "problemForm"
-    ).reset();
-
-    updateCharCount();
-
-    localStorage.removeItem(
-      "soluworld_draft"
-    );
-
-    afficherToast(
-      "✅ Signalement publié avec succès."
-    );
-
-    await chargerProblemes();
-
-    document.getElementById(
-      "problemes"
-    ).scrollIntoView({
-      behavior:"smooth"
-    });
-
-  }catch(error){
-
-    console.error(
-      "Erreur publication:",
-      error
-    );
-
-    formMessage.innerHTML = `
-      <div class="error-box">
-        ❌ Impossible de publier le problème.<br>
-        <small>${escapeHTML(error.message)}</small>
-      </div>
-    `;
-  }
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?select=*&order=created_at.desc`,{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,Accept:"application/json","Cache-Control":"no-cache"}});
+    const t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);
+    const ps=JSON.parse(t);if(!Array.isArray(ps))throw Error("Réponse Supabase invalide.");
+    problemsCache=ps;mettreAJourDashboard(ps);remplirVillesDepuisProblemes(ps);appliquerFiltres();afficherProblemesSurCarte(ps);
+  }catch(e){console.error(e);liste.innerHTML=`<div class="problem high"><h3>❌ Impossible de charger les problèmes</h3><p>${esc(e.message)}</p></div>`}
 }
-
-
-/* ==========================================
-   CHARGEMENT DES PROBLÈMES
-   ========================================== */
-
-async function chargerProblemes(){
-
-  const box =
-    document.getElementById(
-      "liste-problemes"
-    );
-
-  if(box){
-
-    box.innerHTML =
-      '<div class="empty">⏳ Chargement des problèmes...</div>';
-
-  }
-
-  try{
-
-    const url =
-      `${SUPABASE_URL}/rest/v1/Problems` +
-      `?select=id,created_at,Name,City,"Catégory",description,urgency,statut,numero_suivi` +
-      `&order=created_at.desc`;
-
-    const response =
-      await fetch(
-        url,
-        {
-          method:"GET",
-
-          headers:{
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              `Bearer ${SUPABASE_KEY}`,
-
-            "Content-Type":
-              "application/json",
-
-            "Accept":
-              "application/json"
-          }
-        }
-      );
-
-    const raw =
-      await response.text();
-
-    let data = [];
-
-    try{
-
-      data =
-        raw ? JSON.parse(raw) : [];
-
-    }catch(error){
-
-      throw new Error(
-        "Réponse Supabase invalide."
-      );
-
-    }
-
-    if(!response.ok){
-
-      const detail =
-        data?.message ||
-        data?.hint ||
-        data?.details ||
-        `Erreur HTTP ${response.status}`;
-
-      throw new Error(detail);
-    }
-
-    problemes =
-      Array.isArray(data)
-        ? data
-        : [];
-
-    afficherListe();
-
-    mettreAJourDashboard();
-
-    afficherCarte();
-
-    return problemes;
-
-  }catch(error){
-
-    console.error(
-      "Erreur chargement Problems:",
-      error
-    );
-
-    if(box){
-
-      box.innerHTML = `
-        <div class="error-box">
-          ❌ Impossible de charger les problèmes.<br>
-          <small>
-            ${escapeHTML(error.message)}
-          </small>
-        </div>
-      `;
-
-    }
-
-    return [];
-
-  }
+function remplirVillesDepuisProblemes(ps){const s=document.getElementById("filter-city");const exist=new Set([...s.options].map(o=>o.value));ps.forEach(p=>{if(p.City&&!exist.has(p.City)){const o=document.createElement("option");o.value=p.City;o.textContent=p.City;s.appendChild(o);exist.add(p.City)}})}
+function trouverSolution(id){
+  const p=problemsCache.find(x=>String(x.id)===String(id)),box=document.getElementById("solution-"+id);if(!p||!box)return alert("❌ Problème introuvable.");
+  if(box.style.display==="block"){box.style.display="none";return}
+  const ss=SOLUTIONS[p["Catégory"]]||SOLUTIONS.Autre;
+  box.innerHTML=`<h4>💡 10 solutions possibles</h4><p>Pour : <strong>${esc(p.description||"")}</strong></p><ol class="solution-list">${ss.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`;box.style.display="block";
 }
-
-
-/* ==========================================
-   INITIALISATION DU FORMULAIRE
-   ========================================== */
-
-function initialiserFormulaire(){
-
-  const form =
-    document.getElementById(
-      "problemForm"
-    );
-
-  if(form){
-
-    form.addEventListener(
-      "submit",
-      publierProbleme
-    );
-
-  }
-
-  const textarea =
-    document.getElementById(
-      "description"
-    );
-
-  if(textarea){
-
-    textarea.addEventListener(
-      "input",
-      ()=>{
-        updateCharCount();
-
-        localStorage.setItem(
-          "soluworld_draft",
-          JSON.stringify(
-            obtenirDonneesFormulaire()
-          )
-        );
-      }
-    );
-
-  }
-
-}
-
-
-/* ==========================================
-   FILTRAGE
-   ========================================== */
-
-function resetFilters(){
-
-  const ids = [
-    "search",
-    "filterCategory",
-    "filterUrgency",
-    "filterCity"
-  ];
-
-  ids.forEach(id=>{
-
-    const element =
-      document.getElementById(id);
-
-    if(element)
-      element.value = "";
-
-  });
-
-  afficherListe();
-
-  afficherToast(
-    "🔄 Filtres réinitialisés."
-  );
-}
-
-
-/* ==========================================
-   RÉSUMÉ DES FILTRES
-   ========================================== */
-
-function mettreAJourResumeFiltres(){
-
-  const summary =
-    document.getElementById(
-      "filterSummary"
-    );
-
-  if(!summary) return;
-
-  const search =
-    document.getElementById(
-      "search"
-    )?.value.trim();
-
-  const category =
-    document.getElementById(
-      "filterCategory"
-    )?.value;
-
-  const urgency =
-    document.getElementById(
-      "filterUrgency"
-    )?.value;
-
-  const city =
-    document.getElementById(
-      "filterCity"
-    )?.value;
-
-  const filtres = [];
-
-  if(search)
-    filtres.push(`Recherche : "${search}"`);
-
-  if(category)
-    filtres.push(`Catégorie : ${category}`);
-
-  if(urgency)
-    filtres.push(`Urgence : ${urgency}`);
-
-  if(city)
-    filtres.push(`Ville : ${city}`);
-
-  summary.textContent =
-    filtres.length
-      ? `🔎 Filtres actifs : ${filtres.join(" • ")}`
-      : "Aucun filtre actif.";
-
-}
-
-
-/* ==========================================
-   TRI ET AFFICHAGE
-   ========================================== */
-
-function afficherListe(){
-
-  const box =
-    document.getElementById(
-      "liste-problemes"
-    );
-
-  if(!box) return;
-
-  const search =
-    (
-      document.getElementById(
-        "search"
-      )?.value || ""
-    ).toLowerCase().trim();
-
-  const category =
-    document.getElementById(
-      "filterCategory"
-    )?.value || "";
-
-  const urgency =
-    document.getElementById(
-      "filterUrgency"
-    )?.value || "";
-
-  const city =
-    document.getElementById(
-      "filterCity"
-    )?.value || "";
-
-  const filtered =
-    problemes.filter(p=>{
-
-      const texte = [
-        p.Name,
-        p.City,
-        p.Catégory,
-        p.description,
-        p.urgency,
-        p.statut,
-        p.numero_suivi
-      ]
-      .join(" ")
-      .toLowerCase();
-
-      if(search && !texte.includes(search))
-        return false;
-
-      if(category &&
-         p.Catégory !== category)
-        return false;
-
-      if(urgency &&
-         p.urgency !== urgency)
-        return false;
-
-      if(city &&
-         p.City !== city)
-        return false;
-
-      return true;
-
-    });
-
-  mettreAJourResumeFiltres();
-
-  if(!filtered.length){
-
-    box.innerHTML =
-      '<div class="empty">Aucun problème ne correspond aux critères.</div>';
-
-    return;
-  }
-
-  box.innerHTML =
-    filtered
-      .map(creerCarteProbleme)
-      .join("");
-
-}
-
-
-/* ==========================================
-   CRÉATION D'UNE CARTE PROBLÈME
-   ========================================== */
-
-function creerCarteProbleme(p){
-
-  const urgence =
-    p.urgency || "Faible";
-
-  const statut =
-    p.statut || "Nouveau";
-
-  let urgencyClass = "";
-
-  if(urgence === "Élevée")
-    urgencyClass = "urgent";
-
-  else if(urgence === "Moyenne")
-    urgencyClass = "medium";
-
-  else
-    urgencyClass = "low";
-
-  const numero =
-    p.numero_suivi ||
-    "Non disponible";
-
-  const date =
-    p.created_at
-      ? new Date(
-          p.created_at
-        ).toLocaleString(
-          "fr-FR"
-        )
-      : "Date inconnue";
-
-  const solution =
-    solutions[p.Catégory]?.[0] ||
-    "Une solution sera proposée après analyse du problème.";
-
-  return `
-    <article
-      class="problem-card"
-      data-id="${escapeHTML(p.id)}">
-
-      <div class="problem-head">
-
-        <div>
-
-          <div class="problem-title">
-            ${escapeHTML(
-              p.Catégory ||
-              "Problème signalé"
-            )}
-          </div>
-
-          <div class="problem-meta">
-
-            <span>
-              📍 ${escapeHTML(
-                p.City ||
-                "Ville inconnue"
-              )}
-            </span>
-
-            <span>
-              👤 ${escapeHTML(
-                p.Name ||
-                "Anonyme"
-              )}
-            </span>
-
-            <span>
-              📅 ${escapeHTML(date)}
-            </span>
-
-          </div>
-
-        </div>
-
-        <div>
-
-          <span class="badge ${urgencyClass}">
-            ${escapeHTML(urgence)}
-          </span>
-
-        </div>
-
-      </div>
-
-      <p class="problem-description">
-        ${escapeHTML(
-          p.description ||
-          "Aucune description."
-        )}
-      </p>
-
-      <div class="solution-box">
-        <strong>💡 Solution proposée</strong>
-        <br>
-        ${escapeHTML(solution)}
-      </div>
-
-      <div class="problem-meta">
-
-        <span class="badge">
-          Statut : ${escapeHTML(statut)}
-        </span>
-
-        <span class="badge">
-          Suivi : ${escapeHTML(numero)}
-        </span>
-
-      </div>
-
-      <div class="actions">
-
-        <button
-          class="btn secondary"
-          type="button"
-          onclick="voirSurCarte('${escapeHTML(p.City || "")}')">
-          🗺️ Voir sur la carte
-        </button>
-
-        ${
-          adminToken
-          ? `
-            <button
-              class="btn warning"
-              type="button"
-              onclick="modifierProbleme('${escapeHTML(p.id)}')">
-              ✏️ Modifier
-            </button>
-
-            <button
-              class="btn danger"
-              type="button"
-              onclick="supprimerProbleme('${escapeHTML(p.id)}')">
-              🗑️ Supprimer
-            </button>
-          `
-          : ""
-        }
-
-      </div>
-
-    </article>
-  `;
-}
-
-
-/* ==========================================
-   MISE À JOUR DU TABLEAU DE BORD
-   ========================================== */
-
-function mettreAJourDashboard(){
-
-  const total =
-    problemes.length;
-
-  const nouveaux =
-    problemes.filter(
-      p => (p.statut || "Nouveau")
-        .toLowerCase() === "nouveau"
-    ).length;
-
-  const enCours =
-    problemes.filter(
-      p => (p.statut || "")
-        .toLowerCase() === "en cours"
-    ).length;
-
-  const resolus =
-    problemes.filter(
-      p => (p.statut || "")
-        .toLowerCase() === "résolu"
-    ).length;
-
-  const urgents =
-    problemes.filter(
-      p => p.urgency === "Élevée"
-    ).length;
-
-  const villesUniques =
-    new Set(
-      problemes
-        .map(p=>p.City)
-        .filter(Boolean)
-    ).size;
-
-  const categoriesUniques =
-    new Set(
-      problemes
-        .map(p=>p.Catégory)
-        .filter(Boolean)
-    ).size;
-
-  const taux =
-    total
-      ? Math.round(
-          (resolus / total) * 100
-        )
-      : 0;
-
-  const values = {
-
-    "stat-total":
-      total,
-
-    "stat-new":
-      nouveaux,
-
-    "stat-progress":
-      enCours,
-
-    "stat-resolved":
-      resolus,
-
-    "stat-urgent":
-      urgents,
-
-    "stat-cities":
-      villesUniques,
-
-    "stat-categories":
-      categoriesUniques,
-
-    "stat-rate":
-      `${taux}%`
-
-  };
-
-  Object.entries(values)
-    .forEach(([id,value])=>{
-
-      const element =
-        document.getElementById(id);
-
-      if(element)
-        element.textContent =
-          value;
-
-    });
-
-}
-
-</script>
-<script>
-
-/* ==========================================
-   CARTE INTERACTIVE
-   ========================================== */
-
-function initialiserCarte(){
-
-  const mapElement =
-    document.getElementById("map");
-
-  if(!mapElement) return;
-
-  if(typeof L === "undefined"){
-
-    mapElement.innerHTML =
-      '<div class="error-box">❌ La carte n’a pas pu être chargée.</div>';
-
-    return;
-  }
-
-  map = L.map("map").setView(
-    [12.3714,-1.5197],
-    6
-  );
-
-  L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-      maxZoom:19,
-      attribution:
-        '&copy; OpenStreetMap'
-    }
-  ).addTo(map);
-
-  afficherCarte();
-}
-
-
-/* ==========================================
-   COULEUR DES MARQUEURS
-   ========================================== */
-
-function couleurUrgence(urgence){
-
-  if(urgence === "Élevée")
-    return "#d64545";
-
-  if(urgence === "Moyenne")
-    return "#f4b400";
-
-  return "#087f5b";
-}
-
-
-/* ==========================================
-   CRÉATION D'ICÔNE POUR LA CARTE
-   ========================================== */
-
-function creerIcone(urgence){
-
-  const couleur =
-    couleurUrgence(urgence);
-
-  return L.divIcon({
-
-    className:"soluworld-marker",
-
-    html:`
-      <div style="
-        width:24px;
-        height:24px;
-        border-radius:50%;
-        background:${couleur};
-        border:3px solid white;
-        box-shadow:0 2px 8px rgba(0,0,0,.35);
-      "></div>
-    `,
-
-    iconSize:[24,24],
-
-    iconAnchor:[12,12]
-
-  });
-}
-
-
-/* ==========================================
-   AFFICHER LES PROBLÈMES SUR LA CARTE
-   ========================================== */
-
-function afficherCarte(){
-
-  if(!map) return;
-
-  markers.forEach(marker=>{
-
-    try{
-      map.removeLayer(marker);
-    }catch(error){}
-
-  });
-
-  markers = [];
-
-  problemes.forEach(p=>{
-
-    const position =
-      villes[p.City];
-
-    if(!position) return;
-
-    const marker =
-      L.marker(
-        position,
-        {
-          icon:
-            creerIcone(
-              p.urgency
-            )
-        }
-      );
-
-    const numero =
-      p.numero_suivi ||
-      "Non disponible";
-
-    const statut =
-      p.statut ||
-      "Nouveau";
-
-    marker.bindPopup(`
-
-      <div style="
-        min-width:220px;
-        font-family:Arial;
-      ">
-
-        <strong>
-          ${escapeHTML(
-            p.Catégory ||
-            "Problème"
-          )}
-        </strong>
-
-        <br><br>
-
-        📍 ${escapeHTML(
-          p.City ||
-          "Ville inconnue"
-        )}
-
-        <br>
-
-        ⚠️ ${escapeHTML(
-          p.urgency ||
-          "Faible"
-        )}
-
-        <br>
-
-        📌 ${escapeHTML(
-          statut
-        )}
-
-        <br>
-
-        🔎 ${escapeHTML(
-          numero
-        )}
-
-        <br><br>
-
-        ${escapeHTML(
-          p.description ||
-          ""
-        )}
-
-      </div>
-
-    `);
-
-    marker.addTo(map);
-
-    markers.push(marker);
-
-  });
-
-}
-
-
-/* ==========================================
-   VOIR UNE VILLE SUR LA CARTE
-   ========================================== */
-
-function voirSurCarte(city){
-
-  const position =
-    villes[city];
-
-  if(!position){
-
-    afficherToast(
-      "📍 Ville non disponible sur la carte."
-    );
-
-    return;
-  }
-
-  document
-    .getElementById("carte")
-    ?.scrollIntoView({
-      behavior:"smooth"
-    });
-
-  if(map){
-
-    setTimeout(()=>{
-
-      map.setView(
-        position,
-        12
-      );
-
-    },400);
-
-  }
-
-}
-
-
-/* ==========================================
-   SUIVI D'UN PROBLÈME
-   ========================================== */
-
-function suivreProbleme(){
-
-  const input =
-    document.getElementById(
-      "trackingNumber"
-    );
-
-  const result =
-    document.getElementById(
-      "trackingResult"
-    );
-
-  if(!input || !result)
-    return;
-
-  const numero =
-    input.value
-      .trim()
-      .toUpperCase();
-
-  if(!numero){
-
-    result.innerHTML = `
-      <div class="error-box">
-        ❌ Veuillez entrer un numéro de suivi.
-      </div>
-    `;
-
-    return;
-  }
-
-  const probleme =
-    problemes.find(
-      p =>
-        String(
-          p.numero_suivi || ""
-        ).toUpperCase() === numero
-    );
-
-  if(!probleme){
-
-    result.innerHTML = `
-      <div class="error-box">
-        ❌ Aucun problème trouvé avec ce numéro de suivi.
-      </div>
-    `;
-
-    return;
-  }
-
-  const statut =
-    probleme.statut ||
-    "Nouveau";
-
-  let progression = 25;
-
-  if(statut === "En cours")
-    progression = 60;
-
-  if(statut === "Résolu")
-    progression = 100;
-
-  result.innerHTML = `
-
-    <div class="problem-card">
-
-      <h3>
-        📌 ${escapeHTML(
-          probleme.Catégory ||
-          "Problème"
-        )}
-      </h3>
-
-      <div class="problem-meta">
-
-        <span>
-          📍 ${escapeHTML(
-            probleme.City ||
-            "Ville inconnue"
-          )}
-        </span>
-
-        <span>
-          ⚠️ ${escapeHTML(
-            probleme.urgency ||
-            "Faible"
-          )}
-        </span>
-
-        <span>
-          📅 ${
-            probleme.created_at
-              ? new Date(
-                  probleme.created_at
-                ).toLocaleString(
-                  "fr-FR"
-                )
-              : "Date inconnue"
-          }
-        </span>
-
-      </div>
-
-      <p>
-        ${escapeHTML(
-          probleme.description ||
-          ""
-        )}
-      </p>
-
-      <p>
-        <strong>
-          Statut actuel :
-        </strong>
-
-        ${escapeHTML(statut)}
-      </p>
-
-      <div class="progress">
-
-        <div
-          class="progress-bar"
-          style="width:${progression}%">
-        </div>
-
-      </div>
-
-      <p style="
-        text-align:center;
-        font-weight:800;
-        margin-bottom:0;
-      ">
-        ${progression}% d'avancement
-      </p>
-
-    </div>
-
-  `;
-
-}
-
-
-/* ==========================================
-   PARTAGE DU SUIVI
-   ========================================== */
-
-function partagerSuivi(){
-
-  const input =
-    document.getElementById(
-      "trackingNumber"
-    );
-
-  if(!input)
-    return;
-
-  const numero =
-    input.value.trim();
-
-  if(!numero){
-
-    afficherToast(
-      "🔎 Entrez d'abord un numéro de suivi."
-    );
-
-    return;
-  }
-
-  const url =
-    `${window.location.origin}` +
-    `${window.location.pathname}` +
-    `#suivi?numero=${encodeURIComponent(numero)}`;
-
-  if(
-    navigator.share
-  ){
-
-    navigator.share({
-
-      title:"SOLUWORLD",
-
-      text:
-        `Suivi du problème ${numero}`,
-
-      url:url
-
-    }).catch(()=>{});
-
-  }else{
-
-    navigator.clipboard
-      ?.writeText(url)
-      .then(()=>{
-
-        afficherToast(
-          "📋 Lien de suivi copié."
-        );
-
-      })
-      .catch(()=>{
-
-        afficherToast(
-          "🔗 Lien prêt : " + url
-        );
-
-      });
-
-  }
-
-}
-
-
-/* ==========================================
-   MODIFICATION D'UN PROBLÈME
-   ========================================== */
-
-function modifierProbleme(id){
-
-  if(!adminToken){
-
-    afficherToast(
-      "🔐 Connectez-vous comme administrateur."
-    );
-
-    return;
-  }
-
-  const probleme =
-    problemes.find(
-      p => String(p.id) === String(id)
-    );
-
-  if(!probleme){
-
-    afficherToast(
-      "❌ Problème introuvable."
-    );
-
-    return;
-  }
-
-  const nouveauStatut =
-    prompt(
-      "Nouveau statut :\n\nNouveau\nEn cours\nRésolu",
-      probleme.statut || "Nouveau"
-    );
-
-  if(nouveauStatut === null)
-    return;
-
-  const statut =
-    nouveauStatut.trim();
-
-  if(
-    ![
-      "Nouveau",
-      "En cours",
-      "Résolu"
-    ].includes(statut)
-  ){
-
-    afficherToast(
-      "❌ Statut non valide."
-    );
-
-    return;
-  }
-
-  mettreAJourStatut(
-    probleme.id,
-    statut
-  );
-
-}
-
-
-/* ==========================================
-   MISE À JOUR DU STATUT
-   ========================================== */
-
-async function mettreAJourStatut(
-  id,
-  statut
-){
-
-  if(!adminToken){
-
-    afficherToast(
-      "🔐 Session administrateur absente."
-    );
-
-    return;
-  }
-
-  try{
-
-    const response =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/Problems?id=eq.${encodeURIComponent(id)}`,
-        {
-          method:"PATCH",
-
-          headers:{
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              `Bearer ${adminToken}`,
-
-            "Content-Type":
-              "application/json",
-
-            "Prefer":
-              "return=representation"
-          },
-
-          body:
-            JSON.stringify({
-              statut:statut
-            })
-        }
-      );
-
-    const raw =
-      await response.text();
-
-    let data = [];
-
-    try{
-      data =
-        raw ? JSON.parse(raw) : [];
-    }catch(error){}
-
-    if(!response.ok){
-
-      throw new Error(
-        data?.message ||
-        data?.hint ||
-        data?.details ||
-        `Erreur HTTP ${response.status}`
-      );
-
-    }
-
-    afficherToast(
-      "✅ Statut mis à jour."
-    );
-
-    await chargerProblemes();
-
-  }catch(error){
-
-    console.error(
-      "Erreur mise à jour:",
-      error
-    );
-
-    afficherToast(
-      "❌ " + error.message
-    );
-
-  }
-
-}
-
-
-/* ==========================================
-   SUPPRESSION D'UN PROBLÈME
-   ========================================== */
-
 async function supprimerProbleme(id){
-
-  if(!adminToken){
-
-    afficherToast(
-      "🔐 Connexion administrateur requise."
-    );
-
-    return;
-  }
-
-  const confirmation =
-    confirm(
-      "⚠️ Voulez-vous vraiment supprimer ce problème ?"
-    );
-
-  if(!confirmation)
-    return;
-
-  try{
-
-    const response =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/Problems?id=eq.${encodeURIComponent(id)}`,
-        {
-          method:"DELETE",
-
-          headers:{
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              `Bearer ${adminToken}`,
-
-            "Content-Type":
-              "application/json"
-          }
-        }
-      );
-
-    const raw =
-      await response.text();
-
-    let data = {};
-
-    try{
-      data =
-        raw ? JSON.parse(raw) : {};
-    }catch(error){}
-
-    if(!response.ok){
-
-      throw new Error(
-        data?.message ||
-        data?.hint ||
-        data?.details ||
-        `Erreur HTTP ${response.status}`
-      );
-
-    }
-
-    afficherToast(
-      "🗑️ Problème supprimé."
-    );
-
-    await chargerProblemes();
-
-  }catch(error){
-
-    console.error(
-      "Erreur suppression:",
-      error
-    );
-
-    afficherToast(
-      "❌ " + error.message
-    );
-
-  }
-
+  if(!exigerAdmin())return;if(!confirm("⚠️ Voulez-vous vraiment supprimer ce problème ?"))return;
+  try{const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?id=eq.${encodeURIComponent(id)}`,{method:"DELETE",headers:authHeaders()});const t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);await afficherProblemes();alert("✅ Problème supprimé.")}catch(e){alert("❌ Suppression impossible.\n\n"+e.message)}
 }
-
-
-/* ==========================================
-   EXPORT CSV
-   ========================================== */
-
-function exportCSV(){
-
-  if(!problemes.length){
-
-    afficherToast(
-      "📄 Aucun problème à exporter."
-    );
-
-    return;
-  }
-
-  const headers = [
-    "id",
-    "created_at",
-    "Name",
-    "City",
-    "Catégory",
-    "description",
-    "urgency",
-    "statut",
-    "numero_suivi"
-  ];
-
-  const rows =
-    problemes.map(p =>
-      headers.map(
-        h =>
-          `"${String(
-            p[h] ?? ""
-          )
-          .replace(/"/g,'""')}"`
-      ).join(",")
-    );
-
-  const csv =
-    "\uFEFF" +
-    headers.join(",") +
-    "\n" +
-    rows.join("\n");
-
-  const blob =
-    new Blob(
-      [csv],
-      {
-        type:
-          "text/csv;charset=utf-8;"
-      }
-    );
-
-  const url =
-    URL.createObjectURL(blob);
-
-  const link =
-    document.createElement("a");
-
-  link.href = url;
-
-  link.download =
-    `soluworld-problemes-${new Date()
-      .toISOString()
-      .slice(0,10)}.csv`;
-
-  document.body.appendChild(link);
-
-  link.click();
-
-  link.remove();
-
-  URL.revokeObjectURL(url);
-
-  afficherToast(
-    "📥 Export CSV terminé."
-  );
-
+function modifierProbleme(id){
+  if(!exigerAdmin())return;const p=problemsCache.find(x=>String(x.id)===String(id));if(!p)return alert("❌ Problème introuvable.");
+  problemeEnModification=id;document.getElementById("edit-nom").value=p.Name||"";document.getElementById("edit-ville").value=p.City||"";document.getElementById("edit-categorie").value=p["Catégory"]||"";document.getElementById("edit-description").value=p.description||"";document.getElementById("edit-urgence").value=p.urgency||"";
+  document.getElementById("edit-description-counter").textContent=(p.description||"").length+" / 1000";const s=document.getElementById("edit-section");s.style.display="block";s.scrollIntoView({behavior:"smooth"});
 }
-
-        </script>
-  <!-- SOLUWORLD: structure et compatibilité mobile. -->
+async function changerStatut(id){
+  if(!exigerAdmin())return;const p=problemsCache.find(x=>String(x.id)===String(id));if(!p)return alert("❌ Problème introuvable.");
+  const next={Nouveau:"En cours","En cours":"Résolu","Résolu":"Nouveau"}[p.statut||"Nouveau"]||"Nouveau";
+  try{const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?id=eq.${encodeURIComponent(id)}`,{method:"PATCH",headers:authHeaders(),body:JSON.stringify({statut:next})});const t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);await afficherProblemes();}catch(e){alert("❌ Changement impossible.\n\n"+e.message)}
+}
+function obtenirCoordonneesVille(v){const k=Object.keys(VILLES).find(x=>normaliser(x)===normaliser(v));return k?VILLES[k]:null}
+function creerIcone(u){const c=urgenceClasse(u)==="high"?"red":urgenceClasse(u)==="medium"?"orange":"green";return L.divIcon({className:"",html:`<div style="width:18px;height:18px;background:${c};border:2px solid white;border-radius:50%;box-shadow:0 0 5px #000"></div>`,iconSize:[18,18],iconAnchor:[9,9]})}
+function afficherProblemesSurCarte(ps){
+  if(!carte)return;marqueursCarte.forEach(m=>carte.removeLayer(m));marqueursCarte=[];
+  ps.forEach(p=>{const co=obtenirCoordonneesVille(p.City||"");if(!co)return;const m=L.marker(co,{icon:creerIcone(p.urgency)}).addTo(carte);m.problemData=p;m.bindPopup(`<strong>${esc(p["Catégory"]||"Autre")}</strong><br>🏙️ ${esc(p.City||"")}<br>🚨 ${esc(p.urgency||"")}<br>📋 ${esc(p.numero_suivi||"")}<br>📝 ${esc(p.description||"")}`);marqueursCarte.push(m)});
+}
+function initialiserCarte(){carte=L.map("map").setView([12.3714,-1.5197],6);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap contributors"}).addTo(carte)}
+function centrerBurkina(){if(carte)carte.flyTo([12.3714,-1.5197],6,{duration:1})}
+function afficherTousLesMarqueurs(){marqueursCarte.forEach(m=>m.addTo(carte))}
+function voirProblemeSurCarte(id){const m=marqueursCarte.find(x=>String(x.problemData.id)===String(id));if(!m)return alert("📍 Ville non disponible sur la carte.");carte.flyTo(m.getLatLng(),12,{duration:1});setTimeout(()=>m.openPopup(),700)}
+function filtrerCarte(q,cat,city,st,urg){
+  marqueursCarte.forEach(m=>{const p=m.problemData,t=construireRecherche(p),c=normaliser(p["Catégory"]||""),v=normaliser(p.City||"");const ok=(!q||t.includes(q))&&(!cat||c===cat)&&(!city||v===city)&&(!st||(p.statut||"Nouveau")===st)&&(!urg||p.urgency===urg);ok?m.addTo(carte):carte.removeLayer(m)})
+}
+function appliquerFiltres(){
+  const q=normaliser(document.getElementById("search-problems").value),cat=normaliser(document.getElementById("filter-category").value),st=document.getElementById("filter-status").value,urg=document.getElementById("filter-urgency").value,sort=document.getElementById("sort-problems").value,city=normaliser(document.getElementById("filter-city").value);
+  let ps=problemsCache.filter(p=>(!q||construireRecherche(p).includes(q))&&(!cat||normaliser(p["Catégory"]||"")===cat)&&(!st||(p.statut||"Nouveau")===st)&&(!urg||p.urgency===urg)&&(!city||normaliser(p.City||"")===city));
+  ps.sort((a,b)=>sort==="oldest"?new Date(a.created_at)-new Date(b.created_at):sort==="urgent"?({Élevée:0,Moyenne:1,Faible:2}[a.urgency]??3)-({Élevée:0,Moyenne:1,Faible:2}[b.urgency]??3):new Date(b.created_at)-new Date(a.created_at));
+  afficherListe(ps);document.getElementById("problems-message").className="message info";document.getElementById("problems-message").textContent=`${ps.length} problème(s) affiché(s).`;document.getElementById("filter-summary").textContent=`Filtres actifs : ${[cat||"toutes catégories",st||"tous statuts",urg||"toutes urgences",city||"toutes villes"].join(" • ")}`;filtrerCarte(q,cat,city,st,urg);
+}
+async function suivreSignalement(){
+  const n=document.getElementById("tracking-number").value.trim(),box=document.getElementById("tracking-result");if(!n){box.innerHTML='<div class="error">⚠️ Entrez un numéro desuivi.</div>';return}
+  box.innerHTML='<div class="loading">🔄 Recherche...</div>';
+  try{const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?numero_suivi=eq.${encodeURIComponent(n)}&select=*`,{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});const ps=await r.json();if(!r.ok)throw Error("Supabase "+r.status);if(!ps.length){box.innerHTML=`<div class="error">❌ Aucun signalement pour <b>${esc(n)}</b>.</div>`;return}
+    const p=ps[0],s=p.statut||"Nouveau",[_,i]=statutInfo(s),pct=s==="Résolu"?100:s==="En cours"?50:15;
+    box.innerHTML=`<div class="problem"><h3>✅ Signalement trouvé</h3><p>📋 <strong>N° :</strong> ${esc(p.numero_suivi||n)}</p><p>📝 <strong>Problème :</strong> ${esc(p.description||"")}</p><p>📍 <strong>Ville :</strong> ${esc(p.City||"")}</p><p>🏷️ <strong>Catégorie :</strong> ${esc(p["Catégory"]||"Autre")}</p><p>🚨 <strong>Urgence :</strong> ${esc(p.urgency||"")}</p><p>📌 <strong>Statut :</strong> ${i} ${esc(s)}</p><div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div><p>📅 <strong>Signalé le :</strong> ${esc(p.created_at?new Date(p.created_at).toLocaleString("fr-FR"):"Date inconnue")}</p></div>`;
+  }catch(e){box.innerHTML=`<div class="error">❌ Erreur : ${esc(e.message)}</div>`}
+}
+function copierNumeroSuivi(n){if(navigator.clipboard)navigator.clipboard.writeText(n).then(()=>alert("✅ Numéro copié !\n\n"+n));else prompt("Copiez ce numéro :",n)}
+function partagerNumero(n){if(!n||n==="Non disponible")return;const text=`Mon signalement SOLUWORLD : ${n}`;navigator.share?navigator.share({title:"SOLUWORLD",text}):navigator.clipboard?.writeText(text).then(()=>alert("✅ Informations copiées."))}
+function partagerSuivi(){const n=document.getElementById("tracking-number").value.trim();if(n)partagerNumero(n);else alert("Entrez d’abord un numéro de suivi.")}
+function genererNumero(){const an=new Date().getFullYear();return `SW-${an}-${Math.floor(100000+Math.random()*900000)}`}
+function exporterCSV(){
+  if(!problemsCache.length)return alert("Aucun problème à exporter.");
+  const cols=["id","created_at","Name","City","Catégory","description","urgency","numero_suivi","statut"],rows=[cols,...problemsCache.map(p=>cols.map(c=>String(p[c]??"").replace(/"/g,'""')))];
+  const csv=rows.map(r=>r.map(x=>`"${x}"`).join(";")).join("\n"),blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="soluworld-signalements.csv";a.click();URL.revokeObjectURL(a.href);
+}
+function sauverBrouillon(){
+  const ids=["nom","ville","catégorie","urgence","problème"],d={};ids.forEach(id=>d[id]=document.getElementById(id).value);localStorage.setItem("soluworld_draft",JSON.stringify(d));document.getElementById("draft-status").textContent="✅ Brouillon enregistré sur cet appareil.";
+}
+function chargerBrouillon(){
+  try{const d=JSON.parse(localStorage.getItem("soluworld_draft")||"null");if(!d)return;["nom","ville","catégorie","urgence","problème"].forEach(id=>{if(d[id]!=null)document.getElementById(id).value=d[id]});mettreAJourCompteur();document.getElementById("draft-status").textContent="📝 Brouillon restauré automatiquement."}catch(e){console.warn(e)}
+}
+function effacerBrouillon(){localStorage.removeItem("soluworld_draft");document.getElementById("draft-status").textContent="🧹 Brouillon effacé."}
+function mettreAJourCompteur(){document.getElementById("description-counter").textContent=document.getElementById("problème").value.length+" / 1000";document.getElementById("edit-description-counter").textContent=document.getElementById("edit-description").value.length+" / 1000"}
+document.getElementById("problem-form").addEventListener("submit",async e=>{
+  e.preventDefault();const b=document.getElementById("publish-button"),nom=document.getElementById("nom").value.trim(),ville=document.getElementById("ville").value.trim(),cat=document.getElementById("catégorie").value,desc=document.getElementById("problème").value.trim(),urg=document.getElementById("urgence").value;
+  if(!nom||!ville||!cat||!desc||!urg)return alert("⚠️ Veuillez remplir tous les champs.");b.disabled=true;
+  try{const suivi=genererNumero(),r=await fetch(`${SUPABASE_URL}/rest/v1/Problems`,{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=minimal"},body:JSON.stringify({Name:nom,City:ville,"Catégory":cat,description:desc,urgency:urg,numero_suivi:suivi})}),t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);alert(`✅ Problème publié !\n\n📋 Votre numéro de suivi :\n${suivi}`);e.target.reset();effacerBrouillon();mettreAJourCompteur();await afficherProblemes();document.getElementById("tracking-number").value=suivi;allerA("tracking-section")}catch(x){alert("❌ Impossible de publier.\n\n"+x.message)}finally{b.disabled=false}
+});
+document.getElementById("admin-login-form").addEventListener("submit",async e=>{
+  e.preventDefault();const email=document.getElementById("admin-email").value.trim(),password=document.getElementById("admin-password").value,msg=document.getElementById("admin-login-message");msg.className="message";msg.textContent="🔄 Vérification...";
+  try{const r=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{method:"POST",headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email,password})}),d=await r.json();if(!r.ok)throw Error(d.error_description||d.msg||"Connexion impossible.");localStorage.setItem("soluworld_admin_token",d.access_token);if(!await verifierAdmin())throw Error("Ce compte n’est pas autorisé comme administrateur.");msg.className="success";msg.textContent="✅ Administrateur vérifié avec succès.";document.getElementById("admin-password").value="";afficherListe(problemsCache)}catch(x){localStorage.removeItem("soluworld_admin_token");adminVerified=false;actualiserAdmin();msg.className="error";msg.textContent="❌ "+x.message}
+});
+document.getElementById("logout-button").addEventListener("click",()=>{localStorage.removeItem("soluworld_admin_token");adminVerified=false;actualiserAdmin();problemeEnModification=null;document.getElementById("edit-section").style.display="none";afficherListe(problemsCache);alert("🚪 Déconnexion effectuée.")});
+document.getElementById("edit-form").addEventListener("submit",async e=>{
+  e.preventDefault();if(!exigerAdmin()||!problemeEnModification)return;const id=problemeEnModification,body={Name:document.getElementById("edit-nom").value.trim(),City:document.getElementById("edit-ville").value.trim(),"Catégory":document.getElementById("edit-categorie").value,description:document.getElementById("edit-description").value.trim(),urgency:document.getElementById("edit-urgence").value};
+  try{const r=await fetch(`${SUPABASE_URL}/rest/v1/Problems?id=eq.${encodeURIComponent(id)}`,{method:"PATCH",headers:authHeaders(),body:JSON.stringify(body)}),t=await r.text();if(!r.ok)throw Error("Supabase "+r.status+" : "+t);document.getElementById("edit-message").className="success";document.getElementById("edit-message").textContent="✅ Modification enregistrée.";problemeEnModification=null;document.getElementById("edit-section").style.display="none";await afficherProblemes()}catch(x){document.getElementById("edit-message").className="error";document.getElementById("edit-message").textContent="❌ "+x.message}
+});
+document.getElementById("cancel-edit").addEventListener("click",()=>{problemeEnModification=null;document.getElementById("edit-form").reset();document.getElementById("edit-section").style.display="none"});
+document.getElementById("theme-button").addEventListener("click",()=>{document.body.classList.toggle("dark");const d=document.body.classList.contains("dark");localStorage.setItem("soluworld_dark",d);document.getElementById("theme-button").textContent=d?"☀️ Mode clair":"🌙 Mode sombre"});
+document.getElementById("contrast-button").addEventListener("click",()=>{document.body.classList.toggle("contrast");const a=document.body.classList.contains("contrast");localStorage.setItem("soluworld_contrast",a);document.getElementById("contrast-button").textContent=a?"◑ Contraste normal":"◐ Contraste"});
+document.getElementById("save-draft").addEventListener("click",sauverBrouillon);
+document.getElementById("clear-draft").addEventListener("click",effacerBrouillon);
+document.getElementById("problem-form").addEventListener("input",()=>{mettreAJourCompteur();clearTimeout(window.soluworldDraftTimer);window.soluworldDraftTimer=setTimeout(sauverBrouillon,700)});
+document.getElementById("edit-description").addEventListener("input",mettreAJourCompteur);
+["search-problems","filter-category","filter-status","filter-urgency","sort-problems","filter-city"].forEach(id=>document.getElementById(id).addEventListener("input",appliquerFiltres));
+document.getElementById("clear-search").addEventListener("click",()=>{["search-problems","filter-category","filter-status","filter-urgency","filter-city"].forEach(id=>document.getElementById(id).value="");document.getElementById("sort-problems").value="newest";appliquerFiltres()});
+document.addEventListener("DOMContentLoaded",async()=>{
+  remplirCategories();initialiserCarte();actualiserAdmin();chargerBrouillon();
+  if(localStorage.getItem("soluworld_contrast")==="true"){document.body.classList.add("contrast");document.getElementById("contrast-button").textContent="◑ Contraste normal"}
+  if(localStorage.getItem("soluworld_dark")==="true"){document.body.classList.add("dark");document.getElementById("theme-button").textContent="☀️ Mode clair"}
+  mettreAJourCompteur();await verifierAdmin();afficherProblemes();
+});
+</script>
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
@@ -2863,6 +491,7 @@ function exportCSV(){
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. --><!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
@@ -2903,7 +532,71 @@ function exportCSV(){
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
-  <!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
+<!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
 <!-- SOLUWORLD: structure et compatibilité mobile. -->
@@ -2916,91 +609,3 @@ document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.sw
 
 </body>
 </html>
-<!-- SOLUWORLD PRO BUILD LINE 001 -->
-<!-- SOLUWORLD PRO BUILD LINE 002 -->
-<!-- SOLUWORLD PRO BUILD LINE 003 -->
-<!-- SOLUWORLD PRO BUILD LINE 004 -->
-<!-- SOLUWORLD PRO BUILD LINE 005 -->
-<!-- SOLUWORLD PRO BUILD LINE 006 -->
-<!-- SOLUWORLD PRO BUILD LINE 007 -->
-<!-- SOLUWORLD PRO BUILD LINE 008 -->
-<!-- SOLUWORLD PRO BUILD LINE 009 -->
-<!-- SOLUWORLD PRO BUILD LINE 010 -->
-<!-- SOLUWORLD PRO BUILD LINE 011 -->
-<!-- SOLUWORLD PRO BUILD LINE 012 -->
-<!-- SOLUWORLD PRO BUILD LINE 013 -->
-<!-- SOLUWORLD PRO BUILD LINE 014 -->
-<!-- SOLUWORLD PRO BUILD LINE 015 -->
-<!-- SOLUWORLD PRO BUILD LINE 016 -->
-<!-- SOLUWORLD PRO BUILD LINE 017 -->
-<!-- SOLUWORLD PRO BUILD LINE 018 -->
-<!-- SOLUWORLD PRO BUILD LINE 019 -->
-<!-- SOLUWORLD PRO BUILD LINE 020 -->
-<!-- SOLUWORLD PRO BUILD LINE 021 -->
-<!-- SOLUWORLD PRO BUILD LINE 022 -->
-<!-- SOLUWORLD PRO BUILD LINE 023 -->
-<!-- SOLUWORLD PRO BUILD LINE 024 -->
-<!-- SOLUWORLD PRO BUILD LINE 025 -->
-<!-- SOLUWORLD PRO BUILD LINE 026 -->
-<!-- SOLUWORLD PRO BUILD LINE 027 -->
-<!-- SOLUWORLD PRO BUILD LINE 028 -->
-<!-- SOLUWORLD PRO BUILD LINE 029 -->
-<!-- SOLUWORLD PRO BUILD LINE 030 -->
-<!-- SOLUWORLD PRO BUILD LINE 031 -->
-<!-- SOLUWORLD PRO BUILD LINE 032 -->
-<!-- SOLUWORLD PRO BUILD LINE 033 -->
-<!-- SOLUWORLD PRO BUILD LINE 034 -->
-<!-- SOLUWORLD PRO BUILD LINE 035 -->
-<!-- SOLUWORLD PRO BUILD LINE 036 -->
-<!-- SOLUWORLD PRO BUILD LINE 037 -->
-<!-- SOLUWORLD PRO BUILD LINE 038 -->
-<!-- SOLUWORLD PRO BUILD LINE 039 -->
-<!-- SOLUWORLD PRO BUILD LINE 040 -->
-<!-- SOLUWORLD PRO BUILD LINE 041 -->
-<!-- SOLUWORLD PRO BUILD LINE 042 -->
-<!-- SOLUWORLD PRO BUILD LINE 043 -->
-<!-- SOLUWORLD PRO BUILD LINE 044 -->
-<!-- SOLUWORLD PRO BUILD LINE 045 -->
-<!-- SOLUWORLD PRO BUILD LINE 046 -->
-<!-- SOLUWORLD PRO BUILD LINE 047 -->
-<!-- SOLUWORLD PRO BUILD LINE 048 -->
-<!-- SOLUWORLD PRO BUILD LINE 049 -->
-<!-- SOLUWORLD PRO BUILD LINE 050 -->
-<!-- SOLUWORLD PRO BUILD LINE 051 -->
-<!-- SOLUWORLD PRO BUILD LINE 052 -->
-<!-- SOLUWORLD PRO BUILD LINE 053 -->
-<!-- SOLUWORLD PRO BUILD LINE 054 -->
-<!-- SOLUWORLD PRO BUILD LINE 055 -->
-<!-- SOLUWORLD PRO BUILD LINE 056 -->
-<!-- SOLUWORLD PRO BUILD LINE 057 -->
-<!-- SOLUWORLD PRO BUILD LINE 058 -->
-<!-- SOLUWORLD PRO BUILD LINE 059 -->
-<!-- SOLUWORLD PRO BUILD LINE 060 -->
-<!-- SOLUWORLD PRO BUILD LINE 061 -->
-<!-- SOLUWORLD PRO BUILD LINE 062 -->
-<!-- SOLUWORLD PRO BUILD LINE 063 -->
-<!-- SOLUWORLD PRO BUILD LINE 064 -->
-<!-- SOLUWORLD PRO BUILD LINE 065 -->
-<!-- SOLUWORLD PRO BUILD LINE 066 -->
-<!-- SOLUWORLD PRO BUILD LINE 067 -->
-<!-- SOLUWORLD PRO BUILD LINE 068 -->
-<!-- SOLUWORLD PRO BUILD LINE 069 -->
-<!-- SOLUWORLD PRO BUILD LINE 070 -->
-<!-- SOLUWORLD PRO BUILD LINE 071 -->
-<!-- SOLUWORLD PRO BUILD LINE 072 -->
-<!-- SOLUWORLD PRO BUILD LINE 073 -->
-<!-- SOLUWORLD PRO BUILD LINE 074 -->
-<!-- SOLUWORLD PRO BUILD LINE 075 -->
-<!-- SOLUWORLD PRO BUILD LINE 076 -->
-<!-- SOLUWORLD PRO BUILD LINE 077 -->
-<!-- SOLUWORLD PRO BUILD LINE 078 -->
-<!-- SOLUWORLD PRO BUILD LINE 079 -->
-<!-- SOLUWORLD PRO BUILD LINE 080 -->
-<!-- SOLUWORLD PRO BUILD LINE 081 -->
-<!-- SOLUWORLD PRO BUILD LINE 082 -->
-<!-- SOLUWORLD PRO BUILD LINE 083 -->
-<!-- SOLUWORLD PRO BUILD LINE 084 -->
-<!-- SOLUWORLD PRO BUILD LINE 085 -->
-<!-- SOLUWORLD PRO BUILD LINE 086 -->
-<!-- SOLUWORLD PRO BUILD LINE 087 -->
-         
