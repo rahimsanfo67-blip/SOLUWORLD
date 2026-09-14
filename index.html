@@ -60,6 +60,542 @@ footer{text-align:center;padding:30px;color:var(--muted)}
 @media(max-width:400px){.dashboard{gap:7px}.stat-card strong{font-size:25px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 @media print{header,.top-actions,.quick,#publication-section,#search-section,#map-section,#admin-section,.share-row,footer,.no-print{display:none!important}section{box-shadow:none;margin:0;border:0}#problems-list{grid-template-columns:1fr}.problem-buttons{display:none}}
+/* =========================================================
+   SOLUWORLD — NOUVEL ACCUEIL MONDIAL
+   ========================================================= */
+
+.sw-home{
+  position:relative;
+  overflow:hidden;
+  margin:0 0 24px;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 85% 15%,rgba(242,177,52,.22),transparent 28%),
+    radial-gradient(circle at 5% 90%,rgba(255,255,255,.10),transparent 30%),
+    linear-gradient(135deg,#064f35 0%,#087f5b 52%,#0da66f 100%);
+  color:#fff;
+  padding:42px 30px 30px;
+  box-shadow:0 22px 55px rgba(5,94,58,.25);
+}
+
+.sw-home:before{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  right:-100px;
+  top:-100px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:50%;
+}
+
+.sw-home:after{
+  content:"";
+  position:absolute;
+  width:360px;
+  height:360px;
+  right:-170px;
+  top:-150px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:50%;
+}
+
+.sw-home-inner{
+  position:relative;
+  z-index:2;
+  max-width:1150px;
+  margin:auto;
+}
+
+.sw-home-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:38px;
+}
+
+.sw-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.sw-brand-logo{
+  width:52px;
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:16px;
+  background:#ffffff18;
+  border:1px solid #ffffff35;
+  font-size:28px;
+  box-shadow:0 8px 25px #0002;
+}
+
+.sw-brand-name{
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.sw-brand-sub{
+  display:block;
+  font-size:11px;
+  opacity:.78;
+  margin-top:2px;
+}
+
+.sw-home-nav{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.sw-home-nav button{
+  min-height:40px;
+  padding:9px 13px;
+  background:#ffffff16;
+  color:#fff;
+  border:1px solid #ffffff30;
+  border-radius:10px;
+  font-size:13px;
+}
+
+.sw-home-nav button:hover{
+  background:#ffffff28;
+}
+
+.sw-home-main{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
+  gap:35px;
+  align-items:center;
+}
+
+.sw-home-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:#ffffff17;
+  border:1px solid #ffffff30;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:16px;
+}
+
+.sw-home-title{
+  margin:0;
+  font-size:clamp(36px,6vw,68px);
+  line-height:1.02;
+  letter-spacing:-2px;
+  color:#fff;
+}
+
+.sw-home-title span{
+  color:#ffe39a;
+}
+
+.sw-home-text{
+  max-width:700px;
+  margin:18px 0 0;
+  font-size:clamp(15px,2.5vw,19px);
+  line-height:1.65;
+  color:#f4fffa;
+}
+
+.sw-home-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:25px;
+}
+
+.sw-home-actions button{
+  min-height:50px;
+  padding:13px 18px;
+}
+
+.sw-home-primary{
+  background:#f2b134!important;
+  color:#17342a!important;
+}
+
+.sw-home-secondary{
+  background:#ffffff18!important;
+  color:#fff!important;
+  border:1px solid #ffffff38!important;
+}
+
+.sw-home-trust{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px;
+}
+
+.sw-home-trust span{
+  padding:7px 10px;
+  border-radius:9px;
+  background:#ffffff12;
+  border:1px solid #ffffff20;
+  font-size:12px;
+}
+
+.sw-world-card{
+  background:#ffffff10;
+  border:1px solid #ffffff28;
+  border-radius:22px;
+  padding:22px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 15px 40px #0002;
+}
+
+.sw-world-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:17px;
+}
+
+.sw-world-card-title{
+  font-weight:900;
+  font-size:17px;
+}
+
+.sw-live{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.sw-live-dot{
+  width:8px;
+  height:8px;
+  background:#7ff0b9;
+  border-radius:50%;
+  box-shadow:0 0 0 5px #7ff0b922;
+}
+
+.sw-world-map{
+  position:relative;
+  height:175px;
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 25% 35%,#ffffff14 0 2px,transparent 3px),
+    radial-gradient(circle at 70% 60%,#ffffff13 0 2px,transparent 3px),
+    linear-gradient(135deg,#ffffff0b,#ffffff03);
+  overflow:hidden;
+  border:1px solid #ffffff18;
+}
+
+.sw-world-map:before{
+  content:"🌍";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-size:105px;
+  filter:drop-shadow(0 10px 20px #0003);
+}
+
+.sw-map-point{
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#f2b134;
+  box-shadow:0 0 0 6px #f2b13422,0 0 20px #f2b13499;
+}
+
+.sw-map-point.p1{left:25%;top:42%}
+.sw-map-point.p2{left:47%;top:57%}
+.sw-map-point.p3{left:66%;top:38%}
+.sw-map-point.p4{left:78%;top:67%}
+
+.sw-global-mini{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.sw-global-mini div{
+  padding:11px 8px;
+  border-radius:12px;
+  background:#ffffff0c;
+  border:1px solid #ffffff16;
+  text-align:center;
+}
+
+.sw-global-mini strong{
+  display:block;
+  font-size:21px;
+}
+
+.sw-global-mini small{
+  display:block;
+  font-size:10px;
+  opacity:.76;
+  margin-top:2px;
+}
+
+.sw-home-flow{
+  margin-top:32px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.sw-flow-item{
+  position:relative;
+  padding:15px;
+  border-radius:14px;
+  background:#ffffff0c;
+  border:1px solid #ffffff1b;
+}
+
+.sw-flow-icon{
+  font-size:22px;
+}
+
+.sw-flow-item strong{
+  display:block;
+  margin-top:5px;
+  font-size:14px;
+}
+
+.sw-flow-item small{
+  display:block;
+  margin-top:3px;
+  opacity:.72;
+  font-size:11px;
+}
+
+.sw-home-section{
+  margin-top:20px;
+  padding:20px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+}
+
+.sw-home-section-title{
+  margin:0 0 5px;
+  color:var(--green);
+  font-size:22px;
+}
+
+.sw-home-section-sub{
+  margin:0 0 16px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.sw-home-cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.sw-home-card{
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:linear-gradient(145deg,#f8fcfa,var(--card));
+  transition:.2s;
+}
+
+.sw-home-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px #00000010;
+}
+
+.sw-home-card-icon{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  background:#e8f7f0;
+  font-size:21px;
+}
+
+.sw-home-card h3{
+  margin:12px 0 5px;
+  font-size:16px;
+}
+
+.sw-home-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.55;
+}
+
+.sw-home-statbar{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+
+.sw-home-stat{
+  padding:15px;
+  border-radius:14px;
+  background:#f7faf8;
+  border:1px solid var(--border);
+}
+
+.dark .sw-home-stat,
+.dark .sw-home-card{
+  background:#17212b;
+}
+
+.sw-home-stat strong{
+  display:block;
+  color:var(--green);
+  font-size:26px;
+}
+
+.sw-home-stat span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.sw-home-cta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:20px;
+  padding:20px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#075e3a,#087f5b);
+  color:#fff;
+}
+
+.sw-home-cta h3{
+  margin:0 0 5px;
+  color:#fff;
+}
+
+.sw-home-cta p{
+  margin:0;
+  opacity:.85;
+  font-size:13px;
+}
+
+.sw-home-cta button{
+  background:#f2b134;
+  color:#17342a;
+}
+
+@media(max-width:850px){
+  .sw-home-main{
+    grid-template-columns:1fr;
+  }
+
+  .sw-world-card{
+    max-width:600px;
+  }
+
+  .sw-home-cards,
+  .sw-home-statbar{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .sw-home-flow{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .sw-home{
+    padding:25px 17px 18px;
+    border-radius:20px;
+  }
+
+  .sw-home-top{
+    align-items:flex-start;
+    flex-direction:column;
+    margin-bottom:28px;
+  }
+
+  .sw-home-nav{
+    width:100%;
+    justify-content:flex-start;
+  }
+
+  .sw-home-title{
+    font-size:39px;
+    letter-spacing:-1.3px;
+  }
+
+  .sw-home-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .sw-home-actions button{
+    width:100%;
+    padding:11px 8px;
+    font-size:12px;
+  }
+
+  .sw-home-trust span{
+    font-size:10px;
+  }
+
+  .sw-home-flow{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .sw-home-cards,
+  .sw-home-statbar{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .sw-global-mini{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+@media(max-width:380px){
+  .sw-home-actions,
+  .sw-home-flow,
+  .sw-home-cards,
+  .sw-home-statbar{
+    grid-template-columns:1fr;
+  }
+}
+
+body.contrast .sw-home,
+body.contrast .sw-home-section,
+body.contrast .sw-home-card,
+body.contrast .sw-home-stat{
+  border-color:#fff;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .sw-home-card{
+    transition:none;
+  }
+
+  .sw-home-card:hover{
+    transform:none;
+  }
+}
 </style>
 </head>
 <body>
@@ -73,6 +609,283 @@ footer{text-align:center;padding:30px;color:var(--muted)}
 </div>
 </header>
 <main>
+  <!-- =========================================================
+     SOLUWORLD — NOUVEL ACCUEIL
+     ========================================================= -->
+
+<section class="sw-home" id="sw-home">
+  <div class="sw-home-inner">
+
+    <div class="sw-home-top">
+
+      <div class="sw-brand">
+        <div class="sw-brand-logo">🌍</div>
+        <div>
+          <div class="sw-brand-name">SOLUWORLD</div>
+          <span class="sw-brand-sub">Plateforme citoyenne mondiale</span>
+        </div>
+      </div>
+
+      <nav class="sw-home-nav" aria-label="Navigation principale">
+        <button type="button" onclick="allerA('publication-section')">
+          📢 Signaler
+        </button>
+
+        <button type="button" onclick="allerA('tracking-section')">
+          📋 Suivre
+        </button>
+
+        <button type="button" onclick="allerA('map-section')">
+          🗺️ Carte
+        </button>
+
+        <button type="button" onclick="allerA('dashboard-section')">
+          📊 Statistiques
+        </button>
+      </nav>
+
+    </div>
+
+    <div class="sw-home-main">
+
+      <div>
+
+        <div class="sw-home-kicker">
+          🇧🇫 Né au Burkina Faso · 🌍 Pensé pour le monde
+        </div>
+
+        <h1 class="sw-home-title">
+          Votre problème<br>
+          mérite <span>une action.</span>
+        </h1>
+
+        <p class="sw-home-text">
+          SOLUWORLD permet à chaque citoyen de signaler un problème,
+          de suivre son évolution et de rendre les priorités de sa
+          communauté plus visibles.
+        </p>
+
+        <div class="sw-home-actions">
+
+          <button
+            type="button"
+            class="sw-home-primary"
+            onclick="allerA('publication-section')">
+            📢 Signaler un problème
+          </button>
+
+          <button
+            type="button"
+            class="sw-home-secondary"
+            onclick="allerA('tracking-section')">
+            📋 Suivre mon signalement
+          </button>
+
+          <button
+            type="button"
+            class="sw-home-secondary"
+            onclick="allerA('map-section')">
+            🗺️ Explorer la carte
+          </button>
+
+          <button
+            type="button"
+            class="sw-home-secondary"
+            onclick="allerA('dashboard-section')">
+            📊 Voir les statistiques
+          </button>
+
+        </div>
+
+        <div class="sw-home-trust">
+          <span>🔎 Suivi transparent</span>
+          <span>📱 Mobile-first</span>
+          <span>♿ Accessible</span>
+          <span>🔒 Données sécurisées</span>
+        </div>
+
+      </div>
+
+
+      <div class="sw-world-card">
+
+        <div class="sw-world-card-head">
+
+          <div class="sw-world-card-title">
+            🌍 SOLUWORLD dans le monde
+          </div>
+
+          <div class="sw-live">
+            <span class="sw-live-dot"></span>
+            EN DIRECT
+          </div>
+
+        </div>
+
+        <div class="sw-world-map" aria-label="Illustration de la portée mondiale">
+
+          <span class="sw-map-point p1"></span>
+          <span class="sw-map-point p2"></span>
+          <span class="sw-map-point p3"></span>
+          <span class="sw-map-point p4"></span>
+
+        </div>
+
+        <div class="sw-global-mini">
+
+          <div>
+            <strong id="sw-home-total">0</strong>
+            <small>Signalements</small>
+          </div>
+
+          <div>
+            <strong id="sw-home-resolved">0%</strong>
+            <small>Résolution</small>
+          </div>
+
+          <div>
+            <strong id="sw-home-cities">0</strong>
+            <small>Localités</small>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="sw-home-flow">
+
+      <div class="sw-flow-item">
+        <div class="sw-flow-icon">📌</div>
+        <strong>Signaler</strong>
+        <small>Faire connaître un problème.</small>
+      </div>
+
+      <div class="sw-flow-item">
+        <div class="sw-flow-icon">🔎</div>
+        <strong>Suivre</strong>
+        <small>Suivre son numéro de dossier.</small>
+      </div>
+
+      <div class="sw-flow-item">
+        <div class="sw-flow-icon">📊</div>
+        <strong>Comprendre</strong>
+        <small>Voir les priorités.</small>
+      </div>
+
+      <div class="sw-flow-item">
+        <div class="sw-flow-icon">🤝</div>
+        <strong>Transformer</strong>
+        <small>Encourager l'action locale.</small>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SOLUWORLD — POURQUOI UTILISER LA PLATEFORME
+     ========================================================= -->
+
+<section class="sw-home-section">
+
+  <h2 class="sw-home-section-title">
+    🌍 Une plateforme pour chaque communauté
+  </h2>
+
+  <p class="sw-home-section-sub">
+    De votre quartier à votre ville, du Burkina Faso à l'Afrique
+    et au monde.
+  </p>
+
+  <div class="sw-home-cards">
+
+    <article class="sw-home-card">
+      <div class="sw-home-card-icon">📢</div>
+      <h3>Signaler facilement</h3>
+      <p>
+        Décrivez un problème local en quelques étapes et obtenez
+        immédiatement un numéro de suivi.
+      </p>
+    </article>
+
+    <article class="sw-home-card">
+      <div class="sw-home-card-icon">📋</div>
+      <h3>Suivre son dossier</h3>
+      <p>
+        Utilisez votre numéro de suivi pour connaître l'état
+        d'avancement de votre signalement.
+      </p>
+    </article>
+
+    <article class="sw-home-card">
+      <div class="sw-home-card-icon">🗺️</div>
+      <h3>Voir sur la carte</h3>
+      <p>
+        Visualisez les zones concernées et identifiez plus
+        facilement les problèmes prioritaires.
+      </p>
+    </article>
+
+    <article class="sw-home-card">
+      <div class="sw-home-card-icon">📊</div>
+      <h3>Comprendre les besoins</h3>
+      <p>
+        Les statistiques permettent de mieux comprendre les
+        priorités de chaque communauté.
+      </p>
+    </article>
+
+  </div>
+
+
+  <div class="sw-home-statbar">
+
+    <div class="sw-home-stat">
+      <strong id="sw-stat-total">0</strong>
+      <span>Signalements enregistrés</span>
+    </div>
+
+    <div class="sw-home-stat">
+      <strong id="sw-stat-open">0</strong>
+      <span>À traiter ou en cours</span>
+    </div>
+
+    <div class="sw-home-stat">
+      <strong id="sw-stat-urgent">0</strong>
+      <span>Signalements urgents</span>
+    </div>
+
+    <div class="sw-home-stat">
+      <strong id="sw-stat-categories">0</strong>
+      <span>Catégories identifiées</span>
+    </div>
+
+  </div>
+
+
+  <div class="sw-home-cta">
+
+    <div>
+      <h3>📢 Un problème près de vous ?</h3>
+      <p>
+        Faites-le connaître et donnez-lui une chance d'être traité.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      onclick="allerA('publication-section')">
+      Signaler maintenant →
+    </button>
+
+  </div>
+
+</section>
 <div class="hero">
 <h1>Votre problème mérite une action.</h1>
 <p>Signalez un besoin local, suivez son évolution et rendez les priorités de votre communauté plus visibles. Burkina Faso → Afrique → Monde.</p>
@@ -235,6 +1048,208 @@ document.getElementById("save-draft").addEventListener("click",sauverBrouillon);
 ["search-problems","filter-category","filter-status","filter-urgency","sort-problems","filter-city"].forEach(id=>document.getElementById(id).addEventListener("input",appliquerFiltres));document.getElementById("clear-search").addEventListener("click",()=>{["search-problems","filter-category","filter-status","filter-urgency","filter-city"].forEach(id=>document.getElementById(id).value="");document.getElementById("sort-problems").value="newest";appliquerFiltres()});document.getElementById("refresh-button").addEventListener("click",afficherProblemes);
 window.addEventListener("online",()=>toast("✅ Connexion rétablie"));window.addEventListener("offline",()=>toast("⚠️ Connexion interrompue"));
 document.addEventListener("DOMContentLoaded",async()=>{remplirCategories();initialiserCarte();actualiserAdmin();chargerBrouillon();if(localStorage.getItem("soluworld_contrast")==="true"){document.body.classList.add("contrast");document.getElementById("contrast-button").textContent="◑ Contraste normal"}if(localStorage.getItem("soluworld_dark")==="true"){document.body.classList.add("dark");document.getElementById("theme-button").textContent="☀️ Mode clair"}mettreAJourCompteur();await verifierAdmin();await afficherProblemes()});
+/* =========================================================
+   SOLUWORLD — ACCUEIL DYNAMIQUE
+   ========================================================= */
+
+function actualiserAccueil(){
+
+  const total =
+    Array.isArray(problemsCache)
+      ? problemsCache.length
+      : 0;
+
+  let resolus = 0;
+  let urgents = 0;
+  let ouverts = 0;
+
+  const categories = new Set();
+  const villes = new Set();
+
+  if(Array.isArray(problemsCache)){
+
+    problemsCache.forEach(function(p){
+
+      const statut = p.statut || "Nouveau";
+
+      if(statut === "Résolu"){
+        resolus++;
+      }
+
+      if(statut !== "Résolu"){
+        ouverts++;
+      }
+
+      const urgence = normaliser(p.urgency);
+
+      if(
+        urgence === "elevee" ||
+        urgence === "haute"
+      ){
+        urgents++;
+      }
+
+      if(p["Catégory"]){
+        categories.add(
+          normaliser(p["Catégory"])
+        );
+      }
+
+      if(p.City){
+        villes.add(
+          normaliser(p.City)
+        );
+      }
+
+    });
+
+  }
+
+  const taux = total
+    ? Math.round((resolus / total) * 100)
+    : 0;
+
+
+  /* Petite carte mondiale */
+
+  const eTotal =
+    document.getElementById("sw-home-total");
+
+  const eResolved =
+    document.getElementById("sw-home-resolved");
+
+  const eCities =
+    document.getElementById("sw-home-cities");
+
+  if(eTotal){
+    eTotal.textContent = total;
+  }
+
+  if(eResolved){
+    eResolved.textContent = taux + "%";
+  }
+
+  if(eCities){
+    eCities.textContent = villes.size;
+  }
+
+
+  /* Statistiques principales */
+
+  const sTotal =
+    document.getElementById("sw-stat-total");
+
+  const sOpen =
+    document.getElementById("sw-stat-open");
+
+  const sUrgent =
+    document.getElementById("sw-stat-urgent");
+
+  const sCategories =
+    document.getElementById("sw-stat-categories");
+
+  if(sTotal){
+    sTotal.textContent = total;
+  }
+
+  if(sOpen){
+    sOpen.textContent = ouverts;
+  }
+
+  if(sUrgent){
+    sUrgent.textContent = urgents;
+  }
+
+  if(sCategories){
+    sCategories.textContent = categories.size;
+  }
+
+}
+
+
+/* =========================================================
+   RAFRAÎCHISSEMENT AUTOMATIQUE DE L'ACCUEIL
+   ========================================================= */
+
+const ancienneAfficherProblemes =
+  window.afficherProblemes;
+
+if(
+  typeof ancienneAfficherProblemes === "function" &&
+  !window.__swAccueilWrapped
+){
+
+  window.__swAccueilWrapped = true;
+
+  window.afficherProblemes = async function(){
+
+    const resultat =
+      await ancienneAfficherProblemes.apply(
+        this,
+        arguments
+      );
+
+    actualiserAccueil();
+
+    return resultat;
+  };
+
+}
+
+
+/* =========================================================
+   MISE À JOUR AU CHARGEMENT
+   ========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    setTimeout(function(){
+      actualiserAccueil();
+    },500);
+
+    setTimeout(function(){
+      actualiserAccueil();
+    },1500);
+
+  }
+);
+
+
+/* =========================================================
+   MISE À JOUR QUAND LA PAGE REVIENT AU PREMIER PLAN
+   ========================================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function(){
+
+    if(!document.hidden){
+      actualiserAccueil();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   CORRECTION CONNEXION INTERNET
+   ========================================================= */
+
+window.addEventListener(
+  "online",
+  function(){
+    toast("✅ Connexion rétablie");
+  }
+);
+
+window.addEventListener(
+  "offline",
+  function(){
+    toast("⚠️ Connexion Internet interrompue");
+  }
+);
 </script>
 </body>
 </html>
