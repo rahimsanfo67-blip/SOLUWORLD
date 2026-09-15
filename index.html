@@ -1621,7 +1621,507 @@ document.addEventListener(
 
   }
 );
+/* =========================================================
+   SOLUWORLD — JOUR 10
+   STATISTIQUES AVANCÉES
+   ========================================================= */
 
+function actualiserStatistiquesAvancees(){
+
+  if(!Array.isArray(problemsCache)){
+    return;
+  }
+
+
+  const maintenant = new Date();
+
+  const debut7 = new Date(maintenant);
+  debut7.setDate(debut7.getDate() - 7);
+
+  const debut30 = new Date(maintenant);
+  debut30.setDate(debut30.getDate() - 30);
+
+
+  let nouveaux = 0;
+  let enCours = 0;
+  let resolus = 0;
+
+  let urgents = 0;
+  let urgenceMoyenne = 0;
+  let urgenceFaible = 0;
+
+  let derniers7 = 0;
+  let derniers30 = 0;
+
+  let aujourdHui = 0;
+  let cetteSemaine = 0;
+  let ceMois = 0;
+
+
+  const categories = {};
+  const villes = {};
+
+
+  problemsCache.forEach(function(p){
+
+    const statut = p.statut || "Nouveau";
+
+    if(statut === "Nouveau"){
+      nouveaux++;
+    }
+
+    if(statut === "En cours"){
+      enCours++;
+    }
+
+    if(statut === "Résolu"){
+      resolus++;
+    }
+
+
+    const urgence = normaliser(p.urgency);
+
+    if(urgence === "elevee" || urgence === "haute"){
+      urgents++;
+    }
+
+    else if(
+      urgence === "moyenne" ||
+      urgence === "medium"
+    ){
+      urgenceMoyenne++;
+    }
+
+    else{
+      urgenceFaible++;
+    }
+
+
+    const dateCreation = p.created_at
+      ? new Date(p.created_at)
+      : null;
+
+
+    if(dateCreation && !isNaN(dateCreation)){
+
+      if(dateCreation >= debut7){
+        derniers7++;
+      }
+
+      if(dateCreation >= debut30){
+        derniers30++;
+      }
+
+
+      const maintenantJour = new Date(
+        maintenant.getFullYear(),
+        maintenant.getMonth(),
+        maintenant.getDate()
+      );
+
+      const dateJour = new Date(
+        dateCreation.getFullYear(),
+        dateCreation.getMonth(),
+        dateCreation.getDate()
+      );
+
+      if(dateJour.getTime() === maintenantJour.getTime()){
+        aujourdHui++;
+      }
+
+
+      if(dateCreation >= debut7){
+        cetteSemaine++;
+      }
+
+
+      if(
+        dateCreation.getMonth() === maintenant.getMonth() &&
+        dateCreation.getFullYear() === maintenant.getFullYear()
+      ){
+        ceMois++;
+      }
+
+    }
+
+
+    const categorie =
+      p["Catégory"] || "Autre";
+
+    const categorieCle =
+      String(categorie);
+
+    categories[categorieCle] =
+      (categories[categorieCle] || 0) + 1;
+
+
+    const ville =
+      p.City || "Non renseignée";
+
+    const villeCle =
+      String(ville);
+
+    villes[villeCle] =
+      (villes[villeCle] || 0) + 1;
+
+  });
+
+
+  const total = problemsCache.length;
+
+  const ouverts =
+    nouveaux + enCours;
+
+  const tauxResolution =
+    total
+      ? Math.round((resolus / total) * 100)
+      : 0;
+
+
+  /* =====================================================
+     INDICATEURS RAPIDES
+     ===================================================== */
+
+  const e7 =
+    document.getElementById("sw-stats-7days");
+
+  const e30 =
+    document.getElementById("sw-stats-30days");
+
+  const eOpen =
+    document.getElementById("sw-stats-open");
+
+  const eResolution =
+    document.getElementById("sw-stats-resolution");
+
+
+  if(e7){
+    e7.textContent = derniers7;
+  }
+
+  if(e30){
+    e30.textContent = derniers30;
+  }
+
+  if(eOpen){
+    eOpen.textContent = ouverts;
+  }
+
+  if(eResolution){
+    eResolution.textContent =
+      tauxResolution + "%";
+  }
+
+
+  /* =====================================================
+     STATUT
+     ===================================================== */
+
+  const totalPourcentage =
+    total || 1;
+
+
+  const statutElements = [
+
+    [
+      "sw-status-new-count",
+      "sw-status-new-bar",
+      nouveaux
+    ],
+
+    [
+      "sw-status-progress-count",
+      "sw-status-progress-bar",
+      enCours
+    ],
+
+    [
+      "sw-status-resolved-count",
+      "sw-status-resolved-bar",
+      resolus
+    ]
+
+  ];
+
+
+  statutElements.forEach(function(item){
+
+    const compteur =
+      document.getElementById(item[0]);
+
+    const barre =
+      document.getElementById(item[1]);
+
+    const valeur =
+      item[2];
+
+    if(compteur){
+      compteur.textContent = valeur;
+    }
+
+    if(barre){
+      barre.style.width =
+        Math.round(
+          valeur / totalPourcentage * 100
+        ) + "%";
+    }
+
+  });
+
+
+  /* =====================================================
+     URGENCE
+     ===================================================== */
+
+  const urgenceElements = [
+
+    [
+      "sw-urgency-high-count",
+      "sw-urgency-high-bar",
+      urgents
+    ],
+
+    [
+      "sw-urgency-medium-count",
+      "sw-urgency-medium-bar",
+      urgenceMoyenne
+    ],
+
+    [
+      "sw-urgency-low-count",
+      "sw-urgency-low-bar",
+      urgenceFaible
+    ]
+
+  ];
+
+
+  urgenceElements.forEach(function(item){
+
+    const compteur =
+      document.getElementById(item[0]);
+
+    const barre =
+      document.getElementById(item[1]);
+
+    const valeur =
+      item[2];
+
+    if(compteur){
+      compteur.textContent = valeur;
+    }
+
+    if(barre){
+      barre.style.width =
+        Math.round(
+          valeur / totalPourcentage * 100
+        ) + "%";
+    }
+
+  });
+
+
+  /* =====================================================
+     CATÉGORIES
+     ===================================================== */
+
+  const categorieContainer =
+    document.getElementById("sw-category-stats");
+
+
+  if(categorieContainer){
+
+    const listeCategories =
+      Object.entries(categories)
+        .sort(function(a,b){
+          return b[1] - a[1];
+        });
+
+
+    if(!listeCategories.length){
+
+      categorieContainer.innerHTML =
+        "<p>Aucune donnée disponible.</p>";
+
+    }
+
+    else{
+
+      categorieContainer.innerHTML =
+        listeCategories
+          .map(function(item){
+
+            return `
+              <div class="advanced-list-row">
+                <span>${esc(item[0])}</span>
+                <strong>${item[1]}</strong>
+              </div>
+            `;
+
+          })
+          .join("");
+
+    }
+
+  }
+
+
+  /* =====================================================
+     VILLES
+     ===================================================== */
+
+  const villeContainer =
+    document.getElementById("sw-city-stats");
+
+
+  if(villeContainer){
+
+    const listeVilles =
+      Object.entries(villes)
+        .sort(function(a,b){
+          return b[1] - a[1];
+        });
+
+
+    if(!listeVilles.length){
+
+      villeContainer.innerHTML =
+        "<p>Aucune donnée disponible.</p>";
+
+    }
+
+    else{
+
+      villeContainer.innerHTML =
+        listeVilles
+          .map(function(item){
+
+            return `
+              <div class="advanced-list-row">
+                <span>📍 ${esc(item[0])}</span>
+                <strong>${item[1]}</strong>
+              </div>
+            `;
+
+          })
+          .join("");
+
+    }
+
+  }
+
+
+  /* =====================================================
+     ACTIVITÉ RÉCENTE
+     ===================================================== */
+
+  const eToday =
+    document.getElementById("sw-stats-today");
+
+  const eWeek =
+    document.getElementById("sw-stats-week");
+
+  const eMonth =
+    document.getElementById("sw-stats-month");
+
+
+  if(eToday){
+    eToday.textContent = aujourdHui;
+  }
+
+  if(eWeek){
+    eWeek.textContent = cetteSemaine;
+  }
+
+  if(eMonth){
+    eMonth.textContent = ceMois;
+  }
+
+
+  /* =====================================================
+     DATE DE MISE À JOUR
+     ===================================================== */
+
+  const eUpdated =
+    document.getElementById("sw-stats-updated");
+
+
+  if(eUpdated){
+
+    eUpdated.textContent =
+      new Date().toLocaleString("fr-FR");
+
+  }
+
+}
+
+
+/* =========================================================
+   MISE À JOUR APRÈS CHARGEMENT DES DONNÉES
+   ========================================================= */
+
+const ancienneAfficherProblemesJour10 =
+  window.afficherProblemes;
+
+
+if(
+  typeof ancienneAfficherProblemesJour10 === "function" &&
+  !window.__swJour10StatsWrapped
+){
+
+  window.__swJour10StatsWrapped = true;
+
+  window.afficherProblemes =
+    async function(){
+
+      const resultat =
+        await ancienneAfficherProblemesJour10.apply(
+          this,
+          arguments
+        );
+
+      actualiserStatistiquesAvancees();
+
+      return resultat;
+    };
+
+}
+
+
+/* =========================================================
+   MISE À JOUR AU CHARGEMENT
+   ========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    setTimeout(function(){
+
+      actualiserStatistiquesAvancees();
+
+    },700);
+
+  }
+);
+
+
+/* =========================================================
+   MISE À JOUR QUAND LA PAGE REVIENT
+   ========================================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function(){
+
+    if(!document.hidden){
+
+      actualiserStatistiquesAvancees();
+
+    }
+
+  }
+);
 
 /* =========================================================
    CORRECTION CONNEXION INTERNET
