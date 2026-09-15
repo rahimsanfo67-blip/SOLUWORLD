@@ -803,6 +803,106 @@ body.contrast .sw-home-stat{
   }
 
 }
+   /* =========================================================
+   SOLUWORLD — JOUR 10 — GRAPHIQUE D'ACTIVITÉ
+   ========================================================= */
+
+.activity-chart{
+  display:flex;
+  gap:14px;
+  min-height:260px;
+  margin-top:18px;
+}
+
+.chart-y{
+  width:28px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:4px 0;
+  font-size:12px;
+  opacity:.6;
+  text-align:right;
+}
+
+.chart-area{
+  flex:1;
+  min-height:250px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-around;
+  gap:10px;
+  padding:15px 10px 5px;
+  border-left:1px solid rgba(127,127,127,.2);
+  border-bottom:1px solid rgba(127,127,127,.2);
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 24%,
+      rgba(127,127,127,.12) 25%,
+      transparent 26%,
+      transparent 49%,
+      rgba(127,127,127,.12) 50%,
+      transparent 51%,
+      transparent 74%,
+      rgba(127,127,127,.12) 75%,
+      transparent 76%
+    );
+}
+
+.activity-column{
+  flex:1;
+  max-width:70px;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  gap:8px;
+}
+
+.activity-bar{
+  width:100%;
+  min-height:4px;
+  border-radius:10px 10px 3px 3px;
+  background:var(--primary,#2563eb);
+  transition:height .5s ease;
+}
+
+.activity-value{
+  font-size:12px;
+  font-weight:700;
+}
+
+.activity-label{
+  font-size:11px;
+  opacity:.7;
+  white-space:nowrap;
+}
+
+@media(max-width:520px){
+
+  .activity-chart{
+    min-height:220px;
+    gap:8px;
+  }
+
+  .chart-area{
+    min-height:210px;
+    gap:5px;
+    padding-left:5px;
+    padding-right:5px;
+  }
+
+  .activity-column{
+    max-width:45px;
+  }
+
+  .activity-label{
+    font-size:9px;
+  }
+
+}
 </style>
 </head>
 <body>
@@ -2074,8 +2174,100 @@ function actualiserStatistiquesAvancees(){
       new Date().toLocaleString("fr-FR");
 
   }
+   actualiserGraphiqueActivite();
 
 }
+   function actualiserGraphiqueActivite(){
+
+  const container =
+    document.getElementById("sw-activity-chart");
+
+  if(!container || !Array.isArray(problemsCache)){
+    return;
+  }
+
+  const maintenant = new Date();
+
+  const jours = [];
+
+  for(let i = 6; i >= 0; i--){
+
+    const date = new Date(maintenant);
+
+    date.setHours(0,0,0,0);
+    date.setDate(date.getDate() - i);
+
+    jours.push(date);
+
+  }
+
+  const valeurs = jours.map(function(jour){
+
+    const lendemain = new Date(jour);
+
+    lendemain.setDate(lendemain.getDate() + 1);
+
+    return problemsCache.filter(function(p){
+
+      if(!p.created_at){
+        return false;
+      }
+
+      const dateCreation =
+        new Date(p.created_at);
+
+      return (
+        dateCreation >= jour &&
+        dateCreation < lendemain
+      );
+
+    }).length;
+
+  });
+
+  const maximum =
+    Math.max(...valeurs, 1);
+
+  container.innerHTML =
+    valeurs.map(function(valeur,index){
+
+      const hauteur =
+        Math.max(
+          4,
+          Math.round((valeur / maximum) * 190)
+        );
+
+      const label =
+        jours[index].toLocaleDateString(
+          "fr-FR",
+          {
+            weekday:"short"
+          }
+        );
+
+      return `
+        <div class="activity-column">
+
+          <div class="activity-value">
+            ${valeur}
+          </div>
+
+          <div
+            class="activity-bar"
+            style="height:${hauteur}px"
+            title="${valeur} signalement(s)"
+          ></div>
+
+          <div class="activity-label">
+            ${esc(label)}
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+
+   }
 
 
 /* =========================================================
