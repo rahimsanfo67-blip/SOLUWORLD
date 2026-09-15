@@ -596,6 +596,213 @@ body.contrast .sw-home-stat{
     transform:none;
   }
 }
+   /* =========================================================
+   SOLUWORLD — JOUR 10 — STATISTIQUES AVANCÉES
+   ========================================================= */
+
+#advanced-statistics{
+  margin-top:32px;
+}
+
+#advanced-statistics .section-intro{
+  margin-top:-8px;
+  margin-bottom:22px;
+  opacity:.75;
+}
+
+
+/* INDICATEURS */
+
+.advanced-stat-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:22px;
+}
+
+.advanced-stat-card{
+  padding:20px;
+  border:1px solid rgba(127,127,127,.18);
+  border-radius:18px;
+  background:var(--card,#fff);
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.advanced-stat-card > span{
+  font-size:30px;
+}
+
+.advanced-stat-card strong{
+  display:block;
+  font-size:28px;
+  line-height:1.1;
+}
+
+.advanced-stat-card small{
+  display:block;
+  margin-top:5px;
+  opacity:.7;
+}
+
+
+/* PANNEAUX */
+
+.advanced-panel{
+  margin-top:20px;
+  padding:22px;
+  border:1px solid rgba(127,127,127,.18);
+  border-radius:18px;
+  background:var(--card,#fff);
+  box-shadow:0 8px 24px rgba(0,0,0,.05);
+}
+
+.advanced-panel h3{
+  margin-top:0;
+  margin-bottom:20px;
+}
+
+
+/* LIGNES */
+
+.advanced-row{
+  margin-bottom:18px;
+}
+
+.advanced-row:last-child{
+  margin-bottom:0;
+}
+
+.advanced-row > div:first-child{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+}
+
+.advanced-row strong{
+  font-size:15px;
+}
+
+
+/* BARRES */
+
+.advanced-bar{
+  width:100%;
+  height:10px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(127,127,127,.14);
+}
+
+.advanced-bar > div{
+  width:0%;
+  height:100%;
+  border-radius:999px;
+  transition:width .5s ease;
+}
+
+
+/* CATÉGORIES ET VILLES */
+
+#sw-category-stats,
+#sw-city-stats{
+  display:grid;
+  gap:12px;
+}
+
+.advanced-list-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:12px 14px;
+  border-radius:12px;
+  background:rgba(127,127,127,.07);
+}
+
+.advanced-list-row span{
+  font-weight:600;
+}
+
+.advanced-list-row strong{
+  min-width:35px;
+  text-align:right;
+}
+
+
+/* ACTIVITÉ */
+
+.recent-stat-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.recent-stat-grid > div{
+  padding:18px;
+  text-align:center;
+  border-radius:14px;
+  background:rgba(127,127,127,.07);
+}
+
+.recent-stat-grid span{
+  display:block;
+  opacity:.7;
+  margin-bottom:7px;
+}
+
+.recent-stat-grid strong{
+  font-size:25px;
+}
+
+
+/* MISE À JOUR */
+
+.advanced-update{
+  margin-top:16px;
+  text-align:right;
+  font-size:13px;
+  opacity:.7;
+}
+
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+  .advanced-stat-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:520px){
+
+  .advanced-stat-grid{
+    grid-template-columns:1fr;
+  }
+
+  .advanced-stat-card{
+    padding:16px;
+  }
+
+  .advanced-panel{
+    padding:17px;
+    border-radius:15px;
+  }
+
+  .recent-stat-grid{
+    grid-template-columns:1fr;
+  }
+
+  .advanced-list-row{
+    padding:11px 12px;
+  }
+
+}
 </style>
 </head>
 <body>
@@ -939,6 +1146,189 @@ body.contrast .sw-home-stat{
 <div class="global-card"><strong id="global-countries">1+</strong><small>pays couverts par la vision SOLUWORLD</small></div><div class="global-card"><strong id="global-cities">0</strong><small>villes / localités présentes dans les données</small></div><div class="global-card"><strong id="global-categories">0</strong><small>catégories de besoins identifiées</small></div><div class="global-card"><strong id="global-resolution">0%</strong><small>taux de résolution des signalements</small></div>
 </div>
 <div class="share-row"><button class="secondary" type="button" onclick="exporterCSV()">📥 Exporter CSV</button><button class="secondary" type="button" onclick="imprimerStatistiques()">🖨️ Imprimer les statistiques</button></div>
+</section>
+
+<!-- =========================================================
+     SOLUWORLD — JOUR 10 — STATISTIQUES AVANCÉES
+     ========================================================= -->
+
+<section id="advanced-statistics">
+
+<h2>📊 Analyse avancée</h2>
+
+<p class="section-intro">
+Analyse détaillée des signalements citoyens.
+</p>
+
+
+<!-- INDICATEURS -->
+
+<div class="advanced-stat-grid">
+
+<div class="advanced-stat-card">
+<span>📅</span>
+<strong id="sw-stats-7days">0</strong>
+<small>7 derniers jours</small>
+</div>
+
+<div class="advanced-stat-card">
+<span>📆</span>
+<strong id="sw-stats-30days">0</strong>
+<small>30 derniers jours</small>
+</div>
+
+<div class="advanced-stat-card">
+<span>⏳</span>
+<strong id="sw-stats-open">0</strong>
+<small>signalements ouverts</small>
+</div>
+
+<div class="advanced-stat-card">
+<span>✅</span>
+<strong id="sw-stats-resolution">0%</strong>
+<small>taux de résolution</small>
+</div>
+
+</div>
+
+
+<!-- STATUT -->
+
+<div class="advanced-panel">
+
+<h3>📋 Répartition par statut</h3>
+
+<div class="advanced-row">
+<div>
+<span>Nouveau</span>
+<strong id="sw-status-new-count">0</strong>
+</div>
+<div class="advanced-bar">
+<div id="sw-status-new-bar"></div>
+</div>
+</div>
+
+<div class="advanced-row">
+<div>
+<span>En cours</span>
+<strong id="sw-status-progress-count">0</strong>
+</div>
+<div class="advanced-bar">
+<div id="sw-status-progress-bar"></div>
+</div>
+</div>
+
+<div class="advanced-row">
+<div>
+<span>Résolu</span>
+<strong id="sw-status-resolved-count">0</strong>
+</div>
+<div class="advanced-bar">
+<div id="sw-status-resolved-bar"></div>
+</div>
+</div>
+
+</div>
+
+
+<!-- URGENCE -->
+
+<div class="advanced-panel">
+
+<h3>🚨 Répartition par urgence</h3>
+
+<div class="advanced-row">
+<div>
+<span>Élevée</span>
+<strong id="sw-urgency-high-count">0</strong>
+</div>
+<div class="advanced-bar">
+<div id="sw-urgency-high-bar"></div>
+</div>
+</div>
+
+<div class="advanced-row">
+<div>
+<span>Moyenne</span>
+<strong id="sw-urgency-medium-count">0</strong>
+</div>
+<div class="advanced-bar">
+<div id="sw-urgency-medium-bar"></div>
+</div>
+</div>
+
+<div class="advanced-row">
+<div>
+<span>Faible</span>
+<strong id="sw-urgency-low-count">0</strong>
+</div>
+<div class="advanced-bar">
+<div id="sw-urgency-low-bar"></div>
+</div>
+</div>
+
+</div>
+
+
+<!-- CATÉGORIES -->
+
+<div class="advanced-panel">
+
+<h3>🏷️ Signalements par catégorie</h3>
+
+<div id="sw-category-stats">
+<p>Aucune donnée disponible.</p>
+</div>
+
+</div>
+
+
+<!-- VILLES -->
+
+<div class="advanced-panel">
+
+<h3>🏙️ Signalements par ville</h3>
+
+<div id="sw-city-stats">
+<p>Aucune donnée disponible.</p>
+</div>
+
+</div>
+
+
+<!-- ACTIVITÉ -->
+
+<div class="advanced-panel">
+
+<h3>📈 Activité récente</h3>
+
+<div class="recent-stat-grid">
+
+<div>
+<span>Aujourd'hui</span>
+<strong id="sw-stats-today">0</strong>
+</div>
+
+<div>
+<span>Cette semaine</span>
+<strong id="sw-stats-week">0</strong>
+</div>
+
+<div>
+<span>Ce mois</span>
+<strong id="sw-stats-month">0</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="advanced-update">
+Dernière analyse :
+<strong id="sw-stats-updated">—</strong>
+</div>
+
 </section>
 
 <section id="freshness-section">
