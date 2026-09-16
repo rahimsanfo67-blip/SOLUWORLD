@@ -903,11 +903,54 @@ body.contrast .sw-home-stat{
   }
 
 }
+   /* ===== IDENTITÉ SOLUWORLD — JOUR 9 ===== */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand-logo{
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+}
+
+.brand-text{
+  display:flex;
+  flex-direction:column;
+}
+
+.brand-text strong{
+  font-size:1.55rem;
+  letter-spacing:.5px;
+}
+
+.brand-text span{
+  font-size:.78rem;
+  opacity:.85;
+  margin-top:2px;
+}
 </style>
 </head>
 <body>
 <header>
-<h1>🌍 SOLUWORLD</h1>
+<div class="brand">
+  <div class="brand-logo" aria-label="Logo SOLUWORLD">
+    🌍
+  </div>
+  <div class="brand-text">
+    <strong>SOLUWORLD</strong>
+    <span>Signaler. Agir. Transformer.</span>
+  </div>
+</div>
 <p class="tagline">Signaler. Agir. Transformer.</p>
 <p>Une plateforme citoyenne née au Burkina Faso, pensée pour les communautés du monde entier.</p>
 <div class="top-actions">
