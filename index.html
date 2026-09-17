@@ -938,6 +938,402 @@ body.contrast .sw-home-stat{
   opacity:.85;
   margin-top:2px;
 }
+   /* =====================================================
+   SOLUWORLD — JOUR 11 : OPTIMISATION MOBILE
+   ===================================================== */
+
+@media (max-width: 768px){
+
+  /* ----- STRUCTURE GÉNÉRALE ----- */
+
+  body{
+    font-size:15px;
+    overflow-x:hidden;
+  }
+
+  header{
+    padding:16px 14px;
+  }
+
+  main{
+    width:100%;
+    padding:0 12px;
+  }
+
+  section{
+    margin-bottom:18px;
+  }
+
+  /* ----- LOGO / IDENTITÉ ----- */
+
+  .brand{
+    gap:9px;
+  }
+
+  .brand-logo{
+    width:44px;
+    height:44px;
+    min-width:44px;
+    border-radius:13px;
+    font-size:25px;
+  }
+
+  .brand-text strong{
+    font-size:1.2rem;
+  }
+
+  .brand-text span{
+    font-size:.68rem;
+  }
+
+  /* ----- HERO ----- */
+
+  .hero{
+    padding:24px 16px;
+    border-radius:18px;
+  }
+
+  .hero h2{
+    font-size:1.65rem;
+    line-height:1.2;
+  }
+
+  .hero p{
+    font-size:.92rem;
+    line-height:1.55;
+  }
+
+  /* ----- BOUTONS ----- */
+
+  button,
+  .btn,
+  input[type="submit"]{
+    min-height:46px;
+    font-size:.92rem;
+    border-radius:12px;
+  }
+
+  .top-actions{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px;
+    width:100%;
+    margin-top:14px;
+  }
+
+  .top-actions button{
+    width:100%;
+  }
+
+  /* ----- ACTIONS RAPIDES ----- */
+
+  .quick{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .quick button{
+    width:100%;
+  }
+
+  /* ----- FORMULAIRES ----- */
+
+  form{
+    width:100%;
+  }
+
+  input,
+  select,
+  textarea{
+    width:100%;
+    box-sizing:border-box;
+    min-height:46px;
+    font-size:16px;
+    border-radius:12px;
+  }
+
+  textarea{
+    min-height:130px;
+    resize:vertical;
+  }
+
+  label{
+    display:block;
+    margin-bottom:6px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr !important;
+    gap:12px;
+  }
+
+  /* ----- RECHERCHE / FILTRES ----- */
+
+  .filters{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .filters > *{
+    width:100%;
+  }
+
+  /* ----- TABLEAU DE BORD ----- */
+
+  .dashboard-grid{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:10px;
+  }
+
+  .dashboard-card{
+    min-height:105px;
+    padding:14px 10px;
+  }
+
+  .dashboard-card strong{
+    font-size:1.45rem;
+  }
+
+  .dashboard-card span{
+    font-size:.75rem;
+  }
+
+  /* ----- LISTE DES PROBLÈMES ----- */
+
+  .problems-grid{
+    grid-template-columns:1fr !important;
+    gap:14px;
+  }
+
+  .problem-card{
+    width:100%;
+    box-sizing:border-box;
+    padding:16px;
+  }
+
+  .problem-card h3{
+    font-size:1.05rem;
+    line-height:1.35;
+  }
+
+  .problem-card p{
+    font-size:.9rem;
+    line-height:1.55;
+  }
+
+  .problem-actions{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px;
+    margin-top:12px;
+  }
+
+  .problem-actions button{
+    width:100%;
+  }
+
+  /* ----- CARTE ----- */
+
+  #map{
+    width:100%;
+    height:360px !important;
+    border-radius:16px;
+  }
+
+  #map-section{
+    overflow:hidden;
+  }
+
+  /* ----- SUIVI ----- */
+
+  #tracking-section input{
+    width:100%;
+  }
+
+  #tracking-section button{
+    width:100%;
+    margin-top:8px;
+  }
+
+  /* ----- FAVORIS ----- */
+
+  .favorite-btn{
+    min-width:46px;
+    min-height:46px;
+  }
+
+  /* ----- ADMINISTRATION ----- */
+
+  #admin-section,
+  #edit-section{
+    padding:16px;
+  }
+
+  #admin-section button,
+  #edit-section button{
+    width:100%;
+    margin-top:8px;
+  }
+
+  /* ----- FRAÎCHEUR DES DONNÉES ----- */
+
+  #freshness-section{
+    padding:14px;
+  }
+
+  /* ----- FOOTER ----- */
+
+  footer{
+    padding:24px 14px;
+    text-align:center;
+  }
+
+}
+
+
+/* =====================================================
+   PETITS TÉLÉPHONES
+   ===================================================== */
+
+@media (max-width: 480px){
+
+  header{
+    padding:12px 10px;
+  }
+
+  main{
+    padding:0 9px;
+  }
+
+  .brand-logo{
+    width:40px;
+    height:40px;
+    min-width:40px;
+    font-size:22px;
+  }
+
+  .brand-text strong{
+    font-size:1.05rem;
+  }
+
+  .brand-text span{
+    font-size:.62rem;
+  }
+
+  .hero{
+    padding:20px 14px;
+  }
+
+  .hero h2{
+    font-size:1.4rem;
+  }
+
+  .hero p{
+    font-size:.86rem;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr 1fr !important;
+    gap:8px;
+  }
+
+  .dashboard-card{
+    min-height:95px;
+    padding:11px 7px;
+  }
+
+  .dashboard-card strong{
+    font-size:1.25rem;
+  }
+
+  .dashboard-card span{
+    font-size:.68rem;
+  }
+
+  #map{
+    height:300px !important;
+  }
+
+  h2{
+    font-size:1.3rem;
+  }
+
+  h3{
+    font-size:1.05rem;
+  }
+
+}
+
+
+/* =====================================================
+   TRÈS PETITS ÉCRANS
+   ===================================================== */
+
+@media (max-width: 360px){
+
+  .brand-text span{
+    display:none;
+  }
+
+  .brand-text strong{
+    font-size:1rem;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .hero h2{
+    font-size:1.25rem;
+  }
+
+  button,
+  .btn{
+    font-size:.86rem;
+  }
+
+}
+
+
+/* =====================================================
+   TACTILE — TÉLÉPHONE
+   ===================================================== */
+
+@media (hover:none) and (pointer:coarse){
+
+  button,
+  a,
+  select,
+  input[type="checkbox"],
+  input[type="radio"]{
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  button:active,
+  .btn:active{
+    transform:scale(.98);
+  }
+
+}
+
+
+/* =====================================================
+   ACCESSIBILITÉ MOBILE
+   ===================================================== */
+
+@media (prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+    transition:none !important;
+    animation:none !important;
+  }
+
+}
 </style>
 </head>
 <body>
