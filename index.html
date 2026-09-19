@@ -1550,6 +1550,29 @@ section{
     contain:layout;
   }
 }
+   .loading-state{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:25px;
+  opacity:.8;
+}
+
+.loading-spinner{
+  width:22px;
+  height:22px;
+  border:3px solid rgba(22,163,74,.2);
+  border-top-color:#16a34a;
+  border-radius:50%;
+  animation:spin .7s linear infinite !important;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
 </style>
 </head>
 <body>
@@ -2121,7 +2144,10 @@ Dernière analyse :
 <div id="tracking-result" class="tracking-result"></div>
 </section>
 
-<section id="problems-section"><h2>📋 Problèmes signalés</h2><div id="problems-list"><div class="loading">🔄 Chargement des problèmes...</div></div></section>
+<section id="problems-section"><h2>📋 Problèmes signalés</h2><div id="loading-state" class="loading-state" hidden>
+  <div class="loading-spinner"></div>
+  <span>Chargement des signalements…</span>
+</div><div id="problems-list"><div class="loading">🔄 Chargement des problèmes...</div></div></section>
 
 <section id="admin-section">
 <h2>🔐 Administration</h2><div class="admin-bar"><div><form id="admin-login-form"><label for="admin-email">Email administrateur</label><input type="email" id="admin-email" placeholder="Email" required><label for="admin-password">Mot de passe</label><input type="password" id="admin-password" placeholder="Mot de passe" required><div class="share-row"><button class="primary" type="submit">🔐 Se connecter</button><button class="danger" type="button" id="logout-button">🚪 Déconnexion</button></div><p id="admin-login-message"></p></form></div><div id="admin-status"></div></div>
@@ -3141,6 +3167,14 @@ document.addEventListener("DOMContentLoaded",()=>{
   });
 
 });
+   function setLoadingState(isLoading){
+
+  const loader=document.getElementById("loading-state");
+
+  if(!loader) return;
+
+  loader.hidden=!isLoading;
+   }
 </script>
 </body>
 </html>
