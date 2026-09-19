@@ -3012,6 +3012,135 @@ window.addEventListener(
     toast("⚠️ Connexion Internet interrompue");
   }
 );
+   /* ===== JOUR 13 — OPTIMISATION DES PERFORMANCES ===== */
+
+const performanceState = {
+  lastRefresh:0,
+  refreshDelay:3000
+};
+
+
+/* Évite plusieurs rafraîchissements rapprochés */
+function canRefreshData(){
+
+  const now=Date.now();
+
+  if(now-performanceState.lastRefresh<
+     performanceState.refreshDelay){
+
+    return false;
+  }
+
+  performanceState.lastRefresh=now;
+
+  return true;
+}
+
+
+/* Rafraîchissement intelligent */
+async function optimizedRefresh(){
+
+  if(!canRefreshData()) return;
+
+  try{
+
+    if(typeof loadProblems==="function"){
+      await loadProblems();
+    }
+
+    if(typeof updateDashboard==="function"){
+      updateDashboard();
+    }
+
+    if(typeof updateMap==="function"){
+      updateMap();
+    }
+
+  }catch(error){
+
+    console.error(
+      "Erreur lors du rafraîchissement :",
+      error
+    );
+
+  }
+}
+
+
+/* Nettoyage léger des notifications */
+function cleanupTemporaryElements(){
+
+  document
+    .querySelectorAll(".notification.removing")
+    .forEach(element=>{
+      element.remove();
+    });
+
+}
+
+
+/* Nettoyage périodique */
+setInterval(
+  cleanupTemporaryElements,
+  10000
+);
+
+
+/* Chargement différé de la carte */
+function lazyLoadMap(){
+
+  const mapSection=document.getElementById("map-section");
+
+  if(!mapSection) return;
+
+  if(!("IntersectionObserver" in window)){
+
+    if(typeof initMap==="function"){
+      initMap();
+    }
+
+    return;
+  }
+
+  const observer=new IntersectionObserver(
+    entries=>{
+
+      entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+          if(typeof initMap==="function"){
+            initMap();
+          }
+
+          observer.disconnect();
+        }
+
+      });
+
+    },
+    {
+      rootMargin:"300px"
+    }
+  );
+
+  observer.observe(mapSection);
+}
+
+
+/* Prépare la carte après le premier affichage */
+document.addEventListener("DOMContentLoaded",()=>{
+
+  requestAnimationFrame(()=>{
+
+    setTimeout(
+      lazyLoadMap,
+      300
+    );
+
+  });
+
+});
 </script>
 </body>
 </html>
