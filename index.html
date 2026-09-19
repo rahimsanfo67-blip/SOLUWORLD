@@ -3122,7 +3122,7 @@ function lazyLoadMap(){
   if(!("IntersectionObserver" in window)){
 
     if(typeof initMap==="function"){
-      initMap();
+      lazyLoadMap();
     }
 
     return;
