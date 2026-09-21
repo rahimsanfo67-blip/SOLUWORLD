@@ -3304,26 +3304,23 @@ document.addEventListener("DOMContentLoaded",()=>{
    }
    /* ===== JOUR 16 — LANGUE ===== */
 
-/* ===== JOUR 16 — LANGUE ===== */
-
 function setLanguage(language){
 
   localStorage.setItem("soluworld_language", language);
 
   if(language === "en"){
-
-    document.title = "SOLUWORLD - Report. Act. Transform.";
-
-    alert("🇬🇧 English mode activated");
-
+    showNotification?.(
+      "English interface preparation enabled.",
+      "info",
+      "SOLUWORLD"
+    );
   }else{
-
-    document.title = "SOLUWORLD - Signaler. Agir. Transformer.";
-
-    alert("🇫🇷 Mode français activé");
-
+    showNotification?.(
+      "Interface française activée.",
+      "success",
+      "SOLUWORLD"
+    );
   }
-
 }
    /* ===== JOUR 17 — TRADUCTION ===== */
 
