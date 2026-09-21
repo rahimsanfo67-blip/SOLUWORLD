@@ -3309,17 +3309,13 @@ function setLanguage(language){
   localStorage.setItem("soluworld_language", language);
 
   if(language === "en"){
-    showNotification?.(
-      "English interface preparation enabled.",
-      "info",
-      "SOLUWORLD"
-    );
+
+    alert("🇬🇧 English selected.");
+
   }else{
-    showNotification?.(
-      "Interface française activée.",
-      "success",
-      "SOLUWORLD"
-    );
+
+    alert("🇫🇷 Français sélectionné.");
+
   }
 }
    /* ===== JOUR 17 — TRADUCTION ===== */
