@@ -1654,6 +1654,34 @@ body.dark .mobile-nav{
 body.dark .mobile-nav a{
   color:#fff;
 }
+   /* ===== JOUR 16 — LANGUE ===== */
+
+.language-selector{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.language-selector button{
+  padding:8px 10px;
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:10px;
+  background:#fff;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.language-selector button:active{
+  transform:scale(.96);
+}
+
+@media(max-width:768px){
+  .language-selector{
+    width:100%;
+    justify-content:center;
+    margin-top:8px;
+  }
+}
 </style>
 </head>
 <body>
@@ -1690,6 +1718,10 @@ body.dark .mobile-nav a{
 <button id="theme-button" type="button">🌙 Mode sombre</button><button id="contrast-button" type="button">◐ Contraste</button>
 <button type="button" onclick="allerA('publication-section')">📢 Signaler</button><button type="button" onclick="allerA('tracking-section')">📋 Suivre</button>
 </div>
+   <div class="language-selector">
+  <button type="button" onclick="setLanguage('fr')">🇫🇷 FR</button>
+  <button type="button" onclick="setLanguage('en')">🇬🇧 EN</button>
+   </div>
 </header>
 <main id="main-content">
   <!-- =========================================================
@@ -3270,6 +3302,26 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   loader.hidden=!isLoading;
    }
+   /* ===== JOUR 16 — LANGUE ===== */
+
+function setLanguage(language){
+
+  localStorage.setItem("soluworld_language", language);
+
+  if(language === "en"){
+    showNotification?.(
+      "English interface preparation enabled.",
+      "info",
+      "SOLUWORLD"
+    );
+  }else{
+    showNotification?.(
+      "Interface française activée.",
+      "success",
+      "SOLUWORLD"
+    );
+  }
+}
 </script>
 </body>
 </html>
