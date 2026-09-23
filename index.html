@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-   <html lang="en">
+   
 <head>
    <!-- SOLUWORLD — Jour 13 : optimisation vitesse -->
 <meta name="theme-color" content="#0b1f44">
@@ -3351,12 +3351,16 @@ const translations = {
 
 function setLanguage(language){
 
-  applyLanguage(language);
+  localStorage.setItem("soluworld_language", language);
 
   if(language === "en"){
-    alert("🇬🇧 English mode activated");
+
+    alert("🇬🇧 English selected.");
+
   }else{
-    alert("🇫🇷 Mode français activé");
+
+    alert("🇫🇷 Français sélectionné.");
+
   }
 }
 
@@ -3370,34 +3374,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   setLanguage(savedLanguage);
 
 });
-   function applyLanguage(language){
-
-  document.documentElement.lang = language;
-
-  document.querySelectorAll("[data-fr][data-en]").forEach(element => {
-
-    const text = element.getAttribute(
-      language === "en" ? "data-en" : "data-fr"
-    );
-
-    if(text){
-      element.textContent = text;
-    }
-
-  });
-
-  localStorage.setItem("soluworld_language", language);
-
-  if(language === "en"){
-    document.title = "SOLUWORLD — Report. Act. Transform.";
-  }else{
-    document.title = "SOLUWORLD — Signaler. Agir. Transformer.";
-  }
-   }
-   const savedLanguage =
-  localStorage.getItem("soluworld_language") || "fr";
-
-applyLanguage(savedLanguage);
+   
 
 </script>
 </body>
