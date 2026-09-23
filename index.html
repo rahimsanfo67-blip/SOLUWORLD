@@ -3317,17 +3317,26 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 function setLanguage(language){
 
-  localStorage.setItem("soluworld_language", language);
-
   if(language === "en"){
+    document.documentElement.lang = "en";
 
-    alert("🇬🇧 English selected.");
+    document.getElementById("site-tagline").textContent =
+      "Report. Act. Transform.";
+
+    document.getElementById("site-description").textContent =
+      "Give your community a voice and help improve your environment.";
 
   }else{
+    document.documentElement.lang = "fr";
 
-    alert("🇫🇷 Français sélectionné.");
+    document.getElementById("site-tagline").textContent =
+      "Signaler. Agir. Transformer.";
 
+    document.getElementById("site-description").textContent =
+      "Donnez une voix à votre communauté et contribuez à améliorer votre environnement.";
   }
+
+  localStorage.setItem("soluworld_language", language);
 }
    /* ===== JOUR 17 — TRADUCTION ===== */
 
