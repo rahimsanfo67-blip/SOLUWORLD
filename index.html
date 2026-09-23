@@ -3334,9 +3334,11 @@ function setLanguage(language){
 const translations = {
 
   fr: {
-    tagline: "Signaler. Agir. Transformer.",
+    tagline: <span id="site-tagline">Signaler. Agir. Transformer.</span>
     description:
-      "Donnez une voix à votre communauté et contribuez à améliorer votre environnement."
+      <span id="site-description">
+  Donnez une voix à votre communauté et contribuez à améliorer votre environnement.
+</span>
   },
 
   en: {
@@ -3346,22 +3348,6 @@ const translations = {
   }
 
 };
-
-
-function setLanguage(language){
-
-  localStorage.setItem("soluworld_language", language);
-
-  if(language === "en"){
-
-    alert("🇬🇧 English selected.");
-
-  }else{
-
-    alert("🇫🇷 Français sélectionné.");
-
-  }
-}
 
 
 /* Restaurer automatiquement la langue choisie */
