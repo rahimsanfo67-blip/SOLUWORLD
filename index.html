@@ -3393,6 +3393,10 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.title = "SOLUWORLD — Signaler. Agir. Transformer.";
   }
    }
+   const savedLanguage =
+  localStorage.getItem("soluworld_language") || "fr";
+
+applyLanguage(savedLanguage);
 
 </script>
 </body>
