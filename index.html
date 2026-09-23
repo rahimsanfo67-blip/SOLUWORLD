@@ -1722,6 +1722,15 @@ body.dark .mobile-nav a{
   <button type="button" onclick="setLanguage('fr')">🇫🇷 FR</button>
   <button type="button" onclick="setLanguage('en')">🇬🇧 EN</button>
    </div>
+   <h1 id="site-title">SOLUWORLD</h1>
+
+<p id="site-tagline">
+  Signaler. Agir. Transformer.
+</p>
+
+<p id="site-description">
+  Donnez une voix à votre communauté et contribuez à améliorer votre environnement.
+</p>
 </header>
 <main id="main-content">
   <!-- =========================================================
@@ -3318,7 +3327,53 @@ function setLanguage(language){
 
   }
 }
-   
+   /* ===== JOUR 17 — TRADUCTION ===== */
+
+const translations = {
+
+  fr: {
+    tagline: "Signaler. Agir. Transformer.",
+    description:
+      "Donnez une voix à votre communauté et contribuez à améliorer votre environnement."
+  },
+
+  en: {
+    tagline: "Report. Act. Transform.",
+    description:
+      "Give your community a voice and help improve your environment."
+  }
+
+};
+
+
+function setLanguage(language){
+
+  localStorage.setItem("soluworld_language", language);
+
+  const t = translations[language] || translations.fr;
+
+  const tagline = document.getElementById("site-tagline");
+  const description = document.getElementById("site-description");
+
+  if(tagline){
+    tagline.textContent = t.tagline;
+  }
+
+  if(description){
+    description.textContent = t.description;
+  }
+}
+
+
+/* Restaurer automatiquement la langue choisie */
+document.addEventListener("DOMContentLoaded",()=>{
+
+  const savedLanguage =
+    localStorage.getItem("soluworld_language") || "fr";
+
+  setLanguage(savedLanguage);
+
+});
 </script>
 </body>
 </html>
