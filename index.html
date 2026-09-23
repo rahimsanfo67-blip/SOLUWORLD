@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
-   
+<html lang="fr"> 
 <head>
    <!-- SOLUWORLD — Jour 13 : optimisation vitesse -->
 <meta name="theme-color" content="#0b1f44">
@@ -2024,7 +2023,9 @@ body.dark .mobile-nav a{
 </div>
 
 <section id="publication-section">
-<h2>Signaler un problème</h2>
+<h2 data-fr="Signaler un problème" data-en="Report a problem">
+  Signaler un problème
+</h2>
 <form id="problem-form">
 <div class="form-grid">
 <div><label for="nom">Nom</label><input id="nom" placeholder="Votre nom" maxlength="80" required></div>
@@ -3372,8 +3373,34 @@ document.addEventListener("DOMContentLoaded",()=>{
   setLanguage(savedLanguage);
 
 });
-   
+  function applyLanguage(language){
 
+  document.documentElement.lang = language;
+
+  document.querySelectorAll("[data-fr][data-en]").forEach(element => {
+
+    const text = element.getAttribute(
+      language === "en" ? "data-en" : "data-fr"
+    );
+
+    if(text){
+      element.textContent = text;
+    }
+
+  });
+
+  localStorage.setItem("soluworld_language", language);
+
+  if(language === "en"){
+    document.title = "SOLUWORLD — Report. Act. Transform.";
+  }else{
+    document.title = "SOLUWORLD — Signaler. Agir. Transformer.";
+  }
+   } 
+   const savedLanguage =
+  localStorage.getItem("soluworld_language") || "fr";
+applyLanguage(savedLanguage);
+   }
 </script>
 </body>
 </html>
