@@ -3259,11 +3259,11 @@ function lazyLoadMap(){
 
   if(!("IntersectionObserver" in window)){
 
-    if(typeof initMap==="function"){
-      lazyLoadMap();
-    }
+  if(typeof initialiserCarte === "function"){
+    initialiserCarte();
+  }
 
-    return;
+  return;
   }
 
   const observer=new IntersectionObserver(
@@ -3305,98 +3305,70 @@ document.addEventListener("DOMContentLoaded",()=>{
   });
 
 });
-   function setLoadingState(isLoading){
+   /* ===== SOLUWORLD — TRADUCTION ===== */
 
-  const loader=document.getElementById("loading-state");
+function applyLanguage(language){
 
-  if(!loader) return;
+  language = language === "en" ? "en" : "fr";
 
-  loader.hidden=!isLoading;
-   }
-   /* ===== JOUR 16 — LANGUE ===== */
-
-function setLanguage(language){
-
-  localStorage.setItem("soluworld_language", language);
-
-  if(language === "en"){
-
-    alert("🇬🇧 English selected.");
-
-  }else{
-
-    alert("🇫🇷 Français sélectionné.");
-
-  }
-}
-                                                                                                                                                                                                                                                                                                                                                                                                                                  }
-   /* ===== JOUR 17 — TRADUCTION ===== */
-
-const translations = {
-
-  fr: {
-    tagline: <span id="site-tagline">Signaler. Agir. Transformer.</span>
-    description:
-      <span id="site-description">
-  Donnez une voix à votre communauté et contribuez à améliorer votre environnement.
-</span>
-  },
-
-  en: {
-    tagline: "Report. Act. Transform.",
-    description:
-      "Give your community a voice and help improve your environment."
-  }
-
-};
-function setLanguage(language){
-
-  applyLanguage(language);
-
-  if(language === "en"){
-    alert("🇬🇧 English mode activated");
-  }else{
-    alert("🇫🇷 Mode français activé");
-  }
-}
-
-/* Restaurer automatiquement la langue choisie */
-document.addEventListener("DOMContentLoaded",()=>{
-
-  const savedLanguage =
-    localStorage.getItem("soluworld_language") || "fr";
-
-  setLanguage(savedLanguage);
-
-});
-  function applyLanguage(language){
+  const t = translations[language];
 
   document.documentElement.lang = language;
 
+  // Traduire les éléments portant data-fr et data-en
   document.querySelectorAll("[data-fr][data-en]").forEach(element => {
 
     const text = element.getAttribute(
       language === "en" ? "data-en" : "data-fr"
     );
 
-    if(text){
+    if(text !== null){
       element.textContent = text;
     }
 
   });
 
-  localStorage.setItem("soluworld_language", language);
+  // Traduire le slogan
+  const tagline = document.getElementById("site-tagline");
 
-  if(language === "en"){
-    document.title = "SOLUWORLD — Report. Act. Transform.";
-  }else{
-    document.title = "SOLUWORLD — Signaler. Agir. Transformer.";
+  if(tagline){
+    tagline.textContent = t.tagline;
   }
-   } 
-   const savedLanguage =
-  localStorage.getItem("soluworld_language") || "fr";
+
+  // Traduire la description
+  const description = document.getElementById("site-description");
+
+  if(description){
+    description.textContent = t.description;
+  }
+
+  // Traduire le titre de l'onglet
+  document.title = language === "en"
+    ? "SOLUWORLD — Report. Act. Transform."
+    : "SOLUWORLD — Signaler. Agir. Transformer.";
+
+  localStorage.setItem("soluworld_language", language);
+}
+
+
+function setLanguage(language){
+
+  applyLanguage(language);
+
+}
+
+
+/* Restaurer la langue choisie */
+document.addEventListener("DOMContentLoaded", function(){
+
+  const savedLanguage =
+    localStorage.getItem("soluworld_language") || "fr";
+
+  applyLanguage(savedLanguage);
+
+});
    
-applyLanguage(savedLanguage);
+                                                                                                                                                                                                                                                                                                                                                                                                                        l
    
 </script>
 </body>
